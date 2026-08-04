@@ -61,54 +61,36 @@ bash install.sh
 After installation completes, start the bot using pm2:
 
 ```bash
-pm2 start app.config.cjs && pm2 logs bot
+pm2 start ecosystem.config.cjs && pm2 logs index
 ```
 
 ### 🔧 Configuration
 
-Edit [config.json](https://github.com/itsliaaa/starseed/blob/main/config.js) to customize the bot:
+Configuration lives in a `.env` file (created automatically from `.env.example` by `install.sh`). All keys are optional; sensible defaults apply when unset:
 
-```javascript
-Object.assign(global, {
-   // Owner name
-   ownerName: 'Lia Wynn',
+```dotenv
+# ---------- BOT IDENTITY ----------
+BOT_OWNER_NAME=AzahDev
+BOT_OWNER_NUMBER=6283869821927
+BOT_NAME=ROCKYY
+BOT_FOOTER=✦ Rockyy
+BOT_NUMBER=6281347951754      # Bot number for pairing code
+PAIRING_CODE=true             # true = pairing code, false = QR scan
+DEFAULT_LIMIT=25
 
-   // Owner phone number
-   ownerNumber: '6281111',
+# ---------- ONLINE DATABASE (users / groups / settings) ----------
+DATABASE_URL=mongodb+srv://user:pass@cluster.mongodb.net/
+DATABASE_NAME=roccky
 
-   // Bot name
-   botName: 'Starseed',
-
-   // Footer text
-   footer: '✦ Starseed',
-
-   // [IMPORTANT] Bot phone number for pairing code
-   botNumber: '6281111',
-
-   // Pairing using code method (set to true for pairing code, false for QR pairing)
-   pairingCode: false,
-
-   // User default limit (used for reset too)
-   defaultLimit: 15,
-
-   // Sticker pack name
-   stickerPackName: '📦 Starseed Sticker',
-
-   // Sticker pack publisher
-   stickerPackPublisher: 'GitHub: itsliaaa',
-
-   // ********** API KEYS ********** //
-
-   // Google AI Studio for Chat Bot @ https://aistudio.google.com/
-   googleApiKey: '',
-
-   // SightEngine for Anti Porn @ https://sightengine.com/
-   apiUser: '',
-   apiSecret: '',
-
-   // ...
-})
+# ---------- ONLINE SESSION STORAGE (CRITICAL) ----------
+# Persists the WhatsApp session so the bot never re-scans the QR after a restart.
+# Prefer a database DIFFERENT from DATABASE_URL; leave empty to reuse it,
+# or leave both empty to fall back to the local "session/" folder.
+SESSION_DATABASE_URL=postgresql://user:pass@host:5432/roccky_session
+SESSION_TABLE=wa_sessions
 ```
+
+See [`.env.example`](https://github.com/itsliaaa/starseed/blob/main/.env.example) for the full list of options (API keys, timing, memory limits, prefixes, etc.).
 
 ### 📁 Plugins
 

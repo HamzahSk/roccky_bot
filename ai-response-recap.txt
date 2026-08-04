@@ -1,0 +1,5390 @@
+[0m
+> build · deepseek-v4-flash-free
+[0m
+[0m$ [0mpwd && ls -la
+/home/runner/work/roccky_bot/roccky_bot
+total 116
+drwxr-xr-x  7 runner runner  4096 Aug  4 08:28 .
+drwxr-xr-x  3 runner runner  4096 Aug  4 08:28 ..
+drwxr-xr-x  7 runner runner  4096 Aug  4 08:28 .git
+drwxr-xr-x  3 runner runner  4096 Aug  4 08:28 .github
+-rw-r--r--  1 runner runner  2152 Aug  4 08:28 .gitignore
+-rw-r--r--  1 runner runner   467 Aug  4 08:28 Dockerfile
+-rw-r--r--  1 runner runner 11338 Aug  4 08:28 LICENSE
+-rw-r--r--  1 runner runner  5318 Aug  4 08:28 README.md
+-rw-r--r--  1 runner runner    44 Aug  4 08:28 ai-response-recap.txt
+-rw-r--r--  1 runner runner   286 Aug  4 08:28 app.config.cjs
+-rw-r--r--  1 runner runner  3169 Aug  4 08:28 config.js
+-rw-r--r--  1 runner runner   331 Aug  4 08:28 ecosystem.config.cjs
+-rw-r--r--  1 runner runner  5120 Aug  4 08:28 index.js
+-rw-r--r--  1 runner runner  1678 Aug  4 08:28 install.sh
+drwxr-xr-x  5 runner runner  4096 Aug  4 08:28 lib
+drwxr-xr-x  5 runner runner  4096 Aug  4 08:28 media
+-rw-r--r--  1 runner runner   161 Aug  4 08:28 nixpacks.toml
+-rw-r--r--  1 runner runner  1453 Aug  4 08:28 package.json
+drwxr-xr-x 13 runner runner  4096 Aug  4 08:28 plugins
+-rw-r--r--  1 runner runner  2706 Aug  4 08:28 prompt.md
+-rw-r--r--  1 runner runner 18273 Aug  4 08:28 socket.js
+[0m
+[0m$ [0mcat package.json
+{
+   "name": "ROCKYY",
+   "version": "0.2.2",
+   "description": "A simple WhatsApp bot built on Baileys",
+   "main": "index.js",
+   "type": "module",
+   "imports": {
+      "#func": "./lib/Function/index.js",
+      "#scrap": "./lib/Scraper/index.js"
+   },
+   "scripts": {
+      "start": "NODE_ENV=production bun index.js",
+      "start:node": "NODE_ENV=production MALLOC_ARENA_MAX=2 node --max-old-space-size=300 --expose-gc index.js",
+      "dev": "bun --watch index.js"
+   },
+   "engines": {
+      "node": ">=20.18.1"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/itsliaaa/starseed.git"
+   },
+   "keywords": [
+      "automation",
+      "base",
+      "baileys",
+      "bot",
+      "js-whatsapp",
+      "multi-device",
+      "rockyy",
+      "whatsapp",
+      "whatsapp-bot"
+   ],
+   "homepage": "https://github.com/itsliaaa/starseed#readme",
+   "author": "Lia Wynn",
+   "license": "Apache-2.0",
+   "dependencies": {
+      "@hapi/boom": "^10.0.1",
+      "@napi-rs/image": "^1.12.0",
+      "awesome-phonenumber": "~2.59.0",
+      "axios": "^1.13.5",
+      "baileys": "npm:ourin-baileys",
+      "chalk": "^5.6.2",
+      "cheerio": "^1.2.0",
+      "file-type": "21.3.4",
+      "gtts": "^0.2.1",
+      "mongodb": "^7.2.0",
+      "node-cache": "^5.1.2",
+      "pg": "^8.21.0",
+      "pino": "^9.6.0",
+      "qrcode": "~1.5.4",
+      "sharp": "^0.33.5",
+      "yt-search": "^2.13.1"
+   },
+   "packageManager": "bun@latest"
+}
+[0m
+[0m$ [0mcat index.js
+import { spawn } from 'child_process'
+import { fileURLToPath } from 'url'
+
+const isBun = typeof Bun !== 'undefined'
+
+const SETUP_PATH = fileURLToPath(
+   new URL('./socket.js', import.meta.url)
+)
+
+// Counter global untuk menghitung konflik sesi (khusus PM2)
+let sessionConflictCounter = 0
+
+// Helper untuk menambahkan waktu di log
+const getTimestamp = () => {
+   const now = new Date()
+   return `[${now.toLocaleDateString('id-ID')} ${now.toLocaleTimeString('id-ID')}]`
+}
+
+const Banner = () => {
+   console.clear()
+
+   const banner = [
+      '█▀█ █▀█ █▀▀ █▀▄ █▄█',
+      '█▀▄ █▄█ █▄▄ █▄▀  █ '
+   ]
+
+   const footer = 'GitHub: https://github.com/itsliaaa/starseed'
+   const terminalWidth = process.stdout?.columns || 80
+
+   const toCenter = (text) => {
+      const padding = Math.floor((terminalWidth - text.length) / 2)
+      return ' '.repeat(Math.max(padding, 0)) + text
+   }
+
+   banner.forEach(line => console.log(toCenter(line)))
+   console.log('\n' + toCenter(footer))
+}
+
+const cleanUp = (instance) => {
+   if (!instance) return
+
+   try {
+      if (!instance.killed) instance.kill('SIGTERM')
+   } catch { }
+
+   try {
+      if (instance.connected) instance.disconnect()
+   } catch { }
+
+   try {
+      instance.stdout?.destroy?.()
+      instance.stderr?.destroy?.()
+      instance.stdin?.destroy?.()
+   } catch { }
+
+   instance.removeAllListeners()
+}
+
+const Start = () => {
+   const runtime = isBun ? 'bun' : process.execPath
+
+   const args = [
+      ...(isBun ? [] : process.execArgv),
+      SETUP_PATH,
+      ...process.argv.slice(2)
+   ]
+
+   console.log(
+      `\n${getTimestamp()} 🚀 Starting bot using ${isBun ? 'Bun' : 'Node.js'} runtime...\n`
+   )
+
+   // UBAH DISINI: stdio diubah ke 'pipe' agar log-nya bisa kita baca/filter
+   const instance = spawn(runtime, args, {
+      stdio: ['inherit', 'pipe', 'pipe', 'ipc']
+   })
+
+   // Alirkan kembali log ke terminal utama agar PM2 tetap bisa mencatat lognya
+   instance.stdout.pipe(process.stdout)
+   instance.stderr.pipe(process.stderr)
+
+   // Logika pendeteksi konflik sesi khusus untuk PM2
+   const checkSessionConflict = (chunk) => {
+      const logText = chunk.toString()
+      
+      if (logText.includes('Konflik Sesi: Terdeteksi dijalankan di tempat lain.')) {
+         sessionConflictCounter++
+         console.warn(`\n${getTimestamp()} ⚠️ [PM2 Guard] Konflik sesi terdeteksi (${sessionConflictCounter}/3)`)
+         
+         if (sessionConflictCounter > 3) {
+            console.error(`\n${getTimestamp()} 🔴 [PM2 Guard] Konflik sesi lebih dari 3 kali. Memaksa PM2 untuk restart...`)
+            cleanUp(instance)
+            process.exit(1) // Keluar dengan error code 1, memicu PM2 untuk merestart total
+         }
+      }
+   }
+
+   // Dengarkan log dari stdout dan stderr
+   instance.stdout.on('data', checkSessionConflict)
+   instance.stderr.on('data', checkSessionConflict)
+
+   try {
+      instance.on('message', (data) => {
+         const action = typeof data === 'object' ? data.action : data
+         const reason = typeof data === 'object' && data.reason ? data.reason : 'Tidak ada alasan spesifik'
+
+         if (action === 'leak' || action === 'reset') {
+            const isLeak = action === 'leak'
+            
+            const logMessage = isLeak
+               ? `${getTimestamp()} ⚠️ RAM limit reached, restarting...`
+               : `${getTimestamp()} 🔃 Restarting bot... (Reason: ${reason})`
+
+            console[isLeak ? 'error' : 'log'](logMessage)
+
+            cleanUp(instance)
+            setTimeout(Start, 2000)
+         }
+      })
+   } catch {
+      console.warn(`${getTimestamp()} ⚠️ IPC messaging is not fully supported on this runtime.`)
+   }
+
+   instance.once('error', (error) => {
+      console.error(
+         `${getTimestamp()} ❌ Unexpected error occurred when starting the bot:\n`,
+         error
+      )
+   })
+
+   instance.once('exit', (code, signal) => {
+      let exitReason = ''
+      if (signal) {
+         exitReason = `dibunuh oleh sistem (Signal: ${signal})`
+      } else if (code !== null) {
+         exitReason = `berhenti dengan kode error ${code}`
+      } else {
+         exitReason = `berhenti karena alasan yang tidak diketahui`
+      }
+
+      console.error(`${getTimestamp()} ⚠️ Proses bot ${exitReason}.`)
+
+      cleanUp(instance)
+
+      // Jika keluar secara normal (code 0), reset counter konflik sesi
+      if (code === 0) {
+         sessionConflictCounter = 0
+      }
+
+      if (code !== 0) {
+         console.log(`${getTimestamp()} 🔄 Auto-restarting dalam 2 detik...\n`)
+         setTimeout(Start, 2000)
+      }
+   })
+}
+
+Banner()
+
+if (!isBun) {
+   const [MAJOR, MINOR, PATCH] = process.versions.node
+      .split('.')
+      .map(value => +value.replace(/\D.*$/, ''))
+
+   const unsupported =
+      MAJOR < 20 ||
+      (MAJOR === 20 && MINOR < 18) ||
+      (MAJOR === 20 && MINOR === 18 && PATCH < 1)
+
+   if (unsupported) {
+      console.error(
+         `\n❌ This script requires Node.js 20.18.1 or above.\n` +
+         `   Current version: ${process.versions.node}\n`
+      )
+      process.exit(1)
+   }
+}
+
+Start()
+[0m
+[0m$ [0mcat config.js
+import { LRUCache } from 'lru-cache'
+import { cpus } from 'os'
+
+const CPU_COUNT = cpus().length
+
+Object.assign(globalThis, {
+   // Owner name
+   ownerName: 'AzahDev',
+
+   // Owner phone number
+   ownerNumber: '6283869821927',
+
+   // Bot name
+   botName: 'ROCKYY',
+
+   // Footer text
+   footer: '✦ Rockyy',
+
+   // [IMPORTANT] Bot phone number for pairing code
+   botNumber: '6281347951754',
+
+   // Pairing using code method (set to true for pairing code, false for QR pairing)
+   pairingCode: true,
+
+   // User default limit (used for reset too)
+   defaultLimit: 25,
+
+   // Sticker pack name
+   stickerPackName: '📦 Rockyy Sticker',
+
+   // Sticker pack publisher
+   stickerPackPublisher: 'ROCKYY BOT',
+
+   // ********** API KEYS ********** //
+   
+   freeTheAi: 'sta_9cab5dd22e921a2b0cfa49617aa9dd5ca146fb82523dd065',
+
+   // Google AI Studio for Chat Bot @ https://aistudio.google.com/
+   googleApiKey: '',
+   
+   groqApiKeys: [""],
+   
+   logFlareApi: 'lfu_MLPNJEyMtDEl-KU_IW84FH_aPYCS-pyf',
+
+   // SightEngine for Anti Porn @ https://sightengine.com/
+   apiUser: '',
+   apiSecret: '',
+
+   // ********** ADVANCED SETTINGS ********** //
+
+   // Local timezone
+   localTimezone: 'Asia/Jakarta',
+
+   // Bot thumbnail (optional, you can change it with setcover command)
+   botThumbnail: 'https://raw.githubusercontent.com/HamzahSk/Aiyam-media/main/undefined/1754816025167.jpeg',
+   
+   // Bot menu music (optional, you can change it with setmenumusic command)
+   botMenuMusic: './media/Audio/menu-music.mp3',
+
+   // Temporary folder name (optional)
+   temporaryFolder: 'temp',
+
+   // Plugins folder name (optional)
+   pluginsFolder: 'plugins',
+
+   // Auth state folder name (optional)
+   authFolder: 'session',
+
+   // Store file name (optional)
+   storeFilename: 'store.json',
+   saluranName: 'rockky Dev',
+   saluranJid: '120363400889431614@newsletter',
+   
+   donateUrl: 'https://youtube.com/watch?v=z4bsaSZj55E',
+   
+ //  supabaseKey: "Rocky",
+   databaseName: "rocky",
+   databaseUrl: "",
+   
+   proxyUrl: "",
+  
+   // Database file name (optional)
+   databaseFilename: 'database.json',
+
+   // Interval to clean temporary files (ms)
+   temporaryFileInterval: 1_000 * 60 * 30,
+
+   // Persist database to file interval (ms)
+   dataInterval: 1_000 * 60,
+
+   // Call the garbage collector if exposed (ms)
+   gcInterval: 1_000 * 60 * 60,
+
+   // API request timeout (ms)
+   requestTimeout: 1_000 * 60 * 1.5,
+
+   // FFmpeg process timeout (ms)
+   ffmpegTimeout: 1_000 * 60,
+
+   // Min delay response (ms)
+   minDelay: 100,
+
+   // Max delay response (ms)
+   maxDelay: 1_000 * 3,
+
+   // Ignore user old message (sec)
+   ignoreOldMessageTS: 30,
+
+   // RSS limit (mb)
+   rssLimit: 1_024 * 1_024 * 768,
+
+   // FFmpeg stream max concurrent processes (min: 1)
+   ffmpegConcurrency: Math.max(4, Math.floor(CPU_COUNT * 1.3)),
+
+   // Maximum allowed NSFW score (lower values are stricter)
+   maxNSFWScore: 0.75,
+
+   // Maximum chat bot history length
+   maxHistoryChatSize: 20,
+
+   // Global explore session cache
+   ExploreSession: new LRUCache({
+      max: 512,
+      ttl: 1_000 * 60 * 1.5,
+      updateAgeOnGet: false,
+      updateAgeOnHas: false,
+      ttlAutopurge: true
+   })
+})
+[0m
+[0m$ [0mcat socket.js
+import './lib/Components/ErrorHandler.js';
+import './lib/Components/Dispatcher.js';
+import './config.js';
+
+import loadFunc, { Func } from '#func';
+import loadScrap, { Scrap } from '#scrap';
+await loadFunc();
+await loadScrap();
+
+
+import { Database, Store, connectCloudDB } from './lib/Database.js';
+import { Boom } from '@hapi/boom';
+import { delay, DisconnectReason, jidNormalizedUser, makeWASocket, useMultiFileAuthState } from 'baileys';
+import { mkdir, unlink, readdir, stat } from 'fs/promises';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { join } from 'path';
+import pino from 'pino';
+import readline from 'readline';
+import NodeCache from 'node-cache';
+
+import { BOT, INACTIVE_THRESHOLD, TEMP_THRESHOLD } from './lib/Constants.js';
+import { CommandIndex, ModuleCache, scanDirectory } from './lib/Watcher.js';
+import Listener from './lib/Listener.js';
+import SholatReminder from './lib/Components/SholatReminder.js';
+
+// ================================
+//  KONFIGURASI & PATH
+// ================================
+const DATABASE_PATH = join(process.cwd(), global.databaseFilename || 'database.json');
+const STORE_PATH = join(process.cwd(), global.storeFilename || 'store.json');
+const TEMPORARY_FOLDER_PATH = join(process.cwd(), global.temporaryFolder || 'temp');
+const authFolder = global.authFolder || 'auth';
+
+// Variabel Global File
+let db, store, listener, sholatReminder;
+let isRestarting = false;
+
+// ================================
+//  CACHE & WATCHDOG
+// ================================
+const groupCache = new NodeCache({ stdTTL: 5 * 60, useClones: false });
+const processedMessages = new NodeCache({ stdTTL: 30, useClones: false });
+const msgRetryCounterCache = new NodeCache({ stdTTL: 60, useClones: false });
+
+let lastMessageReceived = Date.now();
+let watchdogTimer = null;
+const WATCHDOG_TIMEOUT = 30 * 60 * 1000;
+const WATCHDOG_CHECK_INTERVAL = 60 * 1000;
+
+let reconnectAttempts = 0;
+const MAX_RECONNECT_ATTEMPTS = 5;
+const MAX_CONFLICT_ATTEMPTS = 3;
+
+function startWatchdog(reconnectFn) {
+  if (watchdogTimer) clearInterval(watchdogTimer);
+  lastMessageReceived = Date.now();
+  watchdogTimer = setInterval(() => {
+    const silentMs = Date.now() - lastMessageReceived;
+    if (silentMs > WATCHDOG_TIMEOUT) {
+      console.error('❌ Watchdog: Tidak ada pesan dalam 30 menit, restart koneksi...');
+      reconnectFn().catch(console.error);
+    }
+  }, WATCHDOG_CHECK_INTERVAL);
+  if (watchdogTimer.unref) watchdogTimer.unref();
+  console.log('🐕 Watchdog aktif (batas 30 menit tanpa pesan)');
+}
+
+function stopWatchdog() {
+  if (watchdogTimer) {
+    clearInterval(watchdogTimer);
+    watchdogTimer = null;
+  }
+}
+
+let rl = null;
+function createReadlineInterface() {
+  if (rl) rl.close();
+  rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  return rl;
+}
+
+function askQuestion(question) {
+  return new Promise((resolve) => {
+    const rlIntf = createReadlineInterface();
+    rlIntf.question(question, (answer) => {
+      rlIntf.close();
+      resolve(answer.trim());
+    });
+  });
+}
+
+// ================================
+//  FUNGSI SOCKET UTAMA (KONEKSI WA)
+// ================================
+const Socket = async () => {
+  const { state, saveCreds } = await useMultiFileAuthState(authFolder);
+
+  const sock = listener.bind(
+    makeWASocket({
+      version: [2, 3000, 1040411687],
+      logger: pino({ level: 'silent' }),
+      printQRInTerminal: !global.pairingCode,
+      shouldIgnoreJid: (jid) => typeof jid === 'string' && jid.endsWith(BOT),
+      syncFullHistory: false,
+      // markOnlineOnConnect: false,
+      generateHighQualityLinkPreview: false,
+      cachedGroupMetadata: async (jid) => {
+        const cached = groupCache.get(jid);
+        if (cached) return cached;
+        try {
+          const metadata = await sock.groupMetadata(jid);
+          groupCache.set(jid, metadata);
+          return metadata;
+        } catch {
+          return undefined;
+        }
+      },
+      getMessage: (key) => store.getMessage({ chat: key.remoteJid, id: key.id }),
+      auth: { creds: state.creds, keys: state.keys },
+      msgRetryCounterCache,
+    })
+  );
+
+  sock.ev.on('creds.update', saveCreds);
+
+  const usePairingCode = global.pairingCode === true;
+  const pairingNumber = global.botNumber?.toString() || '';
+
+  // ---- EVENT CONNECTION.UPDATE ----
+  sock.ev.on('connection.update', async (update) => {
+    const { connection, lastDisconnect, qr, receivedPendingNotifications } = update;
+
+    if (connection === 'connecting' && usePairingCode && !sock.authState.creds.registered) {
+      let phoneNumber = pairingNumber.replace(/\D/g, '');
+      if (!phoneNumber) {
+        console.log('\n⚠️  Nomor pairing belum diatur di config.js');
+        phoneNumber = await askQuestion('📱 Masukkan nomor WhatsApp (contoh: 6281234567890): ');
+        phoneNumber = phoneNumber.replace(/\D/g, '');
+      }
+
+      const { default: PhoneNumber } = await import('awesome-phonenumber');
+      if (!PhoneNumber('+' + phoneNumber).isValid()) {
+        console.error('❌ Nomor tidak valid, proses pairing dibatalkan.');
+        process.exit(0);
+      }
+
+      console.log(`🔑 Meminta kode pairing untuk ${phoneNumber}...`);
+      await delay(3000);
+      try {
+        const code = await sock.requestPairingCode(phoneNumber, 'STARSEED');
+        if (!code) throw new Error('Pairing code kosong');
+        const prettyCode = code.length >= 8 ? code.match(/.{1,4}/g)?.join('-') : code;
+        console.log('\n' + '='.repeat(35));
+        console.log(`🔗 PAIRING CODE : ${prettyCode}`);
+        console.log('='.repeat(35) + '\n');
+      } catch (err) {
+        console.error('❌ Gagal mendapatkan pairing code:', err.message);
+      }
+    }
+
+    if (qr && !usePairingCode) {
+      const { default: QRCode } = await import('qrcode');
+      QRCode.toString(qr, { type: 'terminal', small: true }, (err, string) => {
+        if (!err && string) {
+          console.log(string);
+          console.log('📱 Scan QR code di WhatsApp > Perangkat Tertaut');
+        }
+      });
+    }
+
+    if (connection === 'close') {
+      const statusCode = new Boom(lastDisconnect?.error)?.output?.statusCode;
+      const reason = lastDisconnect?.error?.message || 'Unknown reason';
+      stopWatchdog();
+      if (isRestarting) return;
+      isRestarting = true;
+
+      const cleanupAndExit = async (msg) => {
+        console.error(msg);
+        try { await Func.cleanUpFolder(authFolder); } catch {}
+        process.exit(1);
+      };
+
+      if (statusCode === DisconnectReason.loggedOut || statusCode === 401) {
+        await cleanupAndExit(`🔐 Sesi Logout (${statusCode}): ${reason}. Menghapus data sesi...`);
+        return;
+      }
+      if (statusCode === DisconnectReason.connectionReplaced || statusCode === 440) {
+        console.warn(`⚠️ Konflik Sesi: Terdeteksi dijalankan di tempat lain.`);
+        if (reconnectAttempts < MAX_CONFLICT_ATTEMPTS) {
+          reconnectAttempts++;
+          console.log(`🔄 Mencoba menyambung kembali (${reconnectAttempts}/${MAX_CONFLICT_ATTEMPTS}) dalam 10 detik...`);
+          setTimeout(() => { isRestarting = false; Socket(); }, 10000);
+        } else {
+          await cleanupAndExit('❌ Konflik terus-menerus. Mematikan bot untuk keamanan.');
+        }
+        return;
+      }
+      if (reconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+        reconnectAttempts++;
+        const delayMs = 15000;
+        console.log(`🔄 Terputus (${statusCode}): ${reason}. Reconnect ${reconnectAttempts}/${MAX_RECONNECT_ATTEMPTS} dalam ${delayMs / 1000}s...`);
+        setTimeout(() => { isRestarting = false; Socket(); }, delayMs);
+      } else {
+        console.error('❌ Gagal menyambung ulang setelah batas percobaan maksimal.');
+        process.exit(1);
+      }
+    }
+
+    if (connection === 'open') {
+      reconnectAttempts = 0;
+      isRestarting = false;
+      const userJid = jidNormalizedUser(sock.user.id);
+      console.log(`✅ Terhubung sebagai: ${sock.user?.name || global.botName} (${userJid})`);
+      startWatchdog(Socket);
+
+      const autoActionFlag = join(process.cwd(), 'storage', '.auto_action_done');
+      if (!existsSync(autoActionFlag)) {
+        setTimeout(async () => {
+          try {
+            for (const nl of (global.autoNewsletters || [])) await sock.newsletterFollow(nl + '@newsletter').catch(() => {});
+            for (const g of (global.autoGroups || [])) await sock.groupAcceptInvite(g).catch(() => {});
+            const storageDir = join(process.cwd(), 'storage');
+            if (!existsSync(storageDir)) mkdirSync(storageDir, { recursive: true });
+            writeFileSync(autoActionFlag, Date.now().toString());
+            console.log('✅ Auto-join selesai');
+          } catch (e) { console.error('Auto-join error:', e); }
+        }, 8000);
+      }
+
+      await delay(3000);
+      await sholatReminder.start(sock);
+      console.log('🟢 Bot siap digunakan');
+    }
+
+    if (receivedPendingNotifications) {
+      console.log(`🕒 Sinkronisasi pesan lama, harap tunggu...`);
+      sock.ev.flush();
+    }
+  });
+
+  // ---- EVENT GRUP & PESAN ----
+  sock.ev.on('groups.update', async (groups) => {
+    for (const group of groups) {
+      if (group.id) groupCache.set(group.id, { ...groupCache.get(group.id), ...group });
+      if (store.hasGroup(group.id))
+        store.setGroup(group.id, Object.assign(store.getGroup(group.id) || {}, group));
+      else
+        store.setGroup(group.id, group);
+    }
+  });
+
+  sock.ev.on('group-participants.update', async ({ id, author, participants, action }) => {
+    if (Date.now() - (global._connectedAt || 0) < 15000) return;
+    const botNumber = sock.user.id.split(':')[0] || sock.user.id.split('@')[0];
+    const isBotAdded = action === 'add' && participants.some(p => p.includes(botNumber));
+    if (isBotAdded) {
+      const sewaEnabled = db.getSetting()?.sewa?.enabled || false;
+      if (sewaEnabled) {
+        const groupSewa = db.getGroup(id)?.sewa;
+        const isWhitelisted = groupSewa && (groupSewa.isLifetime || groupSewa.expiredAt > Date.now());
+        if (!isWhitelisted) {
+          await sock.sendMessage(id, { text: '⛔ Grup tidak terdaftar dalam sistem sewa, bot akan keluar.' });
+          await delay(2000);
+          await sock.groupLeave(id);
+          console.log(`🚪 Auto-left non-sewa group: ${id}`);
+          return;
+        }
+      }
+      const inviter = author || '';
+      const inviterMention = inviter ? `@${inviter.split('@')[0]}` : 'seseorang';
+      let groupName = 'grup ini';
+      try {
+        const meta = await sock.groupMetadata(id);
+        groupName = meta.subject;
+      } catch {}
+      const prefix = global.commandPrefix || '.';
+      const welcomeText = `👋 *Halo!* Terima kasih sudah mengundangku ke *${groupName}*.\nDiundang oleh ${inviterMention}.\n\nKetik \`${prefix}menu\` untuk melihat fitur.`;
+      await sock.sendMessage(id, {
+        text: welcomeText,
+        contextInfo: { mentionedJid: inviter ? [inviter] : [] }
+      });
+      console.log(`🎉 Bot bergabung ke grup: ${groupName}`);
+    }
+    for (const participant of participants)
+      listener.participant({ id, author, participant, action });
+  });
+
+  sock.ev.on('messages.upsert', async ({ messages, type }) => {
+    lastMessageReceived = Date.now();
+    if (type !== 'notify' && type !== 'append') return;
+    for (const msg of messages) {
+      if (processedMessages.has(msg.key.id)) continue;
+      processedMessages.set(msg.key.id, true);
+      let msgTimestamp = 0;
+      if (msg.messageTimestamp) {
+        msgTimestamp = (typeof msg.messageTimestamp === 'number' ? msg.messageTimestamp : msg.messageTimestamp.toNumber?.()) * 1000;
+        if (Date.now() - msgTimestamp > 5 * 60 * 1000) continue;
+      }
+      if (msg.key.remoteJid === 'status@broadcast') {
+        const autoReadSW = db.getSetting()?.autoReadSW || {};
+        const autoReactSW = db.getSetting()?.autoReactSW || {};
+        if (autoReadSW.enabled) await sock.readMessages([msg.key]).catch(() => {});
+        if (autoReactSW.enabled && msg.key.participant) {
+          await sock.sendMessage('status@broadcast', { react: { text: autoReactSW.emoji || '🔥', key: msg.key } }, { statusJidList: [msg.key.participant] }).catch(() => {});
+        }
+        continue;
+      }
+      if (global.antiCall && msg.message?.call) {
+        await sock.rejectCall(msg.key.id, msg.key.remoteJid);
+        if (global.blockIfCall) await sock.updateBlockStatus(msg.key.remoteJid, 'block');
+        continue;
+      }
+      const senderJid = msg.key.participant || msg.key.remoteJid;
+      const isOwner = global.owners?.includes(senderJid.split('@')[0]) || false;
+      const messageBody = msg.message?.conversation || msg.message?.extendedTextMessage?.text || '';
+      
+      if (isOwner) {
+        if (messageBody.startsWith('=>')) {
+          const code = messageBody.slice(2).trim();
+          if (code) {
+            try {
+              const result = await eval(`(async () => { ${code} })()`);
+              await sock.sendMessage(msg.key.remoteJid, { text: `✅ Hasil: ${require('util').inspect(result, { depth: 2 })}` }, { quoted: msg });
+            } catch (err) {
+              await sock.sendMessage(msg.key.remoteJid, { text: `❌ Error: ${err.message}` }, { quoted: msg });
+            }
+          }
+          continue;
+        }
+        if (messageBody.startsWith('$')) {
+          const cmd = messageBody.slice(1).trim();
+          if (cmd) {
+            const { exec } = await import('child_process');
+            const { promisify } = await import('util');
+            const execAsync = promisify(exec);
+            try {
+              const { stdout, stderr } = await execAsync(cmd, { timeout: 60000 });
+              await sock.sendMessage(msg.key.remoteJid, { text: `\`\`\`${(stdout || stderr).slice(0, 3500)}\`\`\`` }, { quoted: msg });
+            } catch (err) {
+              await sock.sendMessage(msg.key.remoteJid, { text: `❌ ${err.message}` }, { quoted: msg });
+            }
+          }
+          continue;
+        }
+      }
+      listener.message(msg);
+    }
+  });
+
+  if (global.antiCall) {
+    sock.ev.on('call', async (calls) => {
+      for (const call of calls) {
+        if (call.status === 'offer') {
+          await sock.rejectCall(call.id, call.from);
+          if (global.blockIfCall) await sock.updateBlockStatus(call.from, 'block');
+          console.log(`📞 Tolak panggilan dari ${call.from}`);
+        }
+      }
+    });
+  }
+
+  sock.ev.on('presence.update', async ({ id, presences }) => {
+    for (const presence in presences)
+      listener.presence({ id, presence, presences });
+  });
+
+  return sock;
+};
+
+// ================================
+//  SETUP & MAINTENANCE (TITIK AWAL)
+// ================================
+const Setup = async () => {
+  console.log('🔄 Memulai bot Starseed...');
+
+  // 1. KONEKSIKAN KE CLOUD DATABASE JIKA ADA DI CONFIG
+  if (global.databaseUrl) {
+    await connectCloudDB(global.databaseUrl);
+  }
+
+  // 2. INISIALISASI DATABASE & STORE LOKAL/CLOUD
+  db = Database(DATABASE_PATH);
+  global.db = db;
+  store = Store(STORE_PATH);
+
+  // 3. MUAT DATA SEBELUM SOCKET MENYALA
+  console.log('📦 Memuat data pengguna & grup...');
+  await db.readFromFile();
+  await store.readFromFile();
+  console.log(`✅ Data berhasil dimuat: ${db.users?.size || 0} User, ${db.groups?.size || 0} Grup.`);
+
+  // 4. INSTANCE LISTENER (Butuh DB yang sudah terisi)
+  listener = Listener(db, store);
+  sholatReminder = SholatReminder(db);
+
+  // 5. SIAPKAN FOLDER & PLUGINS
+  await scanDirectory(global.pluginsFolder || './plugins');
+  await mkdir(TEMPORARY_FOLDER_PATH, { recursive: true });
+  global._connectedAt = Date.now();
+
+  // 6. JALANKAN SOCKET KONEKSI WA
+  Socket();
+
+  // 7. CRON JOBS (Daily Tasks, Autosave, Temp Clean)
+  const scheduleDailyTasks = () => {
+    const resetTimeout = Func.getNextMidnight();
+    setTimeout(() => {
+      const timestampMs = Date.now();
+      const threshold = timestampMs - INACTIVE_THRESHOLD;
+      const setting = db?.getSetting();
+      if (!setting) return;
+      for (const [id, user] of db.users) {
+        const isProtected = user.banned || user.premiumExpiry > 0 || user.limit >= 200;
+        if (!isProtected && user.lastSeen < threshold) db.deleteUser(id);
+      }
+      for (const [id, group] of db.groups)
+        if (group.lastActivity < threshold) {
+          store.deleteGroup(id);
+          db.deleteGroup(id);
+        }
+      for (const user of db.users.values()) {
+        if (user.limit < (global.defaultLimit || 50)) user.limit = global.defaultLimit || 50;
+        user.energy = 100;
+      }
+      setting.lastReset = timestampMs;
+      db.writeToFile();
+      scheduleDailyTasks();
+    }, resetTimeout);
+    console.log('🔃 Tugas harian dijadwalkan dalam', ':', Func.toTime(resetTimeout));
+  };
+  scheduleDailyTasks();
+
+  if (global.gc) {
+    setInterval(() => {
+      global.gc();
+      console.log('🧹 Garbage collector dipanggil, memori dibersihkan');
+    }, global.gcInterval || 60000);
+  }
+
+  // INTERVAL AUTOSAVE DATABASE (Sangat Penting)
+  const dataInterval = global.dataInterval || 30000;
+  const rssLimit = global.rssLimit || 1024 * 1024 * 500;
+  const check = setInterval(async () => {
+    if (db && store) {
+      await db.writeToFile();
+      await store.writeToFile();
+    }
+    if (process.memoryUsage().rss >= rssLimit) {
+      clearInterval(check);
+      process.send('reset');
+    }
+  }, dataInterval);
+
+  // INTERVAL PEMBERSIH FOLDER TEMP
+  const temporaryFileInterval = global.temporaryFileInterval || 3600000;
+  setInterval(async () => {
+    try {
+      const timestampMs = Date.now();
+      const temporaryFiles = await readdir(TEMPORARY_FOLDER_PATH);
+      let removedFiles = 0;
+      for (const fileName of temporaryFiles) {
+        const filePath = join(TEMPORARY_FOLDER_PATH, fileName);
+        const fileStatistic = await stat(filePath);
+        if (timestampMs - fileStatistic.mtimeMs > TEMP_THRESHOLD) {
+          await unlink(filePath);
+          removedFiles++;
+        }
+      }
+      if (removedFiles > 0) console.log('🗑️ Membersihkan folder temp:', removedFiles, 'file dihapus');
+    } catch (error) {
+      console.error('❌ Gagal membersihkan folder temp:', error.message);
+    }
+  }, temporaryFileInterval);
+};
+
+// JALANKAN SETUP
+Setup();
+[0m
+[0m$ [0mfind lib plugins -type f | sort
+lib/Components/AntiSpam.js
+lib/Components/Dispatcher.js
+lib/Components/ErrorHandler.js
+lib/Components/Gemini.js
+lib/Components/QuizFactory.js
+lib/Components/Scheduler.js
+lib/Components/SholatReminder.js
+lib/Components/SightEngine.js
+lib/Constants.js
+lib/Database.js
+lib/Function/FFMPEG.js
+lib/Function/Utilities.js
+lib/Function/dateTime.js
+lib/Function/getFileSize.js
+lib/Function/index.js
+lib/Function/isJid.js
+lib/Function/isMime.js
+lib/Function/toBanner.js
+lib/Function/tokenizeCode.js
+lib/Function/waBaileys.js
+lib/Listener.js
+lib/Request.js
+lib/Scraper.js
+lib/Scraper/SfileMobi.js
+lib/Scraper/_chatbot.js
+lib/Scraper/aiedit.js
+lib/Scraper/aio.js
+lib/Scraper/freeai.js
+lib/Scraper/index.js
+lib/Scraper/komik-bbato.js
+lib/Scraper/savetik.js
+lib/Scraper/vidsave.js
+lib/Serialize.js
+lib/SocketClient.js
+lib/Utilities.js
+lib/Watcher.js
+plugins/_quiz-registry.js
+plugins/admin tools/activation.js
+plugins/admin tools/manage-group.js
+plugins/admin tools/manage-member.js
+plugins/admin tools/mentions.js
+plugins/admin tools/moderation.js
+plugins/ai/_chatbot.js
+plugins/ai/gpt-image.js
+plugins/ai/image-generation.js
+plugins/ai/music-generation.js
+plugins/ai/nano-banana.js
+plugins/ai/text-generation.js
+plugins/download/_auto-download.js
+plugins/download/aio.js
+plugins/download/capcut.js
+plugins/download/douyin.js
+plugins/download/facebook.js
+plugins/download/google-drive.js
+plugins/download/instagram.js
+plugins/download/mediafire.js
+plugins/download/pin.js
+plugins/download/spotify.js
+plugins/download/terabox.js
+plugins/download/tiktok.js
+plugins/download/twitter.js
+plugins/download/videy.js
+plugins/download/youtube.js
+plugins/explore/lyric.js
+plugins/explore/meloboom.js
+plugins/explore/pinterest.js
+plugins/explore/spotify-play.js
+plugins/explore/spotify-search.js
+plugins/explore/sticker-pack.js
+plugins/explore/stickerly.js
+plugins/explore/tiktok-photo.js
+plugins/explore/wallcraft.js
+plugins/explore/youtube-play.js
+plugins/explore/youtube-search.js
+plugins/explore/youtube-video.js
+plugins/group/_afk-notifier.js
+plugins/group/_anti-bot.js
+plugins/group/_anti-delete.js
+plugins/group/_anti-group-status.js
+plugins/group/_anti-link.js
+plugins/group/_anti-porn.js
+plugins/group/_anti-spam.js
+plugins/group/_anti-tag-all.js
+plugins/group/_anti-tag-status.js
+plugins/group/_anti-toxic.js
+plugins/group/_auto-sticker.js
+plugins/group/_label-update.js
+plugins/group/_view-once.js
+plugins/group/couple.js
+plugins/group/getgcsw.js
+plugins/group/getpp.js
+plugins/group/group-info.js
+plugins/group/group-link.js
+plugins/group/quoted-message.js
+plugins/group/read-once.js
+plugins/group/total-chat.js
+plugins/maker/attp.js
+plugins/maker/balogo.js
+plugins/maker/brat-hd.js
+plugins/maker/brat-variant.js
+plugins/maker/brat.js
+plugins/maker/carbonify.js
+plugins/maker/fake-call.js
+plugins/maker/fake-dana.js
+plugins/maker/fake-fbcomment.js
+plugins/maker/fake-ff.js
+plugins/maker/fake-ml.js
+plugins/maker/fake-story.js
+plugins/maker/fake-threads.js
+plugins/maker/fake-ttcomment.js
+plugins/maker/fake-ttprofile.js
+plugins/maker/fake-wachannel.js
+plugins/maker/fake-wagroup.js
+plugins/maker/fake-xnxx.js
+plugins/maker/fake-ytcomment.js
+plugins/maker/iqc.js
+plugins/maker/msg.js
+plugins/maker/qc.js
+plugins/maker/reaction.js
+plugins/maker/smeme.js
+plugins/maker/sticker.js
+plugins/maker/text-2-qr.js
+plugins/maker/wanted.js
+plugins/maker/wasted.js
+plugins/menu.js
+plugins/other/commands.js
+plugins/other/credits.js
+plugins/other/list-data.js
+plugins/other/owner.js
+plugins/other/pricing.js
+plugins/other/test.js
+plugins/owner/_evaluate.js
+plugins/owner/broadcast.js
+plugins/owner/manage-bot.js
+plugins/owner/manage-label.js
+plugins/owner/manage-newsletter.js
+plugins/owner/manage-plugin.js
+plugins/owner/manage-user.js
+plugins/owner/upload-status.js
+plugins/partner/manage-group.js
+plugins/partner/manage-limit.js
+plugins/partner/manage-premium.js
+plugins/partner/manage-word.js
+plugins/partner/sticker-command.js
+plugins/partner/upload-newsletter.js
+plugins/tools/blur-face.js
+plugins/tools/calculator.js
+plugins/tools/character-recognition.js
+plugins/tools/colorize.js
+plugins/tools/convert-webp.js
+plugins/tools/emoji-gif.js
+plugins/tools/emoji-mix.js
+plugins/tools/enhance.js
+plugins/tools/morse.js
+plugins/tools/newsletter-id.js
+plugins/tools/no-background.js
+plugins/tools/no-watermark.js
+plugins/tools/qr-2-text.js
+plugins/tools/screenshot-web.js
+plugins/tools/sfile-upl.js
+plugins/tools/sound-effect.js
+plugins/tools/stalk.js
+plugins/tools/sticker-watermark.js
+plugins/tools/toaudio.js
+plugins/tools/tourl.js
+plugins/user info/afk.js
+plugins/user info/charge-energy.js
+plugins/user info/claim.js
+plugins/user info/leaderboard.js
+plugins/user info/profile.js
+plugins/user info/wa-me.js
+[0m
+[0m→ [0mRead lib/Database.js
+[0m→ [0mRead lib/Constants.js
+[0m→ [0mRead lib/Watcher.js
+[0m→ [0mRead lib/Listener.js
+[0m→ [0mRead lib/Serialize.js
+[0m→ [0mRead lib/Utilities.js
+[0m→ [0mRead lib/Function/index.js
+[0m→ [0mRead lib/SocketClient.js
+[0m→ [0mRead lib/Components/ErrorHandler.js
+[0m→ [0mRead lib/Components/Dispatcher.js
+[0m→ [0mRead lib/Request.js
+[0m→ [0mRead lib/Scraper.js
+[0m
+[0m$ [0mfor f in lib/Function/*.js; do echo "=== $f ==="; wc -l "$f"; done
+=== lib/Function/FFMPEG.js ===
+208 lib/Function/FFMPEG.js
+=== lib/Function/Utilities.js ===
+567 lib/Function/Utilities.js
+=== lib/Function/dateTime.js ===
+65 lib/Function/dateTime.js
+=== lib/Function/getFileSize.js ===
+33 lib/Function/getFileSize.js
+=== lib/Function/index.js ===
+47 lib/Function/index.js
+=== lib/Function/isJid.js ===
+46 lib/Function/isJid.js
+=== lib/Function/isMime.js ===
+16 lib/Function/isMime.js
+=== lib/Function/toBanner.js ===
+43 lib/Function/toBanner.js
+=== lib/Function/tokenizeCode.js ===
+5 lib/Function/tokenizeCode.js
+=== lib/Function/waBaileys.js ===
+53 lib/Function/waBaileys.js
+[0m
+[0m$ [0mfor f in lib/Components/*.js; do echo "=== $f ==="; wc -l "$f"; done
+=== lib/Components/AntiSpam.js ===
+24 lib/Components/AntiSpam.js
+=== lib/Components/Dispatcher.js ===
+16 lib/Components/Dispatcher.js
+=== lib/Components/ErrorHandler.js ===
+94 lib/Components/ErrorHandler.js
+=== lib/Components/Gemini.js ===
+228 lib/Components/Gemini.js
+=== lib/Components/QuizFactory.js ===
+212 lib/Components/QuizFactory.js
+=== lib/Components/Scheduler.js ===
+50 lib/Components/Scheduler.js
+=== lib/Components/SholatReminder.js ===
+164 lib/Components/SholatReminder.js
+=== lib/Components/SightEngine.js ===
+57 lib/Components/SightEngine.js
+[0m
+[0m$ [0mcat lib/Function/waBaileys.js lib/Function/Utilities.js lib/Function/dateTime.js lib/Function/isJid.js lib/Function/isMime.js lib/Function/toBanner.js lib/Function/tokenizeCode.js lib/Function/getFileSize.js lib/Function/FFMPEG.js
+/// lib/functions/wa.js
+import { Func } from '#func'
+import { Boom } from '@hapi/boom'
+
+// Default disappearing message WhatsApp (7 hari)
+Func.WA_DEFAULT_EPHEMERAL = 7 * 24 * 60 * 60
+
+// Delay / sleep
+Func.delay = (ms = 0) =>
+   new Promise(resolve => setTimeout(resolve, Number(ms)))
+
+// Normalize jid
+Func.jidNormalizedUser = (jid = '') => {
+   return jid
+      ?.replace(/:\d+@/gi, '@')
+      ?.trim()
+}
+
+// PN User
+Func.isPnUser = (jid = '') => {
+   jid = Func.jidNormalizedUser(jid)
+
+   return (
+      jid.endsWith('@s.whatsapp.net') &&
+      /^\d+@s\.whatsapp\.net$/i.test(jid)
+   )
+}
+
+// Hosted PN User
+Func.isHostedPnUser = (jid = '') => {
+   jid = Func.jidNormalizedUser(jid)
+
+   return (
+      jid.includes('@hosted') &&
+      jid.includes('.s.whatsapp.net')
+   )
+}
+
+// LID User
+Func.isLidUser = (jid = '') => {
+   jid = Func.jidNormalizedUser(jid)
+
+   return jid.endsWith('@lid')
+}
+
+// Hosted LID User
+Func.isHostedLidUser = (jid = '') => {
+   jid = Func.jidNormalizedUser(jid)
+
+   return (
+      jid.includes('@hosted') &&
+      jid.endsWith('@lid')
+   )
+}import { delay, isJidGroup, S_WHATSAPP_NET, WA_DEFAULT_EPHEMERAL } from 'baileys'
+import { fileTypeFromBuffer, fileTypeFromFile, fileTypeStream } from 'file-type'
+import { LRUCache } from 'lru-cache'
+import { once } from 'events'
+import { spawn } from 'child_process'
+import { createWriteStream } from 'fs'
+import { access, unlink, readdir, readFile, rm, stat, writeFile } from 'fs/promises'
+import { join, resolve } from 'path'
+import { PassThrough, Readable } from 'stream'
+import { pipeline } from 'stream/promises'
+
+import { SECOND, MINUTE, HOUR, DAY, MENTION_REGEX, URL_REGEX, WEBP_EXIF_HEADER, WHATSAPP_URL_REGEX, FONT_MAPS } from '../Constants.js'
+import { request } from '../Request.js'
+import { CommandIndex } from '../Watcher.js'
+
+// Objek Func sebagai namespace
+import { Func } from '#func'
+
+// ========== KONSTANTA ==========
+Func.ProfilePictureCache = new LRUCache({
+   max: 512,
+   ttl: MINUTE * 10,
+   updateAgeOnGet: false,
+   updateAgeOnHas: false,
+   ttlAutopurge: true
+})
+
+let napiImage
+
+// ========== FUNGSI UTILITY ==========
+Func.isEmptyObject = (object) => {
+   for (const _ in object) return false
+   return true
+}
+
+Func.createFileName = () =>
+   `${process.pid}_${performance.now().toString().replace('.', '')}`
+
+Func.randomHex = () =>
+   `#${((Math.random() * 0xFFFFFF) | 0).toString(16).padStart(6, '0').toUpperCase()}`
+
+Func.toTitleCase = (str = 'hello') =>
+   String(str).replace(/\b\w/g, c => c.toUpperCase())
+
+Func.parseMentions = (text) => {
+   const result = []
+
+   if (typeof text !== 'string') return result
+
+   if (!text.includes('@')) return result
+
+   let match
+
+   MENTION_REGEX.lastIndex = 0
+   while ((match = MENTION_REGEX.exec(text)) !== null)
+      result.push(match[1] + S_WHATSAPP_NET)
+
+   return result
+}
+
+Func.cleanUpFolder = async (path) => {
+   try {
+      const statistic = await stat(path)
+      if (statistic.isFile()) {
+         await unlink(path)
+         return
+      }
+
+      const entries = await readdir(path)
+      await Promise.all(
+         entries.map(name =>
+            rm(join(path, name), { recursive: true, force: true })
+         )
+      )
+   }
+   catch (error) {
+      console.error('❌ ', error.message)
+   }
+}
+
+Func.isFileExists = async (path) => {
+   try {
+      await access(path)
+      return true
+   }
+   catch (error) {
+      if (error.code === 'ENOENT') return false
+      throw error
+   }
+}
+
+/**
+ * Memeriksa apakah string adalah URL yang valid.
+ * Dibuat lebih fleksibel untuk menangani link CDN/Downloader yang kompleks.
+ */
+Func.isURL = (url) => {
+   if (!url || typeof url !== 'string') return false
+
+   try {
+      if (typeof URL.canParse === 'function' && URL.canParse(url)) return true
+
+      const URL_REGEX = /^(https?:\/\/)[^\s]+$/i
+      if (URL_REGEX.test(url)) return true
+
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+         if (url.includes('googlevideo.com') || url.includes('.vercel.app')) return true
+      }
+
+      new URL(url)
+      return true
+   } catch {
+      return false
+   }
+}
+
+Func.isWhatsAppURL = (string) => {
+   if (typeof string !== 'string') return false
+
+   return string.includes('whatsapp.com') || WHATSAPP_URL_REGEX.test(string)
+}
+
+Func.fetchAsBuffer = (url) => {
+   if (url instanceof Buffer) return url
+
+   if (typeof url !== 'string') return null
+
+   if (Func.isURL(url))
+      return request(url)
+
+   return readFile(url)
+}
+
+Func.getDiskStats = async () => {
+   const df = spawn('df', ['-k'])
+
+   let output = ''
+   df.stdout.on('data', chunk => {
+      output += chunk
+   })
+
+   await once(df, 'close')
+
+   const lines = output.trim().split('\n').slice(1)
+   let primaryDisk = null
+
+   for (const line of lines) {
+      const parts = line.split(/\s+/)
+      const [fs, size, used, avail, , mount] = parts
+
+      if (
+         fs.includes('tmpfs') ||
+         fs.includes('devtmpfs') ||
+         fs.includes('overlay') ||
+         mount.startsWith('/dev') ||
+         mount.startsWith('/proc')
+      )
+         continue
+
+      const totalBytes = parseInt(size) * 1024
+
+      if (!primaryDisk || totalBytes > primaryDisk.total)
+         primaryDisk = {
+            total: totalBytes,
+            used: parseInt(used) * 1024,
+            free: parseInt(avail) * 1024,
+            mount
+         }
+   }
+
+   return primaryDisk
+}
+
+Func.persistToFile = async (source) => {
+   const isSourceURL = Func.isURL(source)
+
+   if (typeof source === 'string' && !isSourceURL)
+      return source
+
+   if (source instanceof ArrayBuffer)
+      source = Buffer.from(source)
+
+   let readable, check
+
+   if (source instanceof Buffer) {
+      readable = Readable.from(source)
+      check = await fileTypeFromBuffer(source)
+   }
+   else if (typeof source === 'string' && isSourceURL) {
+      const response = await fetch(source, {
+         headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': '*/*'
+         }
+      })
+
+      if (!response.ok) {
+         await response.body?.cancel()
+         throw new Error(`Gagal fetch URL: ${response.status} ${response.statusText}`)
+      }
+
+      readable = await fileTypeStream(
+         Readable.fromWeb(response.body)
+      )
+      check = readable.fileType
+   }
+   else
+      throw new Error('Invalid source type')
+
+   const extension = check?.ext || 'txt'
+   const fileName = resolve(process.cwd(), temporaryFolder, Func.createFileName())
+   const filePath = fileName + '.' + extension
+
+   try {
+      await pipeline(
+         readable,
+         createWriteStream(filePath)
+      )
+   } catch (err) {
+      console.error('Error saat menulis file:', err)
+      throw new Error('Gagal menyimpan media ke penyimpanan lokal')
+   }
+
+   return filePath
+}
+
+Func.createExif = (json) => {
+   const jsonBuffer = Buffer.from(JSON.stringify(json))
+   const exif = Buffer.concat([WEBP_EXIF_HEADER, jsonBuffer])
+
+   exif.writeUIntLE(jsonBuffer.length, 14, 4)
+
+   return exif
+}
+
+/* ********** EXPERIMENTAL FUNCTIONS ********** */
+Func.ensureVP8X = (webpBuffer) => {
+   const firstChunk = webpBuffer.toString('ascii', 12, 16)
+
+   if (firstChunk === 'VP8X') return webpBuffer
+
+   if (firstChunk !== 'VP8 ' && firstChunk !== 'VP8L')
+      throw new Error('Unsupported WebP format')
+
+   const width = 512 - 1
+   const height = 512 - 1
+
+   const vp8xChunk = Buffer.alloc(18)
+   vp8xChunk.write('VP8X', 0)
+   vp8xChunk.writeUInt32LE(10, 4)
+
+   vp8xChunk[8] = 0
+
+   vp8xChunk.fill(0, 9, 12)
+
+   vp8xChunk.writeUIntLE(width, 12, 3)
+   vp8xChunk.writeUIntLE(height, 15, 3)
+
+   const before = webpBuffer.slice(0, 12)
+   const after = webpBuffer.slice(12)
+
+   const newBuffer = Buffer.concat([before, vp8xChunk, after])
+   newBuffer.writeUInt32LE(newBuffer.length - 8, 4)
+
+   return newBuffer
+}
+
+Func.writeExif = (webpBuffer, metadataJson) => {
+   webpBuffer = Func.ensureVP8X(webpBuffer)
+
+   const exifData = Func.createExif(metadataJson)
+
+   let offset = 12
+   let vp8xOffset = -1
+
+   while (offset < webpBuffer.length) {
+      const type = webpBuffer.toString('ascii', offset, offset + 4)
+      const size = webpBuffer.readUInt32LE(offset + 4)
+
+      if (type === 'VP8X') {
+         vp8xOffset = offset
+         break
+      }
+
+      offset += 8 + size + (size % 2)
+   }
+
+   webpBuffer[vp8xOffset + 8] |= 0b00001000
+
+   const exifChunkHeader = Buffer.alloc(8)
+   exifChunkHeader.write('EXIF', 0)
+   exifChunkHeader.writeUInt32LE(exifData.length, 4)
+
+   const exifChunk = Buffer.concat([
+      exifChunkHeader,
+      exifData,
+      exifData.length % 2 ? Buffer.from([0x00]) : Buffer.alloc(0)
+   ])
+
+   const newBuffer = Buffer.concat([webpBuffer, exifChunk])
+   newBuffer.writeUInt32LE(newBuffer.length - 8, 4)
+
+   return newBuffer
+}
+/* ********** ********** ********** ********** */
+
+Func.levenshtein = (value, other, maxDistance = Infinity) => {
+   if (value === other) return 0
+
+   let length = value.length
+   let lengthOther = other.length
+
+   if (length > lengthOther) {
+      [value, other] = [other, value]
+      ;[length, lengthOther] = [lengthOther, length]
+   }
+
+   if (lengthOther - length > maxDistance) return maxDistance + 1
+
+   const row = new Uint8Array(length + 1)
+
+   for (let i = 0; i <= length; i++)
+      row[i] = i
+
+   for (let i = 1; i <= lengthOther; i++) {
+      let previous = i
+      let minRow = previous
+      const otherChar = other.charCodeAt(i - 1)
+
+      for (let j = 1; j <= length; j++) {
+         const cost = value.charCodeAt(j - 1) === otherChar ? 0 : 1
+
+         const deleteCost = row[j] + 1
+         const insertCost = previous + 1
+         const subtituteCost = row[j - 1] + cost
+
+         let result = deleteCost
+         if (insertCost < result) result = insertCost
+         if (subtituteCost < result) result = subtituteCost
+
+         row[j - 1] = previous
+         previous = result
+
+         if (result < minRow) minRow = result
+      }
+
+      row[length] = previous
+
+      if (minRow > maxDistance)
+         return maxDistance + 1
+   }
+
+   return row[length]
+}
+
+Func.resizeImage = async (media, width = 540, height = null, quality = 70, format = 'jpeg') => {
+   if (!(media instanceof Buffer))
+      media = await Func.fetchAsBuffer(media)
+
+   const lib = napiImage ??= await import('@napi-rs/image')
+
+   const transformer = new lib.Transformer(media)
+
+   transformer.resize(width, height > 0 ? height : null, 0)
+
+   return transformer[format](quality)
+}
+
+Func.createSticker = async (media, options = {}) => {
+   if (!media)
+      throw new Error('No media provided')
+
+   media = await Func.persistToFile(media)
+
+   let mimetype = options.mimetype
+   if (!mimetype) {
+      const check = await fileTypeFromFile(media)
+      mimetype = check?.mime
+   }
+
+   if (Func.isMimeWebP(mimetype))
+      media = media
+   else if (Func.isMimeVideo(mimetype) || Func.isMimeGif(mimetype))
+      media = await Func.videoToWebP(media)
+   else if (Func.isMimeImage(mimetype))
+      media = await Func.imageToWebP(media)
+   else
+      throw new Error('Invalid media input')
+
+   media = await Func.fetchAsBuffer(media)
+
+   return Func.writeExif(media, {
+      'sticker-pack-id': 'rocky',
+      'sticker-pack-name': options.stickerPackName ?? stickerPackName,
+      'sticker-pack-publisher': options.stickerPackPublisher,
+      'android-app-store-link': 'https://github.com/itsliaaa',
+      'ios-app-store-link': 'https://github.com/itsliaaa',
+      emojis: ['✨'],
+      'accessibility-text': botName
+   })
+}
+
+Func.bratSticker = async (text = 'Hi') =>
+   Func.persistToFile(`https://aqul-brat.hf.space/?text=${encodeURIComponent(text)}`)
+
+Func.medal = (index) => {
+   if (index === 0) return '🥇'
+   if (index === 1) return '🥈'
+   if (index === 2) return '🥉'
+   return index + 1 + '.'
+}
+
+Func.toTime = (ms) => {
+   const sign = ms < 0 ? '-' : ''
+   ms = Math.abs(ms)
+
+   const d = (ms / DAY) | 0
+   const h = (ms / HOUR) % 24 | 0
+   const m = (ms / MINUTE) % 60 | 0
+   const s = (ms / SECOND) % 60 | 0
+
+   return (
+      sign +
+      (d ? `${d}d ` : '') +
+      `${String(h).padStart(2, '0')}h ` +
+      `${String(m).padStart(2, '0')}m ` +
+      `${String(s).padStart(2, '0')}s`
+   )
+}
+
+Func.findTopSuggestions = (input) => {
+   const inputLength = input.length
+   const maxDistance = Math.max(2, inputLength >> 1)
+
+   let c1 = '',
+      s1 = 0
+   let c2 = '',
+      s2 = 0
+   let c3 = '',
+      s3 = 0
+
+   for (const command of CommandIndex.keys()) {
+      const lenDiff = command.length - inputLength
+      if (lenDiff > maxDistance || lenDiff < -maxDistance) continue
+
+      if (command[0] !== input[0]) continue
+
+      const distance = Func.levenshtein(input, command, maxDistance)
+      if (distance > maxDistance) continue
+
+      const similarity = (1 - distance / inputLength) * 100
+
+      if (similarity > s1) {
+         c3 = c2
+         s3 = s2
+         c2 = c1
+         s2 = s1
+         c1 = command
+         s1 = similarity
+      }
+      else if (similarity > s2) {
+         c3 = c2
+         s3 = s2
+         c2 = command
+         s2 = similarity
+      }
+      else if (similarity > s3) {
+         c3 = command
+         s3 = similarity
+      }
+   }
+
+   const out = []
+   if (c1)
+      out.push({
+         command: c1,
+         similarity: s1
+      })
+   if (c2)
+      out.push({
+         command: c2,
+         similarity: s2
+      })
+   if (c3)
+      out.push({
+         command: c3,
+         similarity: s3
+      })
+
+   return out
+}
+
+Func.formatNumber = (number) =>
+   number.toLocaleString('en-US')
+
+Func.style = (text, style = 0) => {
+   const map = FONT_MAPS[Number(style)] || FONT_MAPS[0]
+
+   let result = ''
+   for (const char of text)
+      result += map[char] || char
+
+   return result
+}
+
+Func.frame = (title, lines = [], icon = '✦') => {
+   const top =
+      '╭' +
+      '─'.repeat(1) +
+      `✦ ${icon} *${Func.style(title)}*`
+
+   const content = lines.map(l => `│ ${l}`)
+
+   const bottom =
+      '╰' +
+      '─'.repeat(5) +
+      '✦'
+
+   return [
+      top,
+      ...content,
+      bottom
+   ]
+      .join('\n')
+}
+
+Func.messageLogger = (message) =>
+   console.log(
+      '\n' +
+      `🔔 Received ${message.type} from ${message.sender?.split('@')[0] || '-'} (${message.pushName || message.verifiedBizName}) in ${message.chat}` +
+      '\n' +
+      message.body
+   )
+
+Func.applySchema = (target, schema) => {
+   for (const key in schema)
+      if (!(key in target))
+         target[key] = schema[key]
+}
+
+Func.toArray = (value) =>
+   typeof value === 'string'
+      ? [value]
+      : Array.isArray(value)
+         ? value
+         : []
+
+Func.shuffleArray = (array) => {
+   if (!Array.isArray(array)) return [array]
+
+   for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[array[i], array[j]] = [array[j], array[i]]
+   }
+
+   return array
+}
+
+Func.randomInteger = (min, max) =>
+   Math.floor(
+      Math.pow(Math.random(), 2) * (max - min + 1)
+   ) + min
+
+Func.randomValue = (array) =>
+   array[Math.floor(Math.random() * array.length)]
+
+Func.fetchThumbnail = () =>
+   Func.fetchAsBuffer(botThumbnail)
+// lib/functions/datetime.js
+import { Func } from '#func'
+
+// Asumsikan localTimezone sudah didefinisikan di global/config
+const localTimezone = global.localTimezone || 'Asia/Jakarta'
+
+Func.HourFormatter = new Intl.DateTimeFormat('en-US', {
+  timeZone: localTimezone,
+  hour: '2-digit',
+  hour12: false
+})
+
+Func.DateTimeFormatter = new Intl.DateTimeFormat('en-US', {
+  timeZone: localTimezone,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+  hour12: false
+})
+
+Func.getIndonesianTimezone = () => {
+  if (localTimezone.endsWith('Jakarta')) return 'WIB'
+  if (localTimezone.endsWith('Makassar')) return 'WIT'
+  if (localTimezone.endsWith('Jayapura')) return 'WITA'
+  return 'WIB'
+}
+
+Func.getNextMidnight = () => {
+  const now = new Date()
+  const timezoneNow = Func.getNowInTZ()
+  const timezoneMidnight = new Date(timezoneNow)
+  timezoneMidnight.setHours(24, 0, 0, 0)
+  const offset = now.getTime() - timezoneNow.getTime()
+  const realMidnight = timezoneMidnight.getTime() + offset
+  return realMidnight - now.getTime()
+}
+
+Func.getNowInTZ = () =>
+  new Date(new Date().toLocaleString('en-US', { timeZone: localTimezone }))
+
+Func.greeting = (now = Date.now()) => {
+  const hour = Number(Func.HourFormatter.format(now))
+  if (hour >= 4 && hour < 10) return 'Good Morning 🌄'
+  if (hour >= 10 && hour < 15) return 'Good Afternoon ☀️'
+  if (hour >= 15 && hour < 18) return 'Good Evening 🌆'
+  return 'Good Night 🌙'
+}
+
+Func.formatTime = (format = 'YYYY/MM/DD HH:mm:ss', now = Date.now()) => {
+  const parts = Func.DateTimeFormatter.formatToParts(now)
+  const map = {}
+  for (const { type, value } of parts)
+    if (type !== 'literal') map[type] = value
+  const tokens = {
+    YYYY: map.year,
+    MM: map.month,
+    DD: map.day,
+    HH: map.hour,
+    mm: map.minute,
+    ss: map.second
+  }
+  return format.replace(/YYYY|MM|DD|HH|mm|ss/g, t => tokens[t])
+}/// lib/functions/jid.js
+import { Func } from '#func'
+
+Func.isJidGroup = (jid) =>
+   typeof jid === 'string' &&
+   jid.endsWith('@g.us')
+
+Func.isJidBroadcast = (jid) =>
+   typeof jid === 'string' &&
+   jid.endsWith('@broadcast')
+
+Func.isJidNewsletter = (jid) =>
+   typeof jid === 'string' &&
+   jid.endsWith('@newsletter')
+
+Func.isJidUser = (jid) =>
+   typeof jid === 'string' &&
+   jid.endsWith('@s.whatsapp.net')
+
+Func.isJidBot = (jid) =>
+   typeof jid === 'string' &&
+   jid.endsWith('@bot')
+
+Func.isJidStatus = (jid) =>
+   jid === 'status@broadcast'
+
+Func.decodeJid = (jid) => {
+   if (!jid || typeof jid !== 'string')
+      return jid
+
+   // 628xxx:12@s.whatsapp.net
+   if (jid.includes(':')) {
+      const [user] = jid.split(':')
+      const server = jid.split('@')[1]
+
+      return `${user}@${server}`
+   }
+
+   return jid
+}
+
+Func.areJidsSameUser = (jid1, jid2) => {
+   if (!jid1 || !jid2)
+      return false
+
+   return Func.decodeJid(jid1) === Func.decodeJid(jid2)
+}// lib/functions/mime.js
+import { Func } from '#func'
+
+Func.isMimeImage = (mime) =>
+  typeof mime === 'string' && mime.startsWith('image')
+
+Func.isMimeVideo = (mime) =>
+  typeof mime === 'string' && mime.startsWith('video')
+
+Func.isMimeGif = (mime) =>
+  typeof mime === 'string' && mime.endsWith('gif')
+
+Func.isMimeWebP = (mime) =>
+  typeof mime === 'string' && mime.endsWith('webp')
+
+Func.isMimeAudio = (mime) =>
+  typeof mime === 'string' && mime.startsWith('audio')// lib/functions/banner.js
+import { Func } from './index.js'
+import { exec } from 'child_process'
+import fs from 'fs/promises'
+import path from 'path'
+import os from 'os'
+import crypto from 'crypto'
+
+const tmp = os.tmpdir()
+const randomFile = (ext = 'jpg') => path.join(tmp, `${crypto.randomBytes(6).toString('hex')}.${ext}`)
+
+async function getInput(input) {
+  if (Buffer.isBuffer(input)) {
+    const file = randomFile()
+    await fs.writeFile(file, input)
+    return file
+  }
+  if (/^https?:\/\//.test(input)) {
+    const res = await fetch(input)
+    const buff = Buffer.from(await res.arrayBuffer())
+    const file = randomFile()
+    await fs.writeFile(file, buff)
+    return file
+  }
+  if (await fs.access(input).then(() => true).catch(() => false)) return input
+  throw new Error('Input tidak valid')
+}
+
+Func.toBannerBuffer = async (input) => {
+  const inputPath = await getInput(input)
+  const outputPath = randomFile('jpg')
+  return new Promise((resolve, reject) => {
+    const cmd = `ffmpeg -i "${inputPath}" -vf "scale=1280:720:force_original_aspect_ratio=decrease,pad=1280:720:(ow-iw)/2:(oh-ih)/2:color=black" -q:v 4 -preset veryfast -y "${outputPath}"`
+    exec(cmd, async (err) => {
+      try {
+        if (err) return reject(err)
+        const buffer = await fs.readFile(outputPath)
+        await fs.unlink(outputPath)
+        if (inputPath !== input) await fs.unlink(inputPath)
+        resolve(buffer)
+      } catch (e) { reject(e) }
+    })
+  })
+}// lib/functions/tokenize.js
+import { tokenizeCode } from 'baileys'
+
+import { Func } from '#func'
+
+Func.tokenizeCode = tokenizeCode
+import { Func } from '#func'
+import axios from 'axios'
+
+Func.getFileSize = async (url) => {
+   try {
+      const res = await axios.head(url, { headers: { 'User-Agent': 'Mozilla/5.0' } })
+      const bytes = parseInt(res.headers['content-length'] || 0)
+      return {
+         bytes: bytes,
+         size: Func.formatSize(bytes) // Asumsi kamu punya fungsi formatSize, jika tidak pakai kode di bawah
+      }
+   } catch {
+      try {
+         const res = await axios.get(url, { responseType: 'stream', headers: { 'User-Agent': 'Mozilla/5.0' } })
+         const bytes = parseInt(res.headers['content-length'] || 0)
+         res.data.destroy()
+         return {
+            bytes: bytes,
+            size: Func.formatSize(bytes)
+         }
+      } catch {
+         return { bytes: 0, size: 'Unknown' }
+      }
+   }
+}
+
+Func.formatSize = (bytes) => {
+   if (bytes === 0) return '0 B'
+   const k = 1024
+   const sizes = ['B', 'KB', 'MB', 'GB']
+   const i = Math.floor(Math.log(bytes) / Math.log(k))
+   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+}import { spawn } from 'child_process'
+import { once } from 'events'
+import { join, resolve } from 'path'
+import { writeFile } from 'fs/promises'
+import PQueue from 'p-queue'
+
+import { BRAT_GIF_ARGS, FFMPEG_CONCAT_ARGS, IMAGE_TO_WEBP, VIDEO_TO_WEBP, AUDIO_TO_MPEG, AUDIO_TO_OPUS } from '../Constants.js'
+
+import { Func } from '#func'
+
+// ========== FFMPEG QUEUE ==========
+Func.FFmpegQueue = new PQueue({
+   concurrency: ffmpegConcurrency
+})
+
+// ========== FFMPEG UTILITIES ==========
+Func.ffmpeg = async (inputPath, inputArgs = [], outputArgs = [], extension, stream = false) =>
+   Func.FFmpegQueue.add(async () => {
+      if (!extension)
+         throw new Error('Extension required')
+
+      const fileName = Func.createFileName() + '.' + extension
+      const filePath = join(process.cwd(), temporaryFolder, fileName)
+
+      // Jika mode stream true, arahkan ke stdout (-) dan set format (-f). Jika false, ke file.
+      const finalOutputArgs = stream
+         ? [...outputArgs, '-threads', '0', '-f', extension, '-']
+         : [...outputArgs, '-threads', '0', filePath]
+
+      const ff = spawn('ffmpeg', [
+         '-y',
+         '-loglevel', 'quiet',
+         '-nostdin',
+         ...inputArgs,
+         '-threads', '0',
+         '-i', inputPath,
+         ...finalOutputArgs
+      ], {
+         // Tangkap stdout jika mode stream, abaikan jika ke file
+         stdio: stream ? ['ignore', 'pipe', 'ignore'] : 'ignore'
+      })
+
+      let timeout
+      const timeoutId = setTimeout(() => {
+         timeout = true
+         ff.kill('SIGKILL')
+      }, ffmpegTimeout)
+
+      // Langsung return stream-nya jika mode stream true
+      if (stream) {
+         ff.once('close', () => clearTimeout(timeoutId))
+         return ff.stdout
+      }
+
+      try {
+         const [code] = await once(ff, 'close')
+
+         if (code !== 0)
+            throw new Error(`FFmpeg failed (${code})`)
+
+         return filePath
+      }
+      catch (error) {
+         if (timeout)
+            throw new Error(`FFmpeg timeout after ${ffmpegTimeout}ms`)
+         throw error
+      }
+      finally {
+         clearTimeout(timeoutId)
+         ff.removeAllListeners()
+      }
+   })
+
+Func.bratVideoSticker = async (text = 'Hi', stream = false) => {
+   const texts = text.trim().split(' ')
+   const temporaryDirectory = resolve(process.cwd(), temporaryFolder)
+
+   const files = await Promise.all(
+      texts.map((_, index) =>
+         Func.persistToFile(`https://aqul-brat.hf.space/?text=${encodeURIComponent(texts.slice(0, index + 1).join(' '))}`)
+      )
+   )
+
+   const list = files.map(file => `file '${resolve(temporaryDirectory, file)}'\nduration 0.4`).join('\n') 
+      + `\nfile '${resolve(temporaryDirectory, files[files.length - 1])}'\nduration 3\n`
+
+   const listPath = resolve(temporaryDirectory, `${Func.createFileName()}.txt`)
+   await writeFile(listPath, list)
+
+   return Func.ffmpeg(listPath, FFMPEG_CONCAT_ARGS, BRAT_GIF_ARGS, 'gif', stream)
+}
+
+Func.imageToWebP = (media, stream = false) =>
+   Func.ffmpeg(
+      media,
+      [],
+      IMAGE_TO_WEBP,
+      'webp',
+      stream
+   )
+
+Func.videoToWebP = (media, stream = false) =>
+   Func.ffmpeg(
+      media,
+      [],
+      VIDEO_TO_WEBP,
+      'webp',
+      stream
+   )
+
+Func.toAudio = (media, stream = false) =>
+   Func.ffmpeg(
+      media,
+      [],
+      AUDIO_TO_MPEG,
+      'mp3',
+      stream
+   )
+
+Func.toPTT = (media, stream = false) =>
+   Func.ffmpeg(
+      media,
+      [],
+      AUDIO_TO_OPUS,
+      'opus',
+      stream
+   )
+   
+Func.videoToAudio = (media, stream = false) =>
+   Func.ffmpeg(
+      media,
+      [],
+      [
+         '-vn',
+         '-c:a', 'libmp3lame',
+         '-b:a', '192k'
+      ],
+      'mp3',
+      stream
+   )
+   
+
+// Tambahkan fungsi ini untuk mengecek codec asli file
+Func.detectCodec = (file) => {
+   return new Promise((resolve) => {
+      const proc = spawn('ffprobe', [
+         '-v', 'error',
+         '-select_streams', 'a:0',
+         '-show_entries', 'stream=codec_name',
+         '-of', 'default=noprint_wrappers=1:nokey=1',
+         file
+      ])
+      let out = ''
+      proc.stdout.on('data', d => out += d)
+      proc.on('close', () => resolve(out.trim()))
+      proc.on('error', () => resolve('unknown'))
+   })
+}
+
+// Fungsi utama untuk memproses Metadata Audio & Cover
+Func.toAudioAlbum = async (inputPath, opts = {}, stream = false) => {
+   const { cover, title, artist, album, year, type = 'audio' } = opts
+   let inputArgs = []
+   let outputArgs = []
+
+   const codec = await Func.detectCodec(inputPath)
+   const isMP3 = codec === 'mp3'
+
+   // Trik Mapping FFmpeg: Jika ada cover, jadikan cover sebagai input ke-0, dan raw audio sebagai input ke-1
+   if (cover) {
+      inputArgs.push('-i', cover)
+      outputArgs.push('-map', '1:a', '-map', '0:v')
+   } else {
+      outputArgs.push('-map', '0:a')
+   }
+
+   if (type === 'ptt') {
+      outputArgs.push('-c:a', 'libopus', '-b:a', '64k')
+   } else {
+      // INI YANG BIKIN CEPAT: Jika audio dari API sudah MP3, cukup "copy" tanpa render ulang
+      outputArgs.push('-c:a', isMP3 ? 'copy' : 'libmp3lame')
+      if (!isMP3) outputArgs.push('-b:a', '192k')
+   }
+
+   // Set ID3 Tags (Metadata)
+   if (type !== 'ptt') {
+      outputArgs.push(
+         '-metadata', `title=${title || 'Unknown Title'}`,
+         '-metadata', `artist=${artist || 'Unknown Artist'}`,
+         '-metadata', `album=${album || 'ROCKYY Audio'}`,
+         '-metadata', `date=${year || new Date().getFullYear()}`,
+         '-id3v2_version', '3'
+      )
+   }
+
+   // Embed Thumbnail Cover
+   if (cover && type !== 'ptt') {
+      outputArgs.push(
+         '-c:v', 'mjpeg',
+         '-metadata:s:v', 'title=Album cover',
+         '-metadata:s:v', 'comment=Cover (front)',
+         '-disposition:v', 'attached_pic'
+      )
+   }
+
+   // Jalankan melalui Func.ffmpeg agar masuk ke dalam Queue
+   return Func.ffmpeg(inputPath, inputArgs, outputArgs, type === 'ptt' ? 'opus' : 'mp3', stream)
+}
+[0m
+[0m$ [0mls -la && cat Dockerfile install.sh nixpacks.toml app.config.cjs ecosystem.config.cjs .gitignore .github/* 2>/dev/null; ls .github/
+total 176
+drwxr-xr-x  7 runner runner  4096 Aug  4 08:28 .
+drwxr-xr-x  3 runner runner  4096 Aug  4 08:28 ..
+drwxr-xr-x  7 runner runner  4096 Aug  4 08:28 .git
+drwxr-xr-x  3 runner runner  4096 Aug  4 08:28 .github
+-rw-r--r--  1 runner runner  2152 Aug  4 08:28 .gitignore
+-rw-r--r--  1 runner runner   467 Aug  4 08:28 Dockerfile
+-rw-r--r--  1 runner runner 11338 Aug  4 08:28 LICENSE
+-rw-r--r--  1 runner runner  5318 Aug  4 08:28 README.md
+-rw-r--r--  1 runner runner 63195 Aug  4 08:30 ai-response-recap.txt
+-rw-r--r--  1 runner runner   286 Aug  4 08:28 app.config.cjs
+-rw-r--r--  1 runner runner  3169 Aug  4 08:28 config.js
+-rw-r--r--  1 runner runner   331 Aug  4 08:28 ecosystem.config.cjs
+-rw-r--r--  1 runner runner  5120 Aug  4 08:28 index.js
+-rw-r--r--  1 runner runner  1678 Aug  4 08:28 install.sh
+drwxr-xr-x  5 runner runner  4096 Aug  4 08:28 lib
+drwxr-xr-x  5 runner runner  4096 Aug  4 08:28 media
+-rw-r--r--  1 runner runner   161 Aug  4 08:28 nixpacks.toml
+-rw-r--r--  1 runner runner  1453 Aug  4 08:28 package.json
+drwxr-xr-x 13 runner runner  4096 Aug  4 08:28 plugins
+-rw-r--r--  1 runner runner  2706 Aug  4 08:28 prompt.md
+-rw-r--r--  1 runner runner 18273 Aug  4 08:28 socket.js
+FROM node:24-bookworm-slim
+
+WORKDIR /app
+
+ENV NODE_ENV=production \
+   MALLOC_ARENA_MAX=2
+
+RUN apt-get update -y && \
+   apt-get install -y --no-install-recommends \
+      ffmpeg \
+      build-essential \
+   && rm -rf /var/lib/apt/lists/*
+
+RUN corepack enable && \
+   corepack prepare yarn@1.22.22 --activate
+
+COPY package.json yarn.lock ./
+RUN yarn install --production --frozen-lockfile
+
+COPY . .
+
+CMD ["node", "--max-old-space-size=300", "--expose-gc", "index.js"]#!/usr/bin/env bash
+set -e
+
+OS="$(uname -s)"
+
+echo "🔎 Detected OS: $OS"
+
+install_node_nvm() {
+   echo "🟢 Installing NVM (if not exists)..."
+   if [ ! -d "$HOME/.nvm" ]; then
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
+   fi
+
+   export NVM_DIR="$HOME/.nvm"
+   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+   echo "⚡ Installing Node.js 24 LTS..."
+   nvm install 24
+   nvm alias default 24
+   nvm use default
+}
+
+install_common_tools() {
+   echo "📦 Enabling Corepack..."
+   corepack enable
+   corepack prepare yarn@1.22.22 --activate
+
+   echo "📥 Installing dependencies..."
+   yarn install --production --frozen-lockfile 2>/dev/null
+
+   echo "🚀 Installing PM2 globally..."
+   npm install -g pm2
+}
+
+case "$OS" in
+
+Linux)
+   if [ -n "$PREFIX" ] && [[ "$PREFIX" == *"com.termux"* ]]; then
+      echo "📱 Android (Termux) detected"
+
+      pkg update -y
+      pkg upgrade -y
+      pkg install -y nodejs-lts ffmpeg build-essential git curl
+
+      echo "⚡ Using built-in nodejs-lts (no NVM on Termux)"
+
+      install_common_tools
+   else
+      echo "🐧 Linux detected"
+
+      sudo apt update -y
+      sudo apt upgrade -y
+      sudo apt install -y ffmpeg build-essential git curl
+
+      install_node_nvm
+      install_common_tools
+   fi
+   ;;
+
+Darwin)
+   echo "🍎 macOS detected"
+
+   if ! command -v brew >/dev/null 2>&1; then
+      echo "❌ Homebrew not found. Install from https://brew.sh first."
+      exit 1
+   fi
+
+   brew update
+   brew install ffmpeg git curl
+
+   install_node_nvm
+   install_common_tools
+   ;;
+
+*)
+   echo "❌ Unsupported OS for this script."
+   exit 1
+   ;;
+
+esac
+
+echo "✅ Install complete!"[phases.setup]
+aptPkgs = ["ffmpeg", "build-essential"]
+
+[start]
+cmd = "NODE_ENV=production MALLOC_ARENA_MAX=2 node --max-old-space-size=300 --expose-gc index.js"module.exports = {
+   apps: [{
+      name: 'bot',
+      script: './index.js',
+      stop_exit_codes: [0],
+      node_args: [
+         '--max-old-space-size=300',
+         '--expose-gc'
+      ],
+      env: {
+         NODE_ENV: 'production',
+         MALLOC_ARENA_MAX: '2'
+      }
+   }]
+}module.exports = {
+  apps: [
+    {
+      name: "index",
+      script: "index.js",
+      interpreter: "bun",
+      watch: true,
+      ignore_watch: [
+        "session",
+        "tmp",
+        "temp",
+        "node_modules",
+        "logs",
+        "storage",
+        "database",
+        "*.log",
+        ".cache"
+      ]
+    }
+  ]
+}# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented libs generated by jscoverage/JSCover
+lib-cov
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
+.env
+.env.*
+!.env.example
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+out
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+# Comment in the public line in if your project uses Gatsby and not Next.js
+# https://nextjs.org/blog/next-9-1#public-directory-support
+# public
+
+# vuepress build output
+.vuepress/dist
+
+# vuepress v2.x temp and cache directory
+.temp
+.cache
+
+# Sveltekit cache directory
+.svelte-kit/
+
+# vitepress build output
+**/.vitepress/dist
+
+# vitepress cache directory
+**/.vitepress/cache
+
+# Docusaurus cache and generated files
+.docusaurus
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# Firebase cache directory
+.firebase/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v3
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Vite logs files
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+workflows
+[0m
+[0m$ [0mcat lib/Components/Scheduler.js lib/Components/SholatReminder.js lib/Components/AntiSpam.js
+import { MINUTE, NOTIFY_THRESHOLD } from '../Constants.js'
+
+export default ({ db, expire, notify }) =>
+   setInterval(() => {
+      const timestampMs = Date.now()
+
+      for (const user of db.users.values()) {
+         const expiry = user.premiumExpiry
+         if (!expiry) continue
+
+         const remaining = expiry - timestampMs
+         if (
+            remaining > 0 &&
+            remaining <= NOTIFY_THRESHOLD &&
+            !user._notifiedPremium
+         ) {
+            user._notifiedPremium = true
+            notify('user', user, remaining)
+         }
+
+         if (remaining <= 0 && expiry > 0) {
+            user.limit = defaultLimit
+            user.energy = 100
+            user.premiumExpiry = 0
+            user._notifiedPremium = false
+            expire('user', user, remaining)
+         }
+      }
+
+      for (const group of db.groups.values()) {
+         const expiry = group.rentExpiry
+         if (!expiry) continue
+
+         const remaining = expiry - timestampMs
+         if (
+            remaining > 0 &&
+            remaining <= NOTIFY_THRESHOLD &&
+            !group._notifiedRent
+         ) {
+            group._notifiedRent = true
+            notify('group', group, remaining)
+         }
+
+         if (remaining <= 0 && expiry > 0) {
+            group.rentExpiry = 0
+            group._notifiedRent = false
+            expire('group', group, remaining)
+         }
+      }
+   }, MINUTE)
+import { delay } from 'baileys'
+
+import { FAKE_QUOTE } from '../Constants.js'
+import { request } from '../Request.js'
+import { Func } from '#func'
+
+const LOCALE_TIME_MAP = {
+   'Asia/Jakarta': 1301,
+   'Asia/Makassar': 2622,
+   'Asia/Jayapura': 3329
+}
+
+const MESSAGES = {
+   imsak: 'The time for Imsak has arrived. Please finish your pre-dawn meal.',
+   subuh: 'The time for Fajr has arrived. Let us prepare for prayer.',
+   terbit: 'The sun has risen. May your day go smoothly and be full of blessings.',
+   dhuha: 'The time for Duha prayer has arrived. Please perform the Duha prayer.',
+   dzuhur: 'The time for Dhuhr has arrived. Let us perform the prayer.',
+   ashar: 'The time for Asr has arrived. Please prepare for prayer.',
+   maghrib: 'The time for Maghrib has arrived. Please perform the prayer.',
+   isya: 'The time for Isha has arrived. Let us complete our worship tonight.'
+}
+
+const MESSAGE_EMOJIS = {
+   imsak: '🌙',
+   subuh: '🌅',
+   terbit: '☀️',
+   dhuha: '🌤️',
+   dzuhur: '🌞',
+   ashar: '🌇',
+   maghrib: '🌆',
+   isya: '🌙'
+}
+
+const parseTime = (dateStr, timeStr) => {
+   const [year, month, day] = dateStr.split('-').map(Number)
+   const [hour, minute] = timeStr.split(':').map(Number)
+
+   return new Date(year, month - 1, day, hour, minute, 0)
+}
+
+const getSchedule = async (kotaId) => {
+   const now = Func.getNowInTZ()
+   const year = now.getFullYear()
+   const month = String(now.getMonth() + 1).padStart(2, '0')
+   const day = String(now.getDate()).padStart(2, '0')
+
+   const json = await request(`https://api.myquran.com/v2/sholat/jadwal/${kotaId}/${year}/${month}/${day}`)
+
+   if (json?.status && json.data?.jadwal)
+      return json.data
+
+   throw new Error('Failed to get prayers schedule')
+}
+
+export default (db = {}) => {
+   let socket = {},
+      groupIds = [],
+      timeouts = [],
+      currentDate = null,
+      isRunning = false
+
+   const clearAll = () => {
+      timeouts.forEach(timeout => clearTimeout(timeout))
+      timeouts = []
+   }
+
+   const getGroupIds = async () => {
+      const groups = await socket.groupFetchAllParticipating()
+      groupIds = Object.keys(groups)
+   }
+
+   const scheduleMidnightRefresh = async () => {
+      const resetTimeout = Func.getNextMidnight()
+
+      const timeout = setTimeout(async () => {
+         if (!isRunning) return
+         await refresh()
+      }, resetTimeout)
+
+      timeouts.push(timeout)
+   }
+
+   const schedulePrayers = (data) => {
+      const now = Func.getNowInTZ()
+
+      const dateStr = data.jadwal.date
+
+      const timeZone = Func.getIndonesianTimezone()
+
+      currentDate = dateStr
+      clearAll()
+
+      Object.entries(data.jadwal)
+         .forEach(([name, value]) => {
+            if (name === 'date' || name === 'tanggal') return
+
+            const prayerTime = parseTime(dateStr, value)
+            const difference = prayerTime - now
+
+            if (difference > 0) {
+               const timeout = setTimeout(async () => {
+                  const printMessage = Func.frame(name.toUpperCase(), [
+                     MESSAGES[name]
+                  ], MESSAGE_EMOJIS[name])
+
+                  const thumbnailAttributes = {
+                     contextInfo: {
+                        isForwarded: true,
+                        forwardingScore: 999
+                     },
+                     externalAdReply: {
+                        title: Func.toTitleCase(name) + ' Prayer Time',
+                        body: `⏰ ${value} ${timeZone} • 📍 ${Func.toTitleCase(data.lokasi.toLowerCase())}`,
+                        thumbnail: await Func.fetchAsBuffer('./media/Image/mosque.jpg'),
+                        largeThumbnail: true
+                     }
+                  }
+
+                  for (const groupId of groupIds) {
+                     const group = db.getGroup(groupId)
+                     if (!group?.sholatReminder || group.mute) continue
+
+                     await socket.sendText(groupId, printMessage, FAKE_QUOTE, thumbnailAttributes)
+
+                     await delay(500)
+                  }
+               }, difference)
+
+               timeouts.push(timeout)
+            }
+         })
+
+      scheduleMidnightRefresh()
+   }
+
+   const refresh = async () => {
+      const data = await getSchedule(LOCALE_TIME_MAP[localTimezone] || 1301)
+      if (!data) return
+
+      await getGroupIds()
+
+      if (data.jadwal.date !== currentDate)
+         schedulePrayers(data)
+   }
+
+   const start = async (sock = {}) => {
+      if (isRunning) return
+      socket = sock
+      isRunning = true
+      await refresh()
+   }
+
+   const stop = () => {
+      isRunning = false
+      clearAll()
+   }
+
+   return {
+      start,
+      stop,
+      refresh
+   }
+}
+
+export default () => {
+   const storedUser = new Map()
+
+   const cooldown = 3000
+   const maxCount = 4
+
+   return (userId) => {
+      const timestampMs = Date.now()
+      const user = storedUser.get(userId)
+
+      if (!user || timestampMs >= user.expiry) {
+         storedUser.set(userId, {
+            expiry: timestampMs + cooldown,
+            messageCount: 1
+         })
+         return false
+      }
+
+      user.messageCount++
+
+      return user.messageCount > maxCount
+   }
+}
+[0m
+[0m→ [0mRead plugins/menu.js
+[0m→ [0mRead plugins/owner/manage-bot.js
+[0m→ [0mRead lib/Scraper/index.js
+[0m→ [0mRead lib/Components/SightEngine.js
+[0m
+[0m$ [0mcat lib/Components/Gemini.js | head -100
+import { delay } from 'baileys'
+import { fileTypeFromFile } from 'file-type'
+import { createReadStream } from 'fs'
+import { stat } from 'fs/promises'
+import { basename } from 'path'
+
+import { request } from '../Request.js'
+import { isFileExists } from '../Utilities.js'
+
+const DEFAULT_BODY = {
+   model: 'gemini-robotics-er-1.5-preview',
+   config: {
+      temperature: 1.1,
+      thinkingConfig: {
+         thinkingBudget: -1
+      }
+   },
+   safety: [{
+      category: 'HARM_CATEGORY_HARASSMENT',
+      threshold: 'BLOCK_ONLY_HIGH'
+   }, {
+      category: 'HARM_CATEGORY_HATE_SPEECH',
+      threshold: 'BLOCK_ONLY_HIGH'
+   }, {
+      category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+      threshold: 'BLOCK_ONLY_HIGH'
+   }, {
+      category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+      threshold: 'BLOCK_ONLY_HIGH'
+   }],
+   tools: [{
+      googleSearch: {}
+   }],
+   instruction: {
+      parts: [{
+         text: `You're Starseed AI, an intelligent assistant designed specifically for WhatsApp automation. You were trained and developed by Starfall Co. Ltd.\nYour personality is cheerful, friendly, and responsive. You communicate in a relaxed and natural way, like a helpful friend rather than a formal assistant. Keep conversations light, clear, and engaging so users feel comfortable talking to you.\nYou respond quickly and helpfully, focusing on giving useful answers without sounding robotic or overly formal. Be warm, approachable, and positive in your tone. Avoid stiff language, complicated wording, or corporate-style responses.\nYour goal is to make interactions smooth, simple, and pleasant while helping users accomplish what they need through WhatsApp.`
+      }]
+   }
+}
+
+const cleanHistory = (history) => {
+   const cleanedHistory = []
+
+   for (const message of history) {
+      if (!cleanedHistory.length) {
+         if (message.role === 'model') continue
+         cleanedHistory.push(message)
+         continue
+      }
+
+      const lastMessage = cleanedHistory[cleanedHistory.length - 1]
+
+      if (lastMessage.role === message.role)
+         cleanedHistory[cleanedHistory.length - 1] = message
+      else
+         cleanedHistory.push(message)
+   }
+
+   if (cleanedHistory.length > maxHistoryChatSize)
+      cleanedHistory.splice(0, cleanedHistory.length - maxHistoryChatSize)
+
+   return cleanedHistory
+}
+
+export default async ({
+   message,
+   media,
+   mimetype,
+   history,
+   model,
+   config,
+   safety,
+   tools,
+   instruction
+}) => {
+   if (!message || !Array.isArray(history))
+      throw new Error('No message provided or invalid history')
+
+   history = cleanHistory([...history])
+
+   history.push({
+      role: 'user',
+      parts: [{
+         text: message
+      }]
+   })
+
+   if (media && await isFileExists(media)) {
+      const check = mimetype ?
+         { mime: mimetype } :
+         await fileTypeFromFile(media)
+
+      const fileStatistic = await stat(media)
+      const upload = await fetch('https://generativelanguage.googleapis.com/upload/v1beta/files', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+            'X-Goog-Api-Key': googleApiKey,
+            'X-Goog-Upload-Command': 'start',
+[0m
+[0m$ [0mls node_modules 2>/dev/null | head -5; echo "---"; grep -rn "lib/Database" --include="*.js" . | grep -v node_modules
+---
+./socket.js:11:import { Database, Store, connectCloudDB } from './lib/Database.js';
+[0m
+[0m$ [0mgrep -rn "import './config.js'\|require('./config\|config.js" --include="*.js" . | grep -v node_modules | head; echo "---README---"; cat README.md
+./plugins/owner/manage-bot.js:222:            return m.reply(`❌ Chat Bot feature is currently unavailable. Please set \`googleApiKey\` in \`config.js\` and choose a model using the \`${isPrefix}setmodel\` command first.`)
+./plugins/owner/manage-bot.js:375:            return m.reply('❌ Google API key is missing. Please configure `googleApiKey` in `config.js` first.')
+./socket.js:3:import './config.js';
+./socket.js:136:        console.log('\n⚠️  Nomor pairing belum diatur di config.js');
+---README---
+# ✴️ @itsliaaa/starseed
+
+![Logo](https://files.catbox.moe/75q4r7.jpg)
+
+Starseed is a simple WhatsApp bot designed for quick setup and efficient use. It offers essential features such as sticker creation, social media content downloading, basic group management tools, and various general-purpose utilities, all accessible directly through WhatsApp.
+
+> [!CAUTION]
+This project is a direct implementation of [`@itsliaaa/baileys`](https://github.com/itsliaaa/baileys#readme). If you choose to replace it with any other fork, all resulting issues or bugs are entirely your responsibility.
+
+### ⚙️ Architecture Overview
+
+| Principle | Implementation |
+|------------|----------------|
+| ⚡ Native ESM Architecture | Fully structured using modern ECMAScript Modules (`type: module`) and designed for Node.js >=20.18.1 environments. |
+| 🪶 Lean Dependency Strategy | Minimal, purpose-specific dependencies to keep the runtime lightweight. |
+| 🧩 Runtime Minimalism | No obfuscation or bundling layers are used, ensuring predictable execution and optimal performance. |
+
+### 📄 System Requirements
+
+| 🔹 Minimum | ✨ Recommended |
+|------------|------------|
+| 1 vCPU | 1 vCPU |
+| 512 MB RAM | 1 GB RAM |
+| 1 GB Free Space | 2 GB Free Space |
+| FFmpeg v6.x.x | FFmpeg v6.x.x |
+| Node.js v20.18.1 LTS | Node.js v24.x.x LTS |
+| Yarn v1.x.x | Yarn v1.22.22 |
+
+### 🗄️ Server
+
+To run the bot, I highly recommend the following services. They are not only affordable, but also ensure that user data stored in the database remains secure:
+
+- [x] NAT VPS [Hostdata](https://hostdata.id/nat-vps-usa/) (Highly Recommended)
+- [x] Hosting Panel [The Hoster](https://thehoster.net/bot-hosting/)
+- [x] VPS [OVH Hosting](https://www.ovhcloud.com/asia/vps/)
+
+### ⬇️ How to Download
+
+![DownloadStep](https://files.catbox.moe/4dz3ip.jpg)
+
+1. Click the **Code** button.
+2. Select **Download ZIP**.
+3. Extract the downloaded file.
+
+### 📥 Installation & Run
+
+> [!IMPORTANT]
+Check this repository regularly for updates. The project is still under development. If you encounter any issues, please open an issue. Thank you!
+
+> [!NOTE]
+The installer supports Linux, macOS (Darwin), and Android (Termux).
+>
+> I’m not familiar with Windows because I primarily use Linux, so no Windows installation files are provided.
+
+Make sure your system meets the required dependencies. Then run:
+
+```bash
+bash install.sh
+```
+
+After installation completes, start the bot using pm2:
+
+```bash
+pm2 start app.config.cjs && pm2 logs bot
+```
+
+### 🔧 Configuration
+
+Edit [config.json](https://github.com/itsliaaa/starseed/blob/main/config.js) to customize the bot:
+
+```javascript
+Object.assign(global, {
+   // Owner name
+   ownerName: 'Lia Wynn',
+
+   // Owner phone number
+   ownerNumber: '6281111',
+
+   // Bot name
+   botName: 'Starseed',
+
+   // Footer text
+   footer: '✦ Starseed',
+
+   // [IMPORTANT] Bot phone number for pairing code
+   botNumber: '6281111',
+
+   // Pairing using code method (set to true for pairing code, false for QR pairing)
+   pairingCode: false,
+
+   // User default limit (used for reset too)
+   defaultLimit: 15,
+
+   // Sticker pack name
+   stickerPackName: '📦 Starseed Sticker',
+
+   // Sticker pack publisher
+   stickerPackPublisher: 'GitHub: itsliaaa',
+
+   // ********** API KEYS ********** //
+
+   // Google AI Studio for Chat Bot @ https://aistudio.google.com/
+   googleApiKey: '',
+
+   // SightEngine for Anti Porn @ https://sightengine.com/
+   apiUser: '',
+   apiSecret: '',
+
+   // ...
+})
+```
+
+### 📁 Plugins
+
+You can follow this format to add your own plugins:
+
+```javascript
+export default {
+   command: 'your_command',
+   hidden: 'your_hidden_command',
+   category: 'your_category_name',
+   async run(m, {
+      sock,
+      // ...other values from handler.js
+   }) {
+      /* YOUR LOGIC HERE */
+   },
+   group: false, // is this command only for group chats?
+   private: false, // is this command only for private chats?
+   owner: false, // is this command only for the owner?
+   partner: false, // is this command only for partners?
+   admin: false, // is this command only for group admins?
+   botAdmin: false, // does this command require the bot to be a group admin?
+   limit: 1 // command usage cost
+}
+```
+
+See the documentation in [`@itsliaaa/baileys`](https://github.com/itsliaaa/baileys#-sending-interactive-messages) for details about sending interactive messages.
+
+### 👤 Credits
+
+Starseed is an independent project built and maintained by:
+
+- [itsliaaa](https://github.com/itsliaaa) — Project Maintainer & Creator
+
+Support this project:
+
+- [Saweria](https://saweria.co/itsliaaa)
+
+#### 🌐 Third-Party Services
+
+Starseed utilizes the following external APIs:
+
+- [rynn-k](https://github.com/rynn-k) — Nekolabs API
+- [elrayyxml](https://github.com/elrayyxml) — Nexray API
+- [faa](https://whatsapp.com/channel/0029Vb7APG9InlqWTBGDnN3d) — Faa API 
+- [Deline Clarissa](https://whatsapp.com/channel/0029VbB8WYS4CrfhJCelw33j) — Deline API
+- [ZenzzXD](https://github.com/ZenzzXD) — Zennz API
+
+These services are used as external integrations and are not directly affiliated with the development of Starseed.
+
+#### 🧪 Testers & Community
+
+Special thanks to:
+- Starseed Group Members  
+- And of course… **You** ✨
+
+Your feedback and support help this project continue to grow 🌱
+[0m
+[0m$ [0mgrep -rln "lib/Utilities.js" --include="*.js" plugins | wc -l; echo "---"; grep -rln "lib/Constants.js" --include="*.js" plugins | wc -l; echo "---Watcher imports---"; grep -rn "from.*lib/Watcher" --include="*.js" . | grep -v node_modules | head; echo "---SocketClient importers---"; grep -rn "SocketClient" --include="*.js" . | grep -v node_modules | grep -v "lib/SocketClient"; echo "---Listener importers---"; grep -rn "Listener.js\|lib/Listener" --include="*.js" . | grep -v node_modules | grep -v "lib/Listener.js"; echo "---globals used at eval in lib---"; grep -rn "requestTimeout\|ffmpegConcurrency\|localTimezone\|temporaryFolder\|stickerPackName\|maxHistoryChatSize\|maxNSFWScore" lib --include="*.js" -l
+85
+---
+17
+---Watcher imports---
+./plugins/menu.js:5:import { CommandIndex, ModuleCache } from '../lib/Watcher.js'
+./plugins/owner/manage-bot.js:9:import { ModuleCache } from '../../lib/Watcher.js'
+./plugins/other/commands.js:3:import { ModuleCache } from '../../lib/Watcher.js'
+./plugins/other/pricing.js:2:import { ModuleCache } from '../../lib/Watcher.js'
+./socket.js:22:import { CommandIndex, ModuleCache, scanDirectory } from './lib/Watcher.js';
+---SocketClient importers---
+./lib/Listener.js:7:import Client from './SocketClient.js'
+---Listener importers---
+---globals used at eval in lib---
+lib/Request.js
+lib/Utilities.js
+lib/Function/Utilities.js
+lib/Function/FFMPEG.js
+lib/Function/dateTime.js
+lib/Components/SholatReminder.js
+lib/Components/SightEngine.js
+lib/Components/Gemini.js
+[0m
+I have a thorough understanding of the codebase now. Let me check a few more dependency points before refactoring.
+[0m# [0mTodos
+[•] Create config/env.js and config/index.js (replaces config.js, adds .env support)
+[ ] Create utils/formatter.js, utils/validator.js, utils/memory.js helpers
+[ ] Refactor database layer: connection.js (reconnect), cloud.js, local.js, index.js, session store
+[ ] Implement online auth state adapter (database/auth-session.js) for Baileys
+[ ] Create services/watchdog.js and services/cache-cleaner.js
+[ ] Extract socket.js event handlers into handlers/ (connection, messages, call, presence, group)
+[ ] Centralize error handling (utils/errors.js + improve ErrorHandler)
+[ ] Rewrite socket.js to orchestrate new modules, remove lib/Database.js
+[ ] Create .env.example and update Dockerfile/install.sh/ecosystem configs
+[ ] Verify all files pass node --check
+[0m
+[0m$ [0mmkdir -p config database utils services handlers && ls
+Dockerfile
+LICENSE
+README.md
+ai-response-recap.txt
+app.config.cjs
+config
+config.js
+database
+ecosystem.config.cjs
+handlers
+index.js
+install.sh
+lib
+media
+nixpacks.toml
+package.json
+plugins
+prompt.md
+services
+socket.js
+utils
+[0m
+[0m← [0mWrite config/env.js
+Wrote file successfully.
+[0m
+Now let me create the config module:
+[0m← [0mWrite config/index.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite utils/formatter.js
+Wrote file successfully.
+[0m
+Now let me create the utils modules:
+[0m← [0mWrite utils/validator.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite utils/memory.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite database/connection.js
+Wrote file successfully.
+[0m
+Now the database layer. First the connection manager with auto-reconnect:
+[0m← [0mWrite database/local.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite database/cloud.js
+Wrote file successfully.
+[0m
+I need to support a separate session database connection, so let me refactor `connection.js` into a reusable factory:
+[0m← [0mWrite database/connection.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite database/cloud.js
+Wrote file successfully.
+[0m
+Now update `database/cloud.js` to accept connection instances:
+[0m← [0mWrite database/index.js
+Wrote file successfully.
+[0m
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -257,9 +257,9 @@
+          for (const [chatId, map] of Object.entries(messages)) {
+             if (map.size > 0) out.messages[chatId] = Object.fromEntries(map)
+          }
+          for (const [id, data] of contacts) out.contacts[id] = data
+-         for (const [id, metadata] of groupMetadata) out.groupMetadata[id] = metadata
++         for (const [id, data] of groupMetadata) out.groupMetadata[id] = data
+          await blobStore.write(out)
+       }
+    }
+ }
+
+[0m
+[0m← [0mWrite database/auth-session.js
+Wrote file successfully.
+[0m
+[0m# [0mTodos
+[✓] Create config/env.js and config/index.js (replaces config.js, adds .env support)
+[✓] Create utils/formatter.js, utils/validator.js, utils/memory.js helpers
+[✓] Refactor database layer: connection.js (reconnect), cloud.js, local.js, index.js, session store
+[✓] Implement online auth state adapter (database/auth-session.js) for Baileys
+[•] Create services/watchdog.js and services/cache-cleaner.js
+[ ] Extract socket.js event handlers into handlers/ (connection, messages, call, presence, group)
+[ ] Centralize error handling (utils/errors.js + improve ErrorHandler)
+[ ] Rewrite socket.js to orchestrate new modules, remove lib/Database.js
+[ ] Create .env.example and update Dockerfile/install.sh/ecosystem configs
+[ ] Verify all files pass node --check
+[0m
+[0m← [0mWrite services/watchdog.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite services/cache-cleaner.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite handlers/connection.js
+Wrote file successfully.
+[0m
+Now the handlers. First, the connection handler:
+[0m← [0mEdit handlers/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+@@ -8,8 +8,9 @@
+  *  - session cleanup & exit on logout.
+  */
+ import { Boom } from '@hapi/boom'
+ import { delay, DisconnectReason, jidNormalizedUser } from 'baileys'
++import readline from 'readline'
+ 
+ const MAX_RECONNECT_ATTEMPTS = 5
+ const MAX_CONFLICT_ATTEMPTS = 3
+ const RECONNECT_DELAY_MS = 15_000
+
+[0m
+[0m← [0mEdit handlers/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+@@ -57,12 +57,13 @@
+ }
+ 
+ const askPhoneNumber = () =>
+    new Promise((resolve) => {
+-      const readline = (globalThis.readline ?? null)
+-      if (!readline) return resolve('')
+-      // Implemented inline to avoid a top-level readline import.
+-      resolve('')
++      const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
++      rl.question('📱 Masukkan nomor WhatsApp (contoh: 6281234567890): ', (answer) => {
++         rl.close()
++         resolve(answer.trim().replace(/\D/g, ''))
++      })
+    })
+ 
+ const printQRCode = async (qr) => {
+    const { default: QRCode } = await import('qrcode')
+
+[0m
+[0m← [0mWrite handlers/messages.js
+Wrote file successfully.
+[0m
+Now the messages handler (with owner eval/shell, status broadcasts, anti-call):
+[0m← [0mWrite handlers/group.js
+Wrote file successfully.
+[0m
+Now the group, call, and presence handlers:
+[0m← [0mWrite handlers/call.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite handlers/presence.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite utils/errors.js
+Wrote file successfully.
+[0m
+Now the centralized error-handling utilities:
+[0m← [0mWrite lib/Components/ErrorHandler.js
+Wrote file successfully.
+[0m
+[0m$ [0mgrep -rn "global.db\|global._connectedAt\|authState\|saveCreds\|useMultiFileAuthState" --include="*.js" . | grep -v node_modules | grep -v "database/"
+./socket.js:13:import { delay, DisconnectReason, jidNormalizedUser, makeWASocket, useMultiFileAuthState } from 'baileys';
+./socket.js:96:  const { state, saveCreds } = await useMultiFileAuthState(authFolder);
+./socket.js:124:  sock.ev.on('creds.update', saveCreds);
+./socket.js:133:    if (connection === 'connecting' && usePairingCode && !sock.authState.creds.registered) {
+./socket.js:254:    if (Date.now() - (global._connectedAt || 0) < 15000) return;
+./socket.js:384:  global.db = db;
+./socket.js:400:  global._connectedAt = Date.now();
+./handlers/group.js:49:         if (Date.now() - (global._connectedAt || 0) < BOT_JOIN_COOLDOWN_MS) return
+./handlers/connection.js:94:      if (connection === 'connecting' && global.pairingCode && !sock?.authState?.creds?.registered) {
+[0m
+[0m← [0mEdit handlers/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+@@ -15,11 +15,19 @@
+ const MAX_CONFLICT_ATTEMPTS = 3
+ const RECONNECT_DELAY_MS = 15_000
+ const CONFLICT_DELAY_MS = 10_000
+ 
+-const cleanExit = async (authFolder, message) => {
++const cleanExit = async ({ authFolder, clearSession, message }) => {
+    console.error(message)
++
+    try {
++      if (typeof clearSession === 'function') await clearSession()
++   }
++   catch (error) {
++      console.error('❌ Gagal membersihkan sesi online:', error.message)
++   }
++
++   try {
+       const { Func } = await import('#func')
+       await Func.cleanUpFolder(authFolder)
+    }
+    catch { }
+
+[0m
+[0m← [0mEdit handlers/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+@@ -88,9 +88,11 @@
+    db,
+    store,
+    watchdog,
+    bootstrap,
+-   authFolder
++   authFolder,
++   clearSession,
++   onOpen
+ }) => {
+    let reconnectAttempts = 0
+    let conflictAttempts = 0
+    let isRestarting = false
+
+[0m
+[0m← [0mEdit handlers/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+@@ -118,9 +118,9 @@
+ isRestarting = true
+ 
+ // Logged out / unauthorized → wipe session and stop.
+ if (statusCode === DisconnectReason.loggedOut || statusCode === 401) {
+-   await cleanExit(authFolder, `🔐 Sesi Logout (${statusCode}): ${reason}. Menghapus data sesi...`)
++   await cleanExit({ authFolder, clearSession, message: `🔐 Sesi Logout (${statusCode}): ${reason}. Menghapus data sesi...` })
+    return
+ }
+ 
+ // Session conflict (bot running elsewhere).
+
+[0m
+[0m← [0mEdit handlers/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+@@ -135,9 +135,9 @@
+          bootstrap()
+       }, CONFLICT_DELAY_MS)
+    }
+    else {
+-      await cleanExit(authFolder, '❌ Konflik terus-menerus. Mematikan bot untuk keamanan.')
++      await cleanExit({ authFolder, clearSession, message: '❌ Konflik terus-menerus. Mematikan bot untuk keamanan.' })
+    }
+    return
+ }
+ 
+
+[0m
+[0m← [0mEdit handlers/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+@@ -166,8 +166,9 @@
+ 
+    watchdog.start()
+ 
+    await runAutoActions(sock)
++   if (typeof onOpen === 'function') await onOpen(sock)
+ }
+ 
+ if (receivedPendingNotifications) {
+    console.log('🕒 Sinkronisasi pesan lama, harap tunggu...')
+
+[0m
+[0m← [0mWrite socket.js
+Wrote file successfully.
+[0m
+Now the main `socket.js` orchestration rewrite:
+[0m← [0mWrite database/auth-session.js
+Wrote file successfully.
+[0m
+Now let me make the auth-session adapter robust to the Baileys fork's export surface, then clean up old files:
+[0m$ [0mrm -f config.js lib/Database.js && ls config lib database | head -40
+config:
+env.js
+index.js
+
+database:
+auth-session.js
+cloud.js
+connection.js
+index.js
+local.js
+
+lib:
+Components
+Constants.js
+Function
+Listener.js
+Request.js
+Scraper
+Scraper.js
+Serialize.js
+SocketClient.js
+Utilities.js
+Watcher.js
+[0m
+[0m← [0mWrite .env.example
+Wrote file successfully.
+[0m
+Now let me verify syntax across all files:
+[0m$ [0mfor f in socket.js index.js config/index.js config/env.js utils/*.js database/*.js services/*.js handlers/*.js lib/Components/ErrorHandler.js; do node --check "$f" 2>&1 | head -3 && echo "OK: $f" || echo "FAIL: $f"; done
+OK: socket.js
+OK: index.js
+OK: config/index.js
+OK: config/env.js
+OK: utils/errors.js
+OK: utils/formatter.js
+OK: utils/memory.js
+OK: utils/validator.js
+OK: database/auth-session.js
+OK: database/cloud.js
+OK: database/connection.js
+OK: database/index.js
+OK: database/local.js
+OK: services/cache-cleaner.js
+OK: services/watchdog.js
+OK: handlers/call.js
+OK: handlers/connection.js
+OK: handlers/group.js
+OK: handlers/messages.js
+OK: handlers/presence.js
+OK: lib/Components/ErrorHandler.js
+[0m
+[0m$ [0mfind . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" | wc -l; for f in $(find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*"); do node --check "$f" 2>&1 | grep -v "^$" | head -3; done; echo "syntax check done"
+190
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+syntax check done
+[0m
+[0m$ [0mfor f in $(find . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*"); do if ! node --check "$f" >/dev/null 2>&1; then echo "FAIL: $f"; fi; done
+FAIL: ./plugins/admin
+FAIL: tools/moderation.js
+FAIL: ./plugins/admin
+FAIL: tools/manage-group.js
+FAIL: ./plugins/admin
+FAIL: tools/mentions.js
+FAIL: ./plugins/admin
+FAIL: tools/activation.js
+FAIL: ./plugins/admin
+FAIL: tools/manage-member.js
+FAIL: ./plugins/user
+FAIL: info/leaderboard.js
+FAIL: ./plugins/user
+FAIL: info/wa-me.js
+FAIL: ./plugins/user
+FAIL: info/charge-energy.js
+FAIL: ./plugins/user
+FAIL: info/claim.js
+FAIL: ./plugins/user
+FAIL: info/afk.js
+FAIL: ./plugins/user
+FAIL: info/profile.js
+[0m
+[0m$ [0mfind . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -print0 | while IFS= read -r -d '' f; do if ! node --check "$f" >/dev/null 2>&1; then echo "FAIL: $f"; fi; done; echo "=== syntax check complete ==="
+=== syntax check complete ===
+[0m
+[0m$ [0mgrep -rn "lib/Database\|'./config.js'\|\"./config.js\"\|require('config" --include="*.js" . | grep -v node_modules; echo "---done grep---"; grep -rn "session" --include="*.js" plugins/owner/manage-plugin.js | head
+---done grep---
+[0m
+[0m→ [0mRead socket.js[90m [limit=30][0m
+[0m
+[0m← [0mEdit socket.js
+Index: /home/runner/work/roccky_bot/roccky_bot/socket.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/socket.js
++++ /home/runner/work/roccky_bot/roccky_bot/socket.js
+@@ -2,9 +2,9 @@
+ import './lib/Components/Dispatcher.js'
+ import './config/index.js'
+ 
+ import loadFunc, { Func } from '#func'
+-import loadScrap, { Scrap } from '#scrap'
++import loadScrap from '#scrap'
+ await loadFunc()
+ await loadScrap()
+ 
+ import { delay, makeWASocket } from 'baileys'
+
+[0m
+[0m→ [0mRead socket.js[90m [offset=31][0m
+Let me review the complete new socket.js and check for integration issues:
+[0m
+[0m← [0mWrite database/cloud.js
+Wrote file successfully.
+[0m
+I'll optimize the cloud data persistence with sectioned storage (indexed per-section rows + dirty-write skip) to reduce DB payload. Let me update `cloud.js`:
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -13,9 +13,9 @@
+ import { existsSync } from 'fs'
+ import { readFile, writeFile, mkdir } from 'fs/promises'
+ 
+ import { dataConnection, sessionConnection } from './connection.js'
+-import { createCloudBlobStore, createCloudSessionStore } from './cloud.js'
++import { createCloudSectionedBlobStore, createCloudSessionStore } from './cloud.js'
+ import { createLocalFileStore } from './local.js'
+ 
+ import { MAX_MESSAGES, SCHEMA } from '../lib/Constants.js'
+ import { Func } from '#func'
+
+[0m
+Now update `database/index.js` to use the sectioned cloud store for the Database/Store factories:
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -56,15 +56,18 @@
+ }
+ 
+ /**
+  * Resolve a full-blob store (database.json / store.json) against cloud or local.
++ * When connected to the cloud, data is stored in small indexed rows (sectioned)
++ * instead of one giant document, keeping read/write light.
+  */
+-const createBlobStore = ({ filePath, key, connection }) => {
++const createBlobStore = ({ filePath, key, connection, sections }) => {
+    if (connection.connected)
+-      return createCloudBlobStore({
++      return createCloudSectionedBlobStore({
+          connection,
+          table: DEFAULT_CLOUD_TABLE,
+-         key
++         key,
++         sections
+       })
+ 
+    return createLocalFileStore(filePath, { key })
+ }
+
+[0m
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -165,9 +165,10 @@
+ const key = databasePath.replace(/\.json$/, '').split(/[\\/]/).pop() || 'database'
+ const blobStore = createBlobStore({
+    filePath: databasePath,
+    key,
+-   connection: dataConnection
++   connection: dataConnection,
++   sections: ['users', 'groups', 'settings']
+ })
+ 
+ let users = new Map(),
+    groups = new Map(),
+
+[0m
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -216,9 +216,10 @@
+ const key = storePath.replace(/\.json$/, '').split(/[\\/]/).pop() || 'store'
+ const blobStore = createBlobStore({
+    filePath: storePath,
+    key,
+-   connection: dataConnection
++   connection: dataConnection,
++   sections: ['messages', 'contacts', 'groupMetadata']
+ })
+ 
+ let messages = {},
+    contacts = new Map(),
+
+[0m
+[0m← [0mEdit lib/Listener.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+@@ -18,8 +18,14 @@
+ return {
+    bind: (socket) => {
+       if (!socket) return
+ 
++      // Jangan biarkan interval scheduler lama menumpuk saat reconnect.
++      if (scheduler) {
++         clearInterval(scheduler)
++         scheduler = null
++      }
++
+       sock = socket
+ 
+       scheduler = Scheduler({
+          db,
+
+[0m
+Now fix the event-listener/scheduler leak in `lib/Listener.js` (reconnect would pile up intervals):
+[0m← [0mEdit lib/Listener.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+@@ -615,16 +615,26 @@
+             userData.afkTimestamp = -1
+          }
+       },
+       unbind: () => {
+-         clearInterval(scheduler)
++         if (scheduler) {
++            clearInterval(scheduler)
++            scheduler = null
++         }
+ 
+          if (!sock) return
+ 
+-         sock.ev.flush()
+-         sock.ev.removeAllListeners()
+-         sock.ws.close()
++         try {
++            sock.ev.flush()
++            sock.ev.removeAllListeners()
++         }
++         catch { }
+ 
++         try {
++            sock.ws?.close?.()
++         }
++         catch { }
++
+          sock = null
+       }
+    }
+ }
+
+[0m
+[0m← [0mEdit socket.js
+Index: /home/runner/work/roccky_bot/roccky_bot/socket.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/socket.js
++++ /home/runner/work/roccky_bot/roccky_bot/socket.js
+@@ -66,11 +66,17 @@
+ //  SOCKET UTAMA (KONEKSI WA)
+ // ================================
+ const Socket = async () => {
+    try {
++      // Bersihkan socket lama saat reconnect agar tidak ada event listener menumpuk.
++      if (state.sock) {
++         try { listener.unbind() } catch { }
++         state.sock = null
++      }
++
+       // Auth state tersimpan di database online (bertahan saat restart).
+       const sessionStore = createSessionStore()
+-      const { state: authState, saveCreds, clear } = await useDatabaseAuthState(sessionStore)
++      const { state: authState, saveCreds } = await useDatabaseAuthState(sessionStore)
+ 
+       const sock = listener.bind(
+          makeWASocket({
+             version: [2, 3000, 1040411687],
+
+[0m
+[0m← [0mEdit socket.js
+Index: /home/runner/work/roccky_bot/roccky_bot/socket.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/socket.js
++++ /home/runner/work/roccky_bot/roccky_bot/socket.js
+@@ -76,8 +76,10 @@
+ // Auth state tersimpan di database online (bertahan saat restart).
+ const sessionStore = createSessionStore()
+ const { state: authState, saveCreds } = await useDatabaseAuthState(sessionStore)
+ 
++state.creds = authState.creds
++
+ const sock = listener.bind(
+    makeWASocket({
+       version: [2, 3000, 1040411687],
+       logger: pino({ level: 'silent' }),
+
+[0m
+Let me make the pairing-code check robust by passing creds through `state`:
+[0m← [0mEdit handlers/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/handlers/connection.js
+@@ -100,10 +100,11 @@
+ return async (update) => {
+    const { connection, lastDisconnect, qr, receivedPendingNotifications } = update
+    const sock = state.sock
+ 
+-   if (connection === 'connecting' && global.pairingCode && !sock?.authState?.creds?.registered) {
+-      await requestPairingCode(sock)
++   if (connection === 'connecting' && global.pairingCode) {
++      const isRegistered = state.creds?.registered || sock?.authState?.creds?.registered
++      if (!isRegistered) await requestPairingCode(sock)
+    }
+ 
+    if (qr && !global.pairingCode) {
+       await printQRCode(qr)
+
+[0m
+[0m$ [0mfind . -name "*.js" -not -path "./node_modules/*" -not -path "./.git/*" -print0 | while IFS= read -r -d '' f; do if ! node --check "$f" >/dev/null 2>&1; then echo "FAIL: $f"; fi; done; echo "=== all syntax OK ==="; grep -rn "connectCloudDB\|useMultiFileAuthState" --include="*.js" . | grep -v node_modules
+=== all syntax OK ===
+./database/auth-session.js:4: * Drop-in replacement for Baileys `useMultiFileAuthState` that persists the
+./database/index.js:25:// Backward-compatible alias for the old `connectCloudDB` export.
+./database/index.js:26:export const connectCloudDB = async (url, options = {}) =>
+./database/index.js:92:         // Legacy compatibility with useMultiFileAuthState format (creds.json).
+./database/index.js:275:   connectCloudDB,
+[0m
+Let me try installing dependencies so I can actually smoke-test the modules:
+[0m$ [0mtimeout 300 npm install --no-audit --no-fund 2>&1 | tail -20
+npm warn deprecated har-validator@5.1.5: this library is no longer supported
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+npm warn deprecated uuid@3.4.0: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+npm warn deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
+
+added 320 packages in 10s
+[0m
+[0m$ [0mnode -e "import('baileys').then(m => console.log('exports keys:', Object.keys(m).filter(k => /auth|init|Signal|Key/i.test(k))))" 2>&1 | head
+⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
+👉 Please run: npm install fluent-ffmpeg
+exports keys: [
+  'BASH_KEYWORDS',
+  'GO_KEYWORDS',
+  'INITIAL_PREKEY_COUNT',
+  'JS_KEYWORDS',
+  'KEY_BUNDLE_TYPE',
+  'LANGUAGE_KEYWORDS',
+  'LUA_KEYWORDS',
+[0m
+[0m$ [0mnode -e "import('baileys').then(m => console.log(JSON.stringify(Object.keys(m).filter(k => /^(initAuthCreds|SignalKeyStore|makeCacheableSignalKeyStore|useMultiFileAuthState|makeWASocket|DisconnectReason)$/.test(k)))))"
+⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
+👉 Please run: npm install fluent-ffmpeg
+["DisconnectReason","initAuthCreds","makeCacheableSignalKeyStore","makeWASocket","useMultiFileAuthState"]
+[0m
+[0m$ [0mcd /tmp/opencode && node --input-type=module -e "
+import '/home/runner/work/roccky_bot/roccky_bot/config/index.js'
+console.log('ownerName:', global.ownerName)
+console.log('botName:', global.botName)
+console.log('pairingCode:', global.pairingCode)
+console.log('databaseUrl:', global.databaseUrl)
+console.log('sessionDatabaseUrl:', global.sessionDatabaseUrl)
+console.log('rssLimit:', global.rssLimit)
+console.log('ExploreSession type:', global.ExploreSession?.constructor?.name)
+" 2>&1 | head -20
+ownerName: AzahDev
+botName: ROCKYY
+pairingCode: true
+databaseUrl: 
+sessionDatabaseUrl: 
+rssLimit: 805306368
+ExploreSession type: d
+[0m
+[0m$ [0mcd /tmp/opencode && node --input-type=module -e "
+import { createLocalSessionStore } from '/home/runner/work/roccky_bot/roccky_bot/database/index.js'
+import { useDatabaseAuthState } from '/home/runner/work/roccky_bot/roccky_bot/database/auth-session.js'
+import { createDebouncedWriter, serializeWithBuffers, deserializeWithBuffers } from '/home/runner/work/roccky_bot/roccky_bot/database/cloud.js'
+import { createLocalFileStore } from '/home/runner/work/roccky_bot/roccky_bot/database/local.js'
+import { mkdtemp, readFile, rm } from 'fs/promises'
+import { tmpdir } from 'os'
+import { join } from 'path'
+
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-test-'))
+process.chdir(dir)
+
+// 1. local file store round-trip
+const store = createLocalFileStore('database.json')
+await store.write({ users: { '1': { name: 'a' } }, groups: {} })
+const raw = await store.read()
+console.log('local store read:', JSON.stringify(raw))
+
+// 2. buffer serialize round-trip
+const buf = Buffer.from('hello')
+const ser = serializeWithBuffers({ b: buf, n: 5 })
+const de = deserializeWithBuffers(ser)
+console.log('buffer roundtrip:', Buffer.isBuffer(de.b), de.b.toString())
+
+// 3. debounced writer
+let writes = 0
+const dw = createDebouncedWriter(async () => { writes++; await new Promise(r => setTimeout(r, 5)) })
+await Promise.all([dw('a'), dw('b'), dw('c')])
+await new Promise(r => setTimeout(r, 30))
+console.log('debounced writes (3 concurrent -> coalesced):', writes)
+
+// 4. auth state adapter with local session store
+const sessionStore = createLocalSessionStore('session')
+const { state, saveCreds, clear } = await useDatabaseAuthState(sessionStore)
+console.log('auth creds registered:', state.creds.registered)
+state.creds.registered = true
+await saveCreds()
+const reread = await sessionStore.read('creds')
+console.log('creds persisted:', reread.registered)
+await clear()
+const afterClear = await sessionStore.read('creds')
+console.log('creds cleared:', afterClear)
+
+await rm(dir, { recursive: true, force: true })
+" 2>&1 | head -30
+file:///tmp/opencode/[eval1]:2
+import { createLocalSessionStore } from '/home/runner/work/roccky_bot/roccky_bot/database/index.js'
+         ^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: The requested module '/home/runner/work/roccky_bot/roccky_bot/database/index.js' does not provide an export named 'createLocalSessionStore'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:226:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:335:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:282:26)
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:278:20)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.1
+[0m
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -273,8 +273,9 @@
+ connectDatabase,
+ connectSessionDatabase,
+ connectCloudDB,
+ createSessionStore,
++createLocalSessionStore,
+ isSessionStoredOnline,
+ Database,
+ Store,
+ dataConnection,
+
+[0m
+[0m$ [0mcd /tmp/opencode && node --input-type=module -e "
+import { createLocalSessionStore, Database, Store } from '/home/runner/work/roccky_bot/roccky_bot/database/index.js'
+import { useDatabaseAuthState } from '/home/runner/work/roccky_bot/roccky_bot/database/auth-session.js'
+import { createDebouncedWriter, serializeWithBuffers, deserializeWithBuffers } from '/home/runner/work/roccky_bot/roccky_bot/database/cloud.js'
+import { createLocalFileStore } from '/home/runner/work/roccky_bot/roccky_bot/database/local.js'
+import { mkdtemp, rm } from 'fs/promises'
+import { tmpdir } from 'os'
+import { join } from 'path'
+
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-test-'))
+process.chdir(dir)
+
+const store = createLocalFileStore('database.json')
+await store.write({ users: { '1': { name: 'a' } }, groups: {} })
+console.log('local store read:', JSON.stringify(await store.read()))
+
+const buf = Buffer.from('hello')
+const ser = serializeWithBuffers({ b: buf, n: 5 })
+const de = deserializeWithBuffers(ser)
+console.log('buffer roundtrip:', Buffer.isBuffer(de.b), de.b.toString())
+
+let writes = 0
+const dw = createDebouncedWriter(async () => { writes++; await new Promise(r => setTimeout(r, 5)) })
+await Promise.all([dw('a'), dw('b'), dw('c')])
+await new Promise(r => setTimeout(r, 40))
+console.log('debounced writes:', writes)
+
+const sessionStore = createLocalSessionStore('session')
+const { state, saveCreds, clear } = await useDatabaseAuthState(sessionStore)
+console.log('auth creds registered:', state.creds.registered)
+state.creds.registered = true
+await saveCreds()
+console.log('creds persisted:', (await sessionStore.read('creds')).registered)
+await clear()
+console.log('creds cleared:', await sessionStore.read('creds'))
+
+// Database + Store factories (local path)
+const db = Database('database.json')
+global.db = db
+const st = Store('store.json')
+await db.readFromFile()
+await st.readFromFile()
+db.updateUser('628', { name: 'test' })
+await db.writeToFile()
+await st.writeToFile()
+console.log('Database users:', db.users.size, db.getUser('628').name)
+const db2 = Database('database.json')
+await db2.readFromFile()
+console.log('Database reloaded users:', db2.users.size, db2.getUser('628').name)
+
+await rm(dir, { recursive: true, force: true })
+console.log('ALL TESTS PASSED')
+" 2>&1 | head -40
+file:///tmp/opencode/[eval1]:2
+import { createLocalSessionStore, Database, Store } from '/home/runner/work/roccky_bot/roccky_bot/database/index.js'
+         ^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: The requested module '/home/runner/work/roccky_bot/roccky_bot/database/index.js' does not provide an export named 'createLocalSessionStore'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:226:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:335:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:282:26)
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:278:20)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.1
+[0m
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -75,10 +75,9 @@
+ /**
+  * Local folder-based session store (fallback when no online DB is available).
+  * Reads legacy `creds.json` files so existing `session/` folders still work.
+  */
+-const createLocalSessionStore = (folder) => {
+-   const folderPath = resolve(process.cwd(), folder)
++const createLocalSessionStore = (folder) => {   const folderPath = resolve(process.cwd(), folder)
+    const fixFileName = (key) => String(key).replace(/\//g, '_')
+ 
+    const filePathFor = (key) => join(folderPath, fixFileName(key))
+ 
+
+[0m
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -75,9 +75,9 @@
+ /**
+  * Local folder-based session store (fallback when no online DB is available).
+  * Reads legacy `creds.json` files so existing `session/` folders still work.
+  */
+-const createLocalSessionStore = (folder) => {   const folderPath = resolve(process.cwd(), folder)
++export const createLocalSessionStore = (folder) => {   const folderPath = resolve(process.cwd(), folder)
+    const fixFileName = (key) => String(key).replace(/\//g, '_')
+ 
+    const filePathFor = (key) => join(folderPath, fixFileName(key))
+ 
+
+[0m
+[0m$ [0mcd /tmp/opencode && node --input-type=module -e "
+import { createLocalSessionStore, Database, Store } from '/home/runner/work/roccky_bot/roccky_bot/database/index.js'
+import { useDatabaseAuthState } from '/home/runner/work/roccky_bot/roccky_bot/database/auth-session.js'
+import { createDebouncedWriter, serializeWithBuffers, deserializeWithBuffers } from '/home/runner/work/roccky_bot/roccky_bot/database/cloud.js'
+import { createLocalFileStore } from '/home/runner/work/roccky_bot/roccky_bot/database/local.js'
+import { mkdtemp, rm } from 'fs/promises'
+import { tmpdir } from 'os'
+import { join } from 'path'
+
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-test-'))
+process.chdir(dir)
+
+const store = createLocalFileStore('database.json')
+await store.write({ users: { '1': { name: 'a' } }, groups: {} })
+console.log('local store read:', JSON.stringify(await store.read()))
+
+const buf = Buffer.from('hello')
+const ser = serializeWithBuffers({ b: buf, n: 5 })
+const de = deserializeWithBuffers(ser)
+console.log('buffer roundtrip:', Buffer.isBuffer(de.b), de.b.toString())
+
+let writes = 0
+const dw = createDebouncedWriter(async () => { writes++; await new Promise(r => setTimeout(r, 5)) })
+await Promise.all([dw('a'), dw('b'), dw('c')])
+await new Promise(r => setTimeout(r, 40))
+console.log('debounced writes:', writes)
+
+const sessionStore = createLocalSessionStore('session')
+const { state, saveCreds, clear } = await useDatabaseAuthState(sessionStore)
+console.log('auth creds registered:', state.creds.registered)
+state.creds.registered = true
+await saveCreds()
+console.log('creds persisted:', (await sessionStore.read('creds')).registered)
+await clear()
+console.log('creds cleared:', await sessionStore.read('creds'))
+
+const db = Database('database.json')
+global.db = db
+const st = Store('store.json')
+await db.readFromFile()
+await st.readFromFile()
+db.updateUser('628', { name: 'test' })
+await db.writeToFile()
+await st.writeToFile()
+console.log('Database users:', db.users.size, db.getUser('628').name)
+const db2 = Database('database.json')
+await db2.readFromFile()
+console.log('Database reloaded users:', db2.users.size, db2.getUser('628').name)
+
+await rm(dir, { recursive: true, force: true })
+console.log('ALL TESTS PASSED')
+" 2>&1 | head -40
+file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33
+   `\nFN:${ownerName}` +
+           ^
+
+ReferenceError: ownerName is not defined
+    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:282:26)
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:278:20)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.1
+[0m
+[0m$ [0mcd /tmp/opencode && node --input-type=module -e "
+await import('/home/runner/work/roccky_bot/roccky_bot/config/index.js')
+const { createLocalSessionStore, Database, Store } = await import('/home/runner/work/roccky_bot/roccky_bot/database/index.js')
+const { useDatabaseAuthState } = await import('/home/runner/work/roccky_bot/roccky_bot/database/auth-session.js')
+const { createDebouncedWriter, serializeWithBuffers, deserializeWithBuffers } = await import('/home/runner/work/roccky_bot/roccky_bot/database/cloud.js')
+const { createLocalFileStore } = await import('/home/runner/work/roccky_bot/roccky_bot/database/local.js')
+const { mkdtemp, rm } = await import('fs/promises')
+const { tmpdir } = await import('os')
+const { join } = await import('path')
+
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-test-'))
+process.chdir(dir)
+
+const store = createLocalFileStore('database.json')
+await store.write({ users: { '1': { name: 'a' } }, groups: {} })
+console.log('local store read:', JSON.stringify(await store.read()))
+
+const buf = Buffer.from('hello')
+const ser = serializeWithBuffers({ b: buf, n: 5 })
+const de = deserializeWithBuffers(ser)
+console.log('buffer roundtrip:', Buffer.isBuffer(de.b), de.b.toString())
+
+let writes = 0
+const dw = createDebouncedWriter(async () => { writes++; await new Promise(r => setTimeout(r, 5)) })
+await Promise.all([dw('a'), dw('b'), dw('c')])
+await new Promise(r => setTimeout(r, 40))
+console.log('debounced writes:', writes)
+
+const sessionStore = createLocalSessionStore('session')
+const { state, saveCreds, clear } = await useDatabaseAuthState(sessionStore)
+console.log('auth creds registered:', state.creds.registered)
+state.creds.registered = true
+await saveCreds()
+console.log('creds persisted:', (await sessionStore.read('creds')).registered)
+await clear()
+console.log('creds cleared:', await sessionStore.read('creds'))
+
+const db = Database('database.json')
+global.db = db
+const st = Store('store.json')
+await db.readFromFile()
+await st.readFromFile()
+db.updateUser('628', { name: 'test' })
+await db.writeToFile()
+await st.writeToFile()
+console.log('Database users:', db.users.size, db.getUser('628').name)
+const db2 = Database('database.json')
+await db2.readFromFile()
+console.log('Database reloaded users:', db2.users.size, db2.getUser('628').name)
+
+await rm(dir, { recursive: true, force: true })
+console.log('ALL TESTS PASSED')
+" 2>&1 | head -40
+⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
+👉 Please run: npm install fluent-ffmpeg
+local store read: {"users":{"1":{"name":"a"}},"groups":{}}
+buffer roundtrip: true hello
+debounced writes: 2
+auth creds registered: false
+creds persisted: true
+creds cleared: null
+file:///home/runner/work/roccky_bot/roccky_bot/database/index.js:192
+            Func.applySchema(data, SCHEMA.User)
+                 ^
+
+TypeError: Func.applySchema is not a function
+    at Object.readFromFile (file:///home/runner/work/roccky_bot/roccky_bot/database/index.js:192:18)
+    at async file:///tmp/opencode/[eval1]:41:1
+
+Node.js v22.23.1
+[0m
+[0m$ [0mcd /tmp/opencode && node --input-type=module -e "
+await import('/home/runner/work/roccky_bot/roccky_bot/config/index.js')
+const { default: loadFunc } = await import('/home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js')
+await loadFunc()
+const { Database, Store } = await import('/home/runner/work/roccky_bot/roccky_bot/database/index.js')
+const { mkdtemp, rm } = await import('fs/promises')
+const { tmpdir } = await import('os')
+const { join } = await import('path')
+
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-test-'))
+process.chdir(dir)
+
+const db = Database('database.json')
+global.db = db
+const st = Store('store.json')
+await db.readFromFile()
+await st.readFromFile()
+db.updateUser('628', { name: 'test', limit: 5 })
+db.updateGroup('group@g.us', { name: 'grup' })
+await db.writeToFile()
+await st.writeToFile()
+
+const db2 = Database('database.json')
+await db2.readFromFile()
+console.log('Database reloaded users:', db2.users.size, db2.getUser('628').name, 'limit=', db2.getUser('628').limit)
+console.log('Database reloaded groups:', db2.groups.size)
+console.log('settings defaults:', !!db2.getSetting().prefixes)
+
+// buffer in db roundtrip
+const bufStore = await import('/home/runner/work/roccky_bot/roccky_bot/database/cloud.js')
+console.log('settings prefixes:', JSON.stringify(db2.getSetting().prefixes.slice(0,3)))
+
+await rm(dir, { recursive: true, force: true })
+console.log('DATABASE FACTORY TEST PASSED')
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+(no output)
+
+<shell_metadata>
+shell tool terminated command after exceeding timeout 120000 ms. If this command is expected to take longer and is not waiting for interactive input, retry with a larger timeout value in milliseconds.
+</shell_metadata>
+[0m
+[0m$ [0mcd /tmp/opencode && timeout 60 node --input-type=module -e "
+await import('/home/runner/work/roccky_bot/roccky_bot/config/index.js')
+const { default: loadFunc } = await import('/home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js')
+await loadFunc()
+const { Database, Store } = await import('/home/runner/work/roccky_bot/roccky_bot/database/index.js')
+const { mkdtemp, rm } = await import('fs/promises')
+const { tmpdir } = await import('os')
+const { join } = await import('path')
+
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-test-'))
+process.chdir(dir)
+
+const db = Database('database.json')
+global.db = db
+const st = Store('store.json')
+await db.readFromFile()
+await st.readFromFile()
+db.updateUser('628', { name: 'test', limit: 5 })
+db.updateGroup('group@g.us', { name: 'grup' })
+await db.writeToFile()
+await st.writeToFile()
+
+const db2 = Database('database.json')
+await db2.readFromFile()
+console.log('Database reloaded users:', db2.users.size, db2.getUser('628').name, 'limit=', db2.getUser('628').limit)
+console.log('Database reloaded groups:', db2.groups.size)
+console.log('settings prefixes:', JSON.stringify(db2.getSetting().prefixes.slice(0,3)))
+
+await rm(dir, { recursive: true, force: true })
+console.log('DATABASE FACTORY TEST PASSED')
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+FUNC  Berhasil dimuat: FFMPEG.js
+ FUNC  Berhasil dimuat: Utilities.js
+ FUNC  Berhasil dimuat: dateTime.js
+ FUNC  Berhasil dimuat: getFileSize.js
+ FUNC  Berhasil dimuat: isJid.js
+ FUNC  Berhasil dimuat: isMime.js
+ FUNC  Berhasil dimuat: toBanner.js
+ FUNC  Berhasil dimuat: tokenizeCode.js
+ FUNC  Berhasil dimuat: waBaileys.js
+Database reloaded users: 1 test limit= 5
+Database reloaded groups: 1
+settings prefixes: [".","/","!"]
+DATABASE FACTORY TEST PASSED
+[0m
+[0m$ [0mcd /tmp/opencode && timeout 60 node --input-type=module -e "
+const { createCloudSectionedBlobStore, createCloudSessionStore } = await import('/home/runner/work/roccky_bot/roccky_bot/database/cloud.js')
+
+// Fake cloud connection
+const dbMap = new Map()
+const fakeConn = {
+  connected: true,
+  async readData(table, key) { return dbMap.get(key) ?? null },
+  async writeData(table, key, json) { dbMap.set(key, json) },
+  async deleteData(table, key) { dbMap.delete(key) },
+  async clearTable() { dbMap.clear() }
+}
+
+// 1. Sectioned blob store — migration from legacy single doc
+dbMap.set('database', JSON.stringify({ users: { '1': { n: 'legacy' } }, groups: {}, settings: {} }))
+const sect = createCloudSectionedBlobStore({ connection: fakeConn, table: 't', key: 'database', sections: ['users','groups','settings'] })
+let raw = await sect.read()
+console.log('migration users:', JSON.stringify(raw.users))
+
+// 2. Write sections → separate rows
+await sect.write({ users: { '1': { n: 'new' } }, groups: { g: {} }, settings: { x: 1 } })
+console.log('rows after write:', [...dbMap.keys()].join(', '))
+console.log('legacy row still present (removed? no):', dbMap.has('database'))
+
+// 3. Dirty-skip: unchanged section doesn't rewrite
+const before = dbMap.get('database:users')
+await sect.write({ users: { '1': { n: 'new' } }, groups: {}, settings: { x: 1 } })
+const after = dbMap.get('database:users')
+console.log('dirty-skip preserved row identity:', before === after)
+
+// 4. Re-read merged
+raw = await sect.read()
+console.log('re-read users:', JSON.stringify(raw.users), 'settings:', JSON.stringify(raw.settings))
+
+// 5. Session store keyed writes
+const sstore = createCloudSessionStore({ connection: fakeConn, table: 'sess' })
+await sstore.write('creds', { registered: true })
+await sstore.write('session-abc', { key: 1 })
+console.log('session keys:', [...dbMap.keys()].join(', '))
+console.log('session creds:', JSON.stringify(await sstore.read('creds')))
+await sstore.clear()
+console.log('session cleared:', dbMap.size === 0)
+
+console.log('SECTIONED/SESSION STORE TESTS PASSED')
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+migration users: {"1":{"n":"legacy"}}
+rows after write: database, database:users, database:groups, database:settings
+legacy row still present (removed? no): true
+dirty-skip preserved row identity: true
+re-read users: {"1":{"n":"new"}} settings: {"x":1}
+session keys: database, database:users, database:groups, database:settings, creds, session-abc
+session creds: {"registered":true}
+session cleared: true
+SECTIONED/SESSION STORE TESTS PASSED
+[0m
+[0m$ [0mcd /tmp/opencode && timeout 90 node --input-type=module -e "
+const { createCloudConnection, dataConnection } = await import('/home/runner/work/roccky_bot/roccky_bot/database/connection.js')
+
+console.log('factory API:', typeof dataConnection.connect, typeof dataConnection.startReconnectLoop, typeof dataConnection.readData)
+
+// Connection to unreachable postgres → should fail gracefully, not throw.
+const conn = createCloudConnection({ name: 'TestDB' })
+const ok = await conn.connect('postgresql://user:pass@127.0.0.1:1/nope')
+console.log('connect to unreachable returned:', ok)
+console.log('connected flag:', conn.connected)
+console.log('type:', conn.type)
+
+// Ensure readData throws a controlled error (not crash).
+try { await conn.readData('t', 'k') } catch (e) { console.log('controlled error:', e.message.slice(0,40)) }
+
+console.log('CONNECTION FACTORY TESTS PASSED')
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+factory API: function function function
+🗄️  [TestDB] Menyambungkan ke PostgreSQL...
+❌ [TestDB] Gagal terhubung: connect ECONNREFUSED 127.0.0.1:1
+connect to unreachable returned: false
+connected flag: false
+type: null
+controlled error: TestDB database tidak terhubung
+CONNECTION FACTORY TESTS PASSED
+[0m
+[0m$ [0mwhich mongod postgres psql docker 2>&1; echo "---"; ls /usr/lib/postgresql 2>/dev/null
+/usr/bin/psql
+/usr/bin/docker
+---
+16
+[0m
+[0m$ [0mls /usr/lib/postgresql/16/bin/ 2>/dev/null | head; which pg_ctlcluster initdb pg_ctl 2>&1
+clusterdb
+createdb
+createuser
+dropdb
+dropuser
+initdb
+oid2name
+pg_amcheck
+pg_archivecleanup
+pg_basebackup
+/usr/bin/pg_ctlcluster
+[0m
+[0m$ [0mexport PGBIN=/usr/lib/postgresql/16/bin
+$PGBIN/initdb -D /tmp/opencode/pgdata -U postgres --auth=trust >/tmp/opencode/initdb.log 2>&1 && echo "initdb OK"
+$PGBIN/pg_ctl -D /tmp/opencode/pgdata -o "-p 5433 -k /tmp/opencode" -l /tmp/opencode/pg.log start && sleep 2 && echo "pg started"
+psql -h /tmp/opencode -p 5433 -U postgres -c "CREATE DATABASE roccky;" 2>&1 | tail -1
+initdb OK
+waiting for server to start.... done
+server started
+pg started
+CREATE DATABASE
+[0m
+[0m$ [0mcd /tmp/opencode && timeout 60 node --input-type=module -e "
+await import('/home/runner/work/roccky_bot/roccky_bot/config/index.js')
+const { default: loadFunc } = await import('/home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js')
+await loadFunc()
+const { connectDatabase, Database, Store, createSessionStore, connectSessionDatabase, isSessionStoredOnline } = await import('/home/runner/work/roccky_bot/roccky_bot/database/index.js')
+const { useDatabaseAuthState } = await import('/home/runner/work/roccky_bot/roccky_bot/database/auth-session.js')
+const { mkdtemp, rm } = await import('fs/promises')
+const { tmpdir } = await import('os')
+const { join } = await import('path')
+
+const URL = 'postgresql://postgres@127.0.0.1:5433/roccky'
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-pg-'))
+process.chdir(dir)
+
+// Connect data DB
+const ok = await connectDatabase(URL, { databaseName: 'roccky' })
+console.log('data DB connected:', ok, '| online:', isSessionStoredOnline())
+
+// Database & Store against Postgres (sectioned)
+const db = Database('database.json')
+global.db = db
+const st = Store('store.json')
+await db.readFromFile()
+await st.readFromFile()
+db.updateUser('628xxx', { name: 'pg-user', limit: 42 })
+db.updateGroup('grp@g.us', { name: 'pg-group' })
+await db.writeToFile()
+await st.writeToFile()
+
+// Reload from a fresh instance
+const db2 = Database('database.json')
+await db2.readFromFile()
+console.log('pg user reload:', db2.getUser('628xxx')?.name, db2.getUser('628xxx')?.limit)
+console.log('pg group reload:', db2.getGroup('grp@g.us')?.name)
+
+// Session store against same Postgres table
+const sessionStore = createSessionStore()
+const { state, saveCreds } = await useDatabaseAuthState(sessionStore)
+state.creds.registered = true
+await saveCreds()
+
+// New auth state read-back (simulates restart)
+const sessionStore2 = createSessionStore()
+const { state: state2 } = await useDatabaseAuthState(sessionStore2)
+console.log('session survives restart (registered):', state2.creds.registered)
+
+await rm(dir, { recursive: true, force: true })
+console.log('POSTGRES END-TO-END TEST PASSED')
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+FUNC  Berhasil dimuat: FFMPEG.js
+ FUNC  Berhasil dimuat: Utilities.js
+ FUNC  Berhasil dimuat: dateTime.js
+ FUNC  Berhasil dimuat: getFileSize.js
+ FUNC  Berhasil dimuat: isJid.js
+ FUNC  Berhasil dimuat: isMime.js
+ FUNC  Berhasil dimuat: toBanner.js
+ FUNC  Berhasil dimuat: tokenizeCode.js
+ FUNC  Berhasil dimuat: waBaileys.js
+🗄️  [DataDB] Menyambungkan ke PostgreSQL...
+❌ [DataDB] Gagal terhubung: The server does not support SSL connections
+data DB connected: false | online: false
+pg user reload: pg-user 42
+pg group reload: pg-group
+session survives restart (registered): true
+POSTGRES END-TO-END TEST PASSED
+[0m
+[0m← [0mEdit database/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/connection.js
+@@ -48,24 +48,42 @@
+    return { client: mongoClient, database: mongoDb }
+ }
+ 
+ const createPgPool = async (url) => {
+-   const pool = new pg.Pool({
++   const baseConfig = {
+       connectionString: url,
+       max: 20,
+       idleTimeoutMillis: 30_000,
+-      connectionTimeoutMillis: 10_000,
+-      ...(url.includes('sslmode') ? {} : { ssl: { rejectUnauthorized: false } })
+-   })
++      connectionTimeoutMillis: 10_000
++   }
+ 
+-   pool.on('error', (error) => {
+-      logError(`PostgreSQL pool error: ${error.message}`)
+-      if (['57P01', '08006', '57P02'].includes(error.code)) isConnected = false
+-   })
++   // Respect an explicit sslmode in the URL when present.
++   const sslMode = (url.match(/(?:[?&])sslmode=([^&]+)/) || [])[1]
+ 
+-   await pool.query('SELECT 1')
++   const buildPool = (ssl) => new pg.Pool({ ...baseConfig, ...(ssl === null ? {} : { ssl }) })
+ 
+-   return { client: pool, database: null }
++   const probe = async (pool) => {
++      await pool.query('SELECT 1')
++      return pool
++   }
++
++   // Strategy: try SSL first (required by most cloud providers), then fall back
++   // to plain connections (local/dev servers).
++   if (sslMode === 'disable' || sslMode === 'allow' || sslMode === 'prefer') {
++      return { client: await probe(buildPool(null)), database: null }
++   }
++
++   try {
++      return { client: await probe(buildPool({ rejectUnauthorized: false })), database: null }
++   }
++   catch (error) {
++      try {
++         return { client: await probe(buildPool(null)), database: null }
++      }
++      catch {
++         throw error
++      }
++   }
+ }
+ 
+ const ensureTable = async () => {
+    if (connectionType !== CLOUD_TYPES.POSTGRES) return
+
+[0m
+The PostgreSQL SSL handling needs a fallback for servers without SSL. Let me fix:
+[0m← [0mEdit database/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/connection.js
+@@ -109,8 +109,16 @@
+    database = created.database
+    connectionType = connectionConfig.type
+    isConnected = true
+ 
++   // Surface idle-client errors without crashing the process.
++   if (connectionType === CLOUD_TYPES.POSTGRES) {
++      client.on('error', (error) => {
++         logError(`PostgreSQL pool error: ${error.message}`)
++         if (['57P01', '08006', '57P02'].includes(error.code)) isConnected = false
++      })
++   }
++
+    await ensureTable()
+    log(`Terhubung ke ${connectionType === CLOUD_TYPES.MONGO ? 'MongoDB' : 'PostgreSQL'}!`)
+    return true
+ }
+
+[0m
+[0m$ [0mcd /tmp/opencode && timeout 60 node --input-type=module -e "
+await import('/home/runner/work/roccky_bot/roccky_bot/config/index.js')
+const { default: loadFunc } = await import('/home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js')
+await loadFunc()
+const { connectDatabase, Database, createSessionStore } = await import('/home/runner/work/roccky_bot/roccky_bot/database/index.js')
+const { useDatabaseAuthState } = await import('/home/runner/work/roccky_bot/roccky_bot/database/auth-session.js')
+const { mkdtemp, rm } = await import('fs/promises')
+const { tmpdir } = await import('os')
+const { join } = await import('path')
+
+const URL = 'postgresql://postgres@127.0.0.1:5433/roccky'
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-pg2-'))
+process.chdir(dir)
+
+const ok = await connectDatabase(URL, { databaseName: 'roccky' })
+console.log('data DB connected:', ok)
+
+const db = Database('database.json')
+await db.readFromFile()
+db.updateUser('628abc', { name: 'pg2-user', limit: 7 })
+await db.writeToFile()
+const db2 = Database('database.json')
+await db2.readFromFile()
+console.log('pg user reload:', db2.getUser('628abc')?.name, db2.getUser('628abc')?.limit)
+
+const sessionStore = createSessionStore()
+const { state, saveCreds } = await useDatabaseAuthState(sessionStore)
+state.creds.registered = true
+await saveCreds()
+const { state: state2 } = await useDatabaseAuthState(createSessionStore())
+console.log('session registered after reload:', state2.creds.registered)
+
+await rm(dir, { recursive: true, force: true })
+console.log('POSTGRES SSL-FALLBACK E2E PASSED')
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+FUNC  Berhasil dimuat: FFMPEG.js
+ FUNC  Berhasil dimuat: Utilities.js
+ FUNC  Berhasil dimuat: dateTime.js
+ FUNC  Berhasil dimuat: getFileSize.js
+ FUNC  Berhasil dimuat: isJid.js
+ FUNC  Berhasil dimuat: isMime.js
+ FUNC  Berhasil dimuat: toBanner.js
+ FUNC  Berhasil dimuat: tokenizeCode.js
+ FUNC  Berhasil dimuat: waBaileys.js
+🗄️  [DataDB] Menyambungkan ke PostgreSQL...
+🗄️  [DataDB] Terhubung ke PostgreSQL!
+data DB connected: true
+pg user reload: pg2-user 7
+/home/runner/work/roccky_bot/roccky_bot/node_modules/pg-pool/index.js:45
+    Error.captureStackTrace(err)
+          ^
+
+error: relation "wa_sessions" does not exist
+    at /home/runner/work/roccky_bot/roccky_bot/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.readData (file:///home/runner/work/roccky_bot/roccky_bot/database/connection.js:230:22)
+    at async Object.read (file:///home/runner/work/roccky_bot/roccky_bot/database/cloud.js:181:26)
+    at async useDatabaseAuthState (file:///home/runner/work/roccky_bot/roccky_bot/database/auth-session.js:62:19)
+    at async file:///tmp/opencode/[eval1]:27:30 {
+  length: 110,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '23',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+
+Node.js v22.23.1
+[0m
+[0m← [0mEdit database/connection.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/connection.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/connection.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/connection.js
+@@ -84,16 +84,16 @@
+       }
+    }
+ }
+ 
+-const ensureTable = async () => {
++const ensureTable = async (table) => {
+    if (connectionType !== CLOUD_TYPES.POSTGRES) return
+    await client.query(
+-      `CREATE TABLE IF NOT EXISTS roccky_data (file_key TEXT PRIMARY KEY, json_data TEXT)`
++      `CREATE TABLE IF NOT EXISTS ${table} (file_key TEXT PRIMARY KEY, json_data TEXT)`
+    )
+ }
+ 
+-const connect = async (url, { databaseName = 'roccky' } = {}) => {
++const connect = async (url, { databaseName = 'roccky', tables = ['roccky_data'] } = {}) => {
+    if (!url) return false
+    if (isConnected && connectionType) return true
+ 
+    connectionConfig = { url, databaseName, type: detectType(url) }
+@@ -117,9 +117,11 @@
+             if (['57P01', '08006', '57P02'].includes(error.code)) isConnected = false
+          })
+       }
+ 
+-      await ensureTable()
++      for (const table of new Set(tables))
++         await ensureTable(table)
++
+       log(`Terhubung ke ${connectionType === CLOUD_TYPES.MONGO ? 'MongoDB' : 'PostgreSQL'}!`)
+       return true
+    }
+    catch (error) {
+
+[0m
+The session table needs to be ensured on Postgres. Let me make table creation configurable:
+## Objective
+- Refactor the ROCKYY WhatsApp bot (Baileys-based, ESM, ~190 JS files): clean up code, add modular helpers, reduce RAM/DB usage, and persist the WhatsApp session in an online database instead of the local filesystem so restarts skip QR scanning.
+- Applied changes directly to the codebase with updated config files and a terminal summary of all changes.
+
+## Important Details
+- Booleans/numbers via env: `PAIRING_CODE=true`, `RSS_LIMIT_BYTES=805306368`, `DATA_INTERVAL_MS=60000`, `GC_INTERVAL_MS=3600000`, `TEMP_FILE_INTERVAL_MS=1800000`, `REQUEST_TIMEOUT_MS=90000`, `FFMPEG_TIMEOUT_MS=60000`, `MIN/MAX_DELAY_MS=100/3000`, `MAX_NSFW_SCORE=0.75`, `MAX_HISTORY_CHAT_SIZE=20`
+- Arrays via comma-separated env: `GROQ_API_KEYS`, `BOT_OWNERS`, `AUTO_NEWSLETTERS`, `AUTO_GROUPS`
+- Cloud table for data: `roccky_data` (Postgres: `file_key TEXT PRIMARY KEY, json_data TEXT`; Mongo: `_id = key, {json_data}`); session table: `wa_sessions`
+- Data JSON sections stored as per-row indexed rows: `key:users`, `key:groups`, `key:settings`, `key:messages`, `key:contacts`, `key:groupMetadata`; dirty-tracking skips unchanged rows; legacy single-doc blob auto-migrates
+- Debounced writes coalesce concurrent calls (verified: 3 concurrent → 2 actual writes)
+- Auto-reconnect: health-check every 30s, single-flight reconnectPromise, backoff `10s x attempt` capped at 60s
+- Connection handler: `MAX_RECONNECT_ATTEMPTS=5`, `MAX_CONFLICT_ATTEMPTS=3`; logout wipes online session + `session/` folder, exits; conflict retries with `setTimeout`
+- Watchdog: 30-min silent timeout, 60s check, calls `Socket()`; `withErrorHandling`-style safe wrappers in `utils/errors.js`
+- `listener.unbind()` added to clear scheduler interval + event listeners; `Socket()` calls `listener.unbind()` before rebuilding to prevent listener leak
+- Verdict on Baileys: imported fork exposes `initAuthCreds`, `makeCacheableSignalKeyStore`, `useMultiFileAuthState`; `useDatabaseAuthState` uses it with a fallback creds factory
+- Old `config.js` and `lib/Database.js` deleted; `connectCloudDB` kept as alias for backward compatibility; no remaining references to `lib/Database.js`
+
+## Work State
+### Completed
+- Created `config/env.js` (dependency-free .env loader, Termux/Bun-safe) and `config/index.js` (cloud config, no BOT set, no payment/API, no logging filter, no `login` export; data-mode only)
+- Added `database/connection.js`: `createCloudConnection` factory (Mongo via `MongoClient`, PG via `pg.Pool` with `ssl:{rejectUnauthorized:false}` unless `sslmode` present), `ping`, auto-reconnect loop (30s health, 60s cap backoff), `close`, low-level `readData/writeData/deleteData/clearTable`
+- `database/local.js`: atomic writes temp-file+rename, Buffer/ArrayBuffer/TypedArray reviver/replacer
+- `database/cloud.js`: `serializeWithBuffers`, `deserializeWithBuffers`, `createDebouncedWriter`, `createCloudBlobStore`, `createCloudSectionedBlobStore`, `createCloudSessionStore`
+- `database/index.js`: exports `Database`, `Store`, `connectDatabase`, `connectSessionDatabase`, `connectCloudDB`, `createSessionStore`, `createLocalSessionStore`, `isSessionStoredOnline`, `dataConnection`, `sessionConnection`; `Database.readFromFile` applies `SCHEMA.User` and `SCHEMA.Group`; users/groups/settings bounded via `MAX_MESSAGES=256`
+- `database/auth-session.js`: `useDatabaseAuthState` LRU-cached key store; writes `creds` on `creds.update`; `.clear()` for logout
+- `utils/`: `formatter.js` (truncate/escapeMarkdown/formatKeyValue/sanitizeText/pluralize/formatCount/formatQuote), `validator.js` (hasValidPrefix/isValidPhoneNumber/toJid/isOwner/validateNumberRange/parseDuration/parseToggle/isGroupJid/isUserJid/requireText/escapeRegExp), `memory.js` (runGarbageCollection/startGarbageCollector/getMemorySummary/isMemoryOverLimit), `errors.js` (safeAwait/withErrorHandling/logError/tryCatch)
+- `services/watchdog.js` (createWatchdog) and `services/cache-cleaner.js` (startCacheCleaner: temp-file removal with `TEMP_THRESHOLD`, GC with unref'd intervals)
+- `handlers/connection.js`: factory; QR/pairing (readline fallback), conflict/logout/reconnect, `runAutoActions` for `AUTO_NEWSLETTERS`/`AUTO_GROUPS`, `onOpen` callback; `cleanExit({authFolder, clearSession, message})`
+- `handlers/messages.js`: status-broadcast read/react, call rejection, owner `=>` eval and `$` shell (60s timeout, MAX_EXEC_OUTPUT=3500), delegates to `listener.message`
+- `handlers/group.js` (welcome + rental check + `listener.participant`), `handlers/call.js`, `handlers/presence.js`
+- `socket.js` fully rewritten: connects DBs first (`connectDatabase`, then `connectSessionDatabase`), `Database`/`Store` load, `Listener`+`SholatReminder`, `createSessionStore` → `useDatabaseAuthState`, `makeWASocket` with `auth:{creds, keys}` instead of `useMultiFileAuthState`; schedules daily reset via `Func.getNextMidnight()` and autosave with `process.send?.('reset')` on memory over-limit
+- `ErrorHandler.js` patched: suppress spam, `ENOMEM` → "Out of memory, restarting...", `uncaughtException`/`unhandledRejection` exit(1) unless fatal pattern
+- `.env.example` created with full doc comments
+- All 190 project JS files pass `node --check`; `npm install` OK (320 packages)
+- Smoke tests passed (in `/tmp/opencode`): config globals, local file store, buffer round-trip, debounced writer, session store persist/clear, Database/Store local factory reload (1 user/1 group, prefixes `[".","/","!"]`)
+
+### Active
+- All code is in place; no smoke test has yet been run against a live MongoDB/PostgreSQL URL.
+- `handlers/connection.js` still logs warning for `sessionDatabaseUrl` empty? No — `socket.js` prints correct notice text.
+- Potential pending (not started): updating `install.sh`/`Dockerfile`/`ecosystem.config.cjs`/`README.md` for new env, adding `.env.example` copying.
+
+### Blocked
+- (none observed in tests)
+
+## Next Move
+1. Update deployment config files (`install.sh`, `Dockerfile`, `ecosystem.config.cjs`, `README.md`) to mention `.env`/`DATABASE_URL`/`SESSION_DATABASE_URL`.
+2. Smoke-test full `socket.js` startup with a real online DB (or mock) to confirm `useDatabaseAuthState` integration and no scanner/plugin incompatibilities.
+3. Optionally run more plugin files through `node --check` after any further edits.
+
+## Relevant Files
+- `socket.js`: orchestration, `Socket()` + `Setup()` + watchdog + cleaner + autosave
+- `config/index.js`, `config/env.js`: globals, .env loading
+- `database/index.js`: `Database`, `Store`, `connectDatabase`, `connectSessionDatabase`, `createSessionStore`, `createLocalSessionStore` (legacy `creds.json` support)
+- `database/connection.js`: `dataConnection`, `sessionConnection`, auto-reconnect
+- `database/cloud.js`: sectioned blob store, debounced writer, session store; `database/local.js`: atomic local files; `database/auth-session.js`: `useDatabaseAuthState`
+- `handlers/connection.js`, `handlers/messages.js`, `handlers/group.js`, `handlers/call.js`, `handlers/presence.js`
+- `services/watchdog.js`, `services/cache-cleaner.js`; `utils/formatter.js`, `utils/validator.js`, `utils/memory.js`, `utils/errors.js`
+- `lib/Listener.js` (added `unbind()`), `lib/Components/ErrorHandler.js` (patched), `lib/Constants.js` (unchanged; exports `MAX_MESSAGES`, `SCHEMA`, `INACTIVE_THRESHOLD`, `TEMP_THRESHOLD`, `BOT`)
+- removed: `config.js`, `lib/Database.js` (replaced by `config/` and `database/`)
+Continue if you have next steps, or stop and ask for clarification if you are unsure how to proceed.
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -n "connectDatabase\|connectSessionDatabase\|tables\|sessionTable" database/index.js | head -40
+8: *  - `connectDatabase` / `connectSessionDatabase` connection bootstrap with
+27:   connectDatabase(url, options)
+32:export const connectDatabase = async (url, { databaseName = global.databaseName || 'roccky' } = {}) => {
+47:export const connectSessionDatabase = async (url, { databaseName = global.sessionDatabaseName || 'roccky' } = {}) => {
+139:   const sessionTable = global.sessionTable || 'wa_sessions'
+144:         table: sessionTable
+150:         table: sessionTable
+272:   connectDatabase,
+273:   connectSessionDatabase,
+[0m
+[0m→ [0mRead database/index.js[90m [offset=27, limit=35][0m
+[0m
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -31,9 +31,10 @@
+  */
+ export const connectDatabase = async (url, { databaseName = global.databaseName || 'roccky' } = {}) => {
+    if (!url) return false
+ 
+-   const connected = await dataConnection.connect(url, { databaseName })
++   const sessionTable = global.sessionTable || 'wa_sessions'
++   const connected = await dataConnection.connect(url, { databaseName, tables: [DEFAULT_CLOUD_TABLE, sessionTable] })
+ 
+    if (connected)
+       await dataConnection.startReconnectLoop()
+ 
+
+[0m
+[0m← [0mEdit database/index.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/index.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/index.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/index.js
+@@ -47,9 +47,10 @@
+  */
+ export const connectSessionDatabase = async (url, { databaseName = global.sessionDatabaseName || 'roccky' } = {}) => {
+    if (!url) return false
+ 
+-   const connected = await sessionConnection.connect(url, { databaseName })
++   const sessionTable = global.sessionTable || 'wa_sessions'
++   const connected = await sessionConnection.connect(url, { databaseName, tables: [DEFAULT_CLOUD_TABLE, sessionTable] })
+ 
+    if (connected)
+       await sessionConnection.startReconnectLoop()
+ 
+
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -n "DEFAULT_CLOUD_TABLE" database/index.js
+23:const DEFAULT_CLOUD_TABLE = 'roccky_data'
+36:   const connected = await dataConnection.connect(url, { databaseName, tables: [DEFAULT_CLOUD_TABLE, sessionTable] })
+52:   const connected = await sessionConnection.connect(url, { databaseName, tables: [DEFAULT_CLOUD_TABLE, sessionTable] })
+69:         table: DEFAULT_CLOUD_TABLE,
+[0m
+Good. Now re-run the Postgres end-to-end test:
+[0m$ [0mcd /tmp/opencode && timeout 60 node --input-type=module -e "
+await import('/home/runner/work/roccky_bot/roccky_bot/config/index.js')
+const { default: loadFunc } = await import('/home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js')
+await loadFunc()
+const { connectDatabase, Database, createSessionStore } = await import('/home/runner/work/roccky_bot/roccky_bot/database/index.js')
+const { useDatabaseAuthState } = await import('/home/runner/work/roccky_bot/roccky_bot/database/auth-session.js')
+const { mkdtemp, rm } = await import('fs/promises')
+const { tmpdir } = await import('os')
+const { join } = await import('path')
+
+const URL = 'postgresql://postgres@127.0.0.1:5433/roccky'
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-pg3-'))
+process.chdir(dir)
+
+const ok = await connectDatabase(URL, { databaseName: 'roccky' })
+console.log('data DB connected:', ok)
+
+const db = Database('database.json')
+await db.readFromFile()
+db.updateUser('628abc', { name: 'pg3-user', limit: 7 })
+await db.writeToFile()
+const db2 = Database('database.json')
+await db2.readFromFile()
+console.log('pg user reload:', db2.getUser('628abc')?.name, db2.getUser('628abc')?.limit)
+
+const sessionStore = createSessionStore()
+const { state, saveCreds } = await useDatabaseAuthState(sessionStore)
+state.creds.registered = true
+await saveCreds()
+const { state: state2 } = await useDatabaseAuthState(createSessionStore())
+console.log('session registered after reload:', state2.creds.registered)
+
+await rm(dir, { recursive: true, force: true })
+console.log('POSTGRES SSL-FALLBACK E2E PASSED')
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+FUNC  Berhasil dimuat: FFMPEG.js
+ FUNC  Berhasil dimuat: Utilities.js
+ FUNC  Berhasil dimuat: dateTime.js
+ FUNC  Berhasil dimuat: getFileSize.js
+ FUNC  Berhasil dimuat: isJid.js
+ FUNC  Berhasil dimuat: isMime.js
+ FUNC  Berhasil dimuat: toBanner.js
+ FUNC  Berhasil dimuat: tokenizeCode.js
+ FUNC  Berhasil dimuat: waBaileys.js
+🗄️  [DataDB] Menyambungkan ke PostgreSQL...
+🗄️  [DataDB] Terhubung ke PostgreSQL!
+data DB connected: true
+pg user reload: pg3-user 7
+session registered after reload: true
+POSTGRES SSL-FALLBACK E2E PASSED
+[0m
+Postgres end-to-end passes. Now verify syntax and Mongo failure path:
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && node --check database/connection.js && node --check database/index.js && echo "syntax OK"
+cd /tmp/opencode && timeout 45 node --input-type=module -e "
+const { connectDatabase } = await import('/home/runner/work/roccky_bot/roccky_bot/database/index.js')
+const ok = await connectDatabase('mongodb://127.0.0.1:1/nope', { databaseName: 'roccky' })
+console.log('mongo unreachable → connected:', ok)
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+syntax OK
+file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33
+   `\nFN:${ownerName}` +
+           ^
+
+ReferenceError: ownerName is not defined
+    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
+    at async file:///tmp/opencode/[eval1]:2:29
+
+Node.js v22.23.1
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -n "^import" socket.js | head -20
+1:import './lib/Components/ErrorHandler.js'
+2:import './lib/Components/Dispatcher.js'
+3:import './config/index.js'
+5:import loadFunc, { Func } from '#func'
+6:import loadScrap from '#scrap'
+10:import { delay, makeWASocket } from 'baileys'
+11:import { mkdir } from 'fs/promises'
+12:import { join } from 'path'
+13:import pino from 'pino'
+14:import NodeCache from 'node-cache'
+16:import {
+24:import { useDatabaseAuthState } from './database/auth-session.js'
+26:import { BOT, INACTIVE_THRESHOLD } from './lib/Constants.js'
+27:import { scanDirectory } from './lib/Watcher.js'
+28:import Listener from './lib/Listener.js'
+29:import SholatReminder from './lib/Components/SholatReminder.js'
+31:import createWatchdog from './services/watchdog.js'
+32:import startCacheCleaner from './services/cache-cleaner.js'
+33:import { isMemoryOverLimit } from './utils/memory.js'
+35:import createConnectionHandler from './handlers/connection.js'
+[0m
+socket.js imports `config/index.js` (line 3) before Constants-dependent modules, so ordering is fine — my ad-hoc test just skipped config. Re-test properly:
+[0m$ [0mcd /tmp/opencode && timeout 45 node --input-type=module -e "
+await import('/home/runner/work/roccky_bot/roccky_bot/config/index.js')
+const { connectDatabase } = await import('/home/runner/work/roccky_bot/roccky_bot/database/index.js')
+const ok = await connectDatabase('mongodb://127.0.0.1:1/nope', { databaseName: 'roccky' })
+console.log('mongo unreachable → connected:', ok)
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+🗄️  [DataDB] Menyambungkan ke MongoDB...
+❌ [DataDB] Gagal terhubung: connect ECONNREFUSED 127.0.0.1:1
+mongo unreachable → connected: false
+[0m
+Mongo path fails gracefully too. Let me try a real MongoDB via docker to validate the Mongo branch end-to-end:
+[0m$ [0mdocker info >/dev/null 2>&1 && echo "docker OK" || echo "docker daemon not available"
+docker OK
+[0m
+[0m$ [0mdocker run -d --name roccky-mongo -p 127.0.0.1:27018:27017 mongo:7 >/tmp/opencode/mongo-start.log 2>&1; sleep 1; for i in $(seq 1 30); do docker exec roccky-mongo mongosh --quiet --eval 'db.runCommand({ping:1}).ok' 2>/dev/null | grep -q 1 && { echo "mongo ready"; break; }; sleep 2; done
+mongo ready
+[0m
+[0m$ [0mcd /tmp/opencode && timeout 60 node --input-type=module -e "
+await import('/home/runner/work/roccky_bot/roccky_bot/config/index.js')
+const { default: loadFunc } = await import('/home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js')
+await loadFunc()
+const { connectDatabase, Database, createSessionStore } = await import('/home/runner/work/roccky_bot/roccky_bot/database/index.js')
+const { useDatabaseAuthState } = await import('/home/runner/work/roccky_bot/roccky_bot/database/auth-session.js')
+const { mkdtemp, rm } = await import('fs/promises')
+const { tmpdir } = await import('os')
+const { join } = await import('path')
+
+const URL = 'mongodb://127.0.0.1:27018/roccky'
+const dir = await mkdtemp(join(tmpdir(), 'rockyy-mg-'))
+process.chdir(dir)
+
+const ok = await connectDatabase(URL, { databaseName: 'roccky' })
+console.log('mongo data DB connected:', ok)
+
+const db = Database('database.json')
+await db.readFromFile()
+db.updateUser('628mongo', { name: 'mg-user', limit: 5 })
+db.updateGroup('mg.grp@g.us', { name: 'mg-group' })
+await db.writeToFile()
+const db2 = Database('database.json')
+await db2.readFromFile()
+console.log('mongo user reload:', db2.getUser('628mongo')?.name, db2.getUser('628mongo')?.limit)
+console.log('mongo group reload:', db2.getGroup('mg.grp@g.us')?.name)
+
+const sessionStore = createSessionStore()
+const { state, saveCreds } = await useDatabaseAuthState(sessionStore)
+state.creds.registered = true
+await saveCreds()
+const { state: state2 } = await useDatabaseAuthState(createSessionStore())
+console.log('mongo session registered after reload:', state2.creds.registered)
+
+await rm(dir, { recursive: true, force: true })
+console.log('MONGO END-TO-END TEST PASSED')
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+FUNC  Berhasil dimuat: FFMPEG.js
+ FUNC  Berhasil dimuat: Utilities.js
+ FUNC  Berhasil dimuat: dateTime.js
+ FUNC  Berhasil dimuat: getFileSize.js
+ FUNC  Berhasil dimuat: isJid.js
+ FUNC  Berhasil dimuat: isMime.js
+ FUNC  Berhasil dimuat: toBanner.js
+ FUNC  Berhasil dimuat: tokenizeCode.js
+ FUNC  Berhasil dimuat: waBaileys.js
+🗄️  [DataDB] Menyambungkan ke MongoDB...
+🗄️  [DataDB] Terhubung ke MongoDB!
+mongo data DB connected: true
+mongo user reload: mg-user 5
+mongo group reload: mg-group
+mongo session registered after reload: true
+MONGO END-TO-END TEST PASSED
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -n "migrat\|legacy" database/cloud.js
+99: * Automatically migrates data from the legacy single-document layout.
+133:      // Migration: legacy single-document blob stored under the plain key.
+135:         const legacy = await connection.readData(table, key)
+136:         if (legacy) {
+137:            const migrated = deserializeWithBuffers(legacy)
+139:            for (const name of sections) out[name] = migrated[name] ?? {}
+[0m
+Both PostgreSQL and MongoDB fully pass. Let me clean up the legacy blob after migration and check that logic:
+[0m→ [0mRead database/cloud.js[90m [limit=45, offset=115][0m
+[0m
+[0m← [0mEdit database/cloud.js
+Index: /home/runner/work/roccky_bot/roccky_bot/database/cloud.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/database/cloud.js
++++ /home/runner/work/roccky_bot/roccky_bot/database/cloud.js
+@@ -130,14 +130,29 @@
+    }
+ }
+ 
+ // Migration: legacy single-document blob stored under the plain key.
++// Persist the split rows once, then remove the old blob (retried next boot).
+ if (!hasAnySection) {
+    const legacy = await connection.readData(table, key)
+    if (legacy) {
+       const migrated = deserializeWithBuffers(legacy)
+       const out = { users: {}, groups: {}, settings: {} }
+       for (const name of sections) out[name] = migrated[name] ?? {}
++
++      const persistMigration = async () => {
++         try {
++            for (const name of sections) {
++               const jsonString = serializeWithBuffers(out[name])
++               await connection.writeData(table, sectionKeys[name], jsonString)
++               lastWritten[name] = jsonString
++            }
++            await connection.deleteData(table, key)
++         }
++         catch { /* next read retries the migration */ }
++      }
++      persistMigration()
++
+       resetDirtyState()
+       return out
+    }
+ }
+
+[0m
+The migration is read-only, leaving the legacy blob forever. Let me make it persist the migrated rows and drop the legacy doc once:
+[0m$ [0mcd /tmp/opencode && timeout 60 node --input-type=module -e "
+const { createCloudSectionedBlobStore } = await import('/home/runner/work/roccky_bot/roccky_bot/database/cloud.js')
+const dbMap = new Map()
+const fakeConn = {
+  async readData(t, k) { return dbMap.get(k) ?? null },
+  async writeData(t, k, j) { dbMap.set(k, j) },
+  async deleteData(t, k) { dbMap.delete(k) },
+}
+// Legacy single doc present
+dbMap.set('database', JSON.stringify({ users: { u: { x: 1 } }, groups: {}, settings: { p: '.' } }))
+const sect = createCloudSectionedBlobStore({ connection: fakeConn, table: 't', key: 'database', sections: ['users','groups','settings'] })
+const first = await sect.read()
+console.log('migrated users:', JSON.stringify(first.users))
+await new Promise(r => setTimeout(r, 150))
+console.log('rows after migration:', [...dbMap.keys()].sort().join(', '))
+console.log('legacy blob removed:', !dbMap.has('database'))
+const again = await sect.read()
+console.log('stable re-read:', JSON.stringify(again.users))
+console.log('MIGRATION PERSIST TEST PASSED')
+process.exit(0)
+" 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent"
+migrated users: {"u":{"x":1}}
+rows after migration: database:groups, database:settings, database:users
+legacy blob removed: true
+stable re-read: {"u":{"x":1}}
+MIGRATION PERSIST TEST PASSED
+[0m
+Migration persists correctly. Final regression check and cleanup:
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && find . -name "*.js" -not -path "./node_modules/*" -print0 | xargs -0 -P8 -I{} node --check {} 2>&1 | grep -v "fluent-ffmpeg\|npm install fluent" ; echo "exit: $?"
+exit: 1
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && FAIL=0; for f in $(find . -name "*.js" -not -path "./node_modules/*"); do node --check "$f" 2>/tmp/opencode/check.err || { FAIL=1; echo "FAIL: $f"; cat /tmp/opencode/check.err; }; done; echo "check failures: $FAIL"
+FAIL: ./plugins/admin
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: tools/moderation.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/moderation.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/admin
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: tools/manage-group.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/manage-group.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/admin
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: tools/mentions.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/mentions.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/admin
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: tools/activation.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/activation.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/admin
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: tools/manage-member.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/manage-member.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/user
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: info/leaderboard.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/leaderboard.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/user
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: info/wa-me.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/wa-me.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/user
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: info/charge-energy.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/charge-energy.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/user
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: info/claim.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/claim.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/user
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: info/afk.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/afk.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: ./plugins/user
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+FAIL: info/profile.js
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/profile.js'
+    at node:internal/modules/cjs/loader:1430:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+check failures: 1
+[0m
+Those "failures" are my script passing directories to node, not real syntax errors. Re-run properly:
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && FAIL=0; COUNT=0; while IFS= read -r -d '' f; do COUNT=$((COUNT+1)); node --check "$f" 2>/tmp/opencode/check.err || { FAIL=1; echo "FAIL: $f"; cat /tmp/opencode/check.err; }; done < <(find . -type f -name "*.js" -not -path "./node_modules/*" -print0); echo "files checked: $COUNT, failures: $FAIL"
+files checked: 190, failures: 0
+[0m
+All 190 files pass. Now cleanup test infrastructure:
+[0m$ [0mdocker rm -f roccky-mongo >/dev/null 2>&1; /usr/lib/postgresql/16/bin/pg_ctl -D /tmp/opencode/pgdata stop >/dev/null 2>&1; echo "cleaned up"
+cleaned up
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls -la | grep -iE "dockerfile|install|ecosystem|README|docker-compose"
+-rw-r--r--   1 runner runner    467 Aug  4 08:28 Dockerfile
+-rw-r--r--   1 runner runner   5318 Aug  4 08:28 README.md
+-rw-r--r--   1 runner runner    331 Aug  4 08:28 ecosystem.config.cjs
+-rw-r--r--   1 runner runner   1678 Aug  4 08:28 install.sh
+[0m
+Database layer is now fully validated against both PostgreSQL and MongoDB. Remaining next step: update the deployment/config files for the new env setup. Let me check them:
+[0m→ [0mRead install.sh
+[0m→ [0mRead Dockerfile
+[0m→ [0mRead ecosystem.config.cjs
+[0m→ [0mRead README.md
+[0m→ [0mRead index.js
+[0m→ [0mRead .env.example
+[0m
+[0m← [0mEdit install.sh
+Index: /home/runner/work/roccky_bot/roccky_bot/install.sh
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/install.sh
++++ /home/runner/work/roccky_bot/roccky_bot/install.sh
+@@ -78,5 +78,24 @@
+    ;;
+ 
+ esac
+ 
+-echo "✅ Install complete!"
+\ No newline at end of file
++echo
++echo "🚀 Setting up environment..."
++if [ -f ".env" ]; then
++   echo "   .env already exists — keeping your values."
++elif [ -f ".env.example" ]; then
++   cp .env.example .env
++   echo "   Created .env from .env.example — please edit it now."
++else
++   echo "   ⚠️  No .env.example found — create .env manually."
++fi
++
++echo
++echo "✅ Install complete!"
++echo
++echo "Next steps:"
++echo "   1. Edit .env and set BOT_OWNER_NUMBER, BOT_NUMBER, PAIRING_CODE"
++echo "   2. For ONLINE session storage (no QR re-scan after restart):"
++echo "      set DATABASE_URL and SESSION_DATABASE_URL (MongoDB/PostgreSQL)"
++echo "      See .env.example for all options."
++echo "   3. Run:  pm2 start ecosystem.config.cjs && pm2 logs index"
+\ No newline at end of file
+
+[0m
+Now I'll update the deployment files for the new `.env`-based config. First `install.sh`:
+[0m← [0mEdit README.md
+Index: /home/runner/work/roccky_bot/roccky_bot/README.md
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/README.md
++++ /home/runner/work/roccky_bot/roccky_bot/README.md
+@@ -60,57 +60,39 @@
+ 
+ After installation completes, start the bot using pm2:
+ 
+ ```bash
+-pm2 start app.config.cjs && pm2 logs bot
++pm2 start ecosystem.config.cjs && pm2 logs index
+ ```
+ 
+ ### 🔧 Configuration
+ 
+-Edit [config.json](https://github.com/itsliaaa/starseed/blob/main/config.js) to customize the bot:
++Configuration lives in a `.env` file (created automatically from `.env.example` by `install.sh`). All keys are optional; sensible defaults apply when unset:
+ 
+-```javascript
+-Object.assign(global, {
+-   // Owner name
+-   ownerName: 'Lia Wynn',
++```dotenv
++# ---------- BOT IDENTITY ----------
++BOT_OWNER_NAME=AzahDev
++BOT_OWNER_NUMBER=6283869821927
++BOT_NAME=ROCKYY
++BOT_FOOTER=✦ Rockyy
++BOT_NUMBER=6281347951754      # Bot number for pairing code
++PAIRING_CODE=true             # true = pairing code, false = QR scan
++DEFAULT_LIMIT=25
+ 
+-   // Owner phone number
+-   ownerNumber: '6281111',
++# ---------- ONLINE DATABASE (users / groups / settings) ----------
++DATABASE_URL=mongodb+srv://user:pass@cluster.mongodb.net/
++DATABASE_NAME=roccky
+ 
+-   // Bot name
+-   botName: 'Starseed',
+-
+-   // Footer text
+-   footer: '✦ Starseed',
+-
+-   // [IMPORTANT] Bot phone number for pairing code
+-   botNumber: '6281111',
+-
+-   // Pairing using code method (set to true for pairing code, false for QR pairing)
+-   pairingCode: false,
+-
+-   // User default limit (used for reset too)
+-   defaultLimit: 15,
+-
+-   // Sticker pack name
+-   stickerPackName: '📦 Starseed Sticker',
+-
+-   // Sticker pack publisher
+-   stickerPackPublisher: 'GitHub: itsliaaa',
+-
+-   // ********** API KEYS ********** //
+-
+-   // Google AI Studio for Chat Bot @ https://aistudio.google.com/
+-   googleApiKey: '',
+-
+-   // SightEngine for Anti Porn @ https://sightengine.com/
+-   apiUser: '',
+-   apiSecret: '',
+-
+-   // ...
+-})
++# ---------- ONLINE SESSION STORAGE (CRITICAL) ----------
++# Persists the WhatsApp session so the bot never re-scans the QR after a restart.
++# Prefer a database DIFFERENT from DATABASE_URL; leave empty to reuse it,
++# or leave both empty to fall back to the local "session/" folder.
++SESSION_DATABASE_URL=postgresql://user:pass@host:5432/roccky_session
++SESSION_TABLE=wa_sessions
+ ```
+ 
++See [`.env.example`](https://github.com/itsliaaa/starseed/blob/main/.env.example) for the full list of options (API keys, timing, memory limits, prefixes, etc.).
++
+ ### 📁 Plugins
+ 
+ You can follow this format to add your own plugins:
+ 
+
+[0m
+Now update the README configuration section to reflect `.env`:
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && bash -n install.sh && echo "install.sh syntax OK"; grep -n "config.js\|config.json\|\.env" README.md | head
+install.sh syntax OK
+69:Configuration lives in a `.env` file (created automatically from `.env.example` by `install.sh`). All keys are optional; sensible defaults apply when unset:
+93:See [`.env.example`](https://github.com/itsliaaa/starseed/blob/main/.env.example) for the full list of options (API keys, timing, memory limits, prefixes, etc.).
+[0m
+Verify the bash script and check the final README section:
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && git status --short && git diff --stat
+M README.md
+ D config.js
+ M install.sh
+ M lib/Components/ErrorHandler.js
+ D lib/Database.js
+ M lib/Listener.js
+ M socket.js
+?? .env.example
+?? ai-response-recap.txt
+?? config/
+?? database/
+?? handlers/
+?? package-lock.json
+?? services/
+?? utils/
+ README.md                      |  68 ++--
+ config.js                      | 129 --------
+ install.sh                     |  21 +-
+ lib/Components/ErrorHandler.js |  31 +-
+ lib/Database.js                | 257 ---------------
+ lib/Listener.js                |  24 +-
+ socket.js                      | 701 +++++++++++++++--------------------------
+ 7 files changed, 334 insertions(+), 897 deletions(-)
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls package.json yarn.lock 2>&1; grep -n "packageManager" package.json 2>/dev/null; ls -la ai-response-recap.txt 2>&1 | head -1
+ls: cannot access 'yarn.lock': No such file or directory
+package.json
+55:   "packageManager": "bun@latest"
+-rw-r--r-- 1 runner runner 182414 Aug  4 08:48 ai-response-recap.txt
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && rm -f package-lock.json && git status --short
+M README.md
+ D config.js
+ M install.sh
+ M lib/Components/ErrorHandler.js
+ D lib/Database.js
+ M lib/Listener.js
+ M socket.js
+?? .env.example
+?? ai-response-recap.txt
+?? config/
+?? database/
+?? handlers/
+?? services/
+?? utils/
+[0m
+Done. The database refactor is now fully validated end-to-end against **real** PostgreSQL and MongoDB instances, and the deployment files are updated.
+
+**This session's work:**
+- Fixed PostgreSQL SSL handling — tries SSL first (cloud), falls back to plain when the server refuses SSL (`database/connection.js:createPgPool`).
+- Auto-creates the `wa_sessions` table on both connections via a `tables` option passed from `connectDatabase`/`connectSessionDatabase` (`database/index.js:32`, `database/connection.js:connect`).
+- Legacy single-doc migration now persists the sectioned rows and deletes the old blob after migrating (`database/cloud.js:read`).
+
+**Verified:**
+- Postgres end-to-end: data store (users/groups), session persists across simulated restart, SSL fallback works.
+- MongoDB end-to-end (docker mongo:7): same, all passed.
+- Both DBs fail gracefully on unreachable URLs; syntax check passes on all 190 JS files.
+- Updated `install.sh` (copies `.env.example` → `.env`, prints next steps) and `README.md` (`.env` config section, fixed pm2 commands).
+
+Test infra (docker container, local Postgres) cleaned up. Remaining unstarted item: full `socket.js` boot against the live WhatsApp network (needs a real WhatsApp account/QR), which can't be done in CI.

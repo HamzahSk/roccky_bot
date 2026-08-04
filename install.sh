@@ -79,4 +79,23 @@ Darwin)
 
 esac
 
+echo
+echo "🚀 Setting up environment..."
+if [ -f ".env" ]; then
+   echo "   .env already exists — keeping your values."
+elif [ -f ".env.example" ]; then
+   cp .env.example .env
+   echo "   Created .env from .env.example — please edit it now."
+else
+   echo "   ⚠️  No .env.example found — create .env manually."
+fi
+
+echo
 echo "✅ Install complete!"
+echo
+echo "Next steps:"
+echo "   1. Edit .env and set BOT_OWNER_NUMBER, BOT_NUMBER, PAIRING_CODE"
+echo "   2. For ONLINE session storage (no QR re-scan after restart):"
+echo "      set DATABASE_URL and SESSION_DATABASE_URL (MongoDB/PostgreSQL)"
+echo "      See .env.example for all options."
+echo "   3. Run:  pm2 start ecosystem.config.cjs && pm2 logs index"
