@@ -16,6 +16,19 @@ const getTimestamp = () => {
    return `[${now.toLocaleDateString('id-ID')} ${now.toLocaleTimeString('id-ID')}]`
 }
 
+// ================================
+//  ANTI-CRASH GLOBAL (ENTRY POINT)
+// ================================
+// Kegagalan satu promise (mis. gagal mengirim pesan) tidak boleh mematikan
+// launcher. Cukup dicatat (log) tanpa memanggil process.exit().
+process.on('unhandledRejection', (reason) => {
+   console.error(`${getTimestamp()} ⚠️ [index.js] Unhandled Rejection (tidak mematikan process):`, reason)
+})
+
+process.on('uncaughtException', (error) => {
+   console.error(`${getTimestamp()} ⚠️ [index.js] Uncaught Exception (tidak mematikan process):`, error)
+})
+
 const Banner = () => {
    console.clear()
 

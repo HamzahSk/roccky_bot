@@ -1,22 +1,24 @@
-Role: Senior WhatsApp Bot Developer & Protocol Specialist (Baileys)
+# Role: Senior Backend Engineer & Performance Architect
 
-Tugas Utama:
-Lakukan investigasi, perbaikan bug, dan refactoring pada sistem pengiriman pesan AI agar bot tidak lagi mengalami *crash* akibat salah format pesan (*Invalid media type*). Fokus pada poin-poin berikut:
+## Konteks Masalah:
+Sistem bot WhatsApp (berbasis Baileys) sudah terhubung dengan database (untuk data *user* dan *store*). Namun, sistem mengalami kendala performa yang signifikan: proses memuat data memakan waktu yang sangat lama, baik saat bot baru dinyalakan (*startup*) maupun saat mengeksekusi *query* pengguna. Harap diingat bahwa *environment database* ini dinamis (bisa beroperasi secara **lokal** maupun **online/remote**). 
 
-1. ANALISIS & FIX "INVALID MEDIA TYPE" ERROR:
-   - Identifikasi penyebab error `Unhandled Rejection : Error: Invalid media type` pada `prepareWMessageMedia` (Baileys `messages.js:70:15`).
-   - Pastikan *payload* yang dikirim dari fungsi AI (yang mengandung teks Markdown) dikonstruksi dengan benar. Jika pesan hanya berupa teks Markdown, pastikan objek yang diteruskan ke `sock.sendMessage` murni `{ text: aiResponseString }` tanpa ada *key* media (seperti `image`, `document`, atau `header`) yang bernilai *null* atau *undefined*.
+## Tugas Utama:
+Lakukan investigasi menyeluruh, *profiling* kode, dan *refactoring* untuk mempercepat proses *loading* dan sinkronisasi data tanpa mengorbankan fungsionalitas inti. Biarkan hasil analisismu yang menentukan solusi terbaik. Fokus pada poin-poin eksplorasi berikut:
 
-2. REVIEW BAILEYS GITHUB ISSUES:
-   - Lakukan riset pada repositori https://github.com/whiskeysockets/Baileys/issues `whiskeysockets/Baileys/issues` mengenai cara yang valid dan terbaru untuk merender teks *Markdown* tebal/miring/list panjang dari AI.
-   - Jika menggunakan fitur *Interactive Message* atau *Native Flow* untuk membungkus pesan AI, pastikan *header* teks atau media dikonfigurasi sesuai standar Baileys terbaru untuk mencegah penolakan dari *server* WhatsApp (HTTP 400 Bad Request).
+### 1. DIAGNOSIS & PROFILING BOTTLENECK:
+- Analisis alur data dari titik bot diinisialisasi hingga siap merespons pesan.
+- Temukan akar penyebab kelambatan: apakah karena proses I/O pada file Baileys *store*, *latency* jaringan ke *database online*, *query* yang redundan, atau *Event Loop* Node.js yang terblokir.
 
-3. IMPLEMENTASI GLOBAL ERROR HANDLING (ANTI-CRASH):
-   - Bot tidak boleh *shutdown* hanya karena gagal mengirim satu pesan.
-   - Tangkap error pada *promise* `sendMessage` di *wrapper* atau helper (`SocketClient.js`).
-   - Implementasikan block `try-catch` yang kokoh di dalam fungsi pengiriman pesan AI.
-   - Tambahkan *listener* `process.on('unhandledRejection', ...)` pada titik masuk aplikasi (entry point) untuk mencatat (log) error tanpa mematikan (*exit*) *process* Node.js.
+### 2. ADAPTIVE DATABASE OPTIMIZATION:
+- Analisis koneksi dan struktur *database* yang ada di dalam kode. Sesuaikan strategimu berdasarkan apakah *database* tersebut berjalan di jaringan lokal atau *remote*.
+- Rancang dan terapkan optimasi yang paling logis (contoh: *query refactoring*, implementasi *indexing* yang tepat, manajemen *connection pool*) agar komunikasi data menjadi jauh lebih cepat.
 
-4. SAFE FALLBACK MECHANISM:
-   - Jika metode pengiriman pesan *Markdown* (terutama jika dibungkus dalam *cards* atau format interaktif) gagal dan melempar *exception*, buat fungsi *fallback* otomatis.
-   - *Fallback* ini harus mengirimkan ulang balasan AI menggunakan pesan teks biasa/standar (`{ text: ... }`) tanpa embel-embel UI tambahan, agar *user* tetap menerima jawaban dari AI.
+### 3. BAILEYS STORE OPTIMIZATION:
+- Evaluasi implementasi *Baileys In-Memory Store* saat ini. 
+- Rancang strategi mandiri untuk menangani pembengkakan data riwayat pesan/kontak yang membuat bot lambat saat dimuat awal. Terapkan mekanisme *pruning* (pembersihan otomatis) atau manajemen I/O terbaik menurut pertimbangan arsitekturmu.
+
+### 4. SMART CACHING & DATA FETCHING STRATEGY:
+- Mengingat *database* mungkin berada di *server remote* dengan *latency* tinggi, rancang pola *caching* atau memori sementara yang paling efisien untuk data pengguna yang frekuensi aksesnya tinggi.
+- Evaluasi apakah memuat semua data di awal adalah pilihan terbaik. Jika tidak, implementasikan *Lazy Loading* (memuat data hanya saat dibutuhkan/saat interaksi terjadi).
+- Pastikan operasi pembaruan data pengguna berjalan mulus di latar belakang (*asynchronous*) tanpa menunda pengiriman pesan AI ke pengguna.

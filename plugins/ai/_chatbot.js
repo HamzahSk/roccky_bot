@@ -437,7 +437,7 @@ export default {
             const actionData = parseAction(aiResponse);
             if (actionData) {
                 const cleanResp = aiResponse.replace(/\[ACTION:.*?\]/g, '').trim() || '⚡ Memproses...';
-                await sock.sendMessage(m.chat, { text: cleanResp, edit: thinking.key });
+                await sock.sendMessage(m.chat, { text: cleanResp, edit: thinking?.key });
                 await executeTool({
                     action: actionData.action,
                     payload: actionData.payload,
@@ -450,15 +450,12 @@ export default {
 
             // Kirim balasan teks AI yang sudah dirapikan (code block, tabel,
             // escape sequence) dengan fallback otomatis ke teks mentah.
-            await sock.sendMessage(m.chat, { delete: thinking.key });
-            const cleaned = func.formatMarkdown(aiResponse);
-            try {
-                await sock.sendMessage(m.chat, { text: cleaned }, { quoted: m });
-            }
-            catch (error) {
-                console.error('❌ formatMarkdown send error:', error);
-                await sock.sendMessage(m.chat, { text: aiResponse }, { quoted: m });
-            }
+            // Helper terpusat Func.sendAI menjamin payload murni `{ text }`
+            // (tanpa key media null/undefined) sehingga tidak memicu error
+            // "Invalid media type" dari Baileys.
+            if (thinking?.key)
+                await sock.sendMessage(m.chat, { delete: thinking.key });
+            await func.sendAI(sock, m.chat, aiResponse, { quoted: m });
 
         } catch (error) {
             console.error(error);
