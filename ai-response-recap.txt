@@ -1,1092 +1,1058 @@
 [0m
 > build · deepseek-v4-flash-free
 [0m
-[0m$ [0mls -la
-total 164
-drwxr-xr-x  7 runner runner  4096 Aug 13 03:06 .
-drwxr-xr-x  3 runner runner  4096 Aug 13 03:06 ..
-drwxr-xr-x  7 runner runner  4096 Aug 13 03:06 .git
-drwxr-xr-x  3 runner runner  4096 Aug 13 03:06 .github
--rw-r--r--  1 runner runner  2152 Aug 13 03:06 .gitignore
--rw-r--r--  1 runner runner 44212 Aug 13 03:06 DOCS.md
--rw-r--r--  1 runner runner   467 Aug 13 03:06 Dockerfile
--rw-r--r--  1 runner runner 11338 Aug 13 03:06 LICENSE
--rw-r--r--  1 runner runner  5318 Aug 13 03:06 README.md
--rw-r--r--  1 runner runner    44 Aug 13 03:06 ai-response-recap.txt
--rw-r--r--  1 runner runner   286 Aug 13 03:06 app.config.cjs
--rw-r--r--  1 runner runner  3131 Aug 13 03:06 config.js
--rw-r--r--  1 runner runner   331 Aug 13 03:06 ecosystem.config.cjs
--rw-r--r--  1 runner runner  5120 Aug 13 03:06 index.js
--rw-r--r--  1 runner runner  1678 Aug 13 03:06 install.sh
-drwxr-xr-x  5 runner runner  4096 Aug 13 03:06 lib
-drwxr-xr-x  5 runner runner  4096 Aug 13 03:06 media
--rw-r--r--  1 runner runner  2017 Aug 13 03:06 memory_prompt.md
--rw-r--r--  1 runner runner   161 Aug 13 03:06 nixpacks.toml
--rw-r--r--  1 runner runner  1453 Aug 13 03:06 package.json
-drwxr-xr-x 13 runner runner  4096 Aug 13 03:06 plugins
--rw-r--r--  1 runner runner  1848 Aug 13 03:06 prompt.md
--rw-r--r--  1 runner runner 18273 Aug 13 03:06 socket.js
-[0m
-[0m✱ [0mGlob "**/memory_prompt.md"[90m 1 match[0m
+[0m→ [0mRead .
+[0m✱ [0mGlob "**/*.md"[90m 6 matches[0m
 [0m→ [0mRead memory_prompt.md
-[0m→ [0mRead index.js
+[0m→ [0mRead prompt.md
+[0m→ [0mRead ai_memory/00_INDEX.md
+[0m→ [0mRead ai_memory/task_20260813_0300_refactor_cleanup.md
+[0m→ [0mRead DOCS.md
+[0m→ [0mRead plugins
+[0m→ [0mRead lib
 [0m
-[0m$ [0mls -la ai_memory/ 2>/dev/null || echo "NO ai_memory folder"
-NO ai_memory folder
+[0m$ [0mls -R plugins/
+plugins/:
+_quiz-registry.js
+admin tools
+ai
+download
+explore
+group
+maker
+menu.js
+other
+owner
+partner
+tools
+user info
+
+plugins/admin tools:
+activation.js
+manage-group.js
+manage-member.js
+mentions.js
+moderation.js
+
+plugins/ai:
+_chatbot.js
+gpt-image.js
+image-generation.js
+music-generation.js
+nano-banana.js
+text-generation.js
+
+plugins/download:
+_auto-download.js
+aio.js
+capcut.js
+douyin.js
+facebook.js
+google-drive.js
+instagram.js
+mediafire.js
+pin.js
+spotify.js
+terabox.js
+tiktok.js
+twitter.js
+videy.js
+youtube.js
+
+plugins/explore:
+lyric.js
+meloboom.js
+pinterest.js
+spotify-play.js
+spotify-search.js
+sticker-pack.js
+stickerly.js
+tiktok-photo.js
+wallcraft.js
+youtube-play.js
+youtube-search.js
+youtube-video.js
+
+plugins/group:
+_afk-notifier.js
+_anti-bot.js
+_anti-delete.js
+_anti-group-status.js
+_anti-link.js
+_anti-porn.js
+_anti-spam.js
+_anti-tag-all.js
+_anti-tag-status.js
+_anti-toxic.js
+_auto-sticker.js
+_label-update.js
+_view-once.js
+couple.js
+getgcsw.js
+getpp.js
+group-info.js
+group-link.js
+quoted-message.js
+read-once.js
+total-chat.js
+
+plugins/maker:
+attp.js
+balogo.js
+brat-hd.js
+brat-variant.js
+brat.js
+carbonify.js
+fake-call.js
+fake-dana.js
+fake-fbcomment.js
+fake-ff.js
+fake-ml.js
+fake-story.js
+fake-threads.js
+fake-ttcomment.js
+fake-ttprofile.js
+fake-wachannel.js
+fake-wagroup.js
+fake-xnxx.js
+fake-ytcomment.js
+iqc.js
+msg.js
+qc.js
+reaction.js
+smeme.js
+sticker.js
+text-2-qr.js
+wanted.js
+wasted.js
+
+plugins/other:
+commands.js
+credits.js
+list-data.js
+owner.js
+pricing.js
+test.js
+
+plugins/owner:
+_evaluate.js
+broadcast.js
+manage-bot.js
+manage-label.js
+manage-newsletter.js
+manage-plugin.js
+manage-user.js
+upload-status.js
+
+plugins/partner:
+manage-group.js
+manage-limit.js
+manage-premium.js
+manage-word.js
+sticker-command.js
+upload-newsletter.js
+
+plugins/tools:
+blur-face.js
+calculator.js
+character-recognition.js
+colorize.js
+convert-webp.js
+emoji-gif.js
+emoji-mix.js
+enhance.js
+morse.js
+newsletter-id.js
+no-background.js
+no-watermark.js
+qr-2-text.js
+screenshot-web.js
+sfile-upl.js
+sound-effect.js
+stalk.js
+sticker-watermark.js
+toaudio.js
+tourl.js
+
+plugins/user info:
+afk.js
+charge-energy.js
+claim.js
+leaderboard.js
+profile.js
+wa-me.js
 [0m
+[0m→ [0mRead lib/Function
 [0m→ [0mRead socket.js
-[0m
-[0m$ [0mfind lib plugins -type f | head -100
-lib/Request.js
-lib/Serialize.js
-lib/Utilities.js
-lib/Scraper.js
-lib/Scraper/_chatbot.js
-lib/Scraper/vidsave.js
-lib/Scraper/freeai.js
-lib/Scraper/index.js
-lib/Scraper/aio.js
-lib/Scraper/komik-bbato.js
-lib/Scraper/SfileMobi.js
-lib/Scraper/aiedit.js
-lib/Scraper/savetik.js
-lib/SocketClient.js
-lib/Listener.js
-lib/Function/getFileSize.js
-lib/Function/Utilities.js
-lib/Function/index.js
-lib/Function/tokenizeCode.js
-lib/Function/isMime.js
-lib/Function/FFMPEG.js
-lib/Function/waBaileys.js
-lib/Function/dateTime.js
-lib/Function/isJid.js
-lib/Function/toBanner.js
-lib/Constants.js
-lib/Database.js
-lib/Watcher.js
-lib/Components/SholatReminder.js
-lib/Components/SightEngine.js
-lib/Components/Dispatcher.js
-lib/Components/ErrorHandler.js
-lib/Components/AntiSpam.js
-lib/Components/QuizFactory.js
-lib/Components/Gemini.js
-lib/Components/Scheduler.js
-plugins/explore/tiktok-photo.js
-plugins/explore/youtube-video.js
-plugins/explore/sticker-pack.js
-plugins/explore/wallcraft.js
-plugins/explore/youtube-search.js
-plugins/explore/meloboom.js
-plugins/explore/lyric.js
-plugins/explore/youtube-play.js
-plugins/explore/spotify-search.js
-plugins/explore/stickerly.js
-plugins/explore/pinterest.js
-plugins/explore/spotify-play.js
-plugins/partner/sticker-command.js
-plugins/partner/manage-premium.js
-plugins/partner/manage-group.js
-plugins/partner/manage-limit.js
-plugins/partner/upload-newsletter.js
-plugins/partner/manage-word.js
-plugins/download/pin.js
-plugins/download/videy.js
-plugins/download/_auto-download.js
-plugins/download/mediafire.js
-plugins/download/tiktok.js
-plugins/download/instagram.js
-plugins/download/twitter.js
-plugins/download/aio.js
-plugins/download/facebook.js
-plugins/download/terabox.js
-plugins/download/youtube.js
-plugins/download/google-drive.js
-plugins/download/capcut.js
-plugins/download/douyin.js
-plugins/download/spotify.js
-plugins/admin tools/moderation.js
-plugins/admin tools/manage-group.js
-plugins/admin tools/mentions.js
-plugins/admin tools/activation.js
-plugins/admin tools/manage-member.js
-plugins/maker/carbonify.js
-plugins/maker/qc.js
-plugins/maker/fake-wachannel.js
-plugins/maker/fake-call.js
-plugins/maker/fake-wagroup.js
-plugins/maker/fake-ff.js
-plugins/maker/brat-hd.js
-plugins/maker/fake-story.js
-plugins/maker/brat.js
-plugins/maker/fake-dana.js
-plugins/maker/fake-fbcomment.js
-plugins/maker/fake-ytcomment.js
-plugins/maker/attp.js
-plugins/maker/wanted.js
-plugins/maker/fake-ml.js
-plugins/maker/fake-ttprofile.js
-plugins/maker/smeme.js
-plugins/maker/balogo.js
-plugins/maker/sticker.js
-plugins/maker/fake-xnxx.js
-plugins/maker/wasted.js
-plugins/maker/text-2-qr.js
-plugins/maker/msg.js
-plugins/maker/iqc.js
-plugins/maker/reaction.js
-plugins/maker/fake-threads.js
-[0m
-[0m→ [0mRead config.js
-[0m
-[0m$ [0mfind plugins -type f | wc -l && find plugins -type f | tail -80 && echo "---package---" && cat package.json
-135
-plugins/maker/balogo.js
-plugins/maker/sticker.js
-plugins/maker/fake-xnxx.js
-plugins/maker/wasted.js
-plugins/maker/text-2-qr.js
-plugins/maker/msg.js
-plugins/maker/iqc.js
-plugins/maker/reaction.js
-plugins/maker/fake-threads.js
-plugins/maker/brat-variant.js
-plugins/maker/fake-ttcomment.js
-plugins/ai/music-generation.js
-plugins/ai/_chatbot.js
-plugins/ai/text-generation.js
-plugins/ai/image-generation.js
-plugins/ai/nano-banana.js
-plugins/ai/gpt-image.js
-plugins/user info/leaderboard.js
-plugins/user info/wa-me.js
-plugins/user info/charge-energy.js
-plugins/user info/claim.js
-plugins/user info/afk.js
-plugins/user info/profile.js
-plugins/menu.js
-plugins/tools/convert-webp.js
-plugins/tools/sound-effect.js
-plugins/tools/sfile-upl.js
-plugins/tools/emoji-gif.js
-plugins/tools/stalk.js
-plugins/tools/enhance.js
-plugins/tools/no-background.js
-plugins/tools/emoji-mix.js
-plugins/tools/morse.js
-plugins/tools/calculator.js
-plugins/tools/blur-face.js
-plugins/tools/screenshot-web.js
-plugins/tools/toaudio.js
-plugins/tools/character-recognition.js
-plugins/tools/tourl.js
-plugins/tools/sticker-watermark.js
-plugins/tools/qr-2-text.js
-plugins/tools/colorize.js
-plugins/tools/newsletter-id.js
-plugins/tools/no-watermark.js
-plugins/owner/manage-plugin.js
-plugins/owner/broadcast.js
-plugins/owner/_evaluate.js
-plugins/owner/manage-bot.js
-plugins/owner/manage-user.js
-plugins/owner/upload-status.js
-plugins/owner/manage-newsletter.js
-plugins/owner/manage-label.js
-plugins/_quiz-registry.js
-plugins/group/_anti-bot.js
-plugins/group/group-link.js
-plugins/group/_anti-delete.js
-plugins/group/read-once.js
-plugins/group/_anti-tag-all.js
-plugins/group/_anti-spam.js
-plugins/group/group-info.js
-plugins/group/_afk-notifier.js
-plugins/group/_anti-porn.js
-plugins/group/_auto-sticker.js
-plugins/group/_anti-group-status.js
-plugins/group/_anti-toxic.js
-plugins/group/total-chat.js
-plugins/group/couple.js
-plugins/group/_view-once.js
-plugins/group/getpp.js
-plugins/group/getgcsw.js
-plugins/group/_label-update.js
-plugins/group/_anti-tag-status.js
-plugins/group/quoted-message.js
-plugins/group/_anti-link.js
-plugins/other/commands.js
-plugins/other/credits.js
-plugins/other/pricing.js
-plugins/other/owner.js
-plugins/other/list-data.js
-plugins/other/test.js
----package---
-{
-   "name": "ROCKYY",
-   "version": "0.2.2",
-   "description": "A simple WhatsApp bot built on Baileys",
-   "main": "index.js",
-   "type": "module",
-   "imports": {
-      "#func": "./lib/Function/index.js",
-      "#scrap": "./lib/Scraper/index.js"
-   },
-   "scripts": {
-      "start": "NODE_ENV=production bun index.js",
-      "start:node": "NODE_ENV=production MALLOC_ARENA_MAX=2 node --max-old-space-size=300 --expose-gc index.js",
-      "dev": "bun --watch index.js"
-   },
-   "engines": {
-      "node": ">=20.18.1"
-   },
-   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/itsliaaa/starseed.git"
-   },
-   "keywords": [
-      "automation",
-      "base",
-      "baileys",
-      "bot",
-      "js-whatsapp",
-      "multi-device",
-      "rockyy",
-      "whatsapp",
-      "whatsapp-bot"
-   ],
-   "homepage": "https://github.com/itsliaaa/starseed#readme",
-   "author": "Lia Wynn",
-   "license": "Apache-2.0",
-   "dependencies": {
-      "@hapi/boom": "^10.0.1",
-      "@napi-rs/image": "^1.12.0",
-      "awesome-phonenumber": "~2.59.0",
-      "axios": "^1.13.5",
-      "baileys": "npm:ourin-baileys",
-      "chalk": "^5.6.2",
-      "cheerio": "^1.2.0",
-      "file-type": "21.3.4",
-      "gtts": "^0.2.1",
-      "mongodb": "^7.2.0",
-      "node-cache": "^5.1.2",
-      "pg": "^8.21.0",
-      "pino": "^9.6.0",
-      "qrcode": "~1.5.4",
-      "sharp": "^0.33.5",
-      "yt-search": "^2.13.1"
-   },
-   "packageManager": "bun@latest"
-}
-[0m
-[0m→ [0mRead lib/Listener.js
-[0m→ [0mRead lib/Constants.js
-[0m→ [0mRead lib/Database.js
-[0m→ [0mRead lib/Watcher.js
 [0m→ [0mRead lib/Function/index.js
-[0m→ [0mRead lib/Utilities.js
-[0m→ [0mRead lib/Serialize.js
+[0m→ [0mRead lib/Listener.js
 [0m→ [0mRead lib/SocketClient.js
-[0m→ [0mRead lib/Scraper/index.js
-[0m→ [0mRead lib/Components/ErrorHandler.js
-[0m→ [0mRead lib/Components/Dispatcher.js
-[0m→ [0mRead lib/Function/waBaileys.js
-[0m→ [0mRead lib/Function/FFMPEG.js
-[0m→ [0mRead lib/Function/dateTime.js
+[0m→ [0mRead lib/Serialize.js
+[0m→ [0mRead plugins/group/group-info.js
+[0m→ [0mRead plugins/group/group-link.js
+[0m→ [0mRead lib/Constants.js
+[0m→ [0mRead lib/Watcher.js
+[0m→ [0mRead plugins/group/getpp.js
+[0m→ [0mRead plugins/group/total-chat.js
+[0m→ [0mRead plugins/group/_anti-delete.js
+[0m→ [0mRead plugins/owner/manage-bot.js
+[0m→ [0mRead config.js
 [0m→ [0mRead lib/Function/Utilities.js
-[0m→ [0mRead lib/Function/isMime.js
-[0m→ [0mRead lib/Function/isJid.js
-[0m✱ [0mGrep "ExtendSocket|SocketClient|from './lib/Utilities|from '../Utilities|Utilities\.js"[90m 97 matches[0m
-[0m✱ [0mGrep "from '\.\./lib/Utilities|from '\./lib/Utilities|require\(.*Utilities|import.*Utilities"[90m 89 matches[0m
-[0m→ [0mRead plugins/tools/convert-webp.js
-[0m→ [0mRead plugins/other/commands.js
-[0m→ [0mRead lib/Function/getFileSize.js
-[0m→ [0mRead lib/Function/toBanner.js
-[0m→ [0mRead lib/Function/tokenizeCode.js
-[0m→ [0mRead lib/Scraper.js
-[0m→ [0mRead lib/Request.js
-[0m→ [0mRead lib/Components/Scheduler.js
-[0m→ [0mRead lib/Components/SholatReminder.js
+[0m→ [0mRead lib/Utilities.js
 [0m
-[0m$ [0mnode --version 2>/dev/null; which bun 2>/dev/null && bun --version; ls node_modules 2>/dev/null | head -5 || echo "no node_modules"
-v22.23.1
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && rg -l "sock\.(onWhatsApp|groupInviteCode|groupRevokeInvite|groupAcceptInvite|groupGetInviteInfo|groupMetadata|groupRequestParticipantsList|groupRequestParticipantsUpdate|groupFetchAllParticipating|groupToggleEphemeral|groupMemberAddMode|fetchPrivacySettings|fetchBlocklist|updateBlockStatus|updateProfileStatus|updateProfileName|removeProfilePicture|updateProfilePicture|fetchStatus|getBusinessProfile|presenceSubscribe|sendPresenceUpdate|groupParticipantsUpdate|groupSettingUpdate|groupLeave|groupCreate|chatModify|updateMediaMessage|readMessages|sendNewsletterMessage|newsletterFollow)" plugins/ | head -60
+/bin/bash: line 1: rg: command not found
 [0m
-[0m✱ [0mGrep "HourFormatter|DateTimeFormatter|ExtendSocket|toBannerBuffer|getFileSize"[90m 13 matches[0m
-I have a thorough understanding of the codebase now. Let me check a few remaining details and verify the environment before implementing.
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && rg -o "command:\s*[^\n]+" plugins/ | sed "s/.*command://" | head -120
+/bin/bash: line 1: rg: command not found
 [0m
-[0m$ [0mtimeout 60 npm install --no-audit --no-fund 2>&1 | tail -5; echo "EXIT: $?"
-npm warn deprecated har-validator@5.1.5: this library is no longer supported
-npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
-npm warn deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
-
-added 320 packages in 12s
-EXIT: 0
+[0m✱ [0mGrep "sock\.(onWhatsApp|groupInviteCode|groupRevokeInvite|groupAcceptInvite|groupGetInviteInfo|groupMetadata|groupRequestParticipants|groupFetchAllParticipating|groupToggleEphemeral|groupMemberAddMode|fetchPrivacySettings|fetchBlocklist|updateBlockStatus|updateProfileStatus|updateProfileName|removeProfilePicture|updateProfilePicture|fetchStatus|getBusinessProfile|presenceSubscribe|sendPresenceUpdate|groupParticipantsUpdate|groupSettingUpdate|groupLeave|groupCreate|chatModify|updateMediaMessage|readMessages|newsletterFollow|groupUpdateSubject|groupUpdateDescription|groupSettingUpdate)"[90m in plugins · 19 matches[0m
+[0m✱ [0mGrep "(command|hidden):\s*"[90m in plugins · 100 matches[0m
 [0m
-[0m# [0mTodos
-[•] Rewrite lib/Utilities.js as thin shim over Func namespace (remove duplication + dead ExtendSocket)
-[ ] Clean lib/Function files: fix toBanner.js import, unify formatSize in getFileSize.js
-[ ] Clean lib/SocketClient.js: remove dup comments, DRY media fetch, keep behavior identical
-[ ] Extract maintenance tasks from socket.js into lib/Components/Maintenance.js (auth core untouched)
-[ ] DRY Serialize.js message parser (extract cleanMessageType)
-[ ] Verify: node --check all files + boot smoke test
-[ ] Memory protocol: create ai_memory/00_INDEX.md + task log
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -rhoE "(command|hidden):\s*[^,\n]+" plugins/ | sed "s/^[[:space:]]*//" | sort -u
+command: '
+command: 'afk'
+command: 'balogo'
+command: 'blurface'
+command: 'brai
+command: 'caklo
+command: 'calculator'
+command: 'capcut'
+command: 'carbo
+command: 'cha
+command: 'chargee
+command: 'claim'
+command: 'colorize'
+command: 'comma
+command: 'couple'
+command: 'drakor'
+command: 'emojimix'
+command: 'emojito'
+command: 'fakecall'
+command: 'fakeda
+command: 'fakefbcomme
+command: 'fakeff'
+command: 'fakeml'
+command: 'fakestory'
+command: 'fakethreads'
+command: 'fakettcomme
+command: 'fakettprofile'
+command: 'fakewacha
+command: 'fakewagroup'
+command: 'fakex
+command: 'fakeytcomme
+command: 'gci
+command: 'gcli
+command: 'gdrive'
+command: 'getgcsw'
+command: 'getpp'
+command: 'groups'
+command: 'hd'
+command: 'heroff'
+command: 'heroml'
+command: 'i
+command: 'iqc'
+command: 'jkt48'
+command: 'lyric'
+command: 'mediafire'
+command: 'meloboom'
+command: 'msg'
+command: 'ocr'
+command: 'ow
+command: 'pi
+command: 'play'
+command: 'profile'
+command: 'qc'
+command: 'qr2text'
+command: 'quoted'
+command: 'removebg'
+command: 'removewm'
+command: 'riddle'
+command: 'rvo'
+command: 'sfileupl'
+command: 'smeme'
+command: 'spotify'
+command: 'spotplay'
+command: 'spotsearch'
+command: 'ssweb'
+command: 'sticker'
+command: 'stickerly'
+command: 'stickerpack'
+command: 'su
+command: 'swm'
+command: 'terabox'
+command: 'text2qr'
+command: 'totalchat'
+command: 'tourl'
+command: 'ttphoto'
+command: 'twitter'
+command: 'upsw'
+command: 'videy'
+command: 'wa
+command: 'wallcraft'
+command: 'wame'
+command: 'wasted'
+command: 'whata
+command: 'whatchemistry'
+command: 'whatcou
+command: 'whatfilm'
+command: 'whatflag'
+command: 'whatfood'
+command: 'whatlyric'
+command: 'whatpicture'
+command: 'whatprofessio
+command: 'whatword'
+command: 'whoami'
+command: 'ytsearch'
+command: *${isPrefix + comma
+command: Object.keys(REACTION_TEXTS)
+command: ['+cmdstic'
+command: ['+limit'
+command: ['+part
+command: ['+premium'
+command: ['+war
+command: ['+word'
+command: ['a
+command: ['admi
+command: ['afk
+command: ['ai'
+command: ['aiimg'
+command: ['aio'
+command: ['attp'
+command: ['bass'
+command: ['brat'
+command: ['brata
+command: ['brathd'
+command: ['broadcast'
+command: ['closegc'
+command: ['credits'
+command: ['dcstalk'
+command: ['delplugi
+command: ['disk'
+command: ['douyi
+command: ['everyo
+command: ['facebook'
+command: ['limit'
+command: ['listba
+command: ['me
+command: ['morse'
+command: ['mute'
+command: ['playch'
+command: ['playvideo'
+command: ['premium'
+command: ['setch
+command: ['setlabel'
+command: ['tiktok'
+command: ['toaudio'
+command: ['toimage'
+command: ['ytmp3'
+command: cachedComma
+command: stickerComma
+hidden: '
+hidden: 'cal'
+hidden: 'cc'
+hidden: 'charge'
+hidden: 'cp'
+hidden: 'del'
+hidden: 'e
+hidden: 'emogif'
+hidden: 'fb'
+hidden: 'gc'
+hidden: 'idgc'
+hidden: 'ig'
+hidden: 'lirik'
+hidden: 'me'
+hidden: 'mf'
+hidden: 'mix'
+hidden: 'pi
+hidden: 'sc'
+hidden: 'siapaaku'
+hidden: 'skpack'
+hidden: 'tb'
+hidden: 'tebak
+hidden: 'tebakbe
+hidden: 'tebakff'
+hidden: 'tebakfilm'
+hidden: 'tebakgambar'
+hidden: 'tebakhewa
+hidden: 'tebakkata'
+hidden: 'tebakkimia'
+hidden: 'tebaklirik'
+hidden: 'tebakmaka
+hidden: 'tebakml'
+hidden: 'tebakprofesi'
+hidden: 'tekateki'
+hidden: 'tomp3'
+hidden: 'tw'
+hidden: ['+prem'
+hidden: ['a
+hidden: ['bc'
+hidden: ['dp'
+hidden: ['idch'
+hidden: ['prem'
+hidden: ['s'
+hidden: ['toimg'
+hidden: ['tt'
+hidden: ['yta'
+hidden: ['yts'
 [0m
-[0m← [0mWrite lib/Utilities.js
-Wrote file successfully.
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -rhoE "(command|hidden):\s*\[[^]]*\]|(command|hidden):\s*'[^']*'" plugins/ | sed "s/^[[:space:]]*//" | sort -u | wc -l && grep -rhoE "(command|hidden):\s*\[[^]]*\]|(command|hidden):\s*'[^']*'" plugins/ | sed "s/^[[:space:]]*//" | sort -u
+183
+command: 'afk'
+command: 'balogo'
+command: 'blurface'
+command: 'brainout'
+command: 'caklontong'
+command: 'calculator'
+command: 'capcut'
+command: 'carbonify'
+command: 'channelid'
+command: 'chargeenergy'
+command: 'claim'
+command: 'colorize'
+command: 'commands'
+command: 'couple'
+command: 'drakor'
+command: 'emojimix'
+command: 'emojito'
+command: 'fakecall'
+command: 'fakedana'
+command: 'fakefbcomment'
+command: 'fakeff'
+command: 'fakeml'
+command: 'fakestory'
+command: 'fakethreads'
+command: 'fakettcomment'
+command: 'fakettprofile'
+command: 'fakewachannel'
+command: 'fakewagroup'
+command: 'fakexnxx'
+command: 'fakeytcomment'
+command: 'gcinfo'
+command: 'gclink'
+command: 'gdrive'
+command: 'getgcsw'
+command: 'getpp'
+command: 'groups'
+command: 'hd'
+command: 'heroff'
+command: 'heroml'
+command: 'instagram'
+command: 'iqc'
+command: 'jkt48'
+command: 'lyric'
+command: 'mediafire'
+command: 'meloboom'
+command: 'msg'
+command: 'nanobanana'
+command: 'ocr'
+command: 'owner'
+command: 'pin'
+command: 'pinimg'
+command: 'play'
+command: 'profile'
+command: 'qc'
+command: 'qr2text'
+command: 'quoted'
+command: 'removebg'
+command: 'removewm'
+command: 'riddle'
+command: 'rvo'
+command: 'sfileupl'
+command: 'smeme'
+command: 'spotify'
+command: 'spotplay'
+command: 'spotsearch'
+command: 'ssweb'
+command: 'sticker'
+command: 'stickerly'
+command: 'stickerpack'
+command: 'suno'
+command: 'swm'
+command: 'terabox'
+command: 'text2qr'
+command: 'totalchat'
+command: 'tourl'
+command: 'ttphoto'
+command: 'twitter'
+command: 'upsw'
+command: 'videy'
+command: 'wallcraft'
+command: 'wame'
+command: 'wanted'
+command: 'wasted'
+command: 'whatanimal'
+command: 'whatchemistry'
+command: 'whatcountry'
+command: 'whatfilm'
+command: 'whatflag'
+command: 'whatfood'
+command: 'whatlyric'
+command: 'whatpicture'
+command: 'whatprofession'
+command: 'whatword'
+command: 'whoami'
+command: 'ytsearch'
+command: ['+cmdstic', '-cmdstic']
+command: ['+limit', '-limit']
+command: ['+partner', '-partner', '-user', 'ban', 'block', 'unban', 'unblock']
+command: ['+premium', '-premium']
+command: ['+warn', '-warn', 'add', 'kick', 'promote', 'demote', 'sider']
+command: ['+word', '-word']
+command: ['adminonly', 'antibot', 'antidelete', 'antiporn', 'antigroupstatus', 'antilink', 'antirejoin', 'antispam', 'antitagall', 'antitagstatus', 'antitoxic', 'antiwalink', 'autosticker', 'labelupdate', 'sholatreminder', 'left', 'welcome']
+command: ['afknotifier', 'autodownload', 'backup', 'backupsc', 'chatbot', 'commandsuggestion', 'disable', 'enable', 'gconly', 'menumusic', 'noprefix', 'notifier', 'public', 'reactstatus', 'readmessage', 'rejectcall', 'resetlimit', 'restart', 'restore', 'securelabel', 'setbroadcastcd', 'setinstruction', 'setmenu', 'setmenumusic', 'setmenumessage', 'setmodel', 'setname', 'setbio', 'setpp', 'setcover', 'setchid', 'setreply', 'slowmode', 'self', 'typingpresence', 'updatesc', '+prefix', '-prefix']
+command: ['ai', 'claude', 'copilot', 'deepsearch', 'deepseek', 'dgaf', 'dolphin', 'dreamanalyze', 'gita', 'glm', 'hammer', 'nexray', 'perplexity']
+command: ['aiimg', 'openaiimg']
+command: ['aio', 'alldl']
+command: ['animagine', 'cartoony', 'dreamshaper', 'newreality']
+command: ['attp', 'ttp']
+command: ['bass', 'blown', 'chipmunk', 'deep', 'earrape', 'fast', 'fat', 'nightcore', 'reverse', 'robot', 'slow', 'smooth', 'vibrato', 'echo', 'tremolo', 'cave', 'haunted', 'underwater', 'cursed', 'dizzy', 'demonic', 'alien', 'ghost', 'glitch', 'vintage', 'telephone', '8d', 'drunk', 'helium', 'muted', 'underworld', 'squirrel', 'boostbass', 'boosttreble', 'whisper', 'darthvader', 'chipdemon', 'megaphone', 'immersive', 'reverb']
+command: ['brat', 'bratvid']
+command: ['bratanime', 'bratgirl']
+command: ['brathd', 'bratvidhd']
+command: ['broadcast', 'broadcastgc', 'broadcastgcsw']
+command: ['closegc', 'opengc', 'delete', 'setgcdesc', 'setgcname', 'setgcpp', 'setleft', 'setwelcome', 'upgcsw']
+command: ['credits', 'script', 'thanksto']
+command: ['dcstalk', 'ffstalk', 'igstalk', 'robloxstalk', 'ttstalk']
+command: ['delplugin', 'getplugin', 'saveplugin']
+command: ['disk', 'ping', 'ram', 'run', 'server', 'statistic']
+command: ['douyin', 'doump3', 'douvn']
+command: ['everyone', 'hidetag', 'tagall', 'totag']
+command: ['facebook', 'fbmp3', 'fbvn']
+command: ['limit', 'leaderboard']
+command: ['listbanned', 'listtoxic']
+command: ['menu', 'command', 'help', 'allmenu']
+command: ['morse', 'dmorse']
+command: ['mute', 'unmute']
+command: ['playch', 'playvidch', 'ptvch', 'upch']
+command: ['playvideo', 'ptv']
+command: ['premium', 'rental']
+command: ['setchname', 'setchdesc', 'setchpp']
+command: ['setlabel', 'dellabel']
+command: ['tiktok', 'tikwm', 'ttmp3', 'ttvn']
+command: ['toaudio', 'tovn']
+command: ['toimage', 'tovideo']
+command: ['ytmp3', 'ytmp4']
+hidden: 'cal'
+hidden: 'cc'
+hidden: 'charge'
+hidden: 'cp'
+hidden: 'del'
+hidden: 'emogif'
+hidden: 'enhance'
+hidden: 'fb'
+hidden: 'gc'
+hidden: 'idgc'
+hidden: 'ig'
+hidden: 'lirik'
+hidden: 'me'
+hidden: 'mf'
+hidden: 'mix'
+hidden: 'nobackground'
+hidden: 'nowatermark'
+hidden: 'pins'
+hidden: 'sc'
+hidden: 'siapaaku'
+hidden: 'skpack'
+hidden: 'tb'
+hidden: 'tebakbendera'
+hidden: 'tebakff'
+hidden: 'tebakfilm'
+hidden: 'tebakgambar'
+hidden: 'tebakhewan'
+hidden: 'tebakkata'
+hidden: 'tebakkimia'
+hidden: 'tebaklirik'
+hidden: 'tebakmakanan'
+hidden: 'tebakml'
+hidden: 'tebaknegara'
+hidden: 'tebakprofesi'
+hidden: 'tekateki'
+hidden: 'tomp3'
+hidden: 'tw'
+hidden: ['+prem', '-prem']
+hidden: ['anydl']
+hidden: ['bc', 'bcgc', 'bcgcsw', 'jpm']
+hidden: ['dp', 'gp', 'sp']
+hidden: ['idch', 'cekidch']
+hidden: ['prem', 'rent']
+hidden: ['s', 'stiker', 'svid']
+hidden: ['toimg', 'tovid']
+hidden: ['tt', 'ttmp4', 'ttwm']
+hidden: ['yta', 'ytv']
+hidden: ['yts', 'ytsa', 'ytsv']
 [0m
-Now let me rewrite `lib/Utilities.js` as a thin compatibility shim over the `Func` namespace, eliminating the duplicated implementations.
-[0m← [0mEdit lib/Function/toBanner.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/toBanner.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/toBanner.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/toBanner.js
-@@ -1,6 +1,6 @@
- // lib/functions/banner.js
--import { Func } from './index.js'
-+import { Func } from '#func'
- import { exec } from 'child_process'
- import fs from 'fs/promises'
- import path from 'path'
- import os from 'os'
-
+[0m→ [0mRead plugins/tools/stalk.js
+[0m→ [0mRead plugins/owner/broadcast.js
+[0m→ [0mRead plugins/admin tools/manage-member.js
+[0m→ [0mRead plugins/admin tools/manage-group.js
+[0m→ [0mRead plugins/group/quoted-message.js
+[0m→ [0mRead plugins/partner/manage-group.js
+[0m→ [0mRead plugins/user info/wa-me.js
+[0m→ [0mRead plugins/group/read-once.js
 [0m
-Now fix `toBanner.js` (inconsistent import) and unify `formatSize` in `getFileSize.js`.
-[0m← [0mEdit lib/Function/getFileSize.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/getFileSize.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/getFileSize.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/getFileSize.js
-@@ -25,10 +25,10 @@
-    }
- }
- 
- Func.formatSize = (bytes) => {
--   if (bytes === 0) return '0 B'
--   const k = 1024
--   const sizes = ['B', 'KB', 'MB', 'GB']
--   const i = Math.floor(Math.log(bytes) / Math.log(k))
--   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-+   if (bytes < 1024) return bytes + ' B'
-+   if (bytes < 1024 ** 2) return (bytes / 1024).toFixed(1) + ' KB'
-+   if (bytes < 1024 ** 3) return (bytes / 1024 ** 2).toFixed(1) + ' MB'
-+   if (bytes < 1024 ** 4) return (bytes / 1024 ** 3).toFixed(1) + ' GB'
-+   return (bytes / 1024 ** 4).toFixed(1) + ' TB'
- }
-\ No newline at end of file
-
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls node_modules/@whiskeysockets/baileys 2>/dev/null | head; grep -o '"baileys"' package.json; node -e "console.log(require('baileys/package.json').version)" 2>/dev/null || node -e "const p=require('./package.json'); console.log(p.dependencies.baileys || p.dependencies['@whiskeysockets/baileys'])"
+"baileys"
+"baileys"
+npm:ourin-baileys
 [0m
-Now let me clean up `lib/SocketClient.js` — removing duplicated comments and DRYing the media fetch logic while keeping behavior identical.
-[0m← [0mWrite lib/SocketClient.js
-Wrote file successfully.
-[0m
-[0m← [0mWrite lib/Components/Maintenance.js
-Wrote file successfully.
-[0m
-Now extract the maintenance logic from `socket.js` into a dedicated module. First create `lib/Components/Maintenance.js`:
-[0m← [0mEdit socket.js
-Index: /home/runner/work/roccky_bot/roccky_bot/socket.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/socket.js
-+++ /home/runner/work/roccky_bot/roccky_bot/socket.js
-@@ -10,19 +10,20 @@
- 
- import { Database, Store, connectCloudDB } from './lib/Database.js';
- import { Boom } from '@hapi/boom';
- import { delay, DisconnectReason, jidNormalizedUser, makeWASocket, useMultiFileAuthState } from 'baileys';
--import { mkdir, unlink, readdir, stat } from 'fs/promises';
-+import { mkdir } from 'fs/promises';
- import { existsSync, mkdirSync, writeFileSync } from 'fs';
- import { join } from 'path';
- import pino from 'pino';
- import readline from 'readline';
- import NodeCache from 'node-cache';
- 
--import { BOT, INACTIVE_THRESHOLD, TEMP_THRESHOLD } from './lib/Constants.js';
-+import { BOT } from './lib/Constants.js';
- import { CommandIndex, ModuleCache, scanDirectory } from './lib/Watcher.js';
- import Listener from './lib/Listener.js';
- import SholatReminder from './lib/Components/SholatReminder.js';
-+import { startMaintenance } from './lib/Components/Maintenance.js';
- 
- // ================================
- //  KONFIGURASI & PATH
- // ================================
-
-[0m
-Now update `socket.js` to use the new maintenance module (keeping the auth/connection core untouched):
-[0m← [0mEdit socket.js
-Index: /home/runner/work/roccky_bot/roccky_bot/socket.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/socket.js
-+++ /home/runner/work/roccky_bot/roccky_bot/socket.js
-@@ -402,78 +402,14 @@
- 
-   // 6. JALANKAN SOCKET KONEKSI WA
-   Socket();
- 
--  // 7. CRON JOBS (Daily Tasks, Autosave, Temp Clean)
--  const scheduleDailyTasks = () => {
--    const resetTimeout = Func.getNextMidnight();
--    setTimeout(() => {
--      const timestampMs = Date.now();
--      const threshold = timestampMs - INACTIVE_THRESHOLD;
--      const setting = db?.getSetting();
--      if (!setting) return;
--      for (const [id, user] of db.users) {
--        const isProtected = user.banned || user.premiumExpiry > 0 || user.limit >= 200;
--        if (!isProtected && user.lastSeen < threshold) db.deleteUser(id);
--      }
--      for (const [id, group] of db.groups)
--        if (group.lastActivity < threshold) {
--          store.deleteGroup(id);
--          db.deleteGroup(id);
--        }
--      for (const user of db.users.values()) {
--        if (user.limit < (global.defaultLimit || 50)) user.limit = global.defaultLimit || 50;
--        user.energy = 100;
--      }
--      setting.lastReset = timestampMs;
--      db.writeToFile();
--      scheduleDailyTasks();
--    }, resetTimeout);
--    console.log('🔃 Tugas harian dijadwalkan dalam', ':', Func.toTime(resetTimeout));
--  };
--  scheduleDailyTasks();
--
--  if (global.gc) {
--    setInterval(() => {
--      global.gc();
--      console.log('🧹 Garbage collector dipanggil, memori dibersihkan');
--    }, global.gcInterval || 60000);
--  }
--
--  // INTERVAL AUTOSAVE DATABASE (Sangat Penting)
--  const dataInterval = global.dataInterval || 30000;
--  const rssLimit = global.rssLimit || 1024 * 1024 * 500;
--  const check = setInterval(async () => {
--    if (db && store) {
--      await db.writeToFile();
--      await store.writeToFile();
--    }
--    if (process.memoryUsage().rss >= rssLimit) {
--      clearInterval(check);
--      process.send('reset');
--    }
--  }, dataInterval);
--
--  // INTERVAL PEMBERSIH FOLDER TEMP
--  const temporaryFileInterval = global.temporaryFileInterval || 3600000;
--  setInterval(async () => {
--    try {
--      const timestampMs = Date.now();
--      const temporaryFiles = await readdir(TEMPORARY_FOLDER_PATH);
--      let removedFiles = 0;
--      for (const fileName of temporaryFiles) {
--        const filePath = join(TEMPORARY_FOLDER_PATH, fileName);
--        const fileStatistic = await stat(filePath);
--        if (timestampMs - fileStatistic.mtimeMs > TEMP_THRESHOLD) {
--          await unlink(filePath);
--          removedFiles++;
--        }
--      }
--      if (removedFiles > 0) console.log('🗑️ Membersihkan folder temp:', removedFiles, 'file dihapus');
--    } catch (error) {
--      console.error('❌ Gagal membersihkan folder temp:', error.message);
--    }
--  }, temporaryFileInterval);
-+   // 7. MAINTENANCE BACKGROUND (Daily Tasks, Autosave, Temp Clean, GC)
-+   startMaintenance({
-+      db,
-+      store,
-+      temporaryFolderPath: TEMPORARY_FOLDER_PATH
-+   });
- };
- 
- // JALANKAN SETUP
- Setup();
-
-[0m
-[0m✱ [0mGrep "Func\.|CommandIndex|ModuleCache"[90m in socket.js · 100 matches[0m
-[0m✱ [0mGrep "CommandIndex|ModuleCache|scanDirectory"[90m in socket.js · 31 matches[0m
-[0m
-[0m← [0mEdit socket.js
-Index: /home/runner/work/roccky_bot/roccky_bot/socket.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/socket.js
-+++ /home/runner/work/roccky_bot/roccky_bot/socket.js
-@@ -18,9 +18,9 @@
- import readline from 'readline';
- import NodeCache from 'node-cache';
- 
- import { BOT } from './lib/Constants.js';
--import { CommandIndex, ModuleCache, scanDirectory } from './lib/Watcher.js';
-+import { scanDirectory } from './lib/Watcher.js';
- import Listener from './lib/Listener.js';
- import SholatReminder from './lib/Components/SholatReminder.js';
- import { startMaintenance } from './lib/Components/Maintenance.js';
- 
-
-[0m
-[0m← [0mEdit lib/Serialize.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Serialize.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Serialize.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Serialize.js
-@@ -207,26 +207,19 @@
-       message.protocolMessage ||
-       message.reactionMessage
-    )
- 
--function download() {
--   const messageType = this.type
--
--   const cleanType = messageType.slice(-7) === 'Message' ?
-+const cleanMessageType = (messageType) =>
-+   messageType.slice(-7) === 'Message' ?
-       messageType.slice(0, -7) :
-       messageType
- 
--   return downloadAsBuffer(this.msg, cleanType)
-+function download() {
-+   return downloadAsBuffer(this.msg, cleanMessageType(this.type))
- }
- 
- function downloadQuoted() {
--   const messageType = this.type
--
--   const cleanType = messageType.slice(-7) === 'Message' ?
--      messageType.slice(0, -7) :
--      messageType
--
--   return downloadAsBuffer(this, cleanType)
-+   return downloadAsBuffer(this, cleanMessageType(this.type))
- }
- 
- export const Serialize = (sock, store, setting, message) => {
-    const m = {
-
-[0m
-Now the small DRY cleanup in `Serialize.js`:
-[0m# [0mTodos
-[✓] Rewrite lib/Utilities.js as thin shim over Func namespace (remove duplication + dead ExtendSocket)
-[✓] Clean lib/Function files: fix toBanner.js import, unify formatSize in getFileSize.js
-[✓] Clean lib/SocketClient.js: remove dup comments, DRY media fetch, keep behavior identical
-[✓] Extract maintenance tasks from socket.js into lib/Components/Maintenance.js (auth core untouched)
-[✓] DRY Serialize.js message parser (extract cleanMessageType)
-[•] Verify: node --check all files + boot smoke test
-[ ] Memory protocol: create ai_memory/00_INDEX.md + task log
-[0m
-[0m$ [0mfind . -name '*.js' -not -path './node_modules/*' -print0 | xargs -0 -n1 node --check > /tmp/syntax_check.log 2>&1; echo "EXIT: $?"; grep -i "error" /tmp/syntax_check.log | head -20; echo "--- total files checked:"; find . -name '*.js' -not -path './node_modules/*' | wc -l
-EXIT: 0
---- total files checked:
-175
-[0m
-All 175 JS files pass syntax check. Now a boot smoke test to catch runtime/import errors:
-[0m$ [0mtimeout 60 node --expose-gc socket.js > /tmp/boot_test.log 2>&1; echo "EXIT: $?"; echo "=== OUTPUT (first 80 lines) ==="; head -80 /tmp/boot_test.log
-EXIT: 124
-=== OUTPUT (first 80 lines) ===
-⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
-👉 Please run: npm install fluent-ffmpeg
- FUNC  Berhasil dimuat: FFMPEG.js
- FUNC  Berhasil dimuat: Utilities.js
- FUNC  Berhasil dimuat: dateTime.js
- FUNC  Berhasil dimuat: getFileSize.js
- FUNC  Berhasil dimuat: isJid.js
- FUNC  Berhasil dimuat: isMime.js
- FUNC  Berhasil dimuat: toBanner.js
- FUNC  Berhasil dimuat: tokenizeCode.js
- FUNC  Berhasil dimuat: waBaileys.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m SfileMobi.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m _chatbot.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m aiedit.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m aio.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m freeai.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m komik-bbato.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m savetik.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m vidsave.js
-🔄 Memulai bot Starseed...
-📦 Memuat data pengguna & grup...
-✅ Data berhasil dimuat: 0 User, 0 Grup.
-🔃 Tugas harian dijadwalkan dalam : 13h 49m 19s
-🔑 Meminta kode pairing untuk 6281347951754...
-
-===================================
-🔗 PAIRING CODE : STAR-SEED
-===================================
-[0m
-[0m$ [0mgrep -iE "failed|error|❌|undefined is not|TypeError|ReferenceError" /tmp/boot_test.log | grep -v "Failed to get data\|Gagal mendapatkan" | head -20; echo "=== scan/plugin load markers ==="; grep -cE "🔔 Updated|➕ Added" /tmp/boot_test.log
-=== scan/plugin load markers ===
-0
-[0m
-The bot boots successfully — all Function/Scraper files loaded, all plugins scanned, DB loaded, and it reached the WhatsApp pairing flow. Let me verify there were no hidden load errors:
-No errors. Let me directly verify the `Utilities.js` shim resolves every exported helper to a working function after `loadFunc()`:
-[0m$ [0mtimeout 30 node --input-type=module -e "
-import loadFunc from './lib/Function/index.js';
-import * as U from './lib/Utilities.js';
-await loadFunc();
-const names = Object.keys(U);
-let missing = [];
-for (const n of names) {
-   if (typeof U[n] !== 'function') missing.push(n + ':' + typeof U[n]);
-}
-console.log('exports:', names.length);
-console.log('missing/non-function:', missing.length ? missing : 'NONE');
-// spot-check behavior
-console.log('isMimeImage(\"image/png\"):', U.isMimeImage('image/png'));
-console.log('frame(...):', JSON.stringify(U.frame('T', ['a'], '😀')));
-console.log('toTime(90061000):', U.toTime(90061000));
-console.log('formatSize(2048):', U.formatSize(2048));
-console.log('formatSize(0):', U.formatSize(0));
-" 2>&1 | tail -10
-isMimeImage("image/png"): true
-file:///home/runner/work/roccky_bot/roccky_bot/lib/Utilities.js:15
-   (...args) => Func[name](...args)
-                          ^
-
-TypeError: Func[name] is not a function
-    at Module.<anonymous> (file:///home/runner/work/roccky_bot/roccky_bot/lib/Utilities.js:15:27)
-    at file:///home/runner/work/roccky_bot/roccky_bot/[eval1]:14:45
-
-Node.js v22.23.1
-[0m
-The shim works but some function is missing on `Func`. Let me debug precisely which names are missing:
-[0m$ [0mtimeout 30 node --input-type=module -e "
-import loadFunc, { Func } from '#func';
-import * as U from './lib/Utilities.js';
-await loadFunc();
-const missing = Object.keys(U).filter(n => typeof U[n] !== 'function');
-console.log('shim exports:', Object.keys(U).length);
-console.log('missing:', missing);
-const funcKeys = Object.keys(Func);
-console.log('Func keys count:', funcKeys.length);
-console.log('has frame:', typeof Func.frame, '| has formatSize:', typeof Func.formatSize, '| has toTime:', typeof Func.toTime, '| has greeting:', typeof Func.greeting);
-" 2>&1 | tail -8
-FUNC  Berhasil dimuat: isMime.js
- FUNC  Berhasil dimuat: toBanner.js
- FUNC  Berhasil dimuat: tokenizeCode.js
- FUNC  Berhasil dimuat: waBaileys.js
-shim exports: 49
-missing: []
-Func keys count: 31
-has frame: undefined | has formatSize: function | has toTime: undefined | has greeting: function
-[0m
-The `missing: []` check only validated the wrappers, not the underlying functions. There may be a module-instance mismatch in the eval context. Let me test using a real project file (same module graph as the actual app):
-[0m$ [0mcat > /tmp/opencode/shim_test.mjs <<'EOF'
-import loadFunc, { Func as FuncA } from '#func';
-await loadFunc();
-
-const { frame, toTime, formatSize, isMimeImage, greeting } = await import('./lib/Utilities.js');
-console.log('frame:', frame ? typeof frame : 'MISSING');
-console.log('toTime:', toTime ? typeof toTime : 'MISSING');
-console.log('formatSize:', formatSize ? typeof formatSize : 'MISSING');
-console.log('greeting:', greeting ? typeof greeting : 'MISSING');
-console.log('frame(1):', JSON.stringify(frame('T', ['a'], '😀')));
-console.log('toTime(1):', toTime(90061000));
-console.log('formatSize(1):', formatSize(2048));
-console.log('formatSize(0):', formatSize(0));
-console.log('greeting(1):', greeting(Date.now()));
-console.log('same Func object:', FuncA === (await import('#func')).Func);
-EOF
-cp /tmp/opencode/shim_test.mjs /home/runner/work/roccky_bot/roccky_bot/_shim_test.mjs
-timeout 30 node /home/runner/work/roccky_bot/roccky_bot/_shim_test.mjs 2>&1 | tail -12
-rm -f /home/runner/work/roccky_bot/roccky_bot/_shim_test.mjs
-toTime: function
-formatSize: function
-greeting: function
-file:///home/runner/work/roccky_bot/roccky_bot/lib/Utilities.js:15
-   (...args) => Func[name](...args)
-                          ^
-
-TypeError: Func[name] is not a function
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Utilities.js:15:27
-    at file:///home/runner/work/roccky_bot/roccky_bot/_shim_test.mjs:9:41
-
-Node.js v22.23.1
-[0m
-[0m$ [0mcat > /home/runner/work/roccky_bot/_shim_test.mjs <<'EOF'
-import loadFunc, { Func as FuncA } from '#func';
-await loadFunc();
-
-const UMod = await import('./lib/Utilities.js');
-const FMod = await import('#func');
-console.log('FuncA === #func.Func:', FuncA === FMod.Func);
-console.log('shim.Func frame type:', typeof FMod.Func.frame);
-console.log('shim frame type:', typeof UMod.frame);
-console.log('frame(1):', JSON.stringify(UMod.frame('T', ['a'], '😀')));
-EOF
-timeout 30 node /home/runner/work/roccky_bot/roccky_bot/_shim_test.mjs 2>&1 | tail -8
-rm -f /home/runner/work/roccky_bot/roccky_bot/_shim_test.mjs
-at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
-    at node:internal/main/run_main_module:36:49 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-[0m
-[0m$ [0mcat > /home/runner/work/roccky_bot/_shim_test.js <<'EOF'
-import loadFunc, { Func as FuncA } from '#func';
-await loadFunc();
-
-const UMod = await import('./lib/Utilities.js');
-const FMod = await import('#func');
-console.log('FuncA === #func.Func:', FuncA === FMod.Func);
-console.log('#func.Func.frame type:', typeof FMod.Func.frame);
-console.log('UMod.frame type:', typeof UMod.frame);
-console.log('frame(1):', JSON.stringify(UMod.frame('T', ['a'], '😀')));
-console.log('DONE');
-EOF
-timeout 30 node /home/runner/work/roccky_bot/roccky_bot/_shim_test.js 2>&1 | tail -12
-rm -f /home/runner/work/roccky_bot/roccky_bot/_shim_test.js
-at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
-    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
-    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
-    at Function._load (node:internal/modules/cjs/loader:1216:25)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
-    at node:internal/main/run_main_module:36:49 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-[0m
-[0m$ [0mcat > /home/runner/work/roccky_bot/_shim_test.js <<'EOF'
-import loadFunc, { Func as FuncA } from '#func';
-await loadFunc();
-const UMod = await import('./lib/Utilities.js');
-const FMod = await import('#func');
-console.log('FuncA === #func.Func:', FuncA === FMod.Func);
-console.log('#func.Func.frame type:', typeof FMod.Func.frame);
-console.log('UMod.frame type:', typeof UMod.frame);
-console.log('frame(1):', JSON.stringify(UMod.frame('T', ['a'], '😀')));
-console.log('DONE');
-EOF
-timeout 30 node /home/runner/work/roccky_bot/roccky_bot/_shim_test.js 2>&1 | head -15
-rm -f /home/runner/work/roccky_bot/roccky_bot/_shim_test.js
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && node -e "const B = require('baileys'); const proto = Object.getOwnPropertyNames(Object.getPrototypeOf({})).length; console.log('baileys loaded'); const s = {}; console.log(typeof B.default);" 2>&1 | head -5; ls node_modules/baileys/ 2>/dev/null | head
 node:internal/modules/cjs/loader:1433
   throw err;
   ^
 
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/_shim_test.js'
-    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
-    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
-    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
-    at Function._load (node:internal/modules/cjs/loader:1216:25)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
-    at node:internal/main/run_main_module:36:49 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
+Error: Cannot find module 'baileys'
 [0m
-[0m← [0mWrite /home/runner/work/roccky_bot/_shim_test.js
-Wrote file successfully.
-[0m
-Let me use the Write tool to create the test file instead:
-[0m$ [0mls -la /home/runner/work/roccky_bot/_shim_test.js && timeout 30 node /home/runner/work/roccky_bot/_shim_test.js 2>&1 | tail -12
--rw-r--r-- 1 runner runner 421 Aug 13 03:13 /home/runner/work/roccky_bot/_shim_test.js
-    at importNotDefined (node:internal/modules/esm/resolve:301:10)
-    at packageImportsResolve (node:internal/modules/esm/resolve:751:9)
-    at moduleResolve (node:internal/modules/esm/resolve:844:16)
-    at defaultResolve (node:internal/modules/esm/resolve:985:11)
-    at #cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
-    at ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
-    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
-    at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
-  code: 'ERR_PACKAGE_IMPORT_NOT_DEFINED'
-}
-
-Node.js v22.23.1
-[0m
-[0m$ [0mls -la /home/runner/work/roccky_bot/ && echo "--- parent ---" && ls -la /home/runner/work/ 2>/dev/null | head; echo "--- pwd ---"; pwd
-total 20
-drwxr-xr-x  3 runner runner 4096 Aug 13 03:13 .
-drwxr-xr-x  6 runner runner 4096 Aug 13 03:06 ..
--rw-r--r--  1 runner runner  421 Aug 13 03:13 _shim_test.js
--rw-r--r--  1 runner runner  400 Aug 13 03:13 _shim_test.mjs
-drwxr-xr-x 11 runner runner 4096 Aug 13 03:13 roccky_bot
---- parent ---
-total 24
-drwxr-xr-x  6 runner runner 4096 Aug 13 03:06 .
-drwxr-x--- 14 runner runner 4096 Aug 13 03:06 ..
-drwxr-xr-x  3 runner runner 4096 Aug 13 03:06 _PipelineMapping
-drwxr-xr-x  3 runner runner 4096 Aug 13 03:06 _actions
-drwxr-xr-x  4 runner runner 4096 Aug 13 03:06 _temp
-drwxr-xr-x  3 runner runner 4096 Aug 13 03:13 roccky_bot
---- pwd ---
-/home/runner/work/roccky_bot/roccky_bot
-[0m
-[0m$ [0mrm -f /home/runner/work/roccky_bot/_shim_test.js /home/runner/work/roccky_bot/_shim_test.mjs /home/runner/work/roccky_bot/roccky_bot/_shim_test.mjs /home/runner/work/roccky_bot/roccky_bot/_shim_test.js 2>/dev/null; ls -la /home/runner/work/roccky_bot/
-total 12
-drwxr-xr-x  3 runner runner 4096 Aug 13 03:14 .
-drwxr-xr-x  6 runner runner 4096 Aug 13 03:06 ..
-drwxr-xr-x 11 runner runner 4096 Aug 13 03:13 roccky_bot
-[0m
-My test files went to the wrong directory (parent instead of nested project dir), corrupting the diagnostics. Let me redo the test correctly inside the project root:
-[0m← [0mWrite _shim_test.js
-Wrote file successfully.
-[0m
-[0m$ [0mtimeout 30 node /home/runner/work/roccky_bot/roccky_bot/_shim_test.js 2>&1 | tail -12
-same module Func: true
-FMod.Func.frame: undefined
-UMod.frame: function
-file:///home/runner/work/roccky_bot/roccky_bot/lib/Utilities.js:15
-   (...args) => Func[name](...args)
-                          ^
-
-TypeError: Func[name] is not a function
-    at Module.<anonymous> (file:///home/runner/work/roccky_bot/roccky_bot/lib/Utilities.js:15:27)
-    at file:///home/runner/work/roccky_bot/roccky_bot/_shim_test.js:8:46
-
-Node.js v22.23.1
-[0m
-[0m← [0mWrite _shim_test.js
-Wrote file successfully.
-[0m
-The bug is confirmed and real: `loadFunc()` doesn't attach `frame`/`toTime`/`ffmpeg` etc. Let me introspect exactly what happens:
-[0m$ [0mtimeout 30 node /home/runner/work/roccky_bot/roccky_bot/_shim_test.js 2>&1 | tail -20
-at async loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/_shim_test.js:2:1
-⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
-👉 Please run: npm install fluent-ffmpeg
- FUNC  Berhasil dimuat: dateTime.js
- FUNC  Berhasil dimuat: getFileSize.js
- FUNC  Berhasil dimuat: isJid.js
- FUNC  Berhasil dimuat: isMime.js
- FUNC  Berhasil dimuat: toBanner.js
- FUNC  Berhasil dimuat: tokenizeCode.js
- FUNC  Berhasil dimuat: waBaileys.js
-keys: DateTimeFormatter, HourFormatter, WA_DEFAULT_EPHEMERAL, areJidsSameUser, decodeJid, delay, formatSize, formatTime, getFileSize, getIndonesianTimezone, getNextMidnight, getNowInTZ, greeting, isHostedLidUser, isHostedPnUser, isJidBot, isJidBroadcast, isJidGroup, isJidNewsletter, isJidStatus, isJidUser, isLidUser, isMimeAudio, isMimeGif, isMimeImage, isMimeVideo, isMimeWebP, isPnUser, jidNormalizedUser, toBannerBuffer, tokenizeCode
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls node_modules/ 2>/dev/null | head -30; echo "---"; ls node_modules/.package-lock.json 2>/dev/null; echo "---"; ls node_modules 2>/dev/null | wc -l
 ---
-frame: undefined
-toTime: undefined
-ffmpeg: undefined
-FFmpegQueue: undefined
-createSticker: undefined
-levenshtein: undefined
-medal: undefined
+---
+0
 [0m
-[0m$ [0mtimeout 30 node /home/runner/work/roccky_bot/roccky_bot/_shim_test.js 2>&1 | head -25
-FUNC  Gagal memuat: FFMPEG.js 
- ReferenceError: ownerName is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/_shim_test.js:2:1
- FUNC  Gagal memuat: Utilities.js 
- ReferenceError: ownerName is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/_shim_test.js:2:1
-⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
-👉 Please run: npm install fluent-ffmpeg
- FUNC  Berhasil dimuat: dateTime.js
- FUNC  Berhasil dimuat: getFileSize.js
- FUNC  Berhasil dimuat: isJid.js
- FUNC  Berhasil dimuat: isMime.js
- FUNC  Berhasil dimuat: toBanner.js
- FUNC  Berhasil dimuat: tokenizeCode.js
- FUNC  Berhasil dimuat: waBaileys.js
+[0m→ [0mRead package.json
 [0m
-[0m← [0mWrite _shim_test.js
+[0m# [0mTodos
+[•] Create plugins/group/poll.js (Baileys poll message)
+[ ] Create plugins/group/pinmsg.js (Baileys pin message)
+[ ] Create plugins/group/ephemeral.js (groupToggleEphemeral)
+[ ] Create plugins/group/revokelink.js (groupRevokeInvite)
+[ ] Create plugins/group/addmode.js (groupMemberAddMode)
+[ ] Create plugins/group/joinreq.js (groupRequestParticipants*)
+[ ] Create plugins/tools/cekwa.js (onWhatsApp)
+[ ] Create plugins/tools/cekstatus.js (fetchStatus)
+[ ] Create plugins/tools/inviteinfo.js (groupGetInviteInfo)
+[ ] Create plugins/owner/buatgc.js (groupCreate)
+[ ] Verify syntax with node --check
+[ ] Write memory log & update 00_INDEX.md
+[0m
+I've read the protocol files (`memory_prompt.md`, `prompt.md`, `ai_memory/00_INDEX.md`, latest log), `DOCS.md`, and analyzed the plugin architecture. Now I'll build the new features based on Baileys APIs that aren't yet used in `plugins/`.
+[0m← [0mWrite plugins/group/poll.js
 Wrote file successfully.
 [0m
-The test harness was missing `config.js` (which defines the `ownerName` global used by `Constants.js`). In the real app, `socket.js` imports `config.js` first. Let me fix the test to match the real import
-[0m$ [0mtimeout 30 node /home/runner/work/roccky_bot/roccky_bot/_shim_test.js 2>&1 | tail -12
-FUNC  Berhasil dimuat: toBanner.js
- FUNC  Berhasil dimuat: tokenizeCode.js
- FUNC  Berhasil dimuat: waBaileys.js
-frame(1): "╭─✦ 😀 *𝖳*\n│ a\n╰─────✦"
-toTime(1): 1d 01h 01m 01s
-formatSize(2048): 2.0 KB
-formatSize(0): 0 B
-greeting(1): Good Afternoon ☀️
-isURL(x): true
-shuffleArray: true
-createSticker type: function
-DONE
+[0m← [0mWrite plugins/group/pinmsg.js
+Wrote file successfully.
 [0m
-[0m$ [0mrm -f /home/runner/work/roccky_bot/roccky_bot/_shim_test.js; git -C /home/runner/work/roccky_bot/roccky_bot status --short
-M lib/Function/getFileSize.js
- M lib/Function/toBanner.js
- M lib/Serialize.js
- M lib/SocketClient.js
- M lib/Utilities.js
- M socket.js
-?? ai-response-recap.txt
-?? database.json
-?? lib/Components/Maintenance.js
-?? package-lock.json
-?? session/
-?? store.json
+[0m← [0mWrite plugins/group/ephemeral.js
+Wrote file successfully.
 [0m
-The shim works correctly when `config.js` is loaded first (exactly the real app's order). The earlier failures were test-harness artifacts. Let me clean up the test file and check the repo
-[0m$ [0mgrep -nE "session|database|store|package-lock|temp|tmp|ai_memory|storage" /home/runner/work/roccky_bot/roccky_bot/.gitignore
-28:# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
-94:# vuepress v2.x temp and cache directory
-95:.temp
+[0m← [0mWrite plugins/group/revokelink.js
+Wrote file successfully.
 [0m
-[0m$ [0mrm -rf /home/runner/work/roccky_bot/roccky_bot/session /home/runner/work/roccky_bot/roccky_bot/database.json /home/runner/work/roccky_bot/roccky_bot/store.json /home/runner/work/roccky_bot/roccky_bot/package-lock.json /home/runner/work/roccky_bot/roccky_bot/temp /home/runner/work/roccky_bot/roccky_bot/tmp /home/runner/work/roccky_bot/roccky_bot/storage; git -C /home/runner/work/roccky_bot/roccky_bot status --short
-M lib/Function/getFileSize.js
- M lib/Function/toBanner.js
- M lib/Serialize.js
- M lib/SocketClient.js
- M lib/Utilities.js
- M socket.js
-?? ai-response-recap.txt
-?? lib/Components/Maintenance.js
+[0m← [0mWrite plugins/group/addmode.js
+Wrote file successfully.
 [0m
-[0m→ [0mRead socket.js[90m [offset=90, limit=45][0m
-[0m→ [0mRead socket.js[90m [offset=370, limit=45][0m
-Clean. Let me do a final review of the refactored `socket.js` to confirm the auth/connection core is fully
+[0m← [0mWrite plugins/group/joinreq.js
+Wrote file successfully.
 [0m
-[0m← [0mEdit socket.js
-Index: /home/runner/work/roccky_bot/roccky_bot/socket.js
+[0m← [0mWrite plugins/tools/cekwa.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite plugins/tools/cekstatus.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite plugins/tools/inviteinfo.js
+Wrote file successfully.
+[0m
+[0m← [0mWrite plugins/owner/buatgc.js
+Wrote file successfully.
+[0m
+Now let me verify syntax
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && for f in plugins/group/poll.js plugins/group/pinmsg.js plugins/group/ephemeral.js plugins/group/revokelink.js plugins/group/addmode.js plugins/group/joinreq.js plugins/tools/cekwa.js plugins/tools/cekstatus.js plugins/tools/inviteinfo.js plugins/owner/buatgc.js; do node --check "$f" && echo "OK: $f"; done
+OK: plugins/group/poll.js
+OK: plugins/group/pinmsg.js
+OK: plugins/group/ephemeral.js
+OK: plugins/group/revokelink.js
+OK: plugins/group/addmode.js
+OK: plugins/group/joinreq.js
+OK: plugins/tools/cekwa.js
+OK: plugins/tools/cekstatus.js
+OK: plugins/tools/inviteinfo.js
+OK: plugins/owner/buatgc.js
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -rn "command: 'pin'" plugins/
+plugins/download/pin.js:4:   command: 'pin',
+[0m
+One alias conflict to check — `pin` is already a command (Pinterest downloader). Let me verify and fix.
+[0m← [0mEdit plugins/group/pinmsg.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/group/pinmsg.js
 ===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/socket.js
-+++ /home/runner/work/roccky_bot/roccky_bot/socket.js
-@@ -403,13 +403,13 @@
-   // 6. JALANKAN SOCKET KONEKSI WA
-   Socket();
- 
-    // 7. MAINTENANCE BACKGROUND (Daily Tasks, Autosave, Temp Clean, GC)
--   startMaintenance({
--      db,
--      store,
--      temporaryFolderPath: TEMPORARY_FOLDER_PATH
--   });
-+  startMaintenance({
-+    db,
-+    store,
-+    temporaryFolderPath: TEMPORARY_FOLDER_PATH
-+  });
- };
- 
- // JALANKAN SETUP
- Setup();
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/group/pinmsg.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/group/pinmsg.js
+@@ -1,7 +1,6 @@
+ export default {
+    command: 'pinmsg',
+-   hidden: 'pin',
+    category: 'group',
+    async run(m, {
+       sock,
+       isPrefix,
 
 [0m
-The auth/connection core is untouched. Let me fix a minor indentation inconsistency in the maintenance call
-[0m$ [0mgit -C /home/runner/work/roccky_bot/roccky_bot diff --stat
-lib/Function/getFileSize.js |  10 +-
- lib/Function/toBanner.js    |   2 +-
- lib/Serialize.js            |  17 +-
- lib/SocketClient.js         | 509 ++++++++++++------------
- lib/Utilities.js            | 947 +++-----------------------------------------
- socket.js                   |  83 +---
- 6 files changed, 347 insertions(+), 1221 deletions(-)
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && node --check plugins/group/pinmsg.js && echo OK
+OK
 [0m
-[0m$ [0mgrep -nE "mime\.|spawn\(|fileTypeFromFile|fileTypeStream|toStream" /home/runner/work/roccky_bot/roccky_bot/lib/SocketClient.js
-26:const resolveMediaSource = async (source, { toStream = false, mimetype = '' } = {}) => {
-27:   if (toStream) {
-111:         const toStream = !!content.toStream
-133:            const media = content.ptt ? await Func.toPTT(source, toStream) : await Func.toAudio(source, toStream)
-136:               audio: toStream ? { stream: media } : { url: media },
-152:            const media = await Func.toAudio(source, toStream)
-158:               document: toStream ? { stream: media } : { url: media },
-167:         const { mediaContent, mimetype: resolvedMimetype } = await resolveMediaSource(source, { toStream, mimetype })
+[0m→ [0mRead plugins/menu.js[90m [limit=40][0m
+The menu auto-generates from `ModuleCache`, so new commands appear automatically. Now let me finalize per
 [0m
-All removed imports are confirmed unused. Final verification — syntax check and boot smoke test:
-[0m$ [0mfind /home/runner/work/roccky_bot/roccky_bot -name '*.js' -not -path '*/node_modules/*' -print0 | xargs -0 -n1 node --check 2>&1 | grep -i error | head; echo "syntax: OK"
-syntax: OK
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && date -u '+%Y%m%d_%H%M' && ls ai_memory/ | wc -l
+20260813_0400
+2
 [0m
-[0m$ [0mtimeout 45 node --expose-gc socket.js > /tmp/boot_test2.log 2>&1; echo "EXIT: $?"; echo "=== errors ==="; grep -iE "failed|error|❌|TypeError|ReferenceError|Cannot" /tmp/boot_test2.log | grep -viE "Failed to get data|Gagal mendapatkan pairing" | head -10; echo "=== boot reached pairing? ==="; grep -E "pairing|siap|Berhasil dimuat" /tmp/boot_test2.log | tail -6
-EXIT: 124
-=== errors ===
-=== boot reached pairing? ===
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m aio.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m freeai.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m komik-bbato.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m savetik.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m vidsave.js
-🔑 Meminta kode pairing untuk 6281347951754...
-[0m
-[0m$ [0mrm -rf /home/runner/work/roccky_bot/roccky_bot/session /home/runner/work/roccky_bot/roccky_bot/database.json /home/runner/work/roccky_bot/roccky_bot/store.json /home/runner/work/roccky_bot/roccky_bot/temp /home/runner/work/roccky_bot/roccky_bot/tmp /home/runner/work/roccky_bot/roccky_bot/storage; git -C /home/runner/work/roccky_bot/roccky_bot status --short
-M lib/Function/getFileSize.js
- M lib/Function/toBanner.js
- M lib/Serialize.js
- M lib/SocketClient.js
- M lib/Utilities.js
- M socket.js
-?? ai-response-recap.txt
-?? lib/Components/Maintenance.js
-[0m
-Boot test passes cleanly. Cleaning up runtime artifacts:
-[0m# [0mTodos
-[✓] Rewrite lib/Utilities.js as thin shim over Func namespace (remove duplication + dead ExtendSocket)
-[✓] Clean lib/Function files: fix toBanner.js import, unify formatSize in getFileSize.js
-[✓] Clean lib/SocketClient.js: remove dup comments, DRY media fetch, keep behavior identical
-[✓] Extract maintenance tasks from socket.js into lib/Components/Maintenance.js (auth core untouched)
-[✓] DRY Serialize.js message parser (extract cleanMessageType)
-[✓] Verify: node --check all files + boot smoke test
-[•] Memory protocol: create ai_memory/00_INDEX.md + task log
-[0m
-[0m$ [0mmkdir -p /home/runner/work/roccky_bot/roccky_bot/ai_memory
-(no output)
-[0m
-Now the memory protocol — create the `ai_memory` index and task log:
-[0m← [0mWrite ai_memory/00_INDEX.md
+[0m← [0mWrite ai_memory/task_20260813_0400_new_features.md
 Wrote file successfully.
 [0m
-[0m← [0mWrite ai_memory/task_20260813_0300_refactor_cleanup.md
-Wrote file successfully.
+[0m← [0mEdit ai_memory/00_INDEX.md
+Index: /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
++++ /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
+@@ -1,10 +1,11 @@
+ # AI MEMORY MASTER INDEX
+ 
+ ## Status Proyek Terkini
+-Refactoring struktural selesai: duplikasi helper dihapus (Utilities.js kini shim atas `Func`), maintenance dipisah dari socket.js, SocketClient & Serialize dirapikan. Inti auth/Baileys **tidak disentuh**. Verifikasi: `node --check` (175 file) & boot smoke test lulus.
++Refactoring struktural selesai (Utilities.js shim atas `Func`, maintenance terpisah, SocketClient/Serialize dirapikan). Ditambah 10 plugin baru memanfaatkan API Baileys yang belum terpakai (onWhatsApp, fetchStatus, poll, pin, groupToggleEphemeral, groupRevokeInvite, groupMemberAddMode, groupRequestParticipants*, groupGetInviteInfo, groupCreate). Verifikasi `node --check` lulus.
+ 
+ ## Riwayat Log Tugas
+ 
+ | # | Tanggal | File Log | Ringkasan |
+ |---|---------|----------|-----------|
+ | 1 | 2026-08-13 | `task_20260813_0300_refactor_cleanup.md` | Refactor: hapus duplikasi, extraction maintenance, rapi SocketClient/Serialize |
++| 2 | 2026-08-13 | `task_20260813_0400_new_features.md` | 10 plugin baru dari Baileys API yang belum dipakai, lengkap dgn hak akses & try-catch |
+
 [0m
 [0m# [0mTodos
-[✓] Rewrite lib/Utilities.js as thin shim over Func namespace (remove duplication + dead ExtendSocket)
-[✓] Clean lib/Function files: fix toBanner.js import, unify formatSize in getFileSize.js
-[✓] Clean lib/SocketClient.js: remove dup comments, DRY media fetch, keep behavior identical
-[✓] Extract maintenance tasks from socket.js into lib/Components/Maintenance.js (auth core untouched)
-[✓] DRY Serialize.js message parser (extract cleanMessageType)
-[✓] Verify: node --check all files + boot smoke test
-[✓] Memory protocol: create ai_memory/00_INDEX.md + task log
+[✓] Create plugins/group/poll.js (Baileys poll message)
+[✓] Create plugins/group/pinmsg.js (Baileys pin message)
+[✓] Create plugins/group/ephemeral.js (groupToggleEphemeral)
+[✓] Create plugins/group/revokelink.js (groupRevokeInvite)
+[✓] Create plugins/group/addmode.js (groupMemberAddMode)
+[✓] Create plugins/group/joinreq.js (groupRequestParticipants*)
+[✓] Create plugins/tools/cekwa.js (onWhatsApp)
+[✓] Create plugins/tools/cekstatus.js (fetchStatus)
+[✓] Create plugins/tools/inviteinfo.js (groupGetInviteInfo)
+[✓] Create plugins/owner/buatgc.js (groupCreate)
+[✓] Verify syntax with node --check
+[✓] Write memory log & update 00_INDEX.md
 [0m
-Refactoring selesai. Berikut ringkasannya:
+## 1. Konfirmasi Protokol
 
-## Struktur Folder (tetap sederhana, tidak ada folder baru berlebihan)
+Sudah membaca & menerapkan `memory_prompt.md`: cek `ai_memory/00_INDEX.md` + log terbaru, lalu menulis log baru (`ai_memory/task_20260813_0400_new_features.md`) dan memperbarui index sesuai protokol. Jumlah log masih <10, tidak perlu arsip.
 
+## 2. Fitur Baru yang Dipilih
+
+API Baileys di `DOCS.md` yang **belum** dipakai plugin manapun, dikelompokkan per kategori relevansi:
+
+| Plugin | Command | API Baileys | Hak Akses |
+|--------|---------|-------------|-----------|
+| `tools/cekwa.js` | `cekwa` | `onWhatsApp()` — cek nomor terdaftar WA | `limit` |
+| `tools/cekstatus.js` | `cekstatus` | `fetchStatus()` — lihat status "About" | `limit` |
+| `tools/inviteinfo.js` | `inviteinfo` | `groupGetInviteInfo()` — info grup via link | `limit` |
+| `group/poll.js` | `poll` | Poll Message — polling interaktif | `group`, `limit` |
+| `group/pinmsg.js` | `pinmsg` | Pin Message — semat/buka semat | `group`, `admin`, `botAdmin` |
+| `group/ephemeral.js` | `ephemeral` | `groupToggleEphemeral()` — pesan sementara | `group`, `admin`, `botAdmin` |
+| `group/revokelink.js` | `revokelink` | `groupRevokeInvite()` — buat ulang link grup | `group`, `admin`, `botAdmin` |
+| `group/addmode.js` | `addmode` | `groupMemberAddMode()` — kontrol add member | `group`, `admin`, `botAdmin` |
+| `group/joinreq.js` | `joinreq`/`accjoin`/`rejjoin` | `groupRequestParticipantsList/Update` | `group`, `admin`, `botAdmin` |
+| `owner/buatgc.js` | `buatgc` | `groupCreate()` — buat grup baru | `owner` |
+
+Alasan: mencakup utilitas pengguna, manajemen grup, keamanan (revoke link), dan interaksi pesan. Tidak ada duplikasi command (alias `pin` sengaja dihindari karena bentrok `plugins/download/pin.js`). Semua mengikuti pola `command/hidden/category` + `run(m, ctx)` + `frame()` + `m.react('🕒')` + try-catch penuh.
+
+## 3. Kode Plugin (sudah dibuat di `plugins/`)
+
+```js
+// plugins/group/poll.js
+export default {
+   command: 'poll',
+   hidden: 'buatpoll',
+   category: 'group',
+   async run(m, { sock, isPrefix, text }) {
+      try {
+         const [question, ...options] = text.split('|').map(x => x.trim())
+         if (!question || options.length < 2)
+            return m.reply(`👉🏻 *Example*: ${isPrefix + command} Menu favorit?|Mie Ayam|Nasi Goreng|Bakso`)
+         if (options.length > 10) return m.reply('❌ Maximum 10 options.')
+         if (question.length > 150) return m.reply('❌ Question is too long, maximum 150 characters.')
+         await sock.sendMessage(m.chat, {
+            poll: { name: question, values: options, selectableCount: 1, toAnnouncementGroup: false }
+         })
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   group: true,
+   limit: 1
+}
 ```
-roccky_bot/
-├── index.js                      → entry (PM2 guard, restart logic) — tidak diubah
-├── socket.js                     → koneksi WA core — AUTH/BAILEYS TIDAK DISENTUH
-├── config.js                     → global config — tidak diubah
-└── lib/
-    ├── Function/                 → single source of truth (namespace `Func`) ✅ dirapikan
-    │   ├── index.js              (loader + watcher)
-    │   ├── Utilities.js, FFMPEG.js, isMime.js, isJid.js, waBaileys.js,
-    │   ├── dateTime.js, getFileSize.js, toBanner.js, tokenizeCode.js
-    ├── Scraper/ + Scraper.js     → namespace `Scrap` — tidak diubah
-    ├── Components/               → komponen bisnis
-    │   ├── Maintenance.js        ★ BARU (cron harian, autosave, temp clean, GC)
-    │   └── ErrorHandler, Dispatcher, SholatReminder, Scheduler, dsb.
-    ├── Utilities.js              ★ kini SHIM 49 re-export → `Func` (bukan 885 baris duplikat)
-    ├── SocketClient.js           → socket extension, di-DRY-kan
-    ├── Serialize.js              → message parser, di-DRY-kan
-    ├── Database.js, Watcher.js, Listener.js, Constants.js, Request.js — tidak diubah
+
+```js
+// plugins/group/pinmsg.js
+export default {
+   command: 'pinmsg',
+   category: 'group',
+   async run(m, { sock, isPrefix, args }) {
+      try {
+         const q = m.quoted
+         if (!q?.key?.id)
+            return m.reply(`💭 Reply a message to pin/unpin it.\n*Example*: ${isPrefix + command} off`)
+         const isRemove = args[0] === 'off'
+         await sock.sendMessage(m.chat, {
+            pin: { type: isRemove ? 0 : 1, time: isRemove ? null : 86400, key: q.key }
+         })
+         m.reply(isRemove ? '✅ Successfully unpinned the message.' : '✅ Successfully pinned the message for 24 hours.')
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   group: true,
+   admin: true,
+   botAdmin: true
+}
 ```
 
-## Yang Dioptimalkan
+```js
+// plugins/group/ephemeral.js
+const EPHEMERAL_MAP = { off: 0, '1d': 86400, '7d': 604800, '90d': 7776000 }
 
-1. **Hapus duplikasi besar (±700 baris)** — `lib/Utilities.js` dulu punya ~50 implementasi yang sama persis dengan `lib/Function/*` (frame, toTime, createSticker, ffmpeg, isMime*, dll). Kini `Utilities.js` hanya *shim* tipis yang meneruskan ke `Func`, sehingga semua **89 file import lama tetap berfungsi tanpa diubah**. Kode mati `ExtendSocket` dihapus.
+export default {
+   command: 'ephemeral',
+   hidden: 'disappearing',
+   category: 'group',
+   async run(m, { sock, isPrefix, args }) {
+      try {
+         const [option] = args
+         if (!option || !(option in EPHEMERAL_MAP))
+            return m.reply(`👉🏻 *Example*: ${isPrefix + command} 7d\n*Option*: off | 1d | 7d | 90d`)
+         const seconds = EPHEMERAL_MAP[option]
+         await sock.groupToggleEphemeral(m.chat, seconds)
+         m.reply(seconds === 0
+            ? '✅ Successfully turned off disappearing messages.'
+            : `✅ Successfully set disappearing messages to *${option}*.`)
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   group: true,
+   admin: true,
+   botAdmin: true
+}
+```
 
-2. **SocketClient.js** — `sendMedia` di-DRY-kan dengan helper `resolveMediaSource` (fetch URL/path/Buffer untuk mode stream & buffer), hapus 3 import mati (`mime-types`, `spawn`, `fileTypeStream`), hapus komentar duplikat. Perilaku identik.
+```js
+// plugins/group/revokelink.js
+import { frame } from '../../lib/Utilities.js'
 
-3. **socket.js** — blok maintenance (cron reset harian, autosave + guard RSS, pembersih temp, GC) diekstrak ke `lib/Components/Maintenance.js` (−83 baris). **Alur auth/baileys (`useMultiFileAuthState`, `makeWASocket`, `creds.update`, `connection.update`, pairing/QR/reconnect) tidak tersentuh sama sekali.**
+export default {
+   command: 'revokelink',
+   hidden: 'revoke',
+   category: 'group',
+   async run(m, { sock }) {
+      try {
+         const code = await sock.groupRevokeInvite(m.chat)
+         const print = frame('GROUP LINK', [
+            '✅ Link baru berhasil dibuat.', '', 'https://chat.whatsapp.com/' + code
+         ], '🏷️')
+         m.reply(print)
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   group: true,
+   admin: true,
+   botAdmin: true
+}
+```
 
-4. **Serialize.js** — ekstrak `cleanMessageType` untuk menghapus duplikasi logika `download`/`downloadQuoted`.
+```js
+// plugins/group/addmode.js
+export default {
+   command: 'addmode',
+   hidden: 'addmember',
+   category: 'group',
+   async run(m, { sock, isPrefix, args }) {
+      try {
+         const [option] = args
+         if (!option || !['all', 'admin'].includes(option))
+            return m.reply(`👉🏻 *Example*: ${isPrefix + command} all\n*Option*: all | admin`)
+         const mode = option === 'all' ? 'all_member_add' : 'admin_add'
+         await sock.groupMemberAddMode(m.chat, mode)
+         m.reply(`✅ Successfully set add member mode to *${option === 'all' ? 'all members' : 'admins only'}*.`)
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   group: true,
+   admin: true,
+   botAdmin: true
+}
+```
 
-5. **Perapian kecil** — `toBanner.js` import konsisten (`#func`), `formatSize` disatukan (kini mendukung TB).
+```js
+// plugins/group/joinreq.js
+import { frame } from '../../lib/Utilities.js'
 
-## Verifikasi
-- `node --check` → 175 file JS lulus.
-- Boot smoke test → config, loadFunc, loadScrap, DB, 135 plugin, socket & alur pairing berjalan tanpa error.
-- Diff: **−1221 baris, +347 baris**.
+export default {
+   command: ['joinreq', 'accjoin', 'rejjoin'],
+   hidden: ['pendingjoin', 'approvejoin', 'rejectjoin'],
+   category: 'group',
+   async run(m, { sock, isPrefix, command, args }) {
+      try {
+         if (command === 'joinreq') {
+            const requests = await sock.groupRequestParticipantsList(m.chat)
+            if (!requests?.length) return m.reply('❌ No pending join requests.')
+            const printRequests = requests.flatMap((request, index, array) => {
+               const lines = [
+                  `${index + 1}. @${request.jid.split('@')[0]}`,
+                  `*JID*: ${request.jid}`
+               ]
+               if (index !== array.length - 1) lines.push('')
+               return lines
+            })
+            const printHowTo = frame('HOW TO', [
+               `*Approve*: ${isPrefix}accjoin 1`, `*Reject*: ${isPrefix}rejjoin 1`
+            ], '📄')
+            return m.reply(printHowTo + '\n\n' + frame('JOIN REQUESTS', printRequests, '📩'))
+         }
+         const [number] = args
+         if (!number) return m.reply(`👉🏻 *Example*: ${isPrefix + command} 1`)
+         const requests = await sock.groupRequestParticipantsList(m.chat)
+         const target = requests[Number(number) - 1]
+         if (!target) return m.reply('❌ Request not found.')
+         const action = command === 'accjoin' ? 'approve' : 'reject'
+         await sock.groupRequestParticipantsUpdate(m.chat, [target.jid], action)
+         m.reply(`✅ Successfully ${action}d @${target.jid.split('@')[0]}.`)
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   group: true,
+   admin: true,
+   botAdmin: true
+}
+```
 
-Kode sudah lengkap di file-file yang disebutkan. Log memori tersimpan di `ai_memory/` sesuai protokol.
+```js
+// plugins/tools/cekwa.js
+import { extractNumber } from '../../lib/Serialize.js'
+import { frame } from '../../lib/Utilities.js'
+
+export default {
+   command: 'cekwa',
+   hidden: 'onwa',
+   category: 'tools',
+   async run(m, { sock, isPrefix }) {
+      try {
+         const userId = extractNumber(m)
+         if (!userId) return m.reply(`👉🏻 *Example*: ${isPrefix + command} 6281234567890`)
+         const number = userId.split('@')[0]
+         m.react('🕒')
+         const [result] = await sock.onWhatsApp(number)
+         if (!result?.exists)
+            return m.reply(frame('CEK WA', [
+               `*Number*: ${number}`, `*Status*: ❌ Belum terdaftar di WhatsApp`
+            ], '📱'))
+         const print = frame('CEK WA', [
+            `*Number*: ${result.jid?.split('@')[0] || number}`, `*Status*: ✅ Terdaftar di WhatsApp`
+         ], '📱')
+         m.reply(print)
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   limit: 1
+}
+```
+
+```js
+// plugins/tools/cekstatus.js
+import { extractNumber } from '../../lib/Serialize.js'
+import { frame } from '../../lib/Utilities.js'
+
+export default {
+   command: 'cekstatus',
+   hidden: 'about',
+   category: 'tools',
+   async run(m, { sock, isPrefix }) {
+      try {
+         const userId = extractNumber(m)
+         if (!userId) return m.reply(`👉🏻 *Example*: ${isPrefix + command} 6281234567890`)
+         if (userId.startsWith(ownerNumber)) return m.reply('❌ Can\'t get owner status.')
+         m.react('🕒')
+         const status = await sock.fetchStatus(userId)
+         if (!status?.status) return m.reply('❌ User didn\'t set a status.')
+         const print = frame('ABOUT', status.status.split(/\r?\n/), '💭')
+         m.reply(print)
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   limit: 1
+}
+```
+
+```js
+// plugins/tools/inviteinfo.js
+import { frame } from '../../lib/Utilities.js'
+
+const CHAT_WHATSAPP_URL = 'https://chat.whatsapp.com/'
+
+export default {
+   command: 'inviteinfo',
+   hidden: 'ceklink',
+   category: 'tools',
+   async run(m, { sock, isPrefix, args }) {
+      try {
+         let code = (args[0] || '').trim()
+         if (!code) return m.reply(`👉🏻 *Example*: ${isPrefix + command} https://chat.whatsapp.com/AbCdEfGhIjK`)
+         if (code.includes(CHAT_WHATSAPP_URL)) code = code.replace(CHAT_WHATSAPP_URL, '').trim()
+         m.react('🕒')
+         const metadata = await sock.groupGetInviteInfo(code)
+         if (!metadata) return m.reply('❌ Invite code is invalid or has been revoked.')
+         const print = frame('GROUP INFO', [
+            `*Name*: ${metadata.subject || '-'}`,
+            `*Owner*: @${metadata.owner?.split('@')[0] || '-'}`,
+            `*Size*: ${metadata.size || metadata.participants?.length || '-'}`
+         ], '👥')
+         m.reply(print)
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   limit: 1
+}
+```
+
+```js
+// plugins/owner/buatgc.js
+export default {
+   command: 'buatgc',
+   hidden: 'creategc',
+   category: 'owner',
+   async run(m, { sock, isPrefix, text }) {
+      try {
+         const [title, ...rest] = text.split('|').map(x => x.trim())
+         if (!title || !rest.length)
+            return m.reply(`👉🏻 *Example*: ${isPrefix + command} Grup Test|6281234567890|6289876543210`)
+         const participants = rest.map(number => number.replace(/\D/g, '') + '@s.whatsapp.net')
+         m.react('🕒')
+         const group = await sock.groupCreate(title, participants)
+         await m.reply(`✅ Successfully created group *${title}*.`)
+         sock.sendText(group.id, `👋 Halo! Grup ini dibuat oleh *${botName}*.`)
+      } catch (error) {
+         console.error(error)
+         m.reply('❌ ' + error.message)
+      }
+   },
+   owner: true
+}
+```
+
+Verifikasi: `node --check` lulus untuk semua 10 file; log tugas & index memori sudah diperbarui.

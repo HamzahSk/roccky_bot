@@ -1,25 +1,25 @@
-Bertindaklah sebagai Senior WhatsApp Bot Developer & Node.js Specialist.
+Bertindaklah sebagai Senior Node.js Engineer & Refactoring Specialist.
 
-# PROTUKUL WAJIB & MEMORY LOG
+# PROTOKOL WAJIB & MEMORY LOG
 1. BACA DAN PATUHI FILE `prompt.md` DAN `memory_prompt.md` SEBELUM MELAKUKAN APA PUN:
    - Pelajari seluruh protokol manajemen memori, pembatasan token, dan aturan penulisan log secara ketat sesuai instruksi yang ada di file `memory_prompt.md`.
-   - Pastikan setiap tindakan refactoring, penambahan plugin, atau pembaruan kode selalu dicatat dan dikelola sesuai aturan memori tersebut.
+   - Catat seluruh aktivitas perubahan file/refactoring ini ke dalam log sesuai aturan memori.
 
-2. Analisis Sumber Daya & Kode Eksisting:
-   - Pelajari seluruh fungsi, metode, dan kapabilitas API Baileys yang tersedia di file `DOCS.md`.
-   - Periksa seluruh file plugin yang ada di folder `plugins/` untuk memahami fitur yang sudah ada dan mempelajari pola (style) penulisan kodenya.
+2. Analisis Struktur & Konfigurasi Subpath Imports:
+   - Periksa file `package.json` dan perhatikan bagian skema `"imports"` yang sudah ada (seperti `#func`, `#scrap`, dll.).
+   - Pelajari seluruh struktur folder proyek (seperti `lib/`, `plugins/`, `handlers/`, `utils/`, dll.) serta cara pemanggilan module internal saat ini secara mandiri.
+   - Jika diperlukan, kamu BISA MENAMBAHKAN alias baru di bawah objek `"imports"` pada `package.json` secara mandiri agar mencakup modul penting lainnya (misalnya `#utils`, `#serialize`, `#config`, dll.) sesuai dengan kebutuhan arsitektur proyek.
 
-3. Eksplorasi & Pembuatan Fitur Baru (Inisiatif Mandiri):
-   - Temukan potensi fungsi atau metode Baileys di `DOCS.md` yang BELUM dimanfaatkan di folder `plugins/`.
-   - Rancang dan buat fitur/command baru yang paling berguna, menarik, dan relevan berdasarkan kemampuan API tersebut (misalnya untuk manajemen grup, utilitas media, privasi/keamanan, status bot, interaksi pesan, dll.).
-   - Pastikan tidak ada duplikasi command dengan fitur yang sudah ada.
+3. Refactoring Global Import Path:
+   - Telusuri SELURUH file proyek secara mandiri (terutama file di dalam `plugins/`, `handlers/`, dan file root).
+   - Analisis dan perbaiki semua pemanggilan `import` relatif yang rumit/berulang (seperti `../../lib/Function/...`) dan ubah menjadi pemanggilan Subpath Imports resmi berawalan `#` (contoh: `#func`, `#scrap`, dan alias baru yang kamu definisikan).
+   - Pastikan tidak ada path relatif yang tersisa untuk modul-modul utilitas/core tersebut, sehingga penulisan import menjadi lebih bersih, konsisten, dan mudah dirawat.
 
-4. Standar Penulisan & Keamanan:
-   - Sesuaikan struktur kode plugin baru dengan arsitektur plugin/command handler yang sedang digunakan proyek ini.
-   - Tambahkan pengecekan hak akses yang sesuai (owner, admin grup, bot admin) di setiap command baru.
-   - Gunakan error handling (try-catch) yang rapi pada setiap panggilan fungsi async Baileys agar bot tidak crash.
+4. Validasi Keamanan:
+   - Pastikan tipe modul tetap ESM (`"type": "module"`).
+   - JANGAN MENGUBAH logika bisnis aplikasi, fungsi autentikasi Baileys, atau algoritma utama; fokus murni pada perbaikan dan perapian jalur import.
 
 Output yang Diharapkan:
-1. Konfirmasi singkat bahwa kamu telah membaca dan menerapkan protokol dari `memory_prompt.md`.
-2. Penjelasan singkat mengenai fitur/command baru apa saja yang kamu pilih untuk dibuat berdasarkan `DOCS.md` beserta alasannya.
-3. Kode lengkap untuk plugin-plugin baru tersebut yang siap dimasukkan ke dalam folder `plugins/`.
+1. Konfirmasi ringkas bahwa aturan dari `memory_prompt.md` telah diterapkan.
+2. Pembaruan skema `"imports"` pada `package.json` (jika ada penambahan alias baru).
+3. Rangkuman singkat file mana saja yang telah diperbarui jalur import-nya.
