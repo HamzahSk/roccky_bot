@@ -75,7 +75,7 @@ Object.assign(globalThis, {
    
  //  supabaseKey: "Rocky",
    databaseName: "rocky",
-   databaseUrl: "",
+   databaseUrl: "mongodb+srv://hamzahhaz740_db_user:aIvi3PZZOdEIB37W@newdb.ukpkhdb.mongodb.net/?appName=NEWDB",
    
    proxyUrl: "",
   
@@ -87,6 +87,22 @@ Object.assign(globalThis, {
 
    // Persist database to file interval (ms)
    dataInterval: 1_000 * 60,
+
+   // Debounce penulisan (write-coalescing) untuk database & store (ms).
+   // Mutasi data digabung ke satu flush agar tidak membebani I/O / DB remote.
+   dbFlushDebounce: 5_000,
+
+   // Retensi pesan di Baileys store (ms) - pesan lebih lama akan dipangkas.
+   storeMessageRetention: 3 * 24 * 60 * 60 * 1000,
+
+   // Batas maksimum pesan per chat di Baileys store.
+   storeMaxMessagesPerChat: 64,
+
+   // Batas total pesan di Baileys store (semua chat).
+   storeMaxTotalMessages: 8_000,
+
+   // Batas total kontak yang di-cache di Baileys store.
+   storeMaxContacts: 4_000,
 
    // Call the garbage collector if exposed (ms)
    gcInterval: 1_000 * 60 * 60,

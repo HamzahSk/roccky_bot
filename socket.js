@@ -180,6 +180,8 @@ const Socket = async () => {
 
       const cleanupAndExit = async (msg) => {
         console.error(msg);
+        // Simpan data pending sebelum sesi dihapus / proses berhenti
+        try { await Promise.all([db?.flushNow?.(), store?.flushNow?.()]); } catch {}
         try { await Func.cleanUpFolder(authFolder); } catch {}
         process.exit(1);
       };
@@ -389,8 +391,11 @@ const Setup = async () => {
 
   // 3. MUAT DATA SEBELUM SOCKET MENYALA
   console.log('📦 Memuat data pengguna & grup...');
-  await db.readFromFile();
-  await store.readFromFile();
+  // Load db & store secara paralel (saling independen) untuk memangkas startup
+  await Promise.all([
+    db.readFromFile(),
+    store.readFromFile()
+  ]);
   console.log(`✅ Data berhasil dimuat: ${db.users?.size || 0} User, ${db.groups?.size || 0} Grup.`);
 
   // 4. INSTANCE LISTENER (Butuh DB yang sudah terisi)
@@ -411,6 +416,21 @@ const Setup = async () => {
     store,
     temporaryFolderPath: TEMPORARY_FOLDER_PATH
   });
+
+  // 8. GRACEFUL SHUTDOWN: flush data pending sebelum proses dihentikan
+  const shutdown = async () => {
+    try {
+      await Promise.all([
+        db?.flushNow?.(),
+        store?.flushNow?.()
+      ]);
+    } catch (error) {
+      console.error('⚠️ Gagal flush saat shutdown:', error?.message);
+    }
+    process.exit(0);
+  };
+  process.once('SIGTERM', shutdown);
+  process.once('SIGINT', shutdown);
 };
 
 // JALANKAN SETUP

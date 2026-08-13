@@ -180,8 +180,8 @@ const updateScript = async () => {
 
 const atomicWrite = (db, store) =>
    Promise.all([
-      db.writeToFile(),
-      store.writeToFile()
+      db.flushNow(),
+      store.flushNow()
    ])
 
 export default {
