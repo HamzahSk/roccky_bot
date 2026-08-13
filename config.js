@@ -33,14 +33,14 @@ Object.assign(globalThis, {
 
    // ********** API KEYS ********** //
    
-   freeTheAi: 'sta_9cab5dd22e921a2b0cfa49617aa9dd5ca146fb82523dd065',
+   freeTheAi: 'sta9cab522e921a2b0cfa49617aa9dd5ca146fb82523dd065',
 
    // Google AI Studio for Chat Bot @ https://aistudio.google.com/
    googleApiKey: '',
    
-   groqApiKeys: [""],
+   groqApiKeys: ["" ],
    
-   logFlareApi: 'lfu_MLPNJEyMtDEl-KU_IW84FH_aPYCS-pyf',
+   logFlareApi: '',
 
    // SightEngine for Anti Porn @ https://sightengine.com/
    apiUser: '',
