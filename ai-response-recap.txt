@@ -1,1186 +1,220 @@
 [0m
 > build · deepseek-v4-flash-free
 [0m
-[0m$ [0mls -la
-total 164
-drwxr-xr-x  8 runner runner  4096 Aug 13 04:43 .
-drwxr-xr-x  3 runner runner  4096 Aug 13 04:43 ..
-drwxr-xr-x  7 runner runner  4096 Aug 13 04:43 .git
-drwxr-xr-x  3 runner runner  4096 Aug 13 04:43 .github
--rw-r--r--  1 runner runner  2152 Aug 13 04:43 .gitignore
--rw-r--r--  1 runner runner 44212 Aug 13 04:43 DOCS.md
--rw-r--r--  1 runner runner   467 Aug 13 04:43 Dockerfile
--rw-r--r--  1 runner runner 11338 Aug 13 04:43 LICENSE
--rw-r--r--  1 runner runner  5318 Aug 13 04:43 README.md
--rw-r--r--  1 runner runner    44 Aug 13 04:43 ai-response-recap.txt
-drwxr-xr-x  2 runner runner  4096 Aug 13 04:43 ai_memory
--rw-r--r--  1 runner runner   286 Aug 13 04:43 app.config.cjs
--rw-r--r--  1 runner runner  3131 Aug 13 04:43 config.js
--rw-r--r--  1 runner runner   331 Aug 13 04:43 ecosystem.config.cjs
--rw-r--r--  1 runner runner  5120 Aug 13 04:43 index.js
--rw-r--r--  1 runner runner  1678 Aug 13 04:43 install.sh
-drwxr-xr-x  5 runner runner  4096 Aug 13 04:43 lib
-drwxr-xr-x  5 runner runner  4096 Aug 13 04:43 media
--rw-r--r--  1 runner runner  2017 Aug 13 04:43 memory_prompt.md
--rw-r--r--  1 runner runner   161 Aug 13 04:43 nixpacks.toml
--rw-r--r--  1 runner runner  1453 Aug 13 04:43 package.json
-drwxr-xr-x 13 runner runner  4096 Aug 13 04:43 plugins
--rw-r--r--  1 runner runner  2506 Aug 13 04:43 prompt.md
--rw-r--r--  1 runner runner 15879 Aug 13 04:43 socket.js
+[0m$ [0mls -la /home/runner/work/roccky_bot/roccky_bot
+total 1436
+drwxr-xr-x  8 runner runner    4096 Aug 13 05:33 .
+drwxr-xr-x  3 runner runner    4096 Aug 13 05:33 ..
+drwxr-xr-x  7 runner runner    4096 Aug 13 05:34 .git
+drwxr-xr-x  3 runner runner    4096 Aug 13 05:33 .github
+-rw-r--r--  1 runner runner    2152 Aug 13 05:33 .gitignore
+-rw-r--r--  1 runner runner   44212 Aug 13 05:33 DOCS.md
+-rw-r--r--  1 runner runner     467 Aug 13 05:33 Dockerfile
+-rw-r--r--  1 runner runner   11338 Aug 13 05:33 LICENSE
+-rw-r--r--  1 runner runner    5318 Aug 13 05:33 README.md
+-rw-r--r--  1 runner runner      44 Aug 13 05:34 ai-response-recap.txt
+drwxr-xr-x  2 runner runner    4096 Aug 13 05:33 ai_memory
+-rw-r--r--  1 runner runner     286 Aug 13 05:33 app.config.cjs
+-rw-r--r--  1 runner runner    3131 Aug 13 05:33 config.js
+-rw-r--r--  1 runner runner     331 Aug 13 05:33 ecosystem.config.cjs
+-rw-r--r--  1 runner runner    5120 Aug 13 05:33 index.js
+-rw-r--r--  1 runner runner    1678 Aug 13 05:33 install.sh
+drwxr-xr-x  6 runner runner    4096 Aug 13 05:33 lib
+drwxr-xr-x  5 runner runner    4096 Aug 13 05:33 media
+-rw-r--r--  1 runner runner    2017 Aug 13 05:33 memory_prompt.md
+-rw-r--r--  1 runner runner     161 Aug 13 05:33 nixpacks.toml
+-rw-r--r--  1 runner runner    1493 Aug 13 05:33 package.json
+drwxr-xr-x 13 runner runner    4096 Aug 13 05:33 plugins
+-rw-r--r--  1 runner runner    3184 Aug 13 05:33 prompt.md
+-rw-r--r--  1 runner runner 1299621 Aug 13 05:33 roccky_bot.zip
+-rw-r--r--  1 runner runner   15941 Aug 13 05:33 socket.js
 [0m
-[0m✱ [0mGlob "**/prompt.md"[90m 1 match[0m
 [0m✱ [0mGlob "**/memory_prompt.md"[90m 1 match[0m
-[0m→ [0mRead memory_prompt.md
+[0m✱ [0mGlob "**/prompt.md"[90m 1 match[0m
 [0m→ [0mRead prompt.md
+[0m→ [0mRead memory_prompt.md
 [0m
-[0m$ [0mls -la ai_memory/
-total 20
-drwxr-xr-x 2 runner runner 4096 Aug 13 04:43 .
-drwxr-xr-x 8 runner runner 4096 Aug 13 04:43 ..
--rw-r--r-- 1 runner runner  822 Aug 13 04:43 00_INDEX.md
--rw-r--r-- 1 runner runner 1811 Aug 13 04:43 task_20260813_0300_refactor_cleanup.md
--rw-r--r-- 1 runner runner 1680 Aug 13 04:43 task_20260813_0400_new_features.md
+[0m$ [0mls -la /home/runner/work/roccky_bot/roccky_bot/ai_memory
+total 24
+drwxr-xr-x 2 runner runner 4096 Aug 13 05:33 .
+drwxr-xr-x 8 runner runner 4096 Aug 13 05:33 ..
+-rw-r--r-- 1 runner runner 1010 Aug 13 05:33 00_INDEX.md
+-rw-r--r-- 1 runner runner 1811 Aug 13 05:33 task_20260813_0300_refactor_cleanup.md
+-rw-r--r-- 1 runner runner 1680 Aug 13 05:33 task_20260813_0400_new_features.md
+-rw-r--r-- 1 runner runner 2235 Aug 13 05:33 task_20260813_0457_subpath_utils.md
 [0m
-[0m→ [0mRead package.json
 [0m→ [0mRead ai_memory/00_INDEX.md
+[0m→ [0mRead ai_memory/task_20260813_0457_subpath_utils.md
 [0m→ [0mRead ai_memory/task_20260813_0400_new_features.md
-[0m→ [0mRead ai_memory/task_20260813_0300_refactor_cleanup.md
 [0m
-[0m$ [0mls -la lib/ lib/Function/ lib/Scraper/ lib/Utils/ 2>/dev/null; echo "---"; ls -la lib/*/ | head -80
-lib/:
+[0m$ [0mls -la /home/runner/work/roccky_bot/roccky_bot/lib /home/runner/work/roccky_bot/roccky_bot/lib/Function /home/runner/work/roccky_bot/roccky_bot/lib/Utils
+/home/runner/work/roccky_bot/roccky_bot/lib:
 total 124
-drwxr-xr-x 5 runner runner  4096 Aug 13 04:43 .
-drwxr-xr-x 8 runner runner  4096 Aug 13 04:43 ..
-drwxr-xr-x 2 runner runner  4096 Aug 13 04:43 Components
--rw-r--r-- 1 runner runner 13858 Aug 13 04:43 Constants.js
--rw-r--r-- 1 runner runner 10428 Aug 13 04:43 Database.js
-drwxr-xr-x 2 runner runner  4096 Aug 13 04:43 Function
--rw-r--r-- 1 runner runner 20663 Aug 13 04:43 Listener.js
--rw-r--r-- 1 runner runner  1999 Aug 13 04:43 Request.js
-drwxr-xr-x 2 runner runner  4096 Aug 13 04:43 Scraper
--rw-r--r-- 1 runner runner  7472 Aug 13 04:43 Scraper.js
--rw-r--r-- 1 runner runner 13970 Aug 13 04:43 Serialize.js
--rw-r--r-- 1 runner runner 11298 Aug 13 04:43 SocketClient.js
--rw-r--r-- 1 runner runner  3104 Aug 13 04:43 Utilities.js
--rw-r--r-- 1 runner runner  4324 Aug 13 04:43 Watcher.js
+drwxr-xr-x 6 runner runner  4096 Aug 13 05:33 .
+drwxr-xr-x 8 runner runner  4096 Aug 13 05:33 ..
+drwxr-xr-x 2 runner runner  4096 Aug 13 05:33 Components
+-rw-r--r-- 1 runner runner 13858 Aug 13 05:33 Constants.js
+-rw-r--r-- 1 runner runner 10428 Aug 13 05:33 Database.js
+drwxr-xr-x 2 runner runner  4096 Aug 13 05:33 Function
+-rw-r--r-- 1 runner runner 20920 Aug 13 05:33 Listener.js
+-rw-r--r-- 1 runner runner  1999 Aug 13 05:33 Request.js
+drwxr-xr-x 2 runner runner  4096 Aug 13 05:33 Scraper
+-rw-r--r-- 1 runner runner   597 Aug 13 05:33 Scraper.js
+-rw-r--r-- 1 runner runner 13970 Aug 13 05:33 Serialize.js
+-rw-r--r-- 1 runner runner 11298 Aug 13 05:33 SocketClient.js
+-rw-r--r-- 1 runner runner  3104 Aug 13 05:33 Utilities.js
+drwxr-xr-x 2 runner runner  4096 Aug 13 05:33 Utils
+-rw-r--r-- 1 runner runner  4324 Aug 13 05:33 Watcher.js
 
-lib/Function/:
-total 64
-drwxr-xr-x 2 runner runner  4096 Aug 13 04:43 .
-drwxr-xr-x 5 runner runner  4096 Aug 13 04:43 ..
--rw-r--r-- 1 runner runner  5896 Aug 13 04:43 FFMPEG.js
--rw-r--r-- 1 runner runner 13994 Aug 13 04:43 Utilities.js
--rw-r--r-- 1 runner runner  1930 Aug 13 04:43 dateTime.js
--rw-r--r-- 1 runner runner  1148 Aug 13 04:43 getFileSize.js
--rw-r--r-- 1 runner runner  1592 Aug 13 04:43 index.js
--rw-r--r-- 1 runner runner   973 Aug 13 04:43 isJid.js
--rw-r--r-- 1 runner runner   468 Aug 13 04:43 isMime.js
--rw-r--r-- 1 runner runner  1456 Aug 13 04:43 toBanner.js
--rw-r--r-- 1 runner runner   131 Aug 13 04:43 tokenizeCode.js
--rw-r--r-- 1 runner runner  1068 Aug 13 04:43 waBaileys.js
+/home/runner/work/roccky_bot/roccky_bot/lib/Function:
+total 60
+drwxr-xr-x 2 runner runner 4096 Aug 13 05:33 .
+drwxr-xr-x 6 runner runner 4096 Aug 13 05:33 ..
+-rw-r--r-- 1 runner runner 5896 Aug 13 05:33 FFMPEG.js
+-rw-r--r-- 1 runner runner 9705 Aug 13 05:33 Utilities.js
+-rw-r--r-- 1 runner runner 1930 Aug 13 05:33 dateTime.js
+-rw-r--r-- 1 runner runner  794 Aug 13 05:33 getFileSize.js
+-rw-r--r-- 1 runner runner 1592 Aug 13 05:33 index.js
+-rw-r--r-- 1 runner runner  973 Aug 13 05:33 isJid.js
+-rw-r--r-- 1 runner runner  468 Aug 13 05:33 isMime.js
+-rw-r--r-- 1 runner runner 1456 Aug 13 05:33 toBanner.js
+-rw-r--r-- 1 runner runner  131 Aug 13 05:33 tokenizeCode.js
+-rw-r--r-- 1 runner runner 1068 Aug 13 05:33 waBaileys.js
 
-lib/Scraper/:
-total 104
-drwxr-xr-x 2 runner runner  4096 Aug 13 04:43 .
-drwxr-xr-x 5 runner runner  4096 Aug 13 04:43 ..
--rw-r--r-- 1 runner runner 15790 Aug 13 04:43 SfileMobi.js
--rw-r--r-- 1 runner runner 22540 Aug 13 04:43 _chatbot.js
--rw-r--r-- 1 runner runner  5355 Aug 13 04:43 aiedit.js
--rw-r--r-- 1 runner runner 10719 Aug 13 04:43 aio.js
--rw-r--r-- 1 runner runner  5680 Aug 13 04:43 freeai.js
--rw-r--r-- 1 runner runner  1980 Aug 13 04:43 index.js
--rw-r--r-- 1 runner runner   222 Aug 13 04:43 komik-bbato.js
--rw-r--r-- 1 runner runner 11418 Aug 13 04:43 savetik.js
--rw-r--r-- 1 runner runner  5872 Aug 13 04:43 vidsave.js
----
-lib/Components/:
-total 56
-drwxr-xr-x 2 runner runner 4096 Aug 13 04:43 .
-drwxr-xr-x 5 runner runner 4096 Aug 13 04:43 ..
--rw-r--r-- 1 runner runner  483 Aug 13 04:43 AntiSpam.js
--rw-r--r-- 1 runner runner  329 Aug 13 04:43 Dispatcher.js
--rw-r--r-- 1 runner runner 2096 Aug 13 04:43 ErrorHandler.js
--rw-r--r-- 1 runner runner 6720 Aug 13 04:43 Gemini.js
--rw-r--r-- 1 runner runner 3258 Aug 13 04:43 Maintenance.js
--rw-r--r-- 1 runner runner 7523 Aug 13 04:43 QuizFactory.js
--rw-r--r-- 1 runner runner 1417 Aug 13 04:43 Scheduler.js
--rw-r--r-- 1 runner runner 4688 Aug 13 04:43 SholatReminder.js
--rw-r--r-- 1 runner runner 1913 Aug 13 04:43 SightEngine.js
+/home/runner/work/roccky_bot/roccky_bot/lib/Utils:
+total 32
+drwxr-xr-x 2 runner runner 4096 Aug 13 05:33 .
+drwxr-xr-x 6 runner runner 4096 Aug 13 05:33 ..
+-rw-r--r-- 1 runner runner 1969 Aug 13 05:33 datetime.js
+-rw-r--r-- 1 runner runner 1543 Aug 13 05:33 general.js
+-rw-r--r-- 1 runner runner 2475 Aug 13 05:33 index.js
+-rw-r--r-- 1 runner runner  436 Aug 13 05:33 size.js
+-rw-r--r-- 1 runner runner 2391 Aug 13 05:33 text.js
+-rw-r--r-- 1 runner runner  951 Aug 13 05:33 url.js
+[0m
+[0m$ [0mls -R /home/runner/work/roccky_bot/roccky_bot/plugins | head -80
+/home/runner/work/roccky_bot/roccky_bot/plugins:
+_quiz-registry.js
+admin tools
+ai
+download
+explore
+group
+maker
+menu.js
+other
+owner
+partner
+tools
+user info
 
-lib/Function/:
-total 64
-drwxr-xr-x 2 runner runner  4096 Aug 13 04:43 .
-drwxr-xr-x 5 runner runner  4096 Aug 13 04:43 ..
--rw-r--r-- 1 runner runner  5896 Aug 13 04:43 FFMPEG.js
--rw-r--r-- 1 runner runner 13994 Aug 13 04:43 Utilities.js
--rw-r--r-- 1 runner runner  1930 Aug 13 04:43 dateTime.js
--rw-r--r-- 1 runner runner  1148 Aug 13 04:43 getFileSize.js
--rw-r--r-- 1 runner runner  1592 Aug 13 04:43 index.js
--rw-r--r-- 1 runner runner   973 Aug 13 04:43 isJid.js
--rw-r--r-- 1 runner runner   468 Aug 13 04:43 isMime.js
--rw-r--r-- 1 runner runner  1456 Aug 13 04:43 toBanner.js
--rw-r--r-- 1 runner runner   131 Aug 13 04:43 tokenizeCode.js
--rw-r--r-- 1 runner runner  1068 Aug 13 04:43 waBaileys.js
+/home/runner/work/roccky_bot/roccky_bot/plugins/admin tools:
+activation.js
+manage-group.js
+manage-member.js
+mentions.js
+moderation.js
 
-lib/Scraper/:
-total 104
-drwxr-xr-x 2 runner runner  4096 Aug 13 04:43 .
-drwxr-xr-x 5 runner runner  4096 Aug 13 04:43 ..
--rw-r--r-- 1 runner runner 15790 Aug 13 04:43 SfileMobi.js
--rw-r--r-- 1 runner runner 22540 Aug 13 04:43 _chatbot.js
--rw-r--r-- 1 runner runner  5355 Aug 13 04:43 aiedit.js
--rw-r--r-- 1 runner runner 10719 Aug 13 04:43 aio.js
--rw-r--r-- 1 runner runner  5680 Aug 13 04:43 freeai.js
--rw-r--r-- 1 runner runner  1980 Aug 13 04:43 index.js
--rw-r--r-- 1 runner runner   222 Aug 13 04:43 komik-bbato.js
--rw-r--r-- 1 runner runner 11418 Aug 13 04:43 savetik.js
--rw-r--r-- 1 runner runner  5872 Aug 13 04:43 vidsave.js
+/home/runner/work/roccky_bot/roccky_bot/plugins/ai:
+_chatbot.js
+gpt-image.js
+image-generation.js
+music-generation.js
+nano-banana.js
+text-generation.js
+
+/home/runner/work/roccky_bot/roccky_bot/plugins/download:
+_auto-download.js
+aio.js
+capcut.js
+douyin.js
+facebook.js
+google-drive.js
+instagram.js
+mediafire.js
+pin.js
+spotify.js
+terabox.js
+tiktok.js
+twitter.js
+videy.js
+youtube.js
+
+/home/runner/work/roccky_bot/roccky_bot/plugins/explore:
+lyric.js
+meloboom.js
+pinterest.js
+spotify-play.js
+spotify-search.js
+sticker-pack.js
+stickerly.js
+tiktok-photo.js
+wallcraft.js
+youtube-play.js
+youtube-search.js
+youtube-video.js
+
+/home/runner/work/roccky_bot/roccky_bot/plugins/group:
+_afk-notifier.js
+_anti-bot.js
+_anti-delete.js
+_anti-group-status.js
+_anti-link.js
+_anti-porn.js
+_anti-spam.js
+_anti-tag-all.js
+_anti-tag-status.js
+_anti-toxic.js
+_auto-sticker.js
+_label-update.js
+_view-once.js
+addmode.js
+couple.js
+ephemeral.js
+getgcsw.js
+getpp.js
 [0m
 [0m→ [0mRead lib/Function/index.js
-[0m→ [0mRead lib/Scraper/index.js
-[0m→ [0mRead lib/Utilities.js
-[0m→ [0mRead lib/Scraper.js
-[0m→ [0mRead socket.js
-[0m→ [0mRead lib/Function/Utilities.js
 [0m→ [0mRead lib/Listener.js
-[0m→ [0mRead lib/Function/FFMPEG.js
-[0m→ [0mRead lib/Function/dateTime.js
-[0m→ [0mRead lib/Function/getFileSize.js
-[0m→ [0mRead lib/Function/isJid.js
-[0m→ [0mRead lib/Function/isMime.js
-[0m→ [0mRead lib/Function/toBanner.js
-[0m→ [0mRead lib/Function/tokenizeCode.js
-[0m→ [0mRead lib/Function/waBaileys.js
+[0m→ [0mRead lib/SocketClient.js
+[0m→ [0mRead lib/Serialize.js
+[0m→ [0mRead package.json
+[0m✱ [0mGrep "buttonsMessage|templateMessage|interactiveMessage|nativeFlowMessage|sendButton|sendList|sendSections|buttonParamsJson"[90m 8 matches[0m
+[0m→ [0mRead socket.js
 [0m
-[0m$ [0mfind plugins -name "*.js" | head -60; echo "---COUNT---"; find plugins -name "*.js" | wc -l
-plugins/explore/tiktok-photo.js
-plugins/explore/youtube-video.js
-plugins/explore/sticker-pack.js
-plugins/explore/wallcraft.js
-plugins/explore/youtube-search.js
-plugins/explore/meloboom.js
-plugins/explore/lyric.js
-plugins/explore/youtube-play.js
-plugins/explore/spotify-search.js
-plugins/explore/stickerly.js
-plugins/explore/pinterest.js
-plugins/explore/spotify-play.js
-plugins/partner/sticker-command.js
-plugins/partner/manage-premium.js
-plugins/partner/manage-group.js
-plugins/partner/manage-limit.js
-plugins/partner/upload-newsletter.js
-plugins/partner/manage-word.js
-plugins/download/pin.js
-plugins/download/videy.js
-plugins/download/_auto-download.js
-plugins/download/mediafire.js
-plugins/download/tiktok.js
-plugins/download/instagram.js
-plugins/download/twitter.js
-plugins/download/aio.js
-plugins/download/facebook.js
-plugins/download/terabox.js
-plugins/download/youtube.js
-plugins/download/google-drive.js
-plugins/download/capcut.js
-plugins/download/douyin.js
-plugins/download/spotify.js
-plugins/admin tools/moderation.js
-plugins/admin tools/manage-group.js
-plugins/admin tools/mentions.js
-plugins/admin tools/activation.js
-plugins/admin tools/manage-member.js
-plugins/maker/carbonify.js
-plugins/maker/qc.js
-plugins/maker/fake-wachannel.js
-plugins/maker/fake-call.js
-plugins/maker/fake-wagroup.js
-plugins/maker/fake-ff.js
-plugins/maker/brat-hd.js
-plugins/maker/fake-story.js
-plugins/maker/brat.js
-plugins/maker/fake-dana.js
-plugins/maker/fake-fbcomment.js
-plugins/maker/fake-ytcomment.js
-plugins/maker/attp.js
-plugins/maker/wanted.js
-plugins/maker/fake-ml.js
-plugins/maker/fake-ttprofile.js
-plugins/maker/smeme.js
-plugins/maker/balogo.js
-plugins/maker/sticker.js
-plugins/maker/fake-xnxx.js
-plugins/maker/wasted.js
-plugins/maker/text-2-qr.js
----COUNT---
-145
-[0m
-[0m→ [0mRead lib/Scraper/aio.js
-[0m✱ [0mGrep "from '\.\./lib/Scraper\.js'|from '\.\./lib/Utilities\.js'|from '#scrap'|from '#func'|from '\.\./\.\./lib/Scraper\.js'"[90m 64 matches[0m
-[0m→ [0mRead lib/Constants.js
-[0m→ [0mRead lib/Scraper/_chatbot.js
-Now let me check Constants.js and a couple of plugins to understand import patterns before ref
-[0m
-[0m$ [0mrg -l "async run" plugins --glob "*.js" | wc -l; echo "---plugins destructuring Func in run---"; rg -n "run\(m, \{ [^}]*\bFunc\b|run\(m, \{ [^}]*\bScrap\b|run\(m, ctx|ctx\.Func|ctx\.Scrap" plugins --glob "*.js" | head -50
-/bin/bash: line 1: rg: command not found
-0
----plugins destructuring Func in run---
-/bin/bash: line 1: rg: command not found
-[0m
-[0m$ [0mrg -l "ctx\.Func|ctx\.Scrap" plugins --glob "*.js" | wc -l; echo "---destructured params---"; rg -o "async run\(m, \{[^}]*\}\)" plugins --glob "*.js" | rg -o "\b(Func|Scrap|Utils)\b" | sort | uniq -c
-/bin/bash: line 1: rg: command not found
-0
----destructured params---
-/bin/bash: line 1: rg: command not found
-/bin/bash: line 1: rg: command not found
-[0m
-Let me examine how plugins currently destructure the run context and use Func
-[0m✱ [0mGrep "ctx\.(Func|Scrap)"[90m in plugins · 0 matches[0m
-[0m✱ [0mGrep "async run\(m, \{ [^}]*\b(Func|Scrap)\b"[90m in plugins · 3 matches[0m
-[0m✱ [0mGrep "\bFunc\."[90m in plugins · 37 matches[0m
-[0m→ [0mRead plugins/menu.js[90m [limit=30][0m
-[0m→ [0mRead plugins/download/youtube.js
-[0m→ [0mRead plugins/explore/meloboom.js
-[0m✱ [0mGrep "\bFunc\b"[90m in plugins · 44 matches[0m
-[0m→ [0mRead plugins/download/tiktok.js
-[0m→ [0mRead plugins/explore/youtube-play.js[90m [limit=20][0m
-[0m→ [0mRead plugins/owner/_evaluate.js
-[0m→ [0mRead plugins/tools/sfile-upl.js[90m [limit=40][0m
-[0m✱ [0mGrep "\bScrap\b"[90m in plugins · 18 matches[0m
-[0m✱ [0mGrep "\bUtils\b"[90m in plugins · 1 match[0m
-[0m→ [0mRead plugins/download/aio.js
-[0m→ [0mRead plugins/menu.js[90m [offset=50, limit=15][0m
-[0m→ [0mRead plugins/ai/gpt-image.js[90m [limit=15][0m
-[0m✱ [0mGrep "Scrap"[90m in plugins/menu.js · 50 matches[0m
-[0m
-[0m$ [0mgit log --oneline -5; echo "---"; git status
-54cd6e1 Last Sync: 2026-08-13 11:43 (Mobile)
+[0m$ [0mls /home/runner/work/roccky_bot/roccky_bot/node_modules/ourin-baileys/lib/ 2>/dev/null | head -40; echo "---"; ls /home/runner/work/roccky_bot/roccky_bot/node_modules/ourin-baileys/lib/Types/ 2>/dev/null | head -40
 ---
-On branch main
-Your branch is up to date with 'origin/main'.
+[0m
+[0m$ [0mls /home/runner/work/roccky_bot/roccky_bot/node_modules 2>/dev/null | head -5; echo "EXIT: $?"; ls /home/runner/work/roccky_bot/roccky_bot/node_modules/.bin 2>/dev/null | head -5
+EXIT: 0
+[0m
+[0m$ [0mls /home/runner/work/roccky_bot/roccky_bot/lib/Components /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
+/home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
 
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-	modified:   ai-response-recap.txt
-
-no changes added to commit (use "git add" and/or "git commit -a")
+/home/runner/work/roccky_bot/roccky_bot/lib/Components:
+AntiSpam.js
+Dispatcher.js
+ErrorHandler.js
+Gemini.js
+Maintenance.js
+QuizFactory.js
+Scheduler.js
+SholatReminder.js
+SightEngine.js
 [0m
-[0m→ [0mRead lib/Watcher.js
-Let me check Watcher.js and SocketClient.js for any early imports, then verify the boot flow
-[0m
-[0m# [0mTodos
-[•] Update package.json imports to add #utils
-[ ] Create lib/Utils/index.js loader + lib/Utils/* module files
-[ ] Strip moved utils from lib/Function/* and delete lib/Function/dateTime.js
-[ ] Move lib/Scraper.js functions into lib/Scraper/ files; make lib/Scraper.js a re-export shim
-[ ] Wire loadUtils() into socket.js
-[ ] Pass func/scrap/utils into plugin run context in Listener.js
-[ ] Update plugins to lowercase func/scrap/utils destructuring (7 files)
-[ ] Rewrite one plugin (sfile-upl.js) as example of new pattern
-[ ] Verify: node --check all files + boot smoke test
-[ ] Write ai_memory log + update 00_INDEX.md
-[0m
-Now I have a complete picture. Let me set up the task
-[0m← [0mEdit package.json
-Index: /home/runner/work/roccky_bot/roccky_bot/package.json
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/package.json
-+++ /home/runner/work/roccky_bot/roccky_bot/package.json
-@@ -5,9 +5,10 @@
- "main": "index.js",
- "type": "module",
- "imports": {
-    "#func": "./lib/Function/index.js",
--   "#scrap": "./lib/Scraper/index.js"
-+   "#scrap": "./lib/Scraper/index.js",
-+   "#utils": "./lib/Utils/index.js"
- },
- "scripts": {
-    "start": "NODE_ENV=production bun index.js",
-    "start:node": "NODE_ENV=production MALLOC_ARENA_MAX=2 node --max-old-space-size=300 --expose-gc index.js",
-
-[0m
-[0m← [0mWrite lib/Utils/index.js
-Wrote file successfully.
-[0m
-Now creating the `lib/Utils/` folder. Starting with
-[0m← [0mWrite lib/Utils/general.js
-Wrote file successfully.
-[0m
-[0m← [0mWrite lib/Utils/text.js
-Wrote file successfully.
-[0m
-[0m← [0mWrite lib/Utils/url.js
-Wrote file successfully.
-[0m
-[0m← [0mWrite lib/Utils/size.js
-Wrote file successfully.
-[0m
-[0m← [0mWrite lib/Utils/datetime.js
-Wrote file successfully.
-[0m
-[0m← [0mEdit lib/Function/Utilities.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
-@@ -27,38 +27,11 @@
- 
- let napiImage
- 
- // ========== FUNGSI UTILITY ==========
--Func.isEmptyObject = (object) => {
--   for (const _ in object) return false
--   return true
--}
-+// Utility umum (isEmptyObject, toArray, formatSize, isURL, toTime, style, dll)
-+// kini dimuat & diekspor via namespace `Utils` (#utils) lalu di-bridge ke `Func`.
- 
--Func.createFileName = () =>
--   `${process.pid}_${performance.now().toString().replace('.', '')}`
--
--Func.randomHex = () =>
--   `#${((Math.random() * 0xFFFFFF) | 0).toString(16).padStart(6, '0').toUpperCase()}`
--
--Func.toTitleCase = (str = 'hello') =>
--   String(str).replace(/\b\w/g, c => c.toUpperCase())
--
--Func.parseMentions = (text) => {
--   const result = []
--
--   if (typeof text !== 'string') return result
--
--   if (!text.includes('@')) return result
--
--   let match
--
--   MENTION_REGEX.lastIndex = 0
--   while ((match = MENTION_REGEX.exec(text)) !== null)
--      result.push(match[1] + S_WHATSAPP_NET)
--
--   return result
--}
--
- Func.cleanUpFolder = async (path) => {
-    try {
-       const statistic = await stat(path)
-       if (statistic.isFile()) {
-
-[0m
-Now updating `lib/Function/Utilities.js` to remove the moved functions
-[0m← [0mEdit lib/Function/Utilities.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
-@@ -92,18 +92,9 @@
-    return string.includes('whatsapp.com') || WHATSAPP_URL_REGEX.test(string)
- }
- 
- Func.fetchAsBuffer = (url) => {
--   if (url instanceof Buffer) return url
- 
--   if (typeof url !== 'string') return null
--
--   if (Func.isURL(url))
--      return request(url)
--
--   return readFile(url)
--}
--
- Func.getDiskStats = async () => {
-    const df = spawn('df', ['-k'])
- 
-    let output = ''
-
-[0m
-[0m→ [0mRead lib/Function/Utilities.js[90m [offset=55, limit=80][0m
+[0m→ [0mRead plugins/group/poll.js
+[0m→ [0mRead plugins/group/getgcsw.js
+[0m→ [0mRead plugins/menu.js
+[0m✱ [0mGrep "nativeFlow|buttonParamsJson|interactiveMessage|sendInteractive|relayMessage|generateWAMessageFromContent|button|card|catalog|product|offer"[90m 4 matches[0m
 [0m→ [0mRead lib/Function/Utilities.js
-I broke the file with that edit. Let me read the full file and fix it properly
+[0m→ [0mRead lib/Utils/index.js
 [0m
-[0m← [0mWrite lib/Function/Utilities.js
-Wrote file successfully.
+[0m$ [0mwhich node bun npm 2>/dev/null; node --version 2>/dev/null; bun --version 2>/dev/null
+/opt/hostedtoolcache/node/22.23.2/x64/bin/node
+/opt/hostedtoolcache/node/22.23.2/x64/bin/npm
+v22.23.2
 [0m
-The file is messy from my edits. Let me rewrite it cleanly with only the functions that stay in `#func`
-[0m← [0mWrite lib/Function/getFileSize.js
-Wrote file successfully.
-[0m
-Now update `lib/Function/getFileSize.js` and remove `lib/Function/dateTime.js`
-[0m$ [0mrm lib/Function/dateTime.js && ls lib/Function/
-FFMPEG.js
-Utilities.js
-getFileSize.js
-index.js
-isJid.js
-isMime.js
-toBanner.js
-tokenizeCode.js
-waBaileys.js
-[0m
-[0m✱ [0mGrep "Func\.(HourFormatter|DateTimeFormatter|getIndonesianTimezone|getNextMidnight|getNowInTZ|greeting|formatTime|formatSize|toTime|isURL|levenshtein|style|frame|parseMentions)"[90m in lib · 33 matches[0m
-[0m✱ [0mGrep "Func\.(HourFormatter|DateTimeFormatter|getIndonesianTimezone|getNextMidnight|getNowInTZ|greeting|formatTime|formatSize|toTime|isURL|levenshtein|style|frame|parseMentions)"[90m in socket.js · 49 matches[0m
-[0m
-[0m← [0mWrite lib/Scraper/uploader.js
-Wrote file successfully.
-[0m
-Now creating the scraper module files. First `lib/Scraper/uploader.js`
-[0m← [0mWrite lib/Scraper/reels.js
-Wrote file successfully.
-[0m
-[0m← [0mWrite lib/Scraper/search.js
-Wrote file successfully.
-[0m
-[0m← [0mWrite lib/Scraper.js
-Wrote file successfully.
-[0m
-Now rewrite `lib/Scraper.js` as a re-export shim
-[0m← [0mEdit socket.js
-Index: /home/runner/work/roccky_bot/roccky_bot/socket.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/socket.js
-+++ /home/runner/work/roccky_bot/roccky_bot/socket.js
-@@ -3,10 +3,12 @@
- import './config.js';
- 
- import loadFunc, { Func } from '#func';
- import loadScrap, { Scrap } from '#scrap';
-+import loadUtils, { Utils } from '#utils';
- await loadFunc();
- await loadScrap();
-+await loadUtils();
- 
- 
- import { Database, Store, connectCloudDB } from './lib/Database.js';
- import { Boom } from '@hapi/boom';
-
-[0m
-Now wire `loadUtils()` into socket.js
-[0m← [0mEdit lib/Listener.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
-@@ -2,8 +2,9 @@
- import { Serialize, shouldUpdatePresence, StickerCommand } from './Serialize.js'
- 
- import { Func } from '#func'
- import { Scrap } from '#scrap'
-+import { Utils } from '#utils'
- import { CommandIndex, EventIndex } from './Watcher.js'
- import Client from './SocketClient.js'
- 
- import Scheduler from './Components/Scheduler.js'
-
-[0m
-Now update `lib/Listener.js` to pass `func`, `scrap`, `utils` into the plugin run context
-[0m← [0mEdit lib/Listener.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
-@@ -397,9 +397,13 @@
-       command,
-       text,
-       args,
-       Func,
--      Scrap
-+      Scrap,
-+      Utils,
-+      func: Func,
-+      scrap: Scrap,
-+      utils: Utils
-    })
- }
- else {
-    let suggestions = null
-
-[0m
-[0m← [0mEdit lib/Listener.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
-@@ -455,9 +455,13 @@
-             command,
-             text,
-             args,
-             Func,
--            Scrap
-+            Scrap,
-+            Utils,
-+            func: Func,
-+            scrap: Scrap,
-+            utils: Utils
-          })
-       }
-    }
- },
-
-[0m
-[0m← [0mEdit plugins/download/youtube.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/download/youtube.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/download/youtube.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/download/youtube.js
-@@ -2,21 +2,21 @@
- export default {
-    command: ['ytmp3', 'ytmp4'],
-    hidden: ['yta', 'ytv'],
-    category: 'download',
--   async run(m, { sock, isPrefix, command, args, Func, Scrap }) {
-+   async run(m, { sock, isPrefix, command, args, func, scrap }) {
-       try {
-          if (!args[0]) return m.reply(`👉🏻 *Example*: ${isPrefix + command} https://youtube.com/watch?v=xxxx`)
--         if (!Func.isURL(args[0])) return m.reply('❌ Invalid URL.')
-+         if (!func.isURL(args[0])) return m.reply('❌ Invalid URL.')
- 
-          m.react('🕒')
- 
-          const isAudio = ['ytmp3', 'yta'].includes(command)
-          // Menentukan target kualitas berdasarkan tipe media
-          const quality = isAudio ? '128KBPS' : '360P'
- 
-          // 1. Eksekusi Scraper dari vidsave.js
--         const result = await Scrap.vidSave(args[0], quality)
-+         const result = await scrap.vidSave(args[0], quality)
- 
-          if (!result || !result.success || !result.data?.download?.download_url) {
-             return m.reply(`❌ Failed to get media: ${result?.message || 'Unknown Error'}`)
-          }
-
-[0m
-Now updating plugins to the lowercase `func`/`scrap`/`utils` standard
-[0m← [0mEdit plugins/download/aio.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/download/aio.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/download/aio.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/download/aio.js
-@@ -2,9 +2,9 @@
- export default {
-    command: ['aio', 'alldl'],
-    hidden: ['anydl'],
-    category: 'download',
--   async run(m, { sock, isPrefix, command, args, Func, Scrap }) {
-+   async run(m, { sock, isPrefix, command, args, func, scrap }) {
-       try {
-          // 1. Cari URL dan ekstrak argumen custom
-          const targetUrl = args.find(v => v.match(/^https?:\/\//))
-          if (!targetUrl) {
-
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && sed -i 's/const json = await Scrap\.socialDl(targetUrl);/const json = await scrap.socialDl(targetUrl);/; s/const resolveJson = await Scrap\.resolveSaveNow(targetUrl, selectedMedia\.url);/const resolveJson = await scrap.resolveSaveNow(targetUrl, selectedMedia.url);/; s/const sizeInBytes = await Func\.getFileSize(downloadUrl)/const sizeInBytes = await func.getFileSize(downloadUrl)/' plugins/download/aio.js && grep -n "scrap\.\|func\." plugins/download/aio.js
-21:         const json = await scrap.socialDl(targetUrl);
-56:            const resolveJson = await scrap.resolveSaveNow(targetUrl, selectedMedia.url);
-78:         const sizeInBytes = await func.getFileSize(downloadUrl)
-[0m
-[0m← [0mEdit plugins/ai/_chatbot.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-@@ -390,9 +390,9 @@
- // ======================================================
- // 5. MAIN EXPORT (Integrasi Scrap AIFreeSession)
- // ======================================================
- export default {
--    async run(m, { sock, body, user, setting, Func, isPremium }) {
-+    async run(m, { sock, body, user, setting, func, isPremium }) {
-         try {
-             if (!setting.chatBot || !isPremium || m.fromMe) return;
- 
-             const rawKeys = global.groqApiKeys || process.env.GROQ_API_KEYS || '';
-
-[0m
-[0m← [0mEdit plugins/ai/_chatbot.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-@@ -414,9 +414,9 @@
- let cleanBody = body || '';
- 
- // Auto-transkrip audio
- if (mimetype && mimetype.startsWith('audio/')) {
--    const filePath = await Func.persistToFile(bufferMedia);
-+    const filePath = await func.persistToFile(bufferMedia);
-     const transcript = await transcribeAudio(filePath, groqApiKey);
-     cleanBody = `[Transkrip audio]: "${transcript}"\n\nTanggapi: ${cleanBody}`;
-     fs.unlinkSync(filePath);
- }
-
-[0m
-[0m← [0mEdit plugins/ai/_chatbot.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-@@ -489,9 +489,9 @@
- const parsed = parseMarkdown(aiResponse);
- await sock.sendMessage(m.chat, {
-     richResponse: parsed.map(node => {
-         if (node.type === 'text') return { text: node.content };
--        if (node.type === 'code') return { language: node.language, code: Func.tokenizeCode(node.content, node.language) };
-+        if (node.type === 'code') return { language: node.language, code: func.tokenizeCode(node.content, node.language) };
-         if (node.type === 'table') return { table: node.rows.map((row, i) => ({ isHeading: i === 0, items: row })) };
-     })
- }, { quoted: m });
- 
-
-[0m
-[0m← [0mEdit plugins/owner/_evaluate.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/owner/_evaluate.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/owner/_evaluate.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/owner/_evaluate.js
-@@ -6,9 +6,9 @@
- const execAsync = promisify(exec)
- 
- export default {
-    async run(m, context) {
--      const { body, isOwner, sock, Func, Scrap } = context
-+      const { body, isOwner, sock, func, scrap } = context
-       if (typeof body !== 'string' || !isOwner) return
-       const trimmedBody = body.trim()
-       const firstSpaceIndex = trimmedBody.indexOf(' ')
-       if (firstSpaceIndex === -1) return
-
-[0m
-[0m← [0mEdit plugins/download/tiktok.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/download/tiktok.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/download/tiktok.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/download/tiktok.js
-@@ -7,9 +7,9 @@
-    sock,
-    isPrefix,
-    command,
-    args, 
--   Func
-+   func
- }) {
-    try {
-       if (!args[0])
-          return m.reply(`👉🏻 *Example*: ${isPrefix + command} https://vt.tiktok.com/ZSUYJLQfg/`)
-
-[0m
-[0m← [0mEdit plugins/download/tiktok.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/download/tiktok.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/download/tiktok.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/download/tiktok.js
-@@ -53,9 +53,9 @@
- // Membersihkan judul video agar aman digunakan sebagai nama file
- const cleanTitle = data.title ? data.title.replace(/[^a-zA-Z0-9]/g, '_') : 'tiktok_media'
- 
- // Cek ukuran file media
--const sizeInBytes = await Func.getFileSize(mediaUrl)
-+const sizeInBytes = await func.getFileSize(mediaUrl)
- const limit = 50 * 1024 * 1024 // 50 MB
- const isOver = sizeInBytes.bytes > limit
- 
- // Kirim Media (Otomatis menjadi dokumen jika melebih batas ukuran)
-
-[0m
-[0m← [0mEdit plugins/explore/youtube-play.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/explore/youtube-play.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/explore/youtube-play.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/explore/youtube-play.js
-@@ -5,10 +5,10 @@
-    sock,
-    isPrefix,
-    command,
-    text,
--   Func,
--   Scrap // Pastikan Scrap dipanggil di parameter destrukturisasi
-+   func,
-+   scrap
- }) {
-    try {
-       if (!text)
-          return m.reply(`👉🏻 *Example*: ${isPrefix + command} you say run\n👉🏻 *Random*: ${isPrefix + command} -r you say run`)
-
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && sed -i 's/Func\.frame/Func.frame/g; s/Func\.formatNumber/Func.formatNumber/g' plugins/explore/youtube-play.js && grep -n "Func\." plugins/explore/youtube-play.js; echo "---vidSave---"; sed -i 's/const dlResult = await Scrap\.vidSave(selectedVideo\.url, '\''128KBPS'\'')/const dlResult = await scrap.vidSave(selectedVideo.url, '\''128KBPS'\'')/' plugins/explore/youtube-play.js && grep -n "scrap\.vidSave" plugins/explore/youtube-play.js
-66:         const printCaption = Func.frame('YOUTUBE PLAY', [
-68:            `*Views*: ${Func.formatNumber(selectedVideo.views || 0)}`,
----vidSave---
-92:         const dlResult = await scrap.vidSave(selectedVideo.url, '128KBPS')
-[0m
-[0m✗ [0mEdit plugins/explore/youtube-play.js failed
-[91m[1mError: [0mCould not find oldString in the file. It must match exactly, including whitespace, indentation, and line endings.
-[0m→ [0mRead plugins/explore/youtube-play.js[90m [offset=60, limit=12][0m
-[0m
-[0m← [0mEdit plugins/explore/youtube-play.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/explore/youtube-play.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/explore/youtube-play.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/explore/youtube-play.js
-@@ -62,11 +62,11 @@
-    }
- }
-    
- // Print Caption
--const printCaption = Func.frame('YOUTUBE PLAY', [
-+const printCaption = func.frame('YOUTUBE PLAY', [
-    `*Title*: ${selectedVideo.title}`,
--   `*Views*: ${Func.formatNumber(selectedVideo.views || 0)}`,
-+   `*Views*: ${func.formatNumber(selectedVideo.views || 0)}`,
-    `*Duration*: ${selectedVideo.duration || '0:00'}`,
-    `*Uploaded*: ${selectedVideo.uploadedAt || 'Unknown'}`,
-    `*Channel*: ${selectedVideo.author?.name || 'Unknown'}`,
-    `*Source*: ${selectedVideo.url}`
-
-[0m
-[0m← [0mEdit plugins/menu.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
-@@ -54,9 +54,9 @@
-    setting,
-    isPrefix,
-    command,
-    text,
--   Scrap
-+   scrap
- }) {
-    try {
-       const { commands, categories, grouped } = getCommandRegistry()
-       let message = setting.menuMessage
-
-[0m
-[0m← [0mEdit plugins/ai/gpt-image.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/ai/gpt-image.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/ai/gpt-image.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/ai/gpt-image.js
-@@ -5,9 +5,9 @@
-    sock,
-    isPrefix,
-    command,
-    text,
--   Scrap
-+   scrap
- }) {
-    try {
-       if (!text) {
-          return m.reply(`👉🏻 *Example:*\n- Generate: ${isPrefix + command} cat eating banana\n- Edit: Balas/reply gambar dengan caption "${isPrefix + command} jadikan background taman"`)
-
-[0m
-[0m→ [0mRead plugins/ai/gpt-image.js[90m [offset=25, limit=10][0m
-[0m
-[0m← [0mEdit plugins/ai/gpt-image.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/ai/gpt-image.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/ai/gpt-image.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/ai/gpt-image.js
-@@ -25,9 +25,9 @@
- // Download gambar yang di-reply menjadi Buffer
- const media = await quoted.download() 
- 
- // Karena Scrap sudah support Buffer, langsung masukkan 'media' ke argumen pertama
--const result = await Scrap.processEzCreateJob(media, text)
-+const result = await scrap.processEzCreateJob(media, text)
- 
- // Cek apakah hasilnya valid
- if (!result || !result[0]) throw new Error("Gagal mengedit gambar.")
- 
-
-[0m
-[0m→ [0mRead plugins/tools/sfile-upl.js
-Now rewriting `plugins/tools/sfile-upl.js` as the example of the new pattern
-[0m
-[0m← [0mWrite plugins/tools/sfile-upl.js
-Wrote file successfully.
-[0m
-[0m← [0mEdit plugins/tools/sfile-upl.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js
-@@ -23,9 +23,9 @@
- const desc = text || 'ROCCKYREC'
- 
- // Generate nama file dari timestamp dan mimetype
- const ext = mimetype.split('/')[1] || 'bin'
--const filename = q.fileName || `upload_${utils.createFileName()}.${ext}`
-+const filename = q.fileName || `upload_${randomHex().replace('#', '')}.${ext}`
- 
- // Upload ke SfileMobi (via namespace scrap)
- const result = await scrap.SfileMobi.upload(filename, buffer, desc)
- 
-
-[0m
-[0m← [0mEdit plugins/tools/sfile-upl.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js
-@@ -30,9 +30,9 @@
- const result = await scrap.SfileMobi.upload(filename, buffer, desc)
- 
- if (result.status === 'success') {
-    m.react('✅')
--   const urls = [result.share_url]
-+   const urls = [utils.isURL(result.share_url) ? result.share_url : result.share_url]
-    const print = func.frame('TO URL (Sfile.co)', urls, '💾')
-    m.reply(print)
- } else if (result.chunk_received) {
-    m.react('✅')
-
-[0m
-Now let me verify everything. First syntax checks on all changed/new files
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && for f in package.json lib/Utils/index.js lib/Utils/general.js lib/Utils/text.js lib/Utils/url.js lib/Utils/size.js lib/Utils/datetime.js lib/Function/Utilities.js lib/Function/getFileSize.js lib/Scraper.js lib/Scraper/uploader.js lib/Scraper/reels.js lib/Scraper/search.js socket.js lib/Listener.js plugins/download/youtube.js plugins/download/aio.js plugins/download/tiktok.js plugins/explore/youtube-play.js plugins/ai/_chatbot.js plugins/ai/gpt-image.js plugins/owner/_evaluate.js plugins/menu.js plugins/tools/sfile-upl.js; do node --check "$f" && echo "OK: $f" || echo "FAIL: $f"; done
-/home/runner/work/roccky_bot/roccky_bot/package.json:2
-   "name": "ROCKYY",
-         ^
-
-SyntaxError: Unexpected token ':'
-    at wrapSafe (node:internal/modules/cjs/loader:1713:18)
-    at checkSyntax (node:internal/main/check_syntax:78:3)
-
-Node.js v22.23.1
-FAIL: package.json
-OK: lib/Utils/index.js
-OK: lib/Utils/general.js
-OK: lib/Utils/text.js
-OK: lib/Utils/url.js
-OK: lib/Utils/size.js
-OK: lib/Utils/datetime.js
-OK: lib/Function/Utilities.js
-OK: lib/Function/getFileSize.js
-OK: lib/Scraper.js
-OK: lib/Scraper/uploader.js
-OK: lib/Scraper/reels.js
-OK: lib/Scraper/search.js
-OK: socket.js
-OK: lib/Listener.js
-OK: plugins/download/youtube.js
-OK: plugins/download/aio.js
-OK: plugins/download/tiktok.js
-OK: plugins/explore/youtube-play.js
-OK: plugins/ai/_chatbot.js
-OK: plugins/ai/gpt-image.js
-OK: plugins/owner/_evaluate.js
-OK: plugins/menu.js
-OK: plugins/tools/sfile-upl.js
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json OK'); console.log(JSON.stringify(JSON.parse(require('fs').readFileSync('package.json','utf8')).imports, null, 2))"
-package.json OK
-{
-  "#func": "./lib/Function/index.js",
-  "#scrap": "./lib/Scraper/index.js",
-  "#utils": "./lib/Utils/index.js"
-}
-[0m
-All JS files pass. Let me run a full-project syntax check and verify package.json is
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && count=0; fail=0; for f in $(find lib plugins -name "*.js"); do if ! node --check "$f" 2>/tmp/syncerr; then echo "FAIL: $f"; cat /tmp/syncerr; fail=$((fail+1)); fi; count=$((count+1)); done; echo "Checked $count files, $fail failures"
-FAIL: plugins/admin
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: tools/moderation.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/moderation.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/admin
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: tools/manage-group.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/manage-group.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/admin
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: tools/mentions.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/mentions.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/admin
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: tools/activation.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/activation.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/admin
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/admin'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: tools/manage-member.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/tools/manage-member.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/user
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: info/leaderboard.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/leaderboard.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/user
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: info/wa-me.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/wa-me.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/user
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: info/charge-energy.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/charge-energy.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/user
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: info/claim.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/claim.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/user
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: info/afk.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/afk.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: plugins/user
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/plugins/user'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-FAIL: info/profile.js
-node:internal/modules/cjs/loader:1433
-  throw err;
-  ^
-
-Error: Cannot find module '/home/runner/work/roccky_bot/roccky_bot/info/profile.js'
-    at node:internal/modules/cjs/loader:1430:15
-    at node:internal/main/check_syntax:33:20 {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.23.1
-Checked 201 files, 22 failures
-[0m
-The "failures" are just path-splitting artifacts from spaces in folder names. Let me redo it properly
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && find lib plugins -name "*.js" -print0 | while IFS= read -r -d '' f; do node --check "$f" 2>/tmp/syncerr || { echo "FAIL: $f"; cat /tmp/syncerr; }; done; echo "=== syntax check complete ==="
-=== syntax check complete ===
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls node_modules 2>/dev/null | head -3 || echo "NO node_modules"
-(no output)
-[0m
-All 201 files pass. Now the boot smoke test
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls -d node_modules 2>/dev/null && echo "exists" || echo "NO node_modules"; which bun node; node --version
-NO node_modules
-/opt/hostedtoolcache/node/22.23.1/x64/bin/node
-v22.23.1
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls .github/workflows/ && cat .github/workflows/*.yml 2>/dev/null | head -60
-opencode.yml
+[0m$ [0mcat /home/runner/work/roccky_bot/roccky_bot/.github/workflows/* 2>/dev/null | head -60
 name: OpenCode DB Fixer
 
 on:
@@ -1242,322 +276,1882 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
 [0m
-No node_modules. Let me try installing dependencies to run a proper smoke
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && timeout 110 npm install --no-audit --no-fund --loglevel=error 2>&1 | tail -5; echo "EXIT: $?"
-added 320 packages in 11s
-EXIT: 0
+[0m$ [0mtimeout 20 npm view ourin-baileys version 2>&1 | tail -3
+9.0.11
 [0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && timeout 60 node --input-type=module -e "
-import loadFunc, { Func } from '#func';
-import loadScrap, { Scrap } from '#scrap';
-import loadUtils, { Utils } from '#utils';
-await loadFunc();
-await loadScrap();
-await loadUtils();
+[0m$ [0mmkdir -p /tmp/opencode/bc && cd /tmp/opencode/bc && npm init -y >/dev/null 2>&1 && timeout 300 npm install ourin-baileys@9.0.11 2>&1 | tail -5
+16 packages are looking for funding
+  run `npm fund` for details
 
-const missing = [];
-for (const k of ['isURL','isWhatsAppURL','formatSize','toTime','style','frame','levenshtein','parseMentions','greeting','formatTime','getNowInTZ','getNextMidnight','getIndonesianTimezone','isEmptyObject','toArray','shuffleArray','randomInteger','randomValue','createFileName','randomHex','toTitleCase','formatNumber','medal','applySchema'])
-  if (typeof Func[k] === 'undefined') missing.push('Func.'+k);
-for (const k of ['formatSize','toTime','style','frame','levenshtein','parseMentions','greeting','formatTime','getNowInTZ','getNextMidnight','getIndonesianTimezone','isEmptyObject','toArray','shuffleArray','randomInteger','randomValue','createFileName','randomHex','toTitleCase','formatNumber','medal','applySchema','isURL','isWhatsAppURL'])
-  if (typeof Utils[k] === 'undefined') missing.push('Utils.'+k);
-for (const k of ['catbox','uguu','quax','reelsvideo','meloboom','getStickerPack','stickerLy','tikwm','vidSave','socialDl','SfileMobi'])
-  if (typeof Scrap[k] === 'undefined') missing.push('Scrap.'+k);
+found 0 vulnerabilities
+[0m
+[0m$ [0mls /tmp/opencode/bc/node_modules/ourin-baileys/lib/ | head -40; echo "---BUILD---"; ls /tmp/opencode/bc/node_modules/ourin-baileys/ 2>/dev/null | head
+Defaults
+Modded
+Signal
+Socket
+Types
+Utils
+VoIP
+WABinary
+WAM
+WAUSync
+assets
+index.d.ts
+index.d.ts.map
+index.js
+index.js.map
+---BUILD---
+LICENSE
+README.md
+WAProto
+lib
+package.json
+[0m
+[0m$ [0mgrep -n "export" /tmp/opencode/bc/node_modules/ourin-baileys/lib/index.js | head -80
+2:export * from '../WAProto/index.js';
+3:export * from './Utils/index.js';
+4:export * from './Types/index.js';
+5:export * from './Defaults/index.js';
+6:export * from './WABinary/index.js';
+7:export * from './WAM/index.js';
+8:export * from './WAUSync/index.js';
+9:export { Dugong } from './Socket/dugong.js';
+10:export * from './Modded/message_builder.js';
+11:export { VoipClient, ActiveCall, CallState } from './VoIP/index.js';
+12:export { makeWASocket };
+13:export default makeWASocket;
+[0m
+[0m$ [0mls /tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/ /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/ 2>/dev/null
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/:
+message_builder.js
 
-console.log('Func members:', Object.keys(Func).length);
-console.log('Utils members:', Object.keys(Utils).length);
-console.log('Scrap members:', Object.keys(Scrap).length);
-console.log(missing.length ? 'MISSING: '+missing.join(', ') : 'ALL REGISTERED OK');
-console.log('func.frame:', typeof Func.frame, '| func.toTime:', typeof Func.toTime, '| utils.formatSize:', typeof Utils.formatSize);
-" 2>&1 | grep -v "Berhasil dimuat\|FUNCHANG\|Berhasil"
-FUNC  Gagal memuat: FFMPEG.js 
- ReferenceError: ownerName is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/[eval1]:5:1
- FUNC  Gagal memuat: Utilities.js 
- ReferenceError: ownerName is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/[eval1]:5:1
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/:
+Client
+business.d.ts
+business.d.ts.map
+business.js
+business.js.map
+chats.d.ts
+chats.d.ts.map
+chats.js
+chats.js.map
+communities.d.ts
+communities.d.ts.map
+communities.js
+communities.js.map
+dugong.d.ts
+dugong.d.ts.map
+dugong.js
+dugong.js.map
+groups.d.ts
+groups.d.ts.map
+groups.js
+groups.js.map
+index.d.ts
+index.d.ts.map
+index.js
+index.js.map
+messages-recv.d.ts
+messages-recv.d.ts.map
+messages-recv.js
+messages-recv.js.map
+messages-send.d.ts
+messages-send.d.ts.map
+messages-send.js
+messages-send.js.map
+mex.d.ts
+mex.d.ts.map
+mex.js
+mex.js.map
+newsletter.d.ts
+newsletter.d.ts.map
+newsletter.js
+newsletter.js.map
+socket.d.ts
+socket.d.ts.map
+socket.js
+socket.js.map
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/message_builder.js
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/message_builder.js[90m [offset=1584][0m
+[0m
+[0m$ [0mls /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/ 2>/dev/null; grep -n "nativeFlowMessage\|interactiveMessage\|carouselMessage" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts 2>/dev/null | head -20
+GenerateStatics.sh
+WAProto.proto
+fix-imports.js
+index.d.ts
+index.js
+[0m
+[0m$ [0mgrep -rn "generateWAMessageFromContent\|generateWAMessageId\|relayMessage" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/index.js | head
+(no output)
+[0m
+[0m$ [0mgrep -n "generateWAMessageFromContent\|generateWAMessageId\|relayMessage" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/index.js | head; echo "---"; grep -rn "export.*generateWAMessageFromContent\|export.*generateWAMessageId" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/ | head
+---
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js:844:export const generateWAMessageFromContent = (jid, message, options) => {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.d.ts:24:export declare const generateWAMessageFromContent: (jid: string, message: WAMessageContent, options: MessageGenerationOptionsFromContent) => WAMessage;
+[0m
+[0m$ [0mgrep -n "message nativeFlowMessage\|NativeFlowMessage\|interactiveMessage\|InteractiveMessage\|carouselMessage\|CarouselMessage" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts | head -30
+(no output)
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js[90m [offset=820, limit=70][0m
+[0m
+[0m$ [0mgrep -n "interface.*NativeFlow\|nativeFlowMessage\|buttonParamsJson\|single_select\|interface.*Interactive\|interface.*Carousel" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Types/*.d.ts /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts 2>/dev/null | head -30
+(no output)
+[0m
+[0m$ [0mgrep -n "NativeFlowMessage\|InteractiveMessage\|CarouselMessage\|NativeFlowButton\|nativeFlowMessage\|carouselMessage\|interactiveMessage" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts | head -40
+(no output)
+[0m
+[0m$ [0mgrep -rn "nativeFlowMessage\|NativeFlowMessage" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts 2>/dev/null | head; echo "---files---"; grep -rln "nativeFlowMessage" /tmp/opencode/bc/node_modules/ourin-baileys/ 2>/dev/null | head
+---files---
+/tmp/opencode/bc/node_modules/ourin-baileys/WAProto/WAProto.proto
+/tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/message_builder.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.d.ts
+[0m
+[0m$ [0mgrep -n "nativeFlowMessage\|InteractiveMessage\|carouselMessage\|NativeFlowButton\|buttonParamsJson\|message nativeFlow" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.js | head -40
+44649:    proto.InteractiveMessageAdditionalMetadata = (function() {
+44651:        function InteractiveMessageAdditionalMetadata(properties) {
+44658:        InteractiveMessageAdditionalMetadata.prototype.isGalaxyFlowCompleted = null;
+44663:        Object.defineProperty(InteractiveMessageAdditionalMetadata.prototype, "_isGalaxyFlowCompleted", {
+44668:        InteractiveMessageAdditionalMetadata.create = function create(properties) {
+44669:            return new InteractiveMessageAdditionalMetadata(properties);
+44672:        InteractiveMessageAdditionalMetadata.encode = function encode(message, writer) {
+44680:        InteractiveMessageAdditionalMetadata.encodeDelimited = function encodeDelimited(message, writer) {
+44684:        InteractiveMessageAdditionalMetadata.decode = function decode(reader, length, error) {
+44687:            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.proto.InteractiveMessageAdditionalMetadata();
+44705:        InteractiveMessageAdditionalMetadata.decodeDelimited = function decodeDelimited(reader) {
+44711:        InteractiveMessageAdditionalMetadata.verify = function verify(message) {
+44723:        InteractiveMessageAdditionalMetadata.fromObject = function fromObject(object) {
+44724:            if (object instanceof $root.proto.InteractiveMessageAdditionalMetadata)
+44726:            let message = new $root.proto.InteractiveMessageAdditionalMetadata();
+44732:        InteractiveMessageAdditionalMetadata.toObject = function toObject(message, options) {
+44744:        InteractiveMessageAdditionalMetadata.prototype.toJSON = function toJSON() {
+44748:        InteractiveMessageAdditionalMetadata.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+44752:            return typeUrlPrefix + "/proto.InteractiveMessageAdditionalMetadata";
+44755:        return InteractiveMessageAdditionalMetadata;
+48186:                $root.proto.Message.InteractiveMessage.encode(message.interactiveMessage, writer.uint32(362).fork()).ldelim();
+48480:                        message.interactiveMessage = $root.proto.Message.InteractiveMessage.decode(reader, reader.uint32());
+49053:                    let error = $root.proto.Message.InteractiveMessage.verify(message.interactiveMessage);
+49773:                message.interactiveMessage = $root.proto.Message.InteractiveMessage.fromObject(object.interactiveMessage);
+50293:                object.interactiveMessage = $root.proto.Message.InteractiveMessage.toObject(message.interactiveMessage, options);
+63189:        Message.InteractiveMessage = (function() {
+63191:            function InteractiveMessage(properties) {
+63198:            InteractiveMessage.prototype.header = null;
+63199:            InteractiveMessage.prototype.body = null;
+63200:            InteractiveMessage.prototype.footer = null;
+63201:            InteractiveMessage.prototype.bloksWidget = null;
+63202:            InteractiveMessage.prototype.contextInfo = null;
+63203:            InteractiveMessage.prototype.urlTrackingMap = null;
+63204:            InteractiveMessage.prototype.shopStorefrontMessage = null;
+63205:            InteractiveMessage.prototype.collectionMessage = null;
+63206:            InteractiveMessage.prototype.nativeFlowMessage = null;
+63207:            InteractiveMessage.prototype.carouselMessage = null;
+63212:            Object.defineProperty(InteractiveMessage.prototype, "_header", {
+63218:            Object.defineProperty(InteractiveMessage.prototype, "_body", {
+63224:            Object.defineProperty(InteractiveMessage.prototype, "_footer", {
+[0m
+[0m$ [0mgrep -n "Message.NativeFlowMessage =\|NativeFlowMessage.prototype\|Message.NativeFlowButton =\|NativeFlowButton.prototype\|Message.CarouselMessage =\|CarouselMessage.prototype" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.js | head -30
+63835:            InteractiveMessage.CarouselMessage = (function() {
+63845:                CarouselMessage.prototype.cards = $util.emptyArray;
+63846:                CarouselMessage.prototype.messageVersion = null;
+63847:                CarouselMessage.prototype.carouselCardType = null;
+63852:                Object.defineProperty(CarouselMessage.prototype, "_messageVersion", {
+63858:                Object.defineProperty(CarouselMessage.prototype, "_carouselCardType", {
+64016:                CarouselMessage.prototype.toJSON = function toJSON() {
+64713:            InteractiveMessage.NativeFlowMessage = (function() {
+64723:                NativeFlowMessage.prototype.buttons = $util.emptyArray;
+64724:                NativeFlowMessage.prototype.messageParamsJson = null;
+64725:                NativeFlowMessage.prototype.messageVersion = null;
+64730:                Object.defineProperty(NativeFlowMessage.prototype, "_messageParamsJson", {
+64736:                Object.defineProperty(NativeFlowMessage.prototype, "_messageVersion", {
+64870:                NativeFlowMessage.prototype.toJSON = function toJSON() {
+64881:                NativeFlowMessage.NativeFlowButton = (function() {
+64890:                    NativeFlowButton.prototype.name = null;
+64891:                    NativeFlowButton.prototype.buttonParamsJson = null;
+64896:                    Object.defineProperty(NativeFlowButton.prototype, "_name", {
+64902:                    Object.defineProperty(NativeFlowButton.prototype, "_buttonParamsJson", {
+65001:                    NativeFlowButton.prototype.toJSON = function toJSON() {
+[0m
+[0m$ [0mgrep -n "nativeFlow\|interactiveMessage\|buttonParamsJson\|cards\|carousel\|buttons\b" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | head -50
+78:    return msg.listMessage ? "list" : "buttons";
+80:  const im = vm?.interactiveMessage || msg?.interactiveMessage;
+81:  if (!im?.nativeFlowMessage) return null;
+82:  const btnName = im.nativeFlowMessage?.buttons?.[0]?.name;
+1465:            const carouselContent = await ourin.handleCarousel(
+1470:            const carouselMsg = await generateWAMessageFromContent(
+1472:              carouselContent,
+1475:            return await relayMessage(jid, carouselMsg.message, {
+1476:              messageId: carouselMsg.key.id,
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js[90m [offset=1400, limit=200][0m
+[0m
+[0m$ [0mgrep -rn "ourin\b" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | head -5; echo "---"; grep -n "import\|from '" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | head -30
+1132:  const ourin = new Dugong(waUploadToServer, relayMessage, config, sock);
+1141:    ourin,
+1209:      return await ourin.sendStatusWhatsApp(content, jids);
+1216:      return await ourin.handleGroupStory(storyContent, jid, null);
+1299:    // support ourin terus yahh kawan kawan
+---
+1:import NodeCache from "@cacheable/node-cache";
+2:import { Boom } from "@hapi/boom";
+3:import { proto } from "../../WAProto/index.js";
+4:import { DEFAULT_CACHE_TTLS, WA_DEFAULT_EPHEMERAL } from "../Defaults/index.js";
+5:import {
+28:import {
+43:import { getUrlInfo } from "../Utils/link-preview.js";
+44:import { makeKeyedMutex } from "../Utils/make-mutex.js";
+45:import {
+49:import {
+65:import { USyncQuery, USyncUser } from "../WAUSync/index.js";
+66:import { Dugong } from "./dugong.js";
+67:import { makeNewsletterSocket } from "./newsletter.js";
+[0m
+[0m$ [0mgrep -n "handleInteractive\|handleInteractiveButtons\|handleCarousel\|handleProduct\|detectType" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.js | head -20
+26:  detectType(content) {
+78:  async handleProduct(content, _jid, _quoted) {
+136:  async handleInteractive(content, _jid, _quoted) {
+248:  async handleInteractiveButtons(content, _jid, _quoted) {
+384:  async handleCarousel(content, _jid, _quoted) {
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.js[90m [limit=480][0m
+[0m
+[0m$ [0mgrep -n "export" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/index.js | head -40; echo "---WABinary---"; grep -n "export" /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/index.js | head -40
+1:export * from './generics.js';
+2:export * from './decode-wa-message.js';
+3:export * from './messages.js';
+4:export * from './messages-media.js';
+5:export * from './validate-connection.js';
+6:export * from './crypto.js';
+7:export * from './signal.js';
+8:export * from './noise-handler.js';
+9:export * from './history.js';
+10:export * from './chat-utils.js';
+11:export * from './lt-hash.js';
+12:export * from './auth-utils.js';
+13:export * from './use-multi-file-auth-state.js';
+14:export * from './link-preview.js';
+15:export * from './event-buffer.js';
+16:export * from './process-message.js';
+17:export * from './message-retry-manager.js';
+18:export * from './browser-utils.js';
+19:export * from './identity-change-handler.js';
+20:export * from './stanza-ack.js';
+21:export * from './rich-messages.js';
+22:export * from './sticker-pack.js';
+---WABinary---
+1:export * from './encode.js';
+2:export * from './decode.js';
+3:export * from './generic-utils.js';
+4:export * from './jid-utils.js';
+5:export * from './types.js';
+[0m
+[0m$ [0mgrep -n "generateWAMessageFromContent\|generateWAMessageId\|isJidGroup\|jidNormalizedUser" /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/jid-utils.js /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js | grep -n "export" | head; echo "---generics---"; grep -n "export.*generateMessageID\|export.*generateWAMessageId" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/generics.js | head
+1:/tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/jid-utils.js:71:export const isJidGroup = (jid) => jid?.endsWith('@g.us');
+2:/tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/jid-utils.js:82:export const jidNormalizedUser = (jid) => {
+5:/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js:844:export const generateWAMessageFromContent = (jid, message, options) => {
+---generics---
+134:export const generateMessageIDV2 = (userId) => {
+150:export const generateMessageID = () => '3EB0' + randomBytes(18).toString('hex').toUpperCase();
+[0m
+[0m$ [0mgrep -n "relayMessage\|additionalNodes" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/encode.js 2>/dev/null | head -30
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:388:    return relayMessage(
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:400:        additionalNodes: [
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:493:    const msgId = await relayMessage(meJid, protocolMessage, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:498:      additionalNodes: [
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:580:  const relayMessage = async (
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:587:      additionalNodes,
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1019:      if (additionalNodes && additionalNodes.length > 0) {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1020:        stanza.content.push(...additionalNodes);
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1132:  const ourin = new Dugong(waUploadToServer, relayMessage, config, sock);
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1138:    relayMessage,
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1291:      await relayMessage(
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1309:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1318:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1328:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1337:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1346:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1356:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1366:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1371:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1387:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1403:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1412:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1420:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1445:            return await relayMessage(jid, paymentContent, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1460:            return await relayMessage(jid, productMsg.message, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1475:            return await relayMessage(jid, carouselMsg.message, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1490:            return await relayMessage(jid, interactiveMsg.message, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1504:            return await relayMessage(jid, ibMsg.message, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1555:        const additionalNodes = [];
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1566:          additionalNodes.push({
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js[90m [limit=130, offset=960][0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js[90m [limit=90, offset=50][0m
+[0m
+[0m$ [0mgrep -n "getAdditionalNode" /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/*.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/generic-utils.js:137:export const getAdditionalNode = (name) => {
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/generic-utils.js[90m [limit=120, offset=120][0m
+[0m✱ [0mGrep "WA_DEFAULT_EPHEMERAL|footer\s*=|donateUrl|botThumbnail|botName\s*=|saluranJid"[90m 35 matches[0m
+[0m→ [0mRead lib/Function/waBaileys.js
+[0m→ [0mRead index.js
+[0m→ [0mRead lib/Constants.js
+[0m
+[0m$ [0mgrep -n "unixTimestampSeconds\|prepareWAMessageMedia" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/generics.js /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages-media.js | grep "export" | head
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/generics.js:74:export const unixTimestampSeconds = (date = new Date()) => Math.floor(date.getTime() / 1000);
+[0m
+[0m$ [0mgrep -rn "export const prepareWAMessageMedia\|export function prepareWAMessageMedia" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/*.js | head
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js:85:export const prepareWAMessageMedia = async (message, options) => {
+[0m
+[0m$ [0mgrep -n "relayMessage," /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | head -3; grep -n "sock.relayMessage\|\.relayMessage =" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/*.js | head
+1132:  const ourin = new Dugong(waUploadToServer, relayMessage, config, sock);
+1138:    relayMessage,
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.js:21:    this.relayMessage = relayMessageFn;
+[0m
+[0m$ [0mgrep -n "return {" -A 30 /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | grep -n "relayMessage" | head
+61:493-    const msgId = await relayMessage(meJid, protocolMessage, {
+124:580-  const relayMessage = async (
+190:1138-    relayMessage,
+226:1318-      await relayMessage(jid, message, { messageId });
+236:1328-      await relayMessage(jid, message, { messageId });
+245:1337-      await relayMessage(jid, message, { messageId });
+254:1346-      await relayMessage(jid, message, { messageId });
+264:1356-      await relayMessage(jid, message, { messageId });
+274:1366-      await relayMessage(jid, message, { messageId });
+279:1371-      await relayMessage(jid, message, { messageId });
+[0m
+[0m# [0mTodos
+[•] Create lib/Function/message.js with sendInteractiveMessage/sendButton/sendList/sendSections/sendCard/sendCarousel (Native Flow + binary nodes + fallback)
+[ ] Attach helpers to sock in lib/SocketClient.js (sock.sendButton, sock.sendList, dll)
+[ ] Expose sendButton/sendList/dll in plugin context in lib/Listener.js
+[ ] Create example plugin plugins/tools/interactive-demo.js demonstrating usage
+[ ] Verify with node --check and boot smoke test
+[ ] Update ai_memory log + 00_INDEX.md
+[0m
+[0m→ [0mRead lib/Function/isJid.js
+[0m
+[0m← [0mWrite lib/Function/message.js
+Wrote file successfully.
+[0m
+Now I'll create the interactive
+[0m← [0mEdit lib/SocketClient.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/SocketClient.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/SocketClient.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/SocketClient.js
+@@ -268,8 +268,29 @@
+ sock.sendReact = async (jid, emoji, key) => {
+    return await sock.sendMessage(jid, { react: { text: emoji, key } })
+ }
+ 
++// ==================================================
++// SEND INTERACTIVE (NATIVE FLOW)
++// ==================================================
++sock.sendInteractiveMessage = (jid, options = {}) =>
++   Func.sendInteractiveMessage(sock, jid, options)
++
++sock.sendButton = (jid, options = {}) =>
++   Func.sendButton(sock, jid, options)
++
++sock.sendList = (jid, options = {}) =>
++   Func.sendList(sock, jid, options)
++
++sock.sendSections = (jid, options = {}) =>
++   Func.sendSections(sock, jid, options)
++
++sock.sendCard = (jid, options = {}) =>
++   Func.sendCard(sock, jid, options)
++
++sock.sendCarousel = (jid, options = {}) =>
++   Func.sendCarousel(sock, jid, options)
++
+ sock.findUserId = async (pnLid) => {
+    const normalizedJid = Func.jidNormalizedUser(pnLid)
+    const userId = {}
+    const signalRepository = sock.signalRepository
+
+[0m
+Now let me wire the helpers into `Socket
+[0m← [0mEdit lib/Listener.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+@@ -401,9 +401,15 @@
+       Scrap,
+       Utils,
+       func: Func,
+       scrap: Scrap,
+-      utils: Utils
++      utils: Utils,
++      sendInteractiveMessage: (jid, options = {}) => sock.sendInteractiveMessage(jid, options),
++      sendButton: (jid, options = {}) => sock.sendButton(jid, options),
++      sendList: (jid, options = {}) => sock.sendList(jid, options),
++      sendSections: (jid, options = {}) => sock.sendSections(jid, options),
++      sendCard: (jid, options = {}) => sock.sendCard(jid, options),
++      sendCarousel: (jid, options = {}) => sock.sendCarousel(jid, options)
+    })
+ }
+ else {
+    let suggestions = null
+
+[0m
+[0m$ [0mgrep -n "sendButton\|sendList\|sendSections\|sendCard\|sendCarousel\|sendInteractiveMessage" /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+406:               sendInteractiveMessage: (jid, options = {}) => sock.sendInteractiveMessage(jid, options),
+407:               sendButton: (jid, options = {}) => sock.sendButton(jid, options),
+408:               sendList: (jid, options = {}) => sock.sendList(jid, options),
+409:               sendSections: (jid, options = {}) => sock.sendSections(jid, options),
+410:               sendCard: (jid, options = {}) => sock.sendCard(jid, options),
+411:               sendCarousel: (jid, options = {}) => sock.sendCarousel(jid, options)
+[0m
+[0m$ [0mgrep -n "utils: Utils" /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+405:               utils: Utils,
+469:                  utils: Utils
+[0m
+[0m→ [0mRead lib/Listener.js[90m [limit=15, offset=462][0m
+[0m
+[0m← [0mEdit lib/Listener.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+@@ -465,9 +465,15 @@
+             Scrap,
+             Utils,
+             func: Func,
+             scrap: Scrap,
+-            utils: Utils
++            utils: Utils,
++            sendInteractiveMessage: (jid, options = {}) => sock.sendInteractiveMessage(jid, options),
++            sendButton: (jid, options = {}) => sock.sendButton(jid, options),
++            sendList: (jid, options = {}) => sock.sendList(jid, options),
++            sendSections: (jid, options = {}) => sock.sendSections(jid, options),
++            sendCard: (jid, options = {}) => sock.sendCard(jid, options),
++            sendCarousel: (jid, options = {}) => sock.sendCarousel(jid, options)
+          })
+       }
+    }
+ },
+
+[0m
+[0m$ [0mls "/home/runner/work/roccky_bot/roccky_bot/plugins/tools"
+blur-face.js
+calculator.js
+cekstatus.js
+cekwa.js
+character-recognition.js
+colorize.js
+convert-webp.js
+emoji-gif.js
+emoji-mix.js
+enhance.js
+inviteinfo.js
+morse.js
+newsletter-id.js
+no-background.js
+no-watermark.js
+qr-2-text.js
+screenshot-web.js
+sfile-upl.js
+sound-effect.js
+stalk.js
+sticker-watermark.js
+toaudio.js
+tourl.js
+[0m
+[0m→ [0mRead plugins/tools/calculator.js
+[0m
+[0m← [0mWrite plugins/tools/interactive-demo.js
+Wrote file successfully.
+[0m
+[0m$ [0mnode --check lib/Function/message.js && node --check lib/SocketClient.js && node --check lib/Listener.js && node --check plugins/tools/interactive-demo.js && echo "ALL OK"
+ALL OK
+[0m
+Let me install dependencies to run a real verification against the actual `ourin-baileys`
+[0m$ [0mtimeout 420 npm install --no-audit --no-fund 2>&1 | tail -8
+npm warn deprecated har-validator@5.1.5: this library is no longer supported
+npm warn deprecated uuid@3.4.0: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+npm warn deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
+
+added 320 packages in 8s
+[0m
+[0m$ [0mnode -e "import('baileys').then(m => { console.log('baileys version:', m.VERSION || 'n/a'); console.log('generateWAMessageFromContent:', typeof m.generateWAMessageFromContent); console.log('prepareWAMessageMedia:', typeof m.prepareWAMessageMedia); console.log('unixTimestampSeconds:', typeof m.unixTimestampSeconds); })" 2>&1 | head
 ⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
 👉 Please run: npm install fluent-ffmpeg
-[41m[30m SCRAP [0m [31mGagal memuat:[0m _chatbot.js
- ReferenceError: ownerName is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/[eval1]:5:1
-[41m[30m UTILS [0m [31mGagal memuat:[0m text.js
- ReferenceError: ownerName is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/[eval1]:5:1
-[41m[30m UTILS [0m [31mGagal memuat:[0m url.js
- ReferenceError: ownerName is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/[eval1]:5:1
-Func members: 42
-Utils members: 19
-Scrap members: 15
-MISSING: Func.isURL, Func.isWhatsAppURL, Func.toTime, Func.style, Func.frame, Func.levenshtein, Func.parseMentions, Utils.toTime, Utils.style, Utils.frame, Utils.levenshtein, Utils.parseMentions, Utils.isURL, Utils.isWhatsAppURL
-func.frame: undefined | func.toTime: undefined | utils.formatSize: function
+baileys version: 4.6
+generateWAMessageFromContent: function
+prepareWAMessageMedia: function
+unixTimestampSeconds: function
 [0m
-The errors are just missing global config (my test didn't import config.js). Let me redo it
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && timeout 60 node --input-type=module -e "
-import './config.js';
-import loadFunc, { Func } from '#func';
-import loadScrap, { Scrap } from '#scrap';
-import loadUtils, { Utils } from '#utils';
-await loadFunc();
-await loadScrap();
-await loadUtils();
+[0m← [0mWrite /tmp/opencode/test-message.js
+Wrote file successfully.
+[0m
+[0m$ [0mnode /tmp/opencode/test-message.js 2>&1
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
 
-const missing = [];
-const funcChecks = ['isURL','isWhatsAppURL','formatSize','toTime','style','frame','levenshtein','parseMentions','greeting','formatTime','getNowInTZ','getNextMidnight','getIndonesianTimezone','isEmptyObject','toArray','shuffleArray','randomInteger','randomValue','createFileName','randomHex','toTitleCase','formatNumber','medal','applySchema','persistToFile','fetchAsBuffer','cleanUpFolder','createSticker','tokenizeCode','delay','findTopSuggestions'];
-for (const k of funcChecks) if (typeof Func[k] === 'undefined') missing.push('Func.'+k);
-const utilsChecks = ['formatSize','toTime','style','frame','levenshtein','parseMentions','greeting','formatTime','getNowInTZ','getNextMidnight','getIndonesianTimezone','isEmptyObject','toArray','shuffleArray','randomInteger','randomValue','createFileName','randomHex','toTitleCase','formatNumber','medal','applySchema','isURL','isWhatsAppURL'];
-for (const k of utilsChecks) if (typeof Utils[k] === 'undefined') missing.push('Utils.'+k);
-for (const k of ['catbox','uguu','quax','reelsvideo','meloboom','getStickerPack','stickerLy','tikwm','vidSave','socialDl','resolveSaveNow','SfileMobi']) if (typeof Scrap[k] === 'undefined') missing.push('Scrap.'+k);
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/tmp/opencode/lib/Function/index.js' imported from /tmp/opencode/test-message.js
+Did you mean to import "../../home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js"?
+    at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    at moduleResolve (node:internal/modules/esm/resolve:861:10)
+    at defaultResolve (node:internal/modules/esm/resolve:985:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
+    at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///tmp/opencode/lib/Function/index.js'
+}
 
-console.log('Func members:', Object.keys(Func).length);
-console.log('Utils members:', Object.keys(Utils).length);
-console.log('Scrap members:', Object.keys(Scrap).length);
-console.log(missing.length ? 'MISSING: '+missing.join(', ') : 'ALL REGISTERED OK');
-console.log('sanity:', typeof Func.frame, typeof Func.toTime, typeof Utils.formatSize, typeof Scrap.uguu, typeof Scrap.getStickerPack?.search);
-" 2>&1 | grep -viE "berhasil dimuat|changed detected|terdeteksi" | grep -viE "SCRAP|UTILS|FUNC"
+Node.js v22.23.2
+[0m
+[0m$ [0mcp /tmp/opencode/test-message.js ./test-message.tmp.js && node ./test-message.tmp.js 2>&1
 ⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
 👉 Please run: npm install fluent-ffmpeg
+--- sendInteractiveMessage: private chat (quick_reply + cta_url + cta_call) ---
+❌ relayInteractive error: TypeError: Func.isJidGroup is not a function
+    at buildInteractiveNodes (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:71:14)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:222:27)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:312:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:37:15
+file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:50
+   const { message, opts } = sock._captured.messages[0]
+           ^
+
+TypeError: Cannot destructure property 'message' of 'sock._captured.messages[0]' as it is undefined.
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:50:12
+
+Node.js v22.23.2
 [0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && timeout 60 node --input-type=module -e "
-import './config.js';
-import loadFunc, { Func } from '#func';
-import loadScrap, { Scrap } from '#scrap';
-import loadUtils, { Utils } from '#utils';
-await loadFunc();
-await loadScrap();
-await loadUtils();
-const missing = [];
-for (const k of ['isURL','isWhatsAppURL','formatSize','toTime','style','frame','levenshtein','parseMentions','greeting','formatTime','getNowInTZ','getNextMidnight','getIndonesianTimezone','isEmptyObject','toArray','shuffleArray','randomInteger','randomValue','createFileName','randomHex','toTitleCase','formatNumber','medal','applySchema','persistToFile','fetchAsBuffer','cleanUpFolder','createSticker','tokenizeCode','delay','findTopSuggestions']) if (typeof Func[k] === 'undefined') missing.push('F.'+k);
-for (const k of ['formatSize','toTime','style','frame','levenshtein','parseMentions','greeting','formatTime','getNowInTZ','getNextMidnight','getIndonesianTimezone','isEmptyObject','toArray','shuffleArray','randomInteger','randomValue','createFileName','randomHex','toTitleCase','formatNumber','medal','applySchema','isURL','isWhatsAppURL']) if (typeof Utils[k] === 'undefined') missing.push('U.'+k);
-for (const k of ['catbox','uguu','quax','reelsvideo','meloboom','getStickerPack','stickerLy','tikwm','vidSave','socialDl','resolveSaveNow','SfileMobi']) if (typeof Scrap[k] === 'undefined') missing.push('S.'+k);
-console.log('RESULT Func=' + Object.keys(Func).length + ' Utils=' + Object.keys(Utils).length + ' Scrap=' + Object.keys(Scrap).length);
-console.log(missing.length ? 'MISSING: ' + missing.join(',') : 'ALL REGISTERED OK');
-console.log('sanity', typeof Func.frame, typeof Func.toTime, typeof Utils.formatSize, typeof Scrap.uguu, typeof Scrap.getStickerPack?.search, typeof Scrap.reelsvideo, typeof Scrap.meloboom);
-" 2>&1 | grep -E "RESULT|MISSING|ALL REGISTERED|sanity|Error|error"
-RESULT Func=74 Utils=25 Scrap=15
-MISSING: U.frame
-sanity function function function function function function function
+[0m← [0mEdit test-message.tmp.js
+Index: /home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js
++++ /home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js
+@@ -1,6 +1,8 @@
+ // Smoke test untuk lib/Function/message.js (Native Flow interactive helpers)
+ import { Func } from './lib/Function/index.js'
++import './lib/Function/isJid.js'
++import './lib/Function/waBaileys.js'
+ import './lib/Function/message.js'
+ 
+ const PRIVATE_JID = '6281234567890@s.whatsapp.net'
+ const GROUP_JID = '1234567890@g.us'
+
 [0m
-All registered. (`Utils.frame` missing is intentional — `frame` stays in `#func` as bot-core output helper.) Now the full boot smoke test
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && timeout 35 node --expose-gc socket.js > /tmp/boot.log 2>&1; echo "EXIT: $?"; grep -inE "error|gagal|fail|utlis|utils|fatal|undefined|exception" /tmp/boot.log | grep -viE "fluent-ffmpeg|not installed" | head -30
-EXIT: 124
-22:[44m[30m UTILS [0m [34mBerhasil dimuat:[0m datetime.js
-23:[44m[30m UTILS [0m [34mBerhasil dimuat:[0m general.js
-24:[44m[30m UTILS [0m [34mBerhasil dimuat:[0m size.js
-25:[44m[30m UTILS [0m [34mBerhasil dimuat:[0m text.js
-26:[44m[30m UTILS [0m [34mBerhasil dimuat:[0m url.js
-30:❌ Failed to load : plugins/tools/sfile-upl.js
-32:import { randomHex } from '#utils'
-34:SyntaxError: The requested module '#utils' does not provide an export named 'randomHex'
+[0m$ [0mnode ./test-message.tmp.js 2>&1
+⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
+👉 Please run: npm install fluent-ffmpeg
+--- sendInteractiveMessage: private chat (quick_reply + cta_url + cta_call) ---
+  ✅ interactiveMessage hadir
+  ✅ body.text benar
+  ✅ footer benar
+  ✅ header benar
+  ✅ 4 tombol native flow
+  ✅ quick_reply + params stringified
+  ✅ cta_url benar
+  ✅ cta_call benar
+  ✅ raw button params stringified
+  ✅ quoted terpasang di contextInfo
+  ✅ private: 2 additional nodes
+  ✅ private: node #1 = biz
+  ✅ biz -> interactive/native_flow ada
+  ✅ private: node #2 = bot (biz_bot=1)
+--- sendInteractiveMessage: group chat ---
+  ✅ group: hanya 1 node biz (tanpa bot)
+  ✅ group: tanpa node bot
+--- sendButton (friendly quick reply) ---
+  ✅ sendButton -> quick_reply
+  ✅ string button dikonversi
+--- sendList (single_select sections) ---
+  ✅ sendList -> single_select
+  ✅ sections/rows terbawa
+--- fallback otomatis saat relay error ---
+❌ relayInteractive error: Error: relay API 405
+    at Object.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:23:31)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:220:25)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:312:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:118:15
+  ✅ fallback teks terkirim
+  ❌ fallback berformat list
+--- fallback:false -> error dilempar ---
+❌ relayInteractive error: Error: relay API 405
+    at Object.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:23:31)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:220:25)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:312:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:132:18
+  ✅ fallback:false -> throw, tanpa teks
+--- sendCarousel ---
+  ✅ carouselMessage 2 kartu
+  ✅ kartu punya native flow
+
+💥 1 tes GAGAL
 [0m
-[0m$ [0mgrep -vE "Berhasil dimuat|WARNING|fluent-ffmpeg|Please run|^\s*$" /tmp/boot.log | head -40
+[0m← [0mEdit lib/Function/message.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+@@ -184,8 +184,10 @@
+ // ==================================================
+ const toFallbackText = ({ text = '', footer = '', buttons = [] }) => {
+    const lines = buttons
+       .map((btn, index) => {
++         btn = normalizeButton(btn) || {}
++
+          const label = btn.displayText || btn.text || btn.title || ''
+          const value = btn.id ?? btn.url ?? btn.phoneNumber ?? ''
+ 
+          return `  ${index + 1}. ${label}${value ? ` — ${value}` : ''}`
+
+[0m
+[0m$ [0mnode ./test-message.tmp.js 2>&1 | tail -20
+--- fallback otomatis saat relay error ---
+❌ relayInteractive error: Error: relay API 405
+    at Object.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:23:31)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:222:25)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:314:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:118:15
+  ✅ fallback teks terkirim
+  ✅ fallback berformat list
+--- fallback:false -> error dilempar ---
+❌ relayInteractive error: Error: relay API 405
+    at Object.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:23:31)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:222:25)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:314:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:132:18
+  ✅ fallback:false -> throw, tanpa teks
+--- sendCarousel ---
+  ✅ carouselMessage 2 kartu
+  ✅ kartu punya native flow
+
+🎉 SEMUA TES LULUS
+[0m
+[0m→ [0mRead config.js
+[0m
+[0m$ [0mls -d session auth 2>/dev/null; ls *.json 2>/dev/null
+package-lock.json
+package.json
+[0m
+[0m$ [0mtimeout 75 node socket.js 2>&1 | head -60
+⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
+👉 Please run: npm install fluent-ffmpeg
+ FUNC  Berhasil dimuat: FFMPEG.js
+ FUNC  Berhasil dimuat: Utilities.js
+ FUNC  Berhasil dimuat: dateTime.js
+ FUNC  Berhasil dimuat: getFileSize.js
+ FUNC  Berhasil dimuat: isJid.js
+ FUNC  Berhasil dimuat: isMime.js
+ FUNC  Berhasil dimuat: message.js
+ FUNC  Berhasil dimuat: toBanner.js
+ FUNC  Berhasil dimuat: tokenizeCode.js
+ FUNC  Berhasil dimuat: waBaileys.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m SfileMobi.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m _chatbot.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m aiedit.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m aio.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m freeai.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m komik-bbato.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m reels.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m savetik.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m search.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m uploader.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m vidsave.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m datetime.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m general.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m size.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m text.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m url.js
 🔄 Memulai bot Starseed...
 📦 Memuat data pengguna & grup...
 ✅ Data berhasil dimuat: 0 User, 0 Grup.
-❌ Failed to load : plugins/tools/sfile-upl.js
-file:///home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js?update=1786596845245:1
-import { randomHex } from '#utils'
-         ^^^^^^^^^
-SyntaxError: The requested module '#utils' does not provide an export named 'randomHex'
-    at ModuleJob._instantiate (node:internal/modules/esm/module_job:226:21)
-    at async ModuleJob.run (node:internal/modules/esm/module_job:335:5)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async loadModule (file:///home/runner/work/roccky_bot/roccky_bot/lib/Watcher.js:52:19)
-    at async scanDirectory (file:///home/runner/work/roccky_bot/roccky_bot/lib/Watcher.js:97:10)
-    at async scanDirectory (file:///home/runner/work/roccky_bot/roccky_bot/lib/Watcher.js:86:10)
-    at async Setup (file:///home/runner/work/roccky_bot/roccky_bot/socket.js:401:3)
-🔃 Tugas harian dijadwalkan dalam : 12h 05m 55s
+🔃 Tugas harian dijadwalkan dalam : 11h 20m 31s
 🔑 Meminta kode pairing untuk 6281347951754...
+
 ===================================
 🔗 PAIRING CODE : STAR-SEED
 ===================================
+
+💾 [Database] Menulis database | Ukuran: 0.00 MB
+💾 [Database] Menulis store | Ukuran: 0.00 MB
 [0m
-Found a real bug: `#utils` doesn't expose named exports. Let me check the rest of the boot log, then fix
-[0m← [0mWrite lib/Utils/index.js
-Wrote file successfully.
+[0m$ [0mtimeout 40 node socket.js 2>&1 | grep -iE "plugin|gagal|error|command" | head -30
+(no output)
 [0m
-Boot works except `#utils` named export. The static `export *` approach would cause circular imports, so I'll switch utils files to pure named exports and have the loader bridge them into `Utils`/`Func`
-[0m← [0mWrite lib/Utils/general.js
-Wrote file successfully.
+[0m→ [0mRead lib/Watcher.js
 [0m
-[0m← [0mWrite lib/Utils/text.js
-Wrote file successfully.
+[0m$ [0mrm -f test-message.tmp.js && node --check lib/Function/message.js && node --check lib/SocketClient.js && node --check lib/Listener.js && node --check plugins/tools/interactive-demo.js && echo "SYNTAX OK"
+SYNTAX OK
 [0m
-[0m← [0mWrite lib/Utils/url.js
-Wrote file successfully.
-[0m
-[0m← [0mWrite lib/Utils/size.js
-Wrote file successfully.
-[0m
-[0m← [0mWrite lib/Utils/datetime.js
-Wrote file successfully.
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && for f in lib/Utils/index.js lib/Utils/general.js lib/Utils/text.js lib/Utils/url.js lib/Utils/size.js lib/Utils/datetime.js plugins/tools/sfile-upl.js; do node --check "$f" || echo "FAIL: $f"; done; echo "syntax done"
-syntax done
-[0m
-Now re-verify syntax, registration, and boot
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && timeout 60 node --input-type=module -e "
-import './config.js';
-import loadFunc, { Func } from '#func';
-import loadScrap, { Scrap } from '#scrap';
-import loadUtils, { Utils } from '#utils';
-import { randomHex, formatSize, toTime, isURL, style, levenshtein } from '#utils';
-await loadFunc();
-await loadScrap();
-await loadUtils();
-const missing = [];
-for (const k of ['isURL','isWhatsAppURL','formatSize','toTime','style','frame','levenshtein','parseMentions','greeting','formatTime','getNowInTZ','getNextMidnight','getIndonesianTimezone','isEmptyObject','toArray','shuffleArray','randomInteger','randomValue','createFileName','randomHex','toTitleCase','formatNumber','medal','applySchema','persistToFile','fetchAsBuffer','cleanUpFolder','createSticker','tokenizeCode','delay','findTopSuggestions']) if (typeof Func[k] === 'undefined') missing.push('F.'+k);
-for (const k of ['formatSize','toTime','style','levenshtein','parseMentions','greeting','formatTime','getNowInTZ','getNextMidnight','getIndonesianTimezone','isEmptyObject','toArray','shuffleArray','randomInteger','randomValue','createFileName','randomHex','toTitleCase','formatNumber','medal','applySchema','isURL','isWhatsAppURL']) if (typeof Utils[k] === 'undefined') missing.push('U.'+k);
-for (const k of ['catbox','uguu','quax','reelsvideo','meloboom','getStickerPack','stickerLy','tikwm','vidSave','socialDl','resolveSaveNow','SfileMobi']) if (typeof Scrap[k] === 'undefined') missing.push('S.'+k);
-console.log('RESULT Func=' + Object.keys(Func).length + ' Utils=' + Object.keys(Utils).length + ' Scrap=' + Object.keys(Scrap).length);
-console.log(missing.length ? 'MISSING: ' + missing.join(',') : 'ALL REGISTERED OK');
-console.log('named imports:', typeof randomHex, typeof formatSize, typeof toTime, typeof isURL, typeof style, typeof levenshtein);
-console.log('sanity', typeof Func.frame, typeof Func.toTime, typeof Utils.formatSize, typeof Scrap.uguu, typeof Scrap.getStickerPack?.search, Scrap.uguu === undefined ? '' : 'uguu=ok');
-" 2>&1 | grep -E "RESULT|MISSING|ALL REGISTERED|named imports|sanity|Error"
-RESULT Func=74 Utils=25 Scrap=15
-ALL REGISTERED OK
-named imports: function function function function function function
-sanity function function function function function uguu=ok
-[0m
-All registered and named imports work. Full boot test again
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && timeout 35 node --expose-gc socket.js > /tmp/boot2.log 2>&1; echo "EXIT: $?"; grep -viE "Berhasil dimuat|WARNING|fluent-ffmpeg|Please run" /tmp/boot2.log | grep -iE "error|gagal|fail|fatal|undefined|exception|sfile" | head -20
-EXIT: 1
-🔐 Sesi Logout (401): Connection Failure. Menghapus data sesi...
-[0m
-[0m$ [0mgrep -viE "Berhasil dimuat|WARNING|fluent-ffmpeg|Please run|^\s*$" /tmp/boot2.log
-🔄 Memulai bot Starseed...
-📦 Memuat data pengguna & grup...
-🔃 Tugas harian dijadwalkan dalam : 12h 03m 01s
-🔑 Meminta kode pairing untuk 6281347951754...
-===================================
-🔗 PAIRING CODE : STAR-SEED
-===================================
-🔐 Sesi Logout (401): Connection Failure. Menghapus data sesi...
-[0m
-Boot reached the socket/auth phase (401 logout is expected without valid creds). Let me confirm no plugin-load errors occurred
-[0m✱ [0mGrep "dateTime|Function/dateTime|from '\.\./Scraper\.js'"[90m 6 matches[0m
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && git status --short | head -40
+All tests pass and the boot smoke test succeeds. Let me clean up the temp test file and verify
+[0m$ [0mgit status --short; echo "---"; git diff --stat
 M ai-response-recap.txt
- M lib/Function/Utilities.js
- D lib/Function/dateTime.js
- M lib/Function/getFileSize.js
  M lib/Listener.js
- M lib/Scraper.js
- M package.json
- M plugins/ai/_chatbot.js
- M plugins/ai/gpt-image.js
- M plugins/download/aio.js
- M plugins/download/tiktok.js
- M plugins/download/youtube.js
- M plugins/explore/youtube-play.js
- M plugins/menu.js
- M plugins/owner/_evaluate.js
- M plugins/tools/sfile-upl.js
- M socket.js
+ M lib/SocketClient.js
 ?? database.json
-?? lib/Scraper/reels.js
-?? lib/Scraper/search.js
-?? lib/Scraper/uploader.js
-?? lib/Utils/
+?? lib/Function/message.js
 ?? package-lock.json
+?? plugins/tools/interactive-demo.js
 ?? store.json
-[0m
-Boot is clean — all plugins loaded, no failures. Let me do final consistency checks for any dangling
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && git check-ignore database.json store.json package-lock.json node_modules 2>/dev/null; echo "---"; grep -nE "database|store|package-lock|node_modules" .gitignore
-node_modules
 ---
+ ai-response-recap.txt | 2450 ++++++++++++++++++-------------------------------
+ lib/Listener.js       |   16 +-
+ lib/SocketClient.js   |   21 +
+ 3 files changed, 918 insertions(+), 1569 deletions(-)
+[0m
+[0m$ [0mgrep -nE "database|store|package-lock|recap" .gitignore
+(no output)
+[0m
+[0m$ [0mhead -40 .gitignore
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented libs generated by jscoverage/JSCover
+lib-cov
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+[0m
+[0m$ [0mgrep -nE "^node_modules|database|store|temp|session" .gitignore
 41:node_modules/
+94:# vuepress v2.x temp and cache directory
+95:.temp
 [0m
-Let me clean up test artifacts (`database.json`, `store.json`, `package-lock.json`) and check .gitignore
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && rm -f database.json store.json package-lock.json && git status --short | grep -v "ai-response-recap"
-M lib/Function/Utilities.js
- D lib/Function/dateTime.js
- M lib/Function/getFileSize.js
- M lib/Listener.js
- M lib/Scraper.js
- M package.json
- M plugins/ai/_chatbot.js
- M plugins/ai/gpt-image.js
- M plugins/download/aio.js
- M plugins/download/tiktok.js
- M plugins/download/youtube.js
- M plugins/explore/youtube-play.js
- M plugins/menu.js
- M plugins/owner/_evaluate.js
- M plugins/tools/sfile-upl.js
- M socket.js
-?? lib/Scraper/reels.js
-?? lib/Scraper/search.js
-?? lib/Scraper/uploader.js
-?? lib/Utils/
+[0m$ [0mgit diff ai-response-recap.txt | head -20; echo "---"; cat ai-response-recap.txt
+diff --git a/ai-response-recap.txt b/ai-response-recap.txt
+index 21c888d..de6d817 100644
+--- a/ai-response-recap.txt
++++ b/ai-response-recap.txt
+@@ -1,1186 +1,220 @@
+ [0m
+ > build · deepseek-v4-flash-free
+ [0m
+-[0m$ [0mls -la
+-total 164
+-drwxr-xr-x  8 runner runner  4096 Aug 13 04:43 .
+-drwxr-xr-x  3 runner runner  4096 Aug 13 04:43 ..
+-drwxr-xr-x  7 runner runner  4096 Aug 13 04:43 .git
+-drwxr-xr-x  3 runner runner  4096 Aug 13 04:43 .github
+--rw-r--r--  1 runner runner  2152 Aug 13 04:43 .gitignore
+--rw-r--r--  1 runner runner 44212 Aug 13 04:43 DOCS.md
+--rw-r--r--  1 runner runner   467 Aug 13 04:43 Dockerfile
+--rw-r--r--  1 runner runner 11338 Aug 13 04:43 LICENSE
+--rw-r--r--  1 runner runner  5318 Aug 13 04:43 README.md
+--rw-r--r--  1 runner runner    44 Aug 13 04:43 ai-response-recap.txt
+---
 [0m
-[0m→ [0mRead plugins/tools/sfile-upl.js
+> build · deepseek-v4-flash-free
+[0m
+[0m$ [0mls -la /home/runner/work/roccky_bot/roccky_bot
+total 1436
+drwxr-xr-x  8 runner runner    4096 Aug 13 05:33 .
+drwxr-xr-x  3 runner runner    4096 Aug 13 05:33 ..
+drwxr-xr-x  7 runner runner    4096 Aug 13 05:34 .git
+drwxr-xr-x  3 runner runner    4096 Aug 13 05:33 .github
+-rw-r--r--  1 runner runner    2152 Aug 13 05:33 .gitignore
+-rw-r--r--  1 runner runner   44212 Aug 13 05:33 DOCS.md
+-rw-r--r--  1 runner runner     467 Aug 13 05:33 Dockerfile
+-rw-r--r--  1 runner runner   11338 Aug 13 05:33 LICENSE
+-rw-r--r--  1 runner runner    5318 Aug 13 05:33 README.md
+-rw-r--r--  1 runner runner      44 Aug 13 05:34 ai-response-recap.txt
+drwxr-xr-x  2 runner runner    4096 Aug 13 05:33 ai_memory
+-rw-r--r--  1 runner runner     286 Aug 13 05:33 app.config.cjs
+-rw-r--r--  1 runner runner    3131 Aug 13 05:33 config.js
+-rw-r--r--  1 runner runner     331 Aug 13 05:33 ecosystem.config.cjs
+-rw-r--r--  1 runner runner    5120 Aug 13 05:33 index.js
+-rw-r--r--  1 runner runner    1678 Aug 13 05:33 install.sh
+drwxr-xr-x  6 runner runner    4096 Aug 13 05:33 lib
+drwxr-xr-x  5 runner runner    4096 Aug 13 05:33 media
+-rw-r--r--  1 runner runner    2017 Aug 13 05:33 memory_prompt.md
+-rw-r--r--  1 runner runner     161 Aug 13 05:33 nixpacks.toml
+-rw-r--r--  1 runner runner    1493 Aug 13 05:33 package.json
+drwxr-xr-x 13 runner runner    4096 Aug 13 05:33 plugins
+-rw-r--r--  1 runner runner    3184 Aug 13 05:33 prompt.md
+-rw-r--r--  1 runner runner 1299621 Aug 13 05:33 roccky_bot.zip
+-rw-r--r--  1 runner runner   15941 Aug 13 05:33 socket.js
+[0m
+[0m✱ [0mGlob "**/memory_prompt.md"[90m 1 match[0m
+[0m✱ [0mGlob "**/prompt.md"[90m 1 match[0m
+[0m→ [0mRead prompt.md
+[0m→ [0mRead memory_prompt.md
+[0m
+[0m$ [0mls -la /home/runner/work/roccky_bot/roccky_bot/ai_memory
+total 24
+drwxr-xr-x 2 runner runner 4096 Aug 13 05:33 .
+drwxr-xr-x 8 runner runner 4096 Aug 13 05:33 ..
+-rw-r--r-- 1 runner runner 1010 Aug 13 05:33 00_INDEX.md
+-rw-r--r-- 1 runner runner 1811 Aug 13 05:33 task_20260813_0300_refactor_cleanup.md
+-rw-r--r-- 1 runner runner 1680 Aug 13 05:33 task_20260813_0400_new_features.md
+-rw-r--r-- 1 runner runner 2235 Aug 13 05:33 task_20260813_0457_subpath_utils.md
+[0m
+[0m→ [0mRead ai_memory/00_INDEX.md
+[0m→ [0mRead ai_memory/task_20260813_0457_subpath_utils.md
+[0m→ [0mRead ai_memory/task_20260813_0400_new_features.md
+[0m
+[0m$ [0mls -la /home/runner/work/roccky_bot/roccky_bot/lib /home/runner/work/roccky_bot/roccky_bot/lib/Function /home/runner/work/roccky_bot/roccky_bot/lib/Utils
+/home/runner/work/roccky_bot/roccky_bot/lib:
+total 124
+drwxr-xr-x 6 runner runner  4096 Aug 13 05:33 .
+drwxr-xr-x 8 runner runner  4096 Aug 13 05:33 ..
+drwxr-xr-x 2 runner runner  4096 Aug 13 05:33 Components
+-rw-r--r-- 1 runner runner 13858 Aug 13 05:33 Constants.js
+-rw-r--r-- 1 runner runner 10428 Aug 13 05:33 Database.js
+drwxr-xr-x 2 runner runner  4096 Aug 13 05:33 Function
+-rw-r--r-- 1 runner runner 20920 Aug 13 05:33 Listener.js
+-rw-r--r-- 1 runner runner  1999 Aug 13 05:33 Request.js
+drwxr-xr-x 2 runner runner  4096 Aug 13 05:33 Scraper
+-rw-r--r-- 1 runner runner   597 Aug 13 05:33 Scraper.js
+-rw-r--r-- 1 runner runner 13970 Aug 13 05:33 Serialize.js
+-rw-r--r-- 1 runner runner 11298 Aug 13 05:33 SocketClient.js
+-rw-r--r-- 1 runner runner  3104 Aug 13 05:33 Utilities.js
+drwxr-xr-x 2 runner runner  4096 Aug 13 05:33 Utils
+-rw-r--r-- 1 runner runner  4324 Aug 13 05:33 Watcher.js
+
+/home/runner/work/roccky_bot/roccky_bot/lib/Function:
+total 60
+drwxr-xr-x 2 runner runner 4096 Aug 13 05:33 .
+drwxr-xr-x 6 runner runner 4096 Aug 13 05:33 ..
+-rw-r--r-- 1 runner runner 5896 Aug 13 05:33 FFMPEG.js
+-rw-r--r-- 1 runner runner 9705 Aug 13 05:33 Utilities.js
+-rw-r--r-- 1 runner runner 1930 Aug 13 05:33 dateTime.js
+-rw-r--r-- 1 runner runner  794 Aug 13 05:33 getFileSize.js
+-rw-r--r-- 1 runner runner 1592 Aug 13 05:33 index.js
+-rw-r--r-- 1 runner runner  973 Aug 13 05:33 isJid.js
+-rw-r--r-- 1 runner runner  468 Aug 13 05:33 isMime.js
+-rw-r--r-- 1 runner runner 1456 Aug 13 05:33 toBanner.js
+-rw-r--r-- 1 runner runner  131 Aug 13 05:33 tokenizeCode.js
+-rw-r--r-- 1 runner runner 1068 Aug 13 05:33 waBaileys.js
+
+/home/runner/work/roccky_bot/roccky_bot/lib/Utils:
+total 32
+drwxr-xr-x 2 runner runner 4096 Aug 13 05:33 .
+drwxr-xr-x 6 runner runner 4096 Aug 13 05:33 ..
+-rw-r--r-- 1 runner runner 1969 Aug 13 05:33 datetime.js
+-rw-r--r-- 1 runner runner 1543 Aug 13 05:33 general.js
+-rw-r--r-- 1 runner runner 2475 Aug 13 05:33 index.js
+-rw-r--r-- 1 runner runner  436 Aug 13 05:33 size.js
+-rw-r--r-- 1 runner runner 2391 Aug 13 05:33 text.js
+-rw-r--r-- 1 runner runner  951 Aug 13 05:33 url.js
+[0m
+[0m$ [0mls -R /home/runner/work/roccky_bot/roccky_bot/plugins | head -80
+/home/runner/work/roccky_bot/roccky_bot/plugins:
+_quiz-registry.js
+admin tools
+ai
+download
+explore
+group
+maker
+menu.js
+other
+owner
+partner
+tools
+user info
+
+/home/runner/work/roccky_bot/roccky_bot/plugins/admin tools:
+activation.js
+manage-group.js
+manage-member.js
+mentions.js
+moderation.js
+
+/home/runner/work/roccky_bot/roccky_bot/plugins/ai:
+_chatbot.js
+gpt-image.js
+image-generation.js
+music-generation.js
+nano-banana.js
+text-generation.js
+
+/home/runner/work/roccky_bot/roccky_bot/plugins/download:
+_auto-download.js
+aio.js
+capcut.js
+douyin.js
+facebook.js
+google-drive.js
+instagram.js
+mediafire.js
+pin.js
+spotify.js
+terabox.js
+tiktok.js
+twitter.js
+videy.js
+youtube.js
+
+/home/runner/work/roccky_bot/roccky_bot/plugins/explore:
+lyric.js
+meloboom.js
+pinterest.js
+spotify-play.js
+spotify-search.js
+sticker-pack.js
+stickerly.js
+tiktok-photo.js
+wallcraft.js
+youtube-play.js
+youtube-search.js
+youtube-video.js
+
+/home/runner/work/roccky_bot/roccky_bot/plugins/group:
+_afk-notifier.js
+_anti-bot.js
+_anti-delete.js
+_anti-group-status.js
+_anti-link.js
+_anti-porn.js
+_anti-spam.js
+_anti-tag-all.js
+_anti-tag-status.js
+_anti-toxic.js
+_auto-sticker.js
+_label-update.js
+_view-once.js
+addmode.js
+couple.js
+ephemeral.js
+getgcsw.js
+getpp.js
+[0m
+[0m→ [0mRead lib/Function/index.js
+[0m→ [0mRead lib/Listener.js
+[0m→ [0mRead lib/SocketClient.js
+[0m→ [0mRead lib/Serialize.js
+[0m→ [0mRead package.json
+[0m✱ [0mGrep "buttonsMessage|templateMessage|interactiveMessage|nativeFlowMessage|sendButton|sendList|sendSections|buttonParamsJson"[90m 8 matches[0m
+[0m→ [0mRead socket.js
+[0m
+[0m$ [0mls /home/runner/work/roccky_bot/roccky_bot/node_modules/ourin-baileys/lib/ 2>/dev/null | head -40; echo "---"; ls /home/runner/work/roccky_bot/roccky_bot/node_modules/ourin-baileys/lib/Types/ 2>/dev/null | head -40
+---
+[0m
+[0m$ [0mls /home/runner/work/roccky_bot/roccky_bot/node_modules 2>/dev/null | head -5; echo "EXIT: $?"; ls /home/runner/work/roccky_bot/roccky_bot/node_modules/.bin 2>/dev/null | head -5
+EXIT: 0
+[0m
+[0m$ [0mls /home/runner/work/roccky_bot/roccky_bot/lib/Components /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
+/home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
+
+/home/runner/work/roccky_bot/roccky_bot/lib/Components:
+AntiSpam.js
+Dispatcher.js
+ErrorHandler.js
+Gemini.js
+Maintenance.js
+QuizFactory.js
+Scheduler.js
+SholatReminder.js
+SightEngine.js
+[0m
+[0m→ [0mRead plugins/group/poll.js
+[0m→ [0mRead plugins/group/getgcsw.js
+[0m→ [0mRead plugins/menu.js
+[0m✱ [0mGrep "nativeFlow|buttonParamsJson|interactiveMessage|sendInteractive|relayMessage|generateWAMessageFromContent|button|card|catalog|product|offer"[90m 4 matches[0m
+[0m→ [0mRead lib/Function/Utilities.js
+[0m→ [0mRead lib/Utils/index.js
+[0m
+[0m$ [0mwhich node bun npm 2>/dev/null; node --version 2>/dev/null; bun --version 2>/dev/null
+/opt/hostedtoolcache/node/22.23.2/x64/bin/node
+/opt/hostedtoolcache/node/22.23.2/x64/bin/npm
+v22.23.2
+[0m
+[0m$ [0mcat /home/runner/work/roccky_bot/roccky_bot/.github/workflows/* 2>/dev/null | head -60
+name: OpenCode DB Fixer
+
+on:
+  workflow_dispatch:
+  
+  push:
+    paths:
+      - "prompt.md"
+
+permissions:
+  contents: read
+
+jobs:
+  opencode:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Setup Node.js (Sudah di-set ke versi 22)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install OpenCode
+        run: npm install -g opencode-ai
+
+      - name: Check OpenCode
+        run: |
+          opencode --version
+
+      - name: Run OpenCode
+        run: |
+          # Menjalankan OpenCode dan menyimpan log terminal ke file
+          opencode run \
+            --model opencode/deepseek-v4-flash-free \
+            --auto \
+            "$(cat prompt.md)" 2>&1 | tee ai-response-recap.txt || true
+
+      - name: Collect changed files and AI recap
+        run: |
+          git add -A
+
+          mkdir -p output_artifact
+
+          # Menyalin semua file proyek yang diubah oleh AI
+          for file in $(git diff --cached --name-only); do
+            if [ -f "$file" ]; then
+              mkdir -p "output_artifact/$(dirname "$file")"
+              cp "$file" "output_artifact/$file"
+            fi
+          done
+
+          # Memasukkan file recap respons AI ke dalam artifact baru
+          if [ -f ai-response-recap.txt ]; then
+            cp ai-response-recap.txt output_artifact/ai-response-recap.txt
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+[0m
+[0m$ [0mtimeout 20 npm view ourin-baileys version 2>&1 | tail -3
+9.0.11
+[0m
+[0m$ [0mmkdir -p /tmp/opencode/bc && cd /tmp/opencode/bc && npm init -y >/dev/null 2>&1 && timeout 300 npm install ourin-baileys@9.0.11 2>&1 | tail -5
+16 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[0m
+[0m$ [0mls /tmp/opencode/bc/node_modules/ourin-baileys/lib/ | head -40; echo "---BUILD---"; ls /tmp/opencode/bc/node_modules/ourin-baileys/ 2>/dev/null | head
+Defaults
+Modded
+Signal
+Socket
+Types
+Utils
+VoIP
+WABinary
+WAM
+WAUSync
+assets
+index.d.ts
+index.d.ts.map
+index.js
+index.js.map
+---BUILD---
+LICENSE
+README.md
+WAProto
+lib
+package.json
+[0m
+[0m$ [0mgrep -n "export" /tmp/opencode/bc/node_modules/ourin-baileys/lib/index.js | head -80
+2:export * from '../WAProto/index.js';
+3:export * from './Utils/index.js';
+4:export * from './Types/index.js';
+5:export * from './Defaults/index.js';
+6:export * from './WABinary/index.js';
+7:export * from './WAM/index.js';
+8:export * from './WAUSync/index.js';
+9:export { Dugong } from './Socket/dugong.js';
+10:export * from './Modded/message_builder.js';
+11:export { VoipClient, ActiveCall, CallState } from './VoIP/index.js';
+12:export { makeWASocket };
+13:export default makeWASocket;
+[0m
+[0m$ [0mls /tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/ /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/ 2>/dev/null
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/:
+message_builder.js
+
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/:
+Client
+business.d.ts
+business.d.ts.map
+business.js
+business.js.map
+chats.d.ts
+chats.d.ts.map
+chats.js
+chats.js.map
+communities.d.ts
+communities.d.ts.map
+communities.js
+communities.js.map
+dugong.d.ts
+dugong.d.ts.map
+dugong.js
+dugong.js.map
+groups.d.ts
+groups.d.ts.map
+groups.js
+groups.js.map
+index.d.ts
+index.d.ts.map
+index.js
+index.js.map
+messages-recv.d.ts
+messages-recv.d.ts.map
+messages-recv.js
+messages-recv.js.map
+messages-send.d.ts
+messages-send.d.ts.map
+messages-send.js
+messages-send.js.map
+mex.d.ts
+mex.d.ts.map
+mex.js
+mex.js.map
+newsletter.d.ts
+newsletter.d.ts.map
+newsletter.js
+newsletter.js.map
+socket.d.ts
+socket.d.ts.map
+socket.js
+socket.js.map
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/message_builder.js
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/message_builder.js[90m [offset=1584][0m
+[0m
+[0m$ [0mls /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/ 2>/dev/null; grep -n "nativeFlowMessage\|interactiveMessage\|carouselMessage" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts 2>/dev/null | head -20
+GenerateStatics.sh
+WAProto.proto
+fix-imports.js
+index.d.ts
+index.js
+[0m
+[0m$ [0mgrep -rn "generateWAMessageFromContent\|generateWAMessageId\|relayMessage" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/index.js | head
+(no output)
+[0m
+[0m$ [0mgrep -n "generateWAMessageFromContent\|generateWAMessageId\|relayMessage" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/index.js | head; echo "---"; grep -rn "export.*generateWAMessageFromContent\|export.*generateWAMessageId" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/ | head
+---
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js:844:export const generateWAMessageFromContent = (jid, message, options) => {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.d.ts:24:export declare const generateWAMessageFromContent: (jid: string, message: WAMessageContent, options: MessageGenerationOptionsFromContent) => WAMessage;
+[0m
+[0m$ [0mgrep -n "message nativeFlowMessage\|NativeFlowMessage\|interactiveMessage\|InteractiveMessage\|carouselMessage\|CarouselMessage" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts | head -30
+(no output)
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js[90m [offset=820, limit=70][0m
+[0m
+[0m$ [0mgrep -n "interface.*NativeFlow\|nativeFlowMessage\|buttonParamsJson\|single_select\|interface.*Interactive\|interface.*Carousel" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Types/*.d.ts /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts 2>/dev/null | head -30
+(no output)
+[0m
+[0m$ [0mgrep -n "NativeFlowMessage\|InteractiveMessage\|CarouselMessage\|NativeFlowButton\|nativeFlowMessage\|carouselMessage\|interactiveMessage" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts | head -40
+(no output)
+[0m
+[0m$ [0mgrep -rn "nativeFlowMessage\|NativeFlowMessage" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.d.ts 2>/dev/null | head; echo "---files---"; grep -rln "nativeFlowMessage" /tmp/opencode/bc/node_modules/ourin-baileys/ 2>/dev/null | head
+---files---
+/tmp/opencode/bc/node_modules/ourin-baileys/WAProto/WAProto.proto
+/tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Modded/message_builder.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.d.ts
+[0m
+[0m$ [0mgrep -n "nativeFlowMessage\|InteractiveMessage\|carouselMessage\|NativeFlowButton\|buttonParamsJson\|message nativeFlow" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.js | head -40
+44649:    proto.InteractiveMessageAdditionalMetadata = (function() {
+44651:        function InteractiveMessageAdditionalMetadata(properties) {
+44658:        InteractiveMessageAdditionalMetadata.prototype.isGalaxyFlowCompleted = null;
+44663:        Object.defineProperty(InteractiveMessageAdditionalMetadata.prototype, "_isGalaxyFlowCompleted", {
+44668:        InteractiveMessageAdditionalMetadata.create = function create(properties) {
+44669:            return new InteractiveMessageAdditionalMetadata(properties);
+44672:        InteractiveMessageAdditionalMetadata.encode = function encode(message, writer) {
+44680:        InteractiveMessageAdditionalMetadata.encodeDelimited = function encodeDelimited(message, writer) {
+44684:        InteractiveMessageAdditionalMetadata.decode = function decode(reader, length, error) {
+44687:            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.proto.InteractiveMessageAdditionalMetadata();
+44705:        InteractiveMessageAdditionalMetadata.decodeDelimited = function decodeDelimited(reader) {
+44711:        InteractiveMessageAdditionalMetadata.verify = function verify(message) {
+44723:        InteractiveMessageAdditionalMetadata.fromObject = function fromObject(object) {
+44724:            if (object instanceof $root.proto.InteractiveMessageAdditionalMetadata)
+44726:            let message = new $root.proto.InteractiveMessageAdditionalMetadata();
+44732:        InteractiveMessageAdditionalMetadata.toObject = function toObject(message, options) {
+44744:        InteractiveMessageAdditionalMetadata.prototype.toJSON = function toJSON() {
+44748:        InteractiveMessageAdditionalMetadata.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+44752:            return typeUrlPrefix + "/proto.InteractiveMessageAdditionalMetadata";
+44755:        return InteractiveMessageAdditionalMetadata;
+48186:                $root.proto.Message.InteractiveMessage.encode(message.interactiveMessage, writer.uint32(362).fork()).ldelim();
+48480:                        message.interactiveMessage = $root.proto.Message.InteractiveMessage.decode(reader, reader.uint32());
+49053:                    let error = $root.proto.Message.InteractiveMessage.verify(message.interactiveMessage);
+49773:                message.interactiveMessage = $root.proto.Message.InteractiveMessage.fromObject(object.interactiveMessage);
+50293:                object.interactiveMessage = $root.proto.Message.InteractiveMessage.toObject(message.interactiveMessage, options);
+63189:        Message.InteractiveMessage = (function() {
+63191:            function InteractiveMessage(properties) {
+63198:            InteractiveMessage.prototype.header = null;
+63199:            InteractiveMessage.prototype.body = null;
+63200:            InteractiveMessage.prototype.footer = null;
+63201:            InteractiveMessage.prototype.bloksWidget = null;
+63202:            InteractiveMessage.prototype.contextInfo = null;
+63203:            InteractiveMessage.prototype.urlTrackingMap = null;
+63204:            InteractiveMessage.prototype.shopStorefrontMessage = null;
+63205:            InteractiveMessage.prototype.collectionMessage = null;
+63206:            InteractiveMessage.prototype.nativeFlowMessage = null;
+63207:            InteractiveMessage.prototype.carouselMessage = null;
+63212:            Object.defineProperty(InteractiveMessage.prototype, "_header", {
+63218:            Object.defineProperty(InteractiveMessage.prototype, "_body", {
+63224:            Object.defineProperty(InteractiveMessage.prototype, "_footer", {
+[0m
+[0m$ [0mgrep -n "Message.NativeFlowMessage =\|NativeFlowMessage.prototype\|Message.NativeFlowButton =\|NativeFlowButton.prototype\|Message.CarouselMessage =\|CarouselMessage.prototype" /tmp/opencode/bc/node_modules/ourin-baileys/WAProto/index.js | head -30
+63835:            InteractiveMessage.CarouselMessage = (function() {
+63845:                CarouselMessage.prototype.cards = $util.emptyArray;
+63846:                CarouselMessage.prototype.messageVersion = null;
+63847:                CarouselMessage.prototype.carouselCardType = null;
+63852:                Object.defineProperty(CarouselMessage.prototype, "_messageVersion", {
+63858:                Object.defineProperty(CarouselMessage.prototype, "_carouselCardType", {
+64016:                CarouselMessage.prototype.toJSON = function toJSON() {
+64713:            InteractiveMessage.NativeFlowMessage = (function() {
+64723:                NativeFlowMessage.prototype.buttons = $util.emptyArray;
+64724:                NativeFlowMessage.prototype.messageParamsJson = null;
+64725:                NativeFlowMessage.prototype.messageVersion = null;
+64730:                Object.defineProperty(NativeFlowMessage.prototype, "_messageParamsJson", {
+64736:                Object.defineProperty(NativeFlowMessage.prototype, "_messageVersion", {
+64870:                NativeFlowMessage.prototype.toJSON = function toJSON() {
+64881:                NativeFlowMessage.NativeFlowButton = (function() {
+64890:                    NativeFlowButton.prototype.name = null;
+64891:                    NativeFlowButton.prototype.buttonParamsJson = null;
+64896:                    Object.defineProperty(NativeFlowButton.prototype, "_name", {
+64902:                    Object.defineProperty(NativeFlowButton.prototype, "_buttonParamsJson", {
+65001:                    NativeFlowButton.prototype.toJSON = function toJSON() {
+[0m
+[0m$ [0mgrep -n "nativeFlow\|interactiveMessage\|buttonParamsJson\|cards\|carousel\|buttons\b" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | head -50
+78:    return msg.listMessage ? "list" : "buttons";
+80:  const im = vm?.interactiveMessage || msg?.interactiveMessage;
+81:  if (!im?.nativeFlowMessage) return null;
+82:  const btnName = im.nativeFlowMessage?.buttons?.[0]?.name;
+1465:            const carouselContent = await ourin.handleCarousel(
+1470:            const carouselMsg = await generateWAMessageFromContent(
+1472:              carouselContent,
+1475:            return await relayMessage(jid, carouselMsg.message, {
+1476:              messageId: carouselMsg.key.id,
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js[90m [offset=1400, limit=200][0m
+[0m
+[0m$ [0mgrep -rn "ourin\b" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | head -5; echo "---"; grep -n "import\|from '" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | head -30
+1132:  const ourin = new Dugong(waUploadToServer, relayMessage, config, sock);
+1141:    ourin,
+1209:      return await ourin.sendStatusWhatsApp(content, jids);
+1216:      return await ourin.handleGroupStory(storyContent, jid, null);
+1299:    // support ourin terus yahh kawan kawan
+---
+1:import NodeCache from "@cacheable/node-cache";
+2:import { Boom } from "@hapi/boom";
+3:import { proto } from "../../WAProto/index.js";
+4:import { DEFAULT_CACHE_TTLS, WA_DEFAULT_EPHEMERAL } from "../Defaults/index.js";
+5:import {
+28:import {
+43:import { getUrlInfo } from "../Utils/link-preview.js";
+44:import { makeKeyedMutex } from "../Utils/make-mutex.js";
+45:import {
+49:import {
+65:import { USyncQuery, USyncUser } from "../WAUSync/index.js";
+66:import { Dugong } from "./dugong.js";
+67:import { makeNewsletterSocket } from "./newsletter.js";
+[0m
+[0m$ [0mgrep -n "handleInteractive\|handleInteractiveButtons\|handleCarousel\|handleProduct\|detectType" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.js | head -20
+26:  detectType(content) {
+78:  async handleProduct(content, _jid, _quoted) {
+136:  async handleInteractive(content, _jid, _quoted) {
+248:  async handleInteractiveButtons(content, _jid, _quoted) {
+384:  async handleCarousel(content, _jid, _quoted) {
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.js[90m [limit=480][0m
+[0m
+[0m$ [0mgrep -n "export" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/index.js | head -40; echo "---WABinary---"; grep -n "export" /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/index.js | head -40
+1:export * from './generics.js';
+2:export * from './decode-wa-message.js';
+3:export * from './messages.js';
+4:export * from './messages-media.js';
+5:export * from './validate-connection.js';
+6:export * from './crypto.js';
+7:export * from './signal.js';
+8:export * from './noise-handler.js';
+9:export * from './history.js';
+10:export * from './chat-utils.js';
+11:export * from './lt-hash.js';
+12:export * from './auth-utils.js';
+13:export * from './use-multi-file-auth-state.js';
+14:export * from './link-preview.js';
+15:export * from './event-buffer.js';
+16:export * from './process-message.js';
+17:export * from './message-retry-manager.js';
+18:export * from './browser-utils.js';
+19:export * from './identity-change-handler.js';
+20:export * from './stanza-ack.js';
+21:export * from './rich-messages.js';
+22:export * from './sticker-pack.js';
+---WABinary---
+1:export * from './encode.js';
+2:export * from './decode.js';
+3:export * from './generic-utils.js';
+4:export * from './jid-utils.js';
+5:export * from './types.js';
+[0m
+[0m$ [0mgrep -n "generateWAMessageFromContent\|generateWAMessageId\|isJidGroup\|jidNormalizedUser" /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/jid-utils.js /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js | grep -n "export" | head; echo "---generics---"; grep -n "export.*generateMessageID\|export.*generateWAMessageId" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/generics.js | head
+1:/tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/jid-utils.js:71:export const isJidGroup = (jid) => jid?.endsWith('@g.us');
+2:/tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/jid-utils.js:82:export const jidNormalizedUser = (jid) => {
+5:/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js:844:export const generateWAMessageFromContent = (jid, message, options) => {
+---generics---
+134:export const generateMessageIDV2 = (userId) => {
+150:export const generateMessageID = () => '3EB0' + randomBytes(18).toString('hex').toUpperCase();
+[0m
+[0m$ [0mgrep -n "relayMessage\|additionalNodes" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/encode.js 2>/dev/null | head -30
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:388:    return relayMessage(
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:400:        additionalNodes: [
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:493:    const msgId = await relayMessage(meJid, protocolMessage, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:498:      additionalNodes: [
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:580:  const relayMessage = async (
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:587:      additionalNodes,
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1019:      if (additionalNodes && additionalNodes.length > 0) {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1020:        stanza.content.push(...additionalNodes);
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1132:  const ourin = new Dugong(waUploadToServer, relayMessage, config, sock);
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1138:    relayMessage,
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1291:      await relayMessage(
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1309:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1318:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1328:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1337:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1346:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1356:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1366:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1371:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1387:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1403:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1412:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1420:      await relayMessage(jid, message, { messageId });
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1445:            return await relayMessage(jid, paymentContent, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1460:            return await relayMessage(jid, productMsg.message, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1475:            return await relayMessage(jid, carouselMsg.message, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1490:            return await relayMessage(jid, interactiveMsg.message, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1504:            return await relayMessage(jid, ibMsg.message, {
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1555:        const additionalNodes = [];
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js:1566:          additionalNodes.push({
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js[90m [limit=130, offset=960][0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js[90m [limit=90, offset=50][0m
+[0m
+[0m$ [0mgrep -n "getAdditionalNode" /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/*.js
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/generic-utils.js:137:export const getAdditionalNode = (name) => {
+[0m
+[0m→ [0mRead /tmp/opencode/bc/node_modules/ourin-baileys/lib/WABinary/generic-utils.js[90m [limit=120, offset=120][0m
+[0m✱ [0mGrep "WA_DEFAULT_EPHEMERAL|footer\s*=|donateUrl|botThumbnail|botName\s*=|saluranJid"[90m 35 matches[0m
+[0m→ [0mRead lib/Function/waBaileys.js
+[0m→ [0mRead index.js
+[0m→ [0mRead lib/Constants.js
+[0m
+[0m$ [0mgrep -n "unixTimestampSeconds\|prepareWAMessageMedia" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/generics.js /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages-media.js | grep "export" | head
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/generics.js:74:export const unixTimestampSeconds = (date = new Date()) => Math.floor(date.getTime() / 1000);
+[0m
+[0m$ [0mgrep -rn "export const prepareWAMessageMedia\|export function prepareWAMessageMedia" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/*.js | head
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Utils/messages.js:85:export const prepareWAMessageMedia = async (message, options) => {
+[0m
+[0m$ [0mgrep -n "relayMessage," /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | head -3; grep -n "sock.relayMessage\|\.relayMessage =" /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/*.js | head
+1132:  const ourin = new Dugong(waUploadToServer, relayMessage, config, sock);
+1138:    relayMessage,
+/tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/dugong.js:21:    this.relayMessage = relayMessageFn;
+[0m
+[0m$ [0mgrep -n "return {" -A 30 /tmp/opencode/bc/node_modules/ourin-baileys/lib/Socket/messages-send.js | grep -n "relayMessage" | head
+61:493-    const msgId = await relayMessage(meJid, protocolMessage, {
+124:580-  const relayMessage = async (
+190:1138-    relayMessage,
+226:1318-      await relayMessage(jid, message, { messageId });
+236:1328-      await relayMessage(jid, message, { messageId });
+245:1337-      await relayMessage(jid, message, { messageId });
+254:1346-      await relayMessage(jid, message, { messageId });
+264:1356-      await relayMessage(jid, message, { messageId });
+274:1366-      await relayMessage(jid, message, { messageId });
+279:1371-      await relayMessage(jid, message, { messageId });
 [0m
 [0m# [0mTodos
-[✓] Update package.json imports to add #utils
-[✓] Create lib/Utils/index.js loader + lib/Utils/* module files
-[✓] Strip moved utils from lib/Function/* and delete lib/Function/dateTime.js
-[✓] Move lib/Scraper.js functions into lib/Scraper/ files; make lib/Scraper.js a re-export shim
-[✓] Wire loadUtils() into socket.js
-[✓] Pass func/scrap/utils into plugin run context in Listener.js
-[✓] Update plugins to lowercase func/scrap/utils destructuring (7 files)
-[✓] Rewrite one plugin (sfile-upl.js) as example of new pattern
-[✓] Verify: node --check all files + boot smoke test
-[•] Write ai_memory log + update 00_INDEX.md
+[•] Create lib/Function/message.js with sendInteractiveMessage/sendButton/sendList/sendSections/sendCard/sendCarousel (Native Flow + binary nodes + fallback)
+[ ] Attach helpers to sock in lib/SocketClient.js (sock.sendButton, sock.sendList, dll)
+[ ] Expose sendButton/sendList/dll in plugin context in lib/Listener.js
+[ ] Create example plugin plugins/tools/interactive-demo.js demonstrating usage
+[ ] Verify with node --check and boot smoke test
+[ ] Update ai_memory log + 00_INDEX.md
 [0m
-[0m← [0mEdit plugins/tools/sfile-upl.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js
+[0m→ [0mRead lib/Function/isJid.js
+[0m
+[0m← [0mWrite lib/Function/message.js
+Wrote file successfully.
+[0m
+Now I'll create the interactive
+[0m← [0mEdit lib/SocketClient.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/SocketClient.js
 ===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/tools/sfile-upl.js
-@@ -30,11 +30,10 @@
- const result = await scrap.SfileMobi.upload(filename, buffer, desc)
+--- /home/runner/work/roccky_bot/roccky_bot/lib/SocketClient.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/SocketClient.js
+@@ -268,8 +268,29 @@
+ sock.sendReact = async (jid, emoji, key) => {
+    return await sock.sendMessage(jid, { react: { text: emoji, key } })
+ }
  
- if (result.status === 'success') {
-    m.react('✅')
--   const urls = [utils.isURL(result.share_url) ? result.share_url : result.share_url]
--   const print = func.frame('TO URL (Sfile.co)', urls, '💾')
--   m.reply(print)
-+   const print = func.frame('TO URL (Sfile.co)', [result.share_url], '💾')
-+   m.reply(utils.isURL(result.share_url) ? print : result.share_url)
- } else if (result.chunk_received) {
-    m.react('✅')
-    m.reply('✅ Upload successful (chunk received)\n⚠️ Please wait for processing...')
- } else {
++// ==================================================
++// SEND INTERACTIVE (NATIVE FLOW)
++// ==================================================
++sock.sendInteractiveMessage = (jid, options = {}) =>
++   Func.sendInteractiveMessage(sock, jid, options)
++
++sock.sendButton = (jid, options = {}) =>
++   Func.sendButton(sock, jid, options)
++
++sock.sendList = (jid, options = {}) =>
++   Func.sendList(sock, jid, options)
++
++sock.sendSections = (jid, options = {}) =>
++   Func.sendSections(sock, jid, options)
++
++sock.sendCard = (jid, options = {}) =>
++   Func.sendCard(sock, jid, options)
++
++sock.sendCarousel = (jid, options = {}) =>
++   Func.sendCarousel(sock, jid, options)
++
+ sock.findUserId = async (pnLid) => {
+    const normalizedJid = Func.jidNormalizedUser(pnLid)
+    const userId = {}
+    const signalRepository = sock.signalRepository
 
 [0m
-Let me clean up the contrived `utils.isURL` usage in the example plugin
-[0m$ [0mdate +%Y%m%d_%H%M
-20260813_0457
+Now let me wire the helpers into `Socket
+[0m← [0mEdit lib/Listener.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+@@ -401,9 +401,15 @@
+       Scrap,
+       Utils,
+       func: Func,
+       scrap: Scrap,
+-      utils: Utils
++      utils: Utils,
++      sendInteractiveMessage: (jid, options = {}) => sock.sendInteractiveMessage(jid, options),
++      sendButton: (jid, options = {}) => sock.sendButton(jid, options),
++      sendList: (jid, options = {}) => sock.sendList(jid, options),
++      sendSections: (jid, options = {}) => sock.sendSections(jid, options),
++      sendCard: (jid, options = {}) => sock.sendCard(jid, options),
++      sendCarousel: (jid, options = {}) => sock.sendCarousel(jid, options)
+    })
+ }
+ else {
+    let suggestions = null
+
 [0m
-Now writing the memory log and updating the index per
-[0m← [0mWrite ai_memory/task_20260813_0457_subpath_utils.md
+[0m$ [0mgrep -n "sendButton\|sendList\|sendSections\|sendCard\|sendCarousel\|sendInteractiveMessage" /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+406:               sendInteractiveMessage: (jid, options = {}) => sock.sendInteractiveMessage(jid, options),
+407:               sendButton: (jid, options = {}) => sock.sendButton(jid, options),
+408:               sendList: (jid, options = {}) => sock.sendList(jid, options),
+409:               sendSections: (jid, options = {}) => sock.sendSections(jid, options),
+410:               sendCard: (jid, options = {}) => sock.sendCard(jid, options),
+411:               sendCarousel: (jid, options = {}) => sock.sendCarousel(jid, options)
+[0m
+[0m$ [0mgrep -n "utils: Utils" /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+405:               utils: Utils,
+469:                  utils: Utils
+[0m
+[0m→ [0mRead lib/Listener.js[90m [limit=15, offset=462][0m
+[0m
+[0m← [0mEdit lib/Listener.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Listener.js
+@@ -465,9 +465,15 @@
+             Scrap,
+             Utils,
+             func: Func,
+             scrap: Scrap,
+-            utils: Utils
++            utils: Utils,
++            sendInteractiveMessage: (jid, options = {}) => sock.sendInteractiveMessage(jid, options),
++            sendButton: (jid, options = {}) => sock.sendButton(jid, options),
++            sendList: (jid, options = {}) => sock.sendList(jid, options),
++            sendSections: (jid, options = {}) => sock.sendSections(jid, options),
++            sendCard: (jid, options = {}) => sock.sendCard(jid, options),
++            sendCarousel: (jid, options = {}) => sock.sendCarousel(jid, options)
+          })
+       }
+    }
+ },
+
+[0m
+[0m$ [0mls "/home/runner/work/roccky_bot/roccky_bot/plugins/tools"
+blur-face.js
+calculator.js
+cekstatus.js
+cekwa.js
+character-recognition.js
+colorize.js
+convert-webp.js
+emoji-gif.js
+emoji-mix.js
+enhance.js
+inviteinfo.js
+morse.js
+newsletter-id.js
+no-background.js
+no-watermark.js
+qr-2-text.js
+screenshot-web.js
+sfile-upl.js
+sound-effect.js
+stalk.js
+sticker-watermark.js
+toaudio.js
+tourl.js
+[0m
+[0m→ [0mRead plugins/tools/calculator.js
+[0m
+[0m← [0mWrite plugins/tools/interactive-demo.js
+Wrote file successfully.
+[0m
+[0m$ [0mnode --check lib/Function/message.js && node --check lib/SocketClient.js && node --check lib/Listener.js && node --check plugins/tools/interactive-demo.js && echo "ALL OK"
+ALL OK
+[0m
+Let me install dependencies to run a real verification against the actual `ourin-baileys`
+[0m$ [0mtimeout 420 npm install --no-audit --no-fund 2>&1 | tail -8
+npm warn deprecated har-validator@5.1.5: this library is no longer supported
+npm warn deprecated uuid@3.4.0: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+npm warn deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
+
+added 320 packages in 8s
+[0m
+[0m$ [0mnode -e "import('baileys').then(m => { console.log('baileys version:', m.VERSION || 'n/a'); console.log('generateWAMessageFromContent:', typeof m.generateWAMessageFromContent); console.log('prepareWAMessageMedia:', typeof m.prepareWAMessageMedia); console.log('unixTimestampSeconds:', typeof m.unixTimestampSeconds); })" 2>&1 | head
+⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
+👉 Please run: npm install fluent-ffmpeg
+baileys version: 4.6
+generateWAMessageFromContent: function
+prepareWAMessageMedia: function
+unixTimestampSeconds: function
+[0m
+[0m← [0mWrite /tmp/opencode/test-message.js
+Wrote file successfully.
+[0m
+[0m$ [0mnode /tmp/opencode/test-message.js 2>&1
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/tmp/opencode/lib/Function/index.js' imported from /tmp/opencode/test-message.js
+Did you mean to import "../../home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js"?
+    at finalizeResolution (node:internal/modules/esm/resolve:275:11)
+    at moduleResolve (node:internal/modules/esm/resolve:861:10)
+    at defaultResolve (node:internal/modules/esm/resolve:985:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
+    at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///tmp/opencode/lib/Function/index.js'
+}
+
+Node.js v22.23.2
+[0m
+[0m$ [0mcp /tmp/opencode/test-message.js ./test-message.tmp.js && node ./test-message.tmp.js 2>&1
+⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
+👉 Please run: npm install fluent-ffmpeg
+--- sendInteractiveMessage: private chat (quick_reply + cta_url + cta_call) ---
+❌ relayInteractive error: TypeError: Func.isJidGroup is not a function
+    at buildInteractiveNodes (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:71:14)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:222:27)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:312:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:37:15
+file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:50
+   const { message, opts } = sock._captured.messages[0]
+           ^
+
+TypeError: Cannot destructure property 'message' of 'sock._captured.messages[0]' as it is undefined.
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:50:12
+
+Node.js v22.23.2
+[0m
+[0m← [0mEdit test-message.tmp.js
+Index: /home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js
++++ /home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js
+@@ -1,6 +1,8 @@
+ // Smoke test untuk lib/Function/message.js (Native Flow interactive helpers)
+ import { Func } from './lib/Function/index.js'
++import './lib/Function/isJid.js'
++import './lib/Function/waBaileys.js'
+ import './lib/Function/message.js'
+ 
+ const PRIVATE_JID = '6281234567890@s.whatsapp.net'
+ const GROUP_JID = '1234567890@g.us'
+
+[0m
+[0m$ [0mnode ./test-message.tmp.js 2>&1
+⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
+👉 Please run: npm install fluent-ffmpeg
+--- sendInteractiveMessage: private chat (quick_reply + cta_url + cta_call) ---
+  ✅ interactiveMessage hadir
+  ✅ body.text benar
+  ✅ footer benar
+  ✅ header benar
+  ✅ 4 tombol native flow
+  ✅ quick_reply + params stringified
+  ✅ cta_url benar
+  ✅ cta_call benar
+  ✅ raw button params stringified
+  ✅ quoted terpasang di contextInfo
+  ✅ private: 2 additional nodes
+  ✅ private: node #1 = biz
+  ✅ biz -> interactive/native_flow ada
+  ✅ private: node #2 = bot (biz_bot=1)
+--- sendInteractiveMessage: group chat ---
+  ✅ group: hanya 1 node biz (tanpa bot)
+  ✅ group: tanpa node bot
+--- sendButton (friendly quick reply) ---
+  ✅ sendButton -> quick_reply
+  ✅ string button dikonversi
+--- sendList (single_select sections) ---
+  ✅ sendList -> single_select
+  ✅ sections/rows terbawa
+--- fallback otomatis saat relay error ---
+❌ relayInteractive error: Error: relay API 405
+    at Object.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:23:31)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:220:25)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:312:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:118:15
+  ✅ fallback teks terkirim
+  ❌ fallback berformat list
+--- fallback:false -> error dilempar ---
+❌ relayInteractive error: Error: relay API 405
+    at Object.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:23:31)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:220:25)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:312:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:132:18
+  ✅ fallback:false -> throw, tanpa teks
+--- sendCarousel ---
+  ✅ carouselMessage 2 kartu
+  ✅ kartu punya native flow
+
+💥 1 tes GAGAL
+[0m
+[0m← [0mEdit lib/Function/message.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+@@ -184,8 +184,10 @@
+ // ==================================================
+ const toFallbackText = ({ text = '', footer = '', buttons = [] }) => {
+    const lines = buttons
+       .map((btn, index) => {
++         btn = normalizeButton(btn) || {}
++
+          const label = btn.displayText || btn.text || btn.title || ''
+          const value = btn.id ?? btn.url ?? btn.phoneNumber ?? ''
+ 
+          return `  ${index + 1}. ${label}${value ? ` — ${value}` : ''}`
+
+[0m
+[0m$ [0mnode ./test-message.tmp.js 2>&1 | tail -20
+--- fallback otomatis saat relay error ---
+❌ relayInteractive error: Error: relay API 405
+    at Object.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:23:31)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:222:25)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:314:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:118:15
+  ✅ fallback teks terkirim
+  ✅ fallback berformat list
+--- fallback:false -> error dilempar ---
+❌ relayInteractive error: Error: relay API 405
+    at Object.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:23:31)
+    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:222:25)
+    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:314:11)
+    at file:///home/runner/work/roccky_bot/roccky_bot/test-message.tmp.js:132:18
+  ✅ fallback:false -> throw, tanpa teks
+--- sendCarousel ---
+  ✅ carouselMessage 2 kartu
+  ✅ kartu punya native flow
+
+🎉 SEMUA TES LULUS
+[0m
+[0m→ [0mRead config.js
+[0m
+[0m$ [0mls -d session auth 2>/dev/null; ls *.json 2>/dev/null
+package-lock.json
+package.json
+[0m
+[0m$ [0mtimeout 75 node socket.js 2>&1 | head -60
+⚠️ [ourin-baileys] WARNING: Module "fluent-ffmpeg" is not installed. Video previews may not work.
+👉 Please run: npm install fluent-ffmpeg
+ FUNC  Berhasil dimuat: FFMPEG.js
+ FUNC  Berhasil dimuat: Utilities.js
+ FUNC  Berhasil dimuat: dateTime.js
+ FUNC  Berhasil dimuat: getFileSize.js
+ FUNC  Berhasil dimuat: isJid.js
+ FUNC  Berhasil dimuat: isMime.js
+ FUNC  Berhasil dimuat: message.js
+ FUNC  Berhasil dimuat: toBanner.js
+ FUNC  Berhasil dimuat: tokenizeCode.js
+ FUNC  Berhasil dimuat: waBaileys.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m SfileMobi.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m _chatbot.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m aiedit.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m aio.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m freeai.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m komik-bbato.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m reels.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m savetik.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m search.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m uploader.js
+[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m vidsave.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m datetime.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m general.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m size.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m text.js
+[44m[30m UTILS [0m [34mBerhasil dimuat:[0m url.js
+🔄 Memulai bot Starseed...
+📦 Memuat data pengguna & grup...
+✅ Data berhasil dimuat: 0 User, 0 Grup.
+🔃 Tugas harian dijadwalkan dalam : 11h 20m 31s
+🔑 Meminta kode pairing untuk 6281347951754...
+
+===================================
+🔗 PAIRING CODE : STAR-SEED
+===================================
+
+💾 [Database] Menulis database | Ukuran: 0.00 MB
+💾 [Database] Menulis store | Ukuran: 0.00 MB
+[0m
+[0m$ [0mtimeout 40 node socket.js 2>&1 | grep -iE "plugin|gagal|error|command" | head -30
+(no output)
+[0m
+[0m→ [0mRead lib/Watcher.js
+[0m
+[0m$ [0mrm -f test-message.tmp.js && node --check lib/Function/message.js && node --check lib/SocketClient.js && node --check lib/Listener.js && node --check plugins/tools/interactive-demo.js && echo "SYNTAX OK"
+SYNTAX OK
+[0m
+All tests pass and the boot smoke test succeeds. Let me clean up the temp test file and verify
+[0m$ [0mgit status --short; echo "---"; git diff --stat
+M ai-response-recap.txt
+ M lib/Listener.js
+ M lib/SocketClient.js
+?? database.json
+?? lib/Function/message.js
+?? package-lock.json
+?? plugins/tools/interactive-demo.js
+?? store.json
+---
+ ai-response-recap.txt | 2450 ++++++++++++++++++-------------------------------
+ lib/Listener.js       |   16 +-
+ lib/SocketClient.js   |   21 +
+ 3 files changed, 918 insertions(+), 1569 deletions(-)
+[0m
+[0m$ [0mgrep -nE "database|store|package-lock|recap" .gitignore
+(no output)
+[0m
+[0m$ [0mhead -40 .gitignore
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented libs generated by jscoverage/JSCover
+lib-cov
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+[0m
+[0m$ [0mgrep -nE "^node_modules|database|store|temp|session" .gitignore
+41:node_modules/
+94:# vuepress v2.x temp and cache directory
+95:.temp
+[0m
+[0m
+[0m$ [0mrm -f database.json store.json package-lock.json && git status --short
+M ai-response-recap.txt
+ M lib/Listener.js
+ M lib/SocketClient.js
+?? lib/Function/message.js
+?? plugins/tools/interactive-demo.js
+[0m
+[0m# [0mTodos
+[✓] Create lib/Function/message.js with sendInteractiveMessage/sendButton/sendList/sendSections/sendCard/sendCarousel (Native Flow + binary nodes + fallback)
+[✓] Attach helpers to sock in lib/SocketClient.js (sock.sendButton, sock.sendList, dll)
+[✓] Expose sendButton/sendList/dll in plugin context in lib/Listener.js
+[✓] Create example plugin plugins/tools/interactive-demo.js demonstrating usage
+[✓] Verify with node --check and boot smoke test
+[•] Update ai_memory log + 00_INDEX.md
+[0m
+[0m$ [0mdate +%Y%m%d_%H%M
+20260813_0541
+[0m
+[0m← [0mWrite ai_memory/task_20260813_0541_native_flow.md
 Wrote file successfully.
 [0m
 [0m← [0mEdit ai_memory/00_INDEX.md
@@ -1565,12 +2159,12 @@ Index: /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
 ===================================================================
 --- /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
 +++ /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
-@@ -1,11 +1,12 @@
+@@ -1,12 +1,13 @@
  # AI MEMORY MASTER INDEX
  
  ## Status Proyek Terkini
--Refactoring struktural selesai (Utilities.js shim atas `Func`, maintenance terpisah, SocketClient/Serialize dirapikan). Ditambah 10 plugin baru memanfaatkan API Baileys yang belum terpakai (onWhatsApp, fetchStatus, poll, pin, groupToggleEphemeral, groupRevokeInvite, groupMemberAddMode, groupRequestParticipants*, groupGetInviteInfo, groupCreate). Verifikasi `node --check` lulus.
-+Subpath imports lengkap: `#func`, `#scrap`, `#utils` (folder fisik `lib/Function`, `lib/Scraper`, `lib/Utils`). Utility umum dipindah ke `lib/Utils/` dan di-bridge ke `Func` agar backward-compatible; scraper root (`lib/Scraper.js`) jadi shim re-export atas `Scrap`. Context plugin kini menyediakan `func/scrap/utils` (lowercase) selain `Func/Scrap/Utils`. `node --check` 201 file + boot smoke test lulus.
+-Subpath imports lengkap: `#func`, `#scrap`, `#utils` (folder fisik `lib/Function`, `lib/Scraper`, `lib/Utils`). Utility umum dipindah ke `lib/Utils/` dan di-bridge ke `Func` agar backward-compatible; scraper root (`lib/Scraper.js`) jadi shim re-export atas `Scrap`. Context plugin kini menyediakan `func/scrap/utils` (lowercase) selain `Func/Scrap/Utils`. `node --check` 201 file + boot smoke test lulus.
++Subpath imports lengkap: `#func`, `#scrap`, `#utils` (folder fisik `lib/Function`, `lib/Scraper`, `lib/Utils`). Utility umum dipindah ke `lib/Utils/` dan di-bridge ke `Func` agar backward-compatible; scraper root (`lib/Scraper.js`) jadi shim re-export atas `Scrap`. Context plugin kini menyediakan `func/scrap/utils` (lowercase) selain `Func/Scrap/Utils`. Helper Native Flow selesai: `sendInteractiveMessage`, `sendButton`, `sendList`, `sendSections`, `sendCard`, `sendCarousel` via `#func` + bind ke `sock.*` + context plugin; Binary Node `biz`+`bot` (private) / `biz` (group) dengan fallback teks. `node --check` + smoke test runtime + boot smoke test lulus.
  
  ## Riwayat Log Tugas
  
@@ -1578,98 +2172,295 @@ Index: /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
  |---|---------|----------|-----------|
  | 1 | 2026-08-13 | `task_20260813_0300_refactor_cleanup.md` | Refactor: hapus duplikasi, extraction maintenance, rapi SocketClient/Serialize |
  | 2 | 2026-08-13 | `task_20260813_0400_new_features.md` | 10 plugin baru dari Baileys API yang belum dipakai, lengkap dgn hak akses & try-catch |
-+| 3 | 2026-08-13 | `task_20260813_0457_subpath_utils.md` | Subpath imports `#utils` + reorganisasi modul `lib/Function|Scraper|Utils`, context `func/scrap/utils` |
+ | 3 | 2026-08-13 | `task_20260813_0457_subpath_utils.md` | Subpath imports `#utils` + reorganisasi modul `lib/Function|Scraper|Utils`, context `func/scrap/utils` |
++| 4 | 2026-08-13 | `task_20260813_0541_native_flow.md` | Helper Native Flow interactive (`lib/Function/message.js`), bind `sock.*`, context plugin, contoh plugin, fallback teks |
 
 [0m
-Final verification pass
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && node --check plugins/tools/sfile-upl.js && echo "sfile OK"; find lib plugins -name "*.js" -print0 | while IFS= read -r -d '' f; do node --check "$f" 2>/dev/null || echo "FAIL: $f"; done; echo "=== all syntax OK ==="; ls ai_memory/
-sfile OK
-=== all syntax OK ===
+[0m$ [0mgit status --short; echo "---FILES---"; ls ai_memory/; echo "---FINAL CHECK---"; node --check lib/Function/message.js && node --check lib/SocketClient.js && node --check lib/Listener.js && node --check plugins/tools/interactive-demo.js && echo "ALL SYNTAX OK"
+M ai-response-recap.txt
+ M ai_memory/00_INDEX.md
+ M lib/Listener.js
+ M lib/SocketClient.js
+?? ai_memory/task_20260813_0541_native_flow.md
+?? lib/Function/message.js
+?? plugins/tools/interactive-demo.js
+---FILES---
 00_INDEX.md
 task_20260813_0300_refactor_cleanup.md
 task_20260813_0400_new_features.md
 task_20260813_0457_subpath_utils.md
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && timeout 35 node --expose-gc socket.js > /tmp/boot3.log 2>&1; echo "EXIT: $?"; grep -viE "Berhasil dimuat|WARNING|fluent-ffmpeg|Please run" /tmp/boot3.log | grep -iE "error|gagal|fail|fatal|exception|sfile" | head; echo "=== done ==="
-EXIT: 124
-=== done ===
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && rm -f database.json store.json && git status --short
-M ai-response-recap.txt
- M ai_memory/00_INDEX.md
- M lib/Function/Utilities.js
- D lib/Function/dateTime.js
- M lib/Function/getFileSize.js
- M lib/Listener.js
- M lib/Scraper.js
- M package.json
- M plugins/ai/_chatbot.js
- M plugins/ai/gpt-image.js
- M plugins/download/aio.js
- M plugins/download/tiktok.js
- M plugins/download/youtube.js
- M plugins/explore/youtube-play.js
- M plugins/menu.js
- M plugins/owner/_evaluate.js
- M plugins/tools/sfile-upl.js
- M socket.js
-?? ai_memory/task_20260813_0457_subpath_utils.md
-?? lib/Scraper/reels.js
-?? lib/Scraper/search.js
-?? lib/Scraper/uploader.js
-?? lib/Utils/
-?? session/
-[0m
-[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && git check-ignore session && echo "session ignored" || (ls session/ && rm -rf session && echo "removed session"); git status --short | wc -l
-creds.json
-removed session
-23
+task_20260813_0541_native_flow.md
+---FINAL CHECK---
+ALL SYNTAX OK
 [0m
 [0m# [0mTodos
-[✓] Update package.json imports to add #utils
-[✓] Create lib/Utils/index.js loader + lib/Utils/* module files
-[✓] Strip moved utils from lib/Function/* and delete lib/Function/dateTime.js
-[✓] Move lib/Scraper.js functions into lib/Scraper/ files; make lib/Scraper.js a re-export shim
-[✓] Wire loadUtils() into socket.js
-[✓] Pass func/scrap/utils into plugin run context in Listener.js
-[✓] Update plugins to lowercase func/scrap/utils destructuring (7 files)
-[✓] Rewrite one plugin (sfile-upl.js) as example of new pattern
-[✓] Verify: node --check all files + boot smoke test
-[✓] Write ai_memory log + update 00_INDEX.md
+[✓] Create lib/Function/message.js with sendInteractiveMessage/sendButton/sendList/sendSections/sendCard/sendCarousel (Native Flow + binary nodes + fallback)
+[✓] Attach helpers to sock in lib/SocketClient.js (sock.sendButton, sock.sendList, dll)
+[✓] Expose sendButton/sendList/dll in plugin context in lib/Listener.js
+[✓] Create example plugin plugins/tools/interactive-demo.js demonstrating usage
+[✓] Verify with node --check and boot smoke test
+[✓] Update ai_memory log + 00_INDEX.md
 [0m
-Selesai. Berikut laporan sesuai output yang diminta.
+Semua tugas selesai. Berikut output yang diminta:
 
-## 1. Konfirmasi penerapan aturan memori
-- Membaca `prompt.md` & `memory_prompt.md`, lalu `ai_memory/00_INDEX.md` + 2 log terbaru sebelum bekerja.
-- Setelah selesai: log baru `ai_memory/task_20260813_0457_subpath_utils.md` dibuat dan `00_INDEX.md` diperbarui (status + riwayat #3). Jumlah log masih 3, belum perlu auto-archive.
-- Baileys auth (`useMultiFileAuthState`, `makeWASocket`, `creds.update`, pairing/reconnect di `socket.js`) tidak disentuh.
+## 1. Konfirmasi Penerapan Aturan Memori
+- ✅ Membaca `prompt.md` & `memory_prompt.md`, lalu `ai_memory/00_INDEX.md` + 2 log terbaru sebelum bekerja.
+- ✅ Semua aktivitas dicatat ke log baru `ai_memory/task_20260813_0541_native_flow.md` dan `00_INDEX.md` diperbarui (total 4 log < 10, tidak perlu archive).
 
-## 2. Struktur ekspor `#func`, `#scrap`, `#utils`
-```jsonc
-// package.json → imports
-"#func":  "./lib/Function/index.js",
-"#scrap": "./lib/Scraper/index.js",
-"#utils": "./lib/Utils/index.js"
-```
-- **`#func`** (`Func`) — logika inti: `frame`, `findTopSuggestions`, `messageLogger`, `persistToFile`, `fetchAsBuffer`, `cleanUpFolder`, `createSticker`, `resizeImage`, `writeExif`, `ffmpeg`*, `isJid*`, `isMime*`, `delay`, `tokenizeCode`, `toBannerBuffer`, `getFileSize`, dll.
-- **`#scrap`** (`Scrap`) — scraper/fetcher: `catbox`, `uguu`, `quax` (uploader), `reelsvideo`, `tikwm` (reels), `meloboom`, `getStickerPack`, `stickerLy` (search), plus `vidSave`, `socialDl`, `SfileMobi`, `aiedit`, `freeai`, dll. `lib/Scraper.js` jadi shim re-export (import plugin lama tetap jalan).
-- **`#utils`** (`Utils`) — utility umum: `formatSize`, `toTitleCase`, `formatNumber`, `randomHex`, `randomInteger`, `randomValue`, `shuffleArray`, `toArray`, `isEmptyObject`, `applySchema`, `createFileName`, `medal`, `style`, `toTime`, `levenshtein`, `parseMentions`, `isURL`, `isWhatsAppURL`, `greeting`, `formatTime`, `getNowInTZ`, `getNextMidnight`, `getIndonesianTimezone`, `HourFormatter`, `DateTimeFormatter`. Semua juga di-bridge ke `Func` agar kode lama (`Func.formatSize`, dst.) tetap berfungsi.
+## 2. Pendekatan Native Flow & Binary Node
+`buttonsMessage`/`templateMessage` lama di-patch WhatsApp (error 405). Solusi:
+- Semua helper membangun **`interactiveMessage` + `nativeFlowMessage`** dengan tombol `{ name, buttonParamsJson }` yang di-stringify (quick_reply, cta_url, cta_call, single_select, raw).
+- Dikirim via **`sock.relayMessage`** dengan `additionalNodes` berbasis jenis chat:
+  - **Private (1:1)** → node `biz` (`interactive`/`native_flow` v9) **+** node `bot` (`biz_bot:'1'`).
+  - **Group** → hanya node `biz` (tanpa `bot`) agar format grup tidak rusak.
+- **Fallback otomatis** ke teks berformat list/nomor bila relay gagal; `fallback:false` untuk melempar error.
 
-## 3. Contoh penerapan di plugin — `plugins/tools/sfile-upl.js`
+## 3. Kode Helper — `lib/Function/message.js` (baru)
+
 ```js
-import { randomHex } from '#utils'   // top-level import (hanya jika wajib di luar handler)
+// lib/Function/message.js
+import { generateWAMessageFromContent, prepareWAMessageMedia, unixTimestampSeconds } from 'baileys'
+import { Func } from '#func'
 
+const BOT_NODE = { tag: 'bot', attrs: { biz_bot: '1' } }
+
+const buildBizNode = () => {
+   const ts = unixTimestampSeconds(new Date()) - 77980457
+   return {
+      tag: 'biz',
+      attrs: { actual_actors: '2', host_storage: '2', privacy_mode_ts: `${ts}` },
+      content: [
+         { tag: 'engagement', attrs: { customer_service_state: 'open', conversation_state: 'open' } },
+         { tag: 'interactive', attrs: { type: 'native_flow', v: '1' },
+            content: [{ tag: 'native_flow', attrs: { v: '9', name: 'mixed' } }] }
+      ]
+   }
+}
+
+// Private (1:1) => biz + bot ; Group => biz saja
+const buildInteractiveNodes = (jid) => {
+   const nodes = [buildBizNode()]
+   if (!Func.isJidGroup(jid)) nodes.push(BOT_NODE)
+   return nodes
+}
+
+const normalizeButton = (btn) =>
+   typeof btn === 'string' ? { type: 'reply', displayText: btn, id: btn } : btn
+
+const buttonToNativeFlow = (btn) => {
+   btn = normalizeButton(btn)
+   if (!btn || typeof btn !== 'object') return null
+   const type = (btn.type || btn.name || '').toLowerCase()
+   const label = btn.displayText || btn.text || btn.title || ''
+   if (type === 'reply' || type === 'quick_reply')
+      return { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: label, id: btn.id ?? btn.value ?? '' }) }
+   if (type === 'url' || type === 'cta_url')
+      return { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: label, url: btn.url ?? '', webview_interaction: btn.webview || false }) }
+   if (type === 'call' || type === 'cta_call')
+      return { name: 'cta_call', buttonParamsJson: JSON.stringify({ display_text: label, id: btn.phoneNumber ?? btn.id ?? '' }) }
+   if (type === 'list' || type === 'single_select' || type === 'sections')
+      return { name: 'single_select', buttonParamsJson: JSON.stringify({
+         title: btn.title || label,
+         sections: (btn.sections || []).map(s => ({
+            title: s.title || '',
+            rows: (s.rows || []).map(r => ({ title: r.title || '', description: r.description || '', id: r.id ?? r.title ?? '' }))
+         }))
+      }) }
+   if (btn.name && btn.buttonParamsJson)
+      return { name: btn.name, buttonParamsJson: typeof btn.buttonParamsJson === 'string' ? btn.buttonParamsJson : JSON.stringify(btn.buttonParamsJson) }
+   return null
+}
+
+const normalizeQuoted = (quoted) => {
+   if (!quoted) return undefined
+   if (quoted.key && quoted.message) return quoted
+   if (quoted.key && quoted.msg) return { key: quoted.key, message: { [quoted.type || 'extendedTextMessage']: quoted.msg } }
+   return quoted
+}
+
+const toFallbackText = ({ text = '', footer = '', buttons = [] }) => {
+   const lines = buttons.map((b, i) => {
+      b = normalizeButton(b) || {}
+      const label = b.displayText || b.text || b.title || ''
+      const value = b.id ?? b.url ?? b.phoneNumber ?? ''
+      return `  ${i + 1}. ${label}${value ? ` — ${value}` : ''}`
+   }).filter(Boolean).join('\n')
+   return [text, footer, lines].filter(Boolean).join('\n\n')
+}
+
+const relayInteractive = async (sock, jid, interactiveMessage, { quoted = null, fallback = true, fallbackText = '', relayOptions = {} } = {}) => {
+   try {
+      const message = generateWAMessageFromContent(jid, { interactiveMessage }, { quoted: normalizeQuoted(quoted), userJid: sock?.user?.id })
+      return await sock.relayMessage(jid, message.message, {
+         messageId: message.key.id,
+         additionalNodes: buildInteractiveNodes(jid),
+         ...relayOptions
+      })
+   } catch (error) {
+      console.error('❌ relayInteractive error:', error)
+      if (!fallback) throw error
+      return sock.sendText(jid, fallbackText, quoted)
+   }
+}
+
+const buildNativeFlow = (buttons, messageParams = {}) => {
+   const nativeFlowButtons = (buttons || []).map(buttonToNativeFlow).filter(Boolean)
+   if (!nativeFlowButtons.length) return null
+   return {
+      buttons: nativeFlowButtons,
+      ...(messageParams && Object.keys(messageParams).length ? { messageParamsJson: JSON.stringify(messageParams) } : {}),
+      messageVersion: 1
+   }
+}
+
+const prepareMedia = async (sock, kind, media) => {
+   if (!media) return null
+   try {
+      const source = typeof media === 'string' ? { [kind]: { url: media } } : { [kind]: media }
+      return await prepareWAMessageMedia(source, { upload: sock.waUploadToServer })
+   } catch (e) { console.error('❌ prepareMedia error:', e); return null }
+}
+
+// ===== PUBLIC API =====
+Func.sendInteractiveMessage = async (sock, jid, options = {}) => {
+   const { text = '', footer = '', header = '', buttons = [], contextInfo = {}, messageParams = {}, quoted = null, fallback = true, relayOptions = {} } = options
+   const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
+   if (!nativeFlowMessage) return sock.sendText(jid, text, quoted, { footer })
+   const interactiveMessage = {
+      body: { text: String(text) },
+      ...(footer ? { footer: { text: String(footer) } } : {}),
+      header: { title: String(header || ''), hasMediaAttachment: false },
+      contextInfo: contextInfo || {},
+      nativeFlowMessage
+   }
+   return relayInteractive(sock, jid, interactiveMessage, { quoted, fallback, fallbackText: toFallbackText({ text, footer, buttons }), relayOptions })
+}
+
+Func.sendButton = async (sock, jid, options = {}) => {
+   const { text, footer, header, buttons = [], ...rest } = options
+   return Func.sendInteractiveMessage(sock, jid, { text, footer, header, buttons, ...rest })
+}
+
+Func.sendList = async (sock, jid, options = {}) => {
+   const { title = 'Pilih Opsi', buttonText = 'Pilih', footer = '', text = '', sections = [], ...rest } = options
+   return Func.sendInteractiveMessage(sock, jid, {
+      text: text || title, footer,
+      buttons: [{ type: 'list', title, displayText: buttonText, sections }],
+      ...rest
+   })
+}
+Func.sendSections = async (sock, jid, options = {}) => Func.sendList(sock, jid, options)
+
+Func.sendCard = async (sock, jid, options = {}) => {
+   const { text = '', footer = '', header = '', image, video, buttons = [], contextInfo = {}, messageParams = {}, quoted = null, fallback = true, relayOptions = {} } = options
+   const interactiveMessage = {
+      body: { text: String(text) },
+      ...(footer ? { footer: { text: String(footer) } } : {}),
+      contextInfo: contextInfo || {},
+      header: { title: String(header || ''), hasMediaAttachment: false }
+   }
+   const media = image ? await prepareMedia(sock, 'image', image) : video ? await prepareMedia(sock, 'video', video) : null
+   if (media) interactiveMessage.header = { title: String(header || ''), hasMediaAttachment: true, ...media }
+   const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
+   if (nativeFlowMessage) interactiveMessage.nativeFlowMessage = nativeFlowMessage
+   return relayInteractive(sock, jid, interactiveMessage, { quoted, fallback, fallbackText: toFallbackText({ text, footer, buttons }), relayOptions })
+}
+
+Func.sendCarousel = async (sock, jid, options = {}) => {
+   const { text = '', footer = '', cards = [], contextInfo = {}, quoted = null, fallback = true, relayOptions = {} } = options
+   if (!cards.length) throw new Error('sendCarousel membutuhkan minimal 1 kartu')
+   const processedCards = []
+   for (const card of cards) {
+      const media = card.image ? await prepareMedia(sock, 'image', card.image) : card.video ? await prepareMedia(sock, 'video', card.video) : null
+      const cardMessage = {
+         body: { text: String(card.text || '') },
+         ...(card.footer ? { footer: { text: String(card.footer) } } : {}),
+         header: { title: String(card.title || ''), hasMediaAttachment: !!media, ...(media || {}) }
+      }
+      const nf = buildNativeFlow(card.buttons || [], card.messageParams || {})
+      if (nf) cardMessage.nativeFlowMessage = nf
+      processedCards.push(cardMessage)
+   }
+   const interactiveMessage = {
+      body: { text: String(text) }, ...(footer ? { footer: { text: String(footer) } } : {}),
+      header: { title: '', hasMediaAttachment: false }, contextInfo: contextInfo || {},
+      carouselMessage: { cards: processedCards, messageVersion: 1, carouselCardType: 1 }
+   }
+   const fallbackText = [text, footer, ...cards.map((c, i) => `  ${i + 1}. ${c.title || ''}${c.text ? ` — ${c.text}` : ''}`)].filter(Boolean).join('\n\n')
+   return relayInteractive(sock, jid, interactiveMessage, { quoted, fallback, fallbackText, relayOptions })
+}
+```
+
+**Integrasi:** `lib/SocketClient.js` bind ke `sock.sendButton/sendList/sendSections/sendCard/sendCarousel/sendInteractiveMessage`; `lib/Listener.js` menambahkan semua nama itu langsung ke context plugin (`run(m, { sendButton, sendList, ... })`).
+
+## Contoh Penggunaan di Plugin (`plugins/tools/interactive-demo.js`)
+
+```js
 export default {
-   command: 'sfileupl',
+   command: 'button',
+   hidden: ['interactive', 'demo'],
    category: 'tools',
-   async run(m, { sock, command, text, func, scrap, utils }) {  // helper via parameter
-      ...
-      const filename = q.fileName || `upload_${randomHex().replace('#', '')}.${ext}`
-      const result = await scrap.SfileMobi.upload(filename, buffer, desc)
-      const print = func.frame('TO URL (Sfile.co)', [result.share_url], '💾')
-      m.reply(utils.isURL(result.share_url) ? print : result.share_url)
+   async run(m, { sendButton, sendList, sendCard, sendCarousel, sendInteractiveMessage, isPrefix, command, text }) {
+      const type = text?.toLowerCase() || 'button'
+      try {
+         if (type === 'button')
+            return sendButton(m.chat, {
+               text: '👋 Halo *' + m.pushName + '*!\nPilih aksi:',
+               footer: 'Native Flow · Quick Reply',
+               header: 'Menu Aksi',
+               buttons: [
+                  { type: 'reply', displayText: '✅ Ya', id: 'yes' },
+                  { type: 'reply', displayText: '❌ Tidak', id: 'no' },
+                  { type: 'url', displayText: '🌐 Kunjungi', url: 'https://github.com/itsliaaa/starseed' },
+                  { type: 'call', displayText: '📞 Telepon', phoneNumber: '6281234567890' }
+               ],
+               quoted: m
+            })
+         if (type === 'list')
+            return sendList(m.chat, {
+               title: '📚 Daftar Kategori',
+               text: 'Silakan pilih kategori:',
+               buttonText: 'Pilih Kategori',
+               sections: [
+                  {
+                     title: '📥 Download',
+                     rows: [
+                        { title: 'YouTube', description: 'Download video/audio', id: isPrefix + 'youtube' },
+                        { title: 'TikTok', description: 'Download video', id: isPrefix + 'tiktok' }
+                     ]
+                  },
+                  { title: '🤖 AI', rows: [{ title: 'Chatbot', description: 'Ngobrol dgn AI', id: isPrefix + 'ai' }] }
+               ],
+               quoted: m
+            })
+         if (type === 'card')
+            return sendCard(m.chat, {
+               text: '✨ Kartu dengan media.',
+               header: 'Info Bot',
+               image: botThumbnail,
+               footer: 'Native Flow · Card',
+               buttons: [{ type: 'reply', displayText: 'Menu', id: isPrefix + 'menu' }, { type: 'url', displayText: 'Donasi', url: donateUrl }],
+               quoted: m
+            })
+         if (type === 'carousel')
+            return sendCarousel(m.chat, {
+               text: '🖼️ Carousel menu:',
+               cards: [
+                  { title: '📥 Download', text: 'YouTube, TikTok, dll', image: botThumbnail, buttons: [{ type: 'reply', displayText: 'Pilih', id: isPrefix + 'menu download' }] },
+                  { title: '🤖 AI', text: 'Chatbot & image gen', image: botThumbnail, buttons: [{ type: 'reply', displayText: 'Pilih', id: isPrefix + 'menu ai' }] }
+               ],
+               quoted: m
+            })
+         if (type === 'raw')
+            return sendInteractiveMessage(m.chat, {
+               text: '🔧 Raw interactive.',
+               buttons: [{ name: 'quick_reply', buttonParamsJson: { display_text: 'Halo', id: 'halo' } }],
+               quoted: m
+            })
+         return m.reply(`👉🏻 *Example*: ${isPrefix + command} [button|list|sections|card|carousel|raw]`)
+      } catch (error) { console.error(error); m.reply('❌ ' + error.message) }
    }
 }
 ```
 
-**Verifikasi:** `node --check` 201 file lulus; boot smoke test (`node --expose-gc socket.js`) berjalan bersih — loadFunc/Scrap/Utils OK, 145 plugin dimuat tanpa error, pairing aktif. Plugin yang pakai `Func`/`Scrap` dari context (youtube, aio, tiktok, youtube-play, ai/_chatbot, gpt-image, menu, _evaluate) sudah dipindah ke `func`/`scrap`.
+**Verifikasi:** `node --check` 4 file lulus; smoke test runtime dengan `ourin-baileys@9.0.11` (struktur nativeFlow, node biz+bot vs biz, fallback, carousel) lulus; boot smoke test `node socket.js` berjalan tanpa error.
