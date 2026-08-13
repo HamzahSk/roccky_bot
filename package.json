@@ -43,6 +43,7 @@
       "baileys": "npm:@whiskeysockets/baileys",
       "chalk": "^5.6.2",
       "cheerio": "^1.2.0",
+      "fflate": "^0.8.3",
       "file-type": "21.3.4",
       "gtts": "^0.2.1",
       "mongodb": "^7.2.0",

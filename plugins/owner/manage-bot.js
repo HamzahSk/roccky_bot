@@ -351,26 +351,24 @@ export default {
          setting.menuMessage = text
          m.reply('✅ Successfully set menu message.')
       }
-      else if (command === 'setmodel') {
-         if (!text.includes('--model'))
-            return sock.sendMessage(m.chat, {
-               text: 'Choose a model',
-               footer,
-               nativeFlow: [{
-                  text: '📄 List Model',
-                  sections: Object.entries(AVAILABLE_MODELS)
-                     .map(([key, value]) => ({
-                        ...(value.subscriptionOnly ? HIGHLIGHT_LABEL : {}),
-                        rows: [{
-                           title: key,
-                           description: value.description,
-                           id: `${isPrefix + command} --model ${key}`
-                        }]
-                     }))
-               }]
-            }, {
-               quoted: m
-            })
+       else if (command === 'setmodel') {
+          if (!text.includes('--model'))
+             return sock.sendSections(m.chat, {
+                text: 'Choose a model',
+                footer,
+                title: '📄 List Model',
+                buttonText: 'Pilih',
+                sections: Object.entries(AVAILABLE_MODELS)
+                   .map(([key, value]) => ({
+                      ...(value.subscriptionOnly ? HIGHLIGHT_LABEL : {}),
+                      rows: [{
+                         title: key,
+                         description: value.description,
+                         id: `${isPrefix + command} --model ${key}`
+                      }]
+                   })),
+                quoted: m
+             })
          if (!googleApiKey)
             return m.reply('❌ Google API key is missing. Please configure `googleApiKey` in `config.js` first.')
          const model = args[1]

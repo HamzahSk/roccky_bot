@@ -94,244 +94,206 @@ export default {
                }
             })
          }
-         else if (setting.menuStyle == 2)
-            sock.sendMessage(m.chat, {
-               image: {
-                  url: botThumbnail
-               },
-               caption: message.trim(),
+         else if (setting.menuStyle == 2) {
+            return sock.sendSections(m.chat, {
+               text: message.trim(),
+               image: botThumbnail,
                footer,
-               nativeFlow: [{
-                  text: '📚 List Menu',
-                  sections: categories.map(category => ({
-                     ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-                     rows: [{
-                        title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-                        description: `📦 There are ${grouped[category].length} commands`,
-                        id: `${isPrefix + command} ${category}`
-                     }]
-                  }))
-               }]
-            }, {
+               title: '📚 List Menu',
+               buttonText: 'Pilih',
+               sections: categories.map(category => ({
+                  ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
+                  rows: [{
+                     title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
+                     description: `📦 There are ${grouped[category].length} commands`,
+                     id: `${isPrefix + command} ${category}`
+                  }]
+               })),
                quoted: m
             })
-         else if (setting.menuStyle == 3)
-            sock.sendMessage(m.chat, {
-               image: {
-                  url: botThumbnail
-               },
-               caption: message.trim(),
+         }
+         else if (setting.menuStyle == 3) {
+            return sock.sendButton(m.chat, {
+               text: message.trim(),
+               image: botThumbnail,
                footer,
-               offerText: botName,
-               offerUrl: donateUrl,
-               offerExpiration: OFFER_EXPIRATION,
-               optionText: '✴️ Tap Here',
-               optionTitle: '📋 Select Options',
-               nativeFlow: [{
-                  text: '📚 List Menu',
-                  sections: categories.map(category => ({
-                     ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-                     rows: [{
-                        title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-                        description: `📦 There are ${grouped[category].length} commands`,
-                        id: `${isPrefix + command} ${category}`
-                     }]
-                  }))
-               }, {
-                  text: '📃 All Menu',
-                  id: `${isPrefix}allmenu`
-               }, {
-                  text: '📊 Statistic',
-                  id: `${isPrefix}statistic`
-               }, {
-                  text: '💰 Donate',
-                  url: donateUrl
-               }]
-            }, {
+               buttons: [
+                  {
+                     type: 'list',
+                     title: '📚 List Menu',
+                     displayText: '📚 List Menu',
+                     sections: categories.map(category => ({
+                        ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
+                        rows: [{
+                           title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
+                           description: `📦 There are ${grouped[category].length} commands`,
+                           id: `${isPrefix + command} ${category}`
+                        }]
+                     }))
+                  },
+                  { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
+                  { type: 'reply', displayText: '📊 Statistic', id: `${isPrefix}statistic` },
+                  { type: 'url', displayText: '💰 Donate', url: donateUrl }
+               ],
+               messageParams: {
+                  optionText: '✴️ Tap Here',
+                  optionTitle: '📋 Select Options',
+                  offerText: botName,
+                  offerUrl: donateUrl,
+                  offerExpiration: OFFER_EXPIRATION
+               },
                quoted: m
             })
-         else if (setting.menuStyle == 4)
-            sock.sendMessage(m.chat, {
-               image: {
-                  url: botThumbnail
-               },
-               product: {
-                  title: botName
-               },
-               businessOwnerJid: m.sender,
-               caption: message.trim(),
+         }
+         else if (setting.menuStyle == 4) {
+            return sock.sendButton(m.chat, {
+               text: message.trim(),
+               image: botThumbnail,
                footer,
-               nativeFlow: [{
-                  text: '📚 List Menu',
-                  sections: categories.map(category => ({
-                     ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-                     rows: [{
-                        title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-                        description: `📦 There are ${grouped[category].length} commands`,
-                        id: `${isPrefix + command} ${category}`
-                     }]
-                  }))
-               }, {
-                  text: '📃 All Menu',
-                  id: `${isPrefix}allmenu`
-               }, {
-                  text: '💰 Donate',
-                  url: donateUrl
-               }]
-            }, {
+               buttons: [
+                  {
+                     type: 'list',
+                     title: '📚 List Menu',
+                     displayText: '📚 List Menu',
+                     sections: categories.map(category => ({
+                        ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
+                        rows: [{
+                           title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
+                           description: `📦 There are ${grouped[category].length} commands`,
+                           id: `${isPrefix + command} ${category}`
+                        }]
+                     }))
+                  },
+                  { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
+                  { type: 'url', displayText: '💰 Donate', url: donateUrl }
+               ],
                quoted: m
             })
-         else if (setting.menuStyle == 5)
-            sock.sendMessage(m.chat, {
-               image: {
-                  url: botThumbnail
-               },
-               product: {
-                  title: botName
-               },
-               businessOwnerJid: m.sender,
-               caption: message.trim(),
+         }
+         else if (setting.menuStyle == 5) {
+            return sock.sendButton(m.chat, {
+               text: message.trim(),
+               image: botThumbnail,
                footer,
-               optionText: '✴️ Tap Here',
-               optionTitle: '📋 Select Options',
-               nativeFlow: [{
-                  text: '📚 List Menu',
-                  sections: categories.map(category => ({
-                     ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-                     rows: [{
-                        title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-                        description: `📦 There are ${grouped[category].length} commands`,
-                        id: `${isPrefix + command} ${category}`
-                     }]
-                  }))
-               }, {
-                  text: '📃 All Menu',
-                  id: `${isPrefix}allmenu`
-               }, {
-                  text: '📊 Statistic',
-                  id: `${isPrefix}statistic`
-               }, {
-                  text: '💰 Donate',
-                  url: donateUrl
-               }]
-            }, {
+               buttons: [
+                  {
+                     type: 'list',
+                     title: '📚 List Menu',
+                     displayText: '📚 List Menu',
+                     sections: categories.map(category => ({
+                        ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
+                        rows: [{
+                           title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
+                           description: `📦 There are ${grouped[category].length} commands`,
+                           id: `${isPrefix + command} ${category}`
+                        }]
+                     }))
+                  },
+                  { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
+                  { type: 'url', displayText: '💰 Donate', url: donateUrl }
+               ],
+               messageParams: {
+                  optionText: '✴️ Tap Here',
+                  optionTitle: '📋 Select Options'
+               },
                quoted: m
             })
+         }
          else if (setting.menuStyle == 6) {
             const profilePicture = await sock.profilePicture(m.sender)
-            sock.sendMessage(m.chat, {
-               document: {
-                  url: profilePicture
-               },
-               jpegThumbnail: await Func.resizeImage(profilePicture, 252),
-               fileName: '👋🏻 ' + m.pushName,
-               mimetype: 'image/jpeg',
-               caption: message.trim(),
+            return sock.sendButton(m.chat, {
+               text: message.trim(),
+               image: profilePicture,
                footer,
-               optionText: '📚 List Menu',
-               optionTitle: '📋 Select Menu',
-               nativeFlow: categories.map(category => ({
-                  text: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-                  id: `${isPrefix + command} ${category}`
-               })),
-               externalAdReply: {
-                  title: botName,
-                  body: Func.greeting(),
-                  thumbnail: await Func.fetchThumbnail(),
-                  largeThumbnail: true
-               }
-            }, {
+               buttons: [
+                  {
+                     type: 'list',
+                     title: '📚 List Menu',
+                     displayText: '📚 List Menu',
+                     sections: categories.map(category => ({
+                        ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
+                        rows: [{
+                           title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
+                           description: `📦 There are ${grouped[category].length} commands`,
+                           id: `${isPrefix + command} ${category}`
+                        }]
+                     }))
+                  },
+                  { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
+                  { type: 'reply', displayText: '📊 Statistic', id: `${isPrefix}statistic` }
+               ],
                quoted: m
             })
          }
          else if (setting.menuStyle == 7) {
             const profilePicture = await sock.profilePicture(m.sender)
-            sock.sendMessage(m.chat, {
-               location: {
-                  address: Func.greeting(),
-                  degreesLatitude: 0,
-                  degreesLongitude: 0,
-                  jpegThumbnail: await Func.resizeImage(profilePicture, 252),
-                  name: '👋🏻 ' + m.pushName,
-                  url: donateUrl
-               },
-               caption: message.trim(),
+            return sock.sendButton(m.chat, {
+               text: message.trim(),
+               image: profilePicture,
                footer,
-               optionText: '📚 List Menu',
-               optionTitle: '📋 Select Menu',
-               nativeFlow: categories.map(category => ({
-                  text: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-                  id: `${isPrefix + command} ${category}`
-               })),
-               externalAdReply: {
-                  title: botName,
-                  body: Func.greeting(),
-                  thumbnail: await Func.fetchThumbnail(),
-                  largeThumbnail: true
-               }
-            }, {
+               buttons: [
+                  {
+                     type: 'list',
+                     title: '📚 List Menu',
+                     displayText: '📚 List Menu',
+                     sections: categories.map(category => ({
+                        ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
+                        rows: [{
+                           title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
+                           description: `📦 There are ${grouped[category].length} commands`,
+                           id: `${isPrefix + command} ${category}`
+                        }]
+                     }))
+                  },
+                  { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
+                  { type: 'reply', displayText: '📊 Statistic', id: `${isPrefix}statistic` }
+               ],
                quoted: m
             })
          }
          else if (setting.menuStyle == 8) {
             const profilePicture = await sock.profilePicture(m.sender)
-            sock.sendMessage(m.chat, {
-               document: {
-                  url: profilePicture
-               },
-               jpegThumbnail: await Func.resizeImage(profilePicture, 252),
-               fileName: '👋🏻 ' + m.pushName,
-               mimetype: 'image/jpeg',
-               caption: message.trim(),
+            return sock.sendButton(m.chat, {
+               text: message.trim(),
+               image: profilePicture,
                footer,
-               buttons: [{
-                  text: '📚 List Menu',
-                  sections: categories.map(category => ({
-                     ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-                     rows: [{
-                        title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-                        description: `📦 There are ${grouped[category].length} commands`,
-                        id: `${isPrefix + command} ${category}`
-                     }]
-                  }))
-               }, {
-                  text: '📃 All Menu',
-                  id: `${isPrefix}allmenu`
-               }, {
-                  text: '📊 Statistic',
-                  id: `${isPrefix}statistic`
-               }],
-               externalAdReply: {
-                  title: botName,
-                  body: Func.greeting(),
-                  thumbnail: await Func.fetchThumbnail(),
-                  largeThumbnail: true
-               }
-            }, {
+               buttons: [
+                  {
+                     type: 'list',
+                     title: '📚 List Menu',
+                     displayText: '📚 List Menu',
+                     sections: categories.map(category => ({
+                        ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
+                        rows: [{
+                           title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
+                           description: `📦 There are ${grouped[category].length} commands`,
+                           id: `${isPrefix + command} ${category}`
+                        }]
+                     }))
+                  },
+                  { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
+                  { type: 'reply', displayText: '📊 Statistic', id: `${isPrefix}statistic` }
+               ],
                quoted: m
             })
          }
-         else if (setting.menuStyle == 9)
-            sock.sendMessage(m.chat, {
+         else if (setting.menuStyle == 9) {
+            return sock.sendCarousel(m.chat, {
                text: message.trim(),
                footer,
                cards: categories.map(category => ({
-                  image: {
-                     url: botThumbnail 
-                  },
-                  caption: Func.frame(category.toUpperCase(), [CATEGORY_DESCRIPTIONS[category]], CATEGORY_EMOJIS[category] ?? '📁'),
-                  footer: `📦 There are ${grouped[category].length} commands`,
-                  offerText: botName,
-                  offerUrl: donateUrl,
-                  offerExpiration: OFFER_EXPIRATION,
-                  nativeFlow: [{
-                     text: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
+                  title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
+                  text: Func.frame(category.toUpperCase(), [CATEGORY_DESCRIPTIONS[category]], CATEGORY_EMOJIS[category] ?? '📁'),
+                  image: botThumbnail,
+                  buttons: [{
+                     type: 'reply',
+                     displayText: 'Pilih',
                      id: `${isPrefix + command} ${category}`
                   }]
-               }))
-            }, {
+               })),
                quoted: m
             })
+         }
          if (setting.menuMusic)
             sock.sendMedia(m.chat, botMenuMusic, '', FAKE_QUOTE, {
                ptt: true
