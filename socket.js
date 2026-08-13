@@ -11,17 +11,18 @@ await loadScrap();
 import { Database, Store, connectCloudDB } from './lib/Database.js';
 import { Boom } from '@hapi/boom';
 import { delay, DisconnectReason, jidNormalizedUser, makeWASocket, useMultiFileAuthState } from 'baileys';
-import { mkdir, unlink, readdir, stat } from 'fs/promises';
+import { mkdir } from 'fs/promises';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import pino from 'pino';
 import readline from 'readline';
 import NodeCache from 'node-cache';
 
-import { BOT, INACTIVE_THRESHOLD, TEMP_THRESHOLD } from './lib/Constants.js';
-import { CommandIndex, ModuleCache, scanDirectory } from './lib/Watcher.js';
+import { BOT } from './lib/Constants.js';
+import { scanDirectory } from './lib/Watcher.js';
 import Listener from './lib/Listener.js';
 import SholatReminder from './lib/Components/SholatReminder.js';
+import { startMaintenance } from './lib/Components/Maintenance.js';
 
 // ================================
 //  KONFIGURASI & PATH
@@ -402,76 +403,12 @@ const Setup = async () => {
   // 6. JALANKAN SOCKET KONEKSI WA
   Socket();
 
-  // 7. CRON JOBS (Daily Tasks, Autosave, Temp Clean)
-  const scheduleDailyTasks = () => {
-    const resetTimeout = Func.getNextMidnight();
-    setTimeout(() => {
-      const timestampMs = Date.now();
-      const threshold = timestampMs - INACTIVE_THRESHOLD;
-      const setting = db?.getSetting();
-      if (!setting) return;
-      for (const [id, user] of db.users) {
-        const isProtected = user.banned || user.premiumExpiry > 0 || user.limit >= 200;
-        if (!isProtected && user.lastSeen < threshold) db.deleteUser(id);
-      }
-      for (const [id, group] of db.groups)
-        if (group.lastActivity < threshold) {
-          store.deleteGroup(id);
-          db.deleteGroup(id);
-        }
-      for (const user of db.users.values()) {
-        if (user.limit < (global.defaultLimit || 50)) user.limit = global.defaultLimit || 50;
-        user.energy = 100;
-      }
-      setting.lastReset = timestampMs;
-      db.writeToFile();
-      scheduleDailyTasks();
-    }, resetTimeout);
-    console.log('🔃 Tugas harian dijadwalkan dalam', ':', Func.toTime(resetTimeout));
-  };
-  scheduleDailyTasks();
-
-  if (global.gc) {
-    setInterval(() => {
-      global.gc();
-      console.log('🧹 Garbage collector dipanggil, memori dibersihkan');
-    }, global.gcInterval || 60000);
-  }
-
-  // INTERVAL AUTOSAVE DATABASE (Sangat Penting)
-  const dataInterval = global.dataInterval || 30000;
-  const rssLimit = global.rssLimit || 1024 * 1024 * 500;
-  const check = setInterval(async () => {
-    if (db && store) {
-      await db.writeToFile();
-      await store.writeToFile();
-    }
-    if (process.memoryUsage().rss >= rssLimit) {
-      clearInterval(check);
-      process.send('reset');
-    }
-  }, dataInterval);
-
-  // INTERVAL PEMBERSIH FOLDER TEMP
-  const temporaryFileInterval = global.temporaryFileInterval || 3600000;
-  setInterval(async () => {
-    try {
-      const timestampMs = Date.now();
-      const temporaryFiles = await readdir(TEMPORARY_FOLDER_PATH);
-      let removedFiles = 0;
-      for (const fileName of temporaryFiles) {
-        const filePath = join(TEMPORARY_FOLDER_PATH, fileName);
-        const fileStatistic = await stat(filePath);
-        if (timestampMs - fileStatistic.mtimeMs > TEMP_THRESHOLD) {
-          await unlink(filePath);
-          removedFiles++;
-        }
-      }
-      if (removedFiles > 0) console.log('🗑️ Membersihkan folder temp:', removedFiles, 'file dihapus');
-    } catch (error) {
-      console.error('❌ Gagal membersihkan folder temp:', error.message);
-    }
-  }, temporaryFileInterval);
+   // 7. MAINTENANCE BACKGROUND (Daily Tasks, Autosave, Temp Clean, GC)
+  startMaintenance({
+    db,
+    store,
+    temporaryFolderPath: TEMPORARY_FOLDER_PATH
+  });
 };
 
 // JALANKAN SETUP
