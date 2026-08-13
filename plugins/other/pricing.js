@@ -33,16 +33,19 @@ export default {
          isHeading: true,
          items: ['Commands', 'Premium', 'Free']
       }]
-      for (const { command, premium } of ModuleCache.values()) {
-         if (!premium) continue
-         const isPremium = premium ? '✅' : '❌'
-         const isFree = premium ? '❌' : '✅'
-         const commands = toArray(command)
-         for (let i = 0; i < commands.length; i++)
-            tableCommands.push({
-               isHeading: false,
-               items: [commands[i], isPremium, isFree]
-            })
+      for (const modules of ModuleCache.values()) {
+         const moduleList = Array.isArray(modules) ? modules : [modules]
+         for (const { command, premium } of moduleList) {
+            if (!premium) continue
+            const isPremium = premium ? '✅' : '❌'
+            const isFree = premium ? '❌' : '✅'
+            const commands = toArray(command)
+            for (let i = 0; i < commands.length; i++)
+               tableCommands.push({
+                  isHeading: false,
+                  items: [commands[i], isPremium, isFree]
+               })
+         }
       }
       const richResponse = isRentCommand ?
          [{

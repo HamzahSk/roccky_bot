@@ -3,599 +3,315 @@
 [0m
 [0m$ [0mls -la
 total 1628
-drwxr-xr-x  8 runner runner    4096 Aug 13 08:12 .
-drwxr-xr-x  3 runner runner    4096 Aug 13 08:11 ..
-drwxr-xr-x  7 runner runner    4096 Aug 13 08:12 .git
-drwxr-xr-x  3 runner runner    4096 Aug 13 08:12 .github
--rw-r--r--  1 runner runner    2152 Aug 13 08:12 .gitignore
--rw-r--r--  1 runner runner   44212 Aug 13 08:12 DOCS.md
--rw-r--r--  1 runner runner     467 Aug 13 08:12 Dockerfile
--rw-r--r--  1 runner runner   11338 Aug 13 08:12 LICENSE
--rw-r--r--  1 runner runner    5318 Aug 13 08:12 README.md
--rw-r--r--  1 runner runner      44 Aug 13 08:12 ai-response-recap.txt
-drwxr-xr-x  2 runner runner    4096 Aug 13 08:12 ai_memory
--rw-r--r--  1 runner runner     286 Aug 13 08:12 app.config.cjs
--rw-r--r--  1 runner runner    3131 Aug 13 08:12 config.js
--rw-r--r--  1 runner runner     331 Aug 13 08:12 ecosystem.config.cjs
--rw-r--r--  1 runner runner    5120 Aug 13 08:12 index.js
--rw-r--r--  1 runner runner    1678 Aug 13 08:12 install.sh
-drwxr-xr-x  6 runner runner    4096 Aug 13 08:12 lib
-drwxr-xr-x  5 runner runner    4096 Aug 13 08:12 media
--rw-r--r--  1 runner runner    2017 Aug 13 08:12 memory_prompt.md
--rw-r--r--  1 runner runner     161 Aug 13 08:12 nixpacks.toml
--rw-r--r--  1 runner runner    1503 Aug 13 08:12 package.json
-drwxr-xr-x 13 runner runner    4096 Aug 13 08:12 plugins
--rw-r--r--  1 runner runner    2821 Aug 13 08:12 prompt.md
--rw-r--r--  1 runner runner  195642 Aug 13 08:12 roccky_bot.tar.gz
--rw-r--r--  1 runner runner 1299621 Aug 13 08:12 roccky_bot.zip
--rw-r--r--  1 runner runner   15941 Aug 13 08:12 socket.js
+drwxr-xr-x  8 runner runner    4096 Aug 13 08:54 .
+drwxr-xr-x  3 runner runner    4096 Aug 13 08:54 ..
+drwxr-xr-x  7 runner runner    4096 Aug 13 08:54 .git
+drwxr-xr-x  3 runner runner    4096 Aug 13 08:54 .github
+-rw-r--r--  1 runner runner    2152 Aug 13 08:54 .gitignore
+-rw-r--r--  1 runner runner   44212 Aug 13 08:54 DOCS.md
+-rw-r--r--  1 runner runner     467 Aug 13 08:54 Dockerfile
+-rw-r--r--  1 runner runner   11338 Aug 13 08:54 LICENSE
+-rw-r--r--  1 runner runner    5318 Aug 13 08:54 README.md
+-rw-r--r--  1 runner runner      44 Aug 13 08:54 ai-response-recap.txt
+drwxr-xr-x  2 runner runner    4096 Aug 13 08:54 ai_memory
+-rw-r--r--  1 runner runner     286 Aug 13 08:54 app.config.cjs
+-rw-r--r--  1 runner runner    3131 Aug 13 08:54 config.js
+-rw-r--r--  1 runner runner     331 Aug 13 08:54 ecosystem.config.cjs
+-rw-r--r--  1 runner runner    5120 Aug 13 08:54 index.js
+-rw-r--r--  1 runner runner    1678 Aug 13 08:54 install.sh
+drwxr-xr-x  6 runner runner    4096 Aug 13 08:54 lib
+drwxr-xr-x  5 runner runner    4096 Aug 13 08:54 media
+-rw-r--r--  1 runner runner    2017 Aug 13 08:54 memory_prompt.md
+-rw-r--r--  1 runner runner     161 Aug 13 08:54 nixpacks.toml
+-rw-r--r--  1 runner runner    1530 Aug 13 08:54 package.json
+drwxr-xr-x 13 runner runner    4096 Aug 13 08:54 plugins
+-rw-r--r--  1 runner runner    1922 Aug 13 08:54 prompt.md
+-rw-r--r--  1 runner runner  195642 Aug 13 08:54 roccky_bot.tar.gz
+-rw-r--r--  1 runner runner 1299621 Aug 13 08:54 roccky_bot.zip
+-rw-r--r--  1 runner runner   15941 Aug 13 08:54 socket.js
 [0m
-[0m→ [0mRead prompt.md
-[0m→ [0mRead memory_prompt.md
-[0m
-[0m$ [0mls -la plugins/ lib/ ai_memory/
-ai_memory/:
-total 28
-drwxr-xr-x 2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 8 runner runner 4096 Aug 13 08:12 ..
--rw-r--r-- 1 runner runner 1445 Aug 13 08:12 00_INDEX.md
--rw-r--r-- 1 runner runner 1811 Aug 13 08:12 task_20260813_0300_refactor_cleanup.md
--rw-r--r-- 1 runner runner 1680 Aug 13 08:12 task_20260813_0400_new_features.md
--rw-r--r-- 1 runner runner 2235 Aug 13 08:12 task_20260813_0457_subpath_utils.md
--rw-r--r-- 1 runner runner 2004 Aug 13 08:12 task_20260813_0541_native_flow.md
-
-lib/:
-total 124
-drwxr-xr-x 6 runner runner  4096 Aug 13 08:12 .
-drwxr-xr-x 8 runner runner  4096 Aug 13 08:12 ..
-drwxr-xr-x 2 runner runner  4096 Aug 13 08:12 Components
--rw-r--r-- 1 runner runner 13858 Aug 13 08:12 Constants.js
--rw-r--r-- 1 runner runner 10428 Aug 13 08:12 Database.js
-drwxr-xr-x 2 runner runner  4096 Aug 13 08:12 Function
--rw-r--r-- 1 runner runner 21958 Aug 13 08:12 Listener.js
--rw-r--r-- 1 runner runner  1999 Aug 13 08:12 Request.js
-drwxr-xr-x 2 runner runner  4096 Aug 13 08:12 Scraper
--rw-r--r-- 1 runner runner   597 Aug 13 08:12 Scraper.js
--rw-r--r-- 1 runner runner 13970 Aug 13 08:12 Serialize.js
--rw-r--r-- 1 runner runner 11995 Aug 13 08:12 SocketClient.js
--rw-r--r-- 1 runner runner  3104 Aug 13 08:12 Utilities.js
-drwxr-xr-x 2 runner runner  4096 Aug 13 08:12 Utils
--rw-r--r-- 1 runner runner  4324 Aug 13 08:12 Watcher.js
-
-plugins/:
-total 76
-drwxr-xr-x 13 runner runner  4096 Aug 13 08:12 .
-drwxr-xr-x  8 runner runner  4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner  4487 Aug 13 08:12 _quiz-registry.js
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 admin tools
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 ai
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 download
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 explore
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 group
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 maker
--rw-r--r--  1 runner runner 12758 Aug 13 08:12 menu.js
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 other
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 owner
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 partner
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 tools
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 user info
-[0m
-[0m→ [0mRead ai_memory/00_INDEX.md
-[0m→ [0mRead ai_memory/task_20260813_0541_native_flow.md
-[0m
-[0m$ [0mls -la lib/Function/ lib/Utils/ lib/Components/ lib/Scraper/
-lib/Components/:
-total 56
-drwxr-xr-x 2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 6 runner runner 4096 Aug 13 08:12 ..
--rw-r--r-- 1 runner runner  483 Aug 13 08:12 AntiSpam.js
--rw-r--r-- 1 runner runner  329 Aug 13 08:12 Dispatcher.js
--rw-r--r-- 1 runner runner 2096 Aug 13 08:12 ErrorHandler.js
--rw-r--r-- 1 runner runner 6720 Aug 13 08:12 Gemini.js
--rw-r--r-- 1 runner runner 3258 Aug 13 08:12 Maintenance.js
--rw-r--r-- 1 runner runner 7523 Aug 13 08:12 QuizFactory.js
--rw-r--r-- 1 runner runner 1417 Aug 13 08:12 Scheduler.js
--rw-r--r-- 1 runner runner 4688 Aug 13 08:12 SholatReminder.js
--rw-r--r-- 1 runner runner 1913 Aug 13 08:12 SightEngine.js
-
-lib/Function/:
-total 76
-drwxr-xr-x 2 runner runner  4096 Aug 13 08:12 .
-drwxr-xr-x 6 runner runner  4096 Aug 13 08:12 ..
--rw-r--r-- 1 runner runner  5896 Aug 13 08:12 FFMPEG.js
--rw-r--r-- 1 runner runner  9705 Aug 13 08:12 Utilities.js
--rw-r--r-- 1 runner runner  1930 Aug 13 08:12 dateTime.js
--rw-r--r-- 1 runner runner   794 Aug 13 08:12 getFileSize.js
--rw-r--r-- 1 runner runner  1592 Aug 13 08:12 index.js
--rw-r--r-- 1 runner runner   973 Aug 13 08:12 isJid.js
--rw-r--r-- 1 runner runner   468 Aug 13 08:12 isMime.js
--rw-r--r-- 1 runner runner 13308 Aug 13 08:12 message.js
--rw-r--r-- 1 runner runner  1456 Aug 13 08:12 toBanner.js
--rw-r--r-- 1 runner runner   131 Aug 13 08:12 tokenizeCode.js
--rw-r--r-- 1 runner runner  1068 Aug 13 08:12 waBaileys.js
-
-lib/Scraper/:
-total 116
-drwxr-xr-x 2 runner runner  4096 Aug 13 08:12 .
-drwxr-xr-x 6 runner runner  4096 Aug 13 08:12 ..
--rw-r--r-- 1 runner runner 15790 Aug 13 08:12 SfileMobi.js
--rw-r--r-- 1 runner runner 22540 Aug 13 08:12 _chatbot.js
--rw-r--r-- 1 runner runner  5355 Aug 13 08:12 aiedit.js
--rw-r--r-- 1 runner runner 10719 Aug 13 08:12 aio.js
--rw-r--r-- 1 runner runner  5680 Aug 13 08:12 freeai.js
--rw-r--r-- 1 runner runner  1980 Aug 13 08:12 index.js
--rw-r--r-- 1 runner runner   222 Aug 13 08:12 komik-bbato.js
--rw-r--r-- 1 runner runner  2716 Aug 13 08:12 reels.js
--rw-r--r-- 1 runner runner 11418 Aug 13 08:12 savetik.js
--rw-r--r-- 1 runner runner  2440 Aug 13 08:12 search.js
--rw-r--r-- 1 runner runner  2948 Aug 13 08:12 uploader.js
--rw-r--r-- 1 runner runner  5872 Aug 13 08:12 vidsave.js
-
-lib/Utils/:
-total 32
-drwxr-xr-x 2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 6 runner runner 4096 Aug 13 08:12 ..
--rw-r--r-- 1 runner runner 1969 Aug 13 08:12 datetime.js
--rw-r--r-- 1 runner runner 1543 Aug 13 08:12 general.js
--rw-r--r-- 1 runner runner 2475 Aug 13 08:12 index.js
--rw-r--r-- 1 runner runner  436 Aug 13 08:12 size.js
--rw-r--r-- 1 runner runner 2391 Aug 13 08:12 text.js
--rw-r--r-- 1 runner runner  951 Aug 13 08:12 url.js
-[0m
-[0m✱ [0mGrep "buttonsMessage|templateMessage|templateButtons|nativeFlow|interactiveMessage"[90m 37 matches[0m
-[0m→ [0mRead lib/Function/message.js
+I'll start by exploring the codebase structure to understand what we're working with.
+[0m✱ [0mGlob "**/*.js"[90m 100 matches[0m
+[0m✱ [0mGlob "plugins/**/*.js"[90m 100 matches[0m
 [0m→ [0mRead plugins/menu.js
-[0m→ [0mRead plugins/owner/manage-bot.js
-[0m→ [0mRead lib/SocketClient.js
-[0m✱ [0mGrep "sendButton|sendInteractiveMessage|sendList|sendSections|sendCard|sendCarousel"[90m 43 matches[0m
-[0m✱ [0mGrep "formatMarkdown|parseAIMessage|markdown|backtick|codeBlock|chatbot"[90m 7 matches[0m
-[0m
-[0m$ [0mls -la plugins/ai/ plugins/group/ plugins/owner/ plugins/tools/ plugins/other/ plugins/maker/ plugins/download/ plugins/explore/ plugins/partner/ "plugins/user info/" plugins/admin\ tools/
-plugins/admin tools/:
-total 32
-drwxr-xr-x  2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner 4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner  525 Aug 13 08:12 activation.js
--rw-r--r--  1 runner runner 3570 Aug 13 08:12 manage-group.js
--rw-r--r--  1 runner runner 4353 Aug 13 08:12 manage-member.js
--rw-r--r--  1 runner runner 1509 Aug 13 08:12 mentions.js
--rw-r--r--  1 runner runner 2889 Aug 13 08:12 moderation.js
-
-plugins/ai/:
-total 52
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner  4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner 22073 Aug 13 08:12 _chatbot.js
--rw-r--r--  1 runner runner  2144 Aug 13 08:12 gpt-image.js
--rw-r--r--  1 runner runner  1170 Aug 13 08:12 image-generation.js
--rw-r--r--  1 runner runner  1815 Aug 13 08:12 music-generation.js
--rw-r--r--  1 runner runner  1079 Aug 13 08:12 nano-banana.js
--rw-r--r--  1 runner runner  1166 Aug 13 08:12 text-generation.js
-
-plugins/download/:
-total 76
-drwxr-xr-x  2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner 4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner 7190 Aug 13 08:12 _auto-download.js
--rw-r--r--  1 runner runner 4949 Aug 13 08:12 aio.js
--rw-r--r--  1 runner runner 1035 Aug 13 08:12 capcut.js
--rw-r--r--  1 runner runner 1562 Aug 13 08:12 douyin.js
--rw-r--r--  1 runner runner 1011 Aug 13 08:12 facebook.js
--rw-r--r--  1 runner runner  882 Aug 13 08:12 google-drive.js
--rw-r--r--  1 runner runner 1429 Aug 13 08:12 instagram.js
--rw-r--r--  1 runner runner 1033 Aug 13 08:12 mediafire.js
--rw-r--r--  1 runner runner  815 Aug 13 08:12 pin.js
--rw-r--r--  1 runner runner  884 Aug 13 08:12 spotify.js
--rw-r--r--  1 runner runner 2603 Aug 13 08:12 terabox.js
--rw-r--r--  1 runner runner 3149 Aug 13 08:12 tiktok.js
--rw-r--r--  1 runner runner 1303 Aug 13 08:12 twitter.js
--rw-r--r--  1 runner runner  799 Aug 13 08:12 videy.js
--rw-r--r--  1 runner runner 2381 Aug 13 08:12 youtube.js
-
-plugins/explore/:
-total 60
-drwxr-xr-x  2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner 4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner 1905 Aug 13 08:12 lyric.js
--rw-r--r--  1 runner runner 1782 Aug 13 08:12 meloboom.js
--rw-r--r--  1 runner runner 1235 Aug 13 08:12 pinterest.js
--rw-r--r--  1 runner runner 1865 Aug 13 08:12 spotify-play.js
--rw-r--r--  1 runner runner 3075 Aug 13 08:12 spotify-search.js
--rw-r--r--  1 runner runner 2617 Aug 13 08:12 sticker-pack.js
--rw-r--r--  1 runner runner 2448 Aug 13 08:12 stickerly.js
--rw-r--r--  1 runner runner 2951 Aug 13 08:12 tiktok-photo.js
--rw-r--r--  1 runner runner 1958 Aug 13 08:12 wallcraft.js
--rw-r--r--  1 runner runner 4916 Aug 13 08:12 youtube-play.js
--rw-r--r--  1 runner runner 2816 Aug 13 08:12 youtube-search.js
--rw-r--r--  1 runner runner 1115 Aug 13 08:12 youtube-video.js
-
-plugins/group/:
-total 116
-drwxr-xr-x  2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner 4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner 1705 Aug 13 08:12 _afk-notifier.js
--rw-r--r--  1 runner runner  866 Aug 13 08:12 _anti-bot.js
--rw-r--r--  1 runner runner  732 Aug 13 08:12 _anti-delete.js
--rw-r--r--  1 runner runner  700 Aug 13 08:12 _anti-group-status.js
--rw-r--r--  1 runner runner 1859 Aug 13 08:12 _anti-link.js
--rw-r--r--  1 runner runner 1244 Aug 13 08:12 _anti-porn.js
--rw-r--r--  1 runner runner  816 Aug 13 08:12 _anti-spam.js
--rw-r--r--  1 runner runner  748 Aug 13 08:12 _anti-tag-all.js
--rw-r--r--  1 runner runner  581 Aug 13 08:12 _anti-tag-status.js
--rw-r--r--  1 runner runner  635 Aug 13 08:12 _anti-toxic.js
--rw-r--r--  1 runner runner  702 Aug 13 08:12 _auto-sticker.js
--rw-r--r--  1 runner runner  453 Aug 13 08:12 _label-update.js
--rw-r--r--  1 runner runner  625 Aug 13 08:12 _view-once.js
--rw-r--r--  1 runner runner  759 Aug 13 08:12 addmode.js
--rw-r--r--  1 runner runner  413 Aug 13 08:12 couple.js
--rw-r--r--  1 runner runner  891 Aug 13 08:12 ephemeral.js
--rw-r--r--  1 runner runner  616 Aug 13 08:12 getgcsw.js
--rw-r--r--  1 runner runner  974 Aug 13 08:12 getpp.js
--rw-r--r--  1 runner runner 2528 Aug 13 08:12 group-info.js
--rw-r--r--  1 runner runner  369 Aug 13 08:12 group-link.js
--rw-r--r--  1 runner runner 1869 Aug 13 08:12 joinreq.js
--rw-r--r--  1 runner runner  875 Aug 13 08:12 pinmsg.js
--rw-r--r--  1 runner runner  995 Aug 13 08:12 poll.js
--rw-r--r--  1 runner runner  866 Aug 13 08:12 quoted-message.js
--rw-r--r--  1 runner runner  867 Aug 13 08:12 read-once.js
--rw-r--r--  1 runner runner  610 Aug 13 08:12 revokelink.js
--rw-r--r--  1 runner runner  928 Aug 13 08:12 total-chat.js
-
-plugins/maker/:
-total 120
-drwxr-xr-x  2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner 4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner  907 Aug 13 08:12 attp.js
--rw-r--r--  1 runner runner  669 Aug 13 08:12 balogo.js
--rw-r--r--  1 runner runner 1337 Aug 13 08:12 brat-hd.js
--rw-r--r--  1 runner runner 1011 Aug 13 08:12 brat-variant.js
--rw-r--r--  1 runner runner  813 Aug 13 08:12 brat.js
--rw-r--r--  1 runner runner  698 Aug 13 08:12 carbonify.js
--rw-r--r--  1 runner runner 1278 Aug 13 08:12 fake-call.js
--rw-r--r--  1 runner runner  802 Aug 13 08:12 fake-dana.js
--rw-r--r--  1 runner runner 1276 Aug 13 08:12 fake-fbcomment.js
--rw-r--r--  1 runner runner  686 Aug 13 08:12 fake-ff.js
--rw-r--r--  1 runner runner 1182 Aug 13 08:12 fake-ml.js
--rw-r--r--  1 runner runner 1278 Aug 13 08:12 fake-story.js
--rw-r--r--  1 runner runner 1348 Aug 13 08:12 fake-threads.js
--rw-r--r--  1 runner runner 1315 Aug 13 08:12 fake-ttcomment.js
--rw-r--r--  1 runner runner 1514 Aug 13 08:12 fake-ttprofile.js
--rw-r--r--  1 runner runner 1439 Aug 13 08:12 fake-wachannel.js
--rw-r--r--  1 runner runner 1491 Aug 13 08:12 fake-wagroup.js
--rw-r--r--  1 runner runner  923 Aug 13 08:12 fake-xnxx.js
--rw-r--r--  1 runner runner 1288 Aug 13 08:12 fake-ytcomment.js
--rw-r--r--  1 runner runner  663 Aug 13 08:12 iqc.js
--rw-r--r--  1 runner runner  790 Aug 13 08:12 msg.js
--rw-r--r--  1 runner runner 1155 Aug 13 08:12 qc.js
--rw-r--r--  1 runner runner 1252 Aug 13 08:12 reaction.js
--rw-r--r--  1 runner runner 1195 Aug 13 08:12 smeme.js
--rw-r--r--  1 runner runner  723 Aug 13 08:12 sticker.js
--rw-r--r--  1 runner runner  680 Aug 13 08:12 text-2-qr.js
--rw-r--r--  1 runner runner 1054 Aug 13 08:12 wanted.js
--rw-r--r--  1 runner runner 1014 Aug 13 08:12 wasted.js
-
-plugins/other/:
-total 36
-drwxr-xr-x  2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner 4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner  810 Aug 13 08:12 commands.js
--rw-r--r--  1 runner runner 1093 Aug 13 08:12 credits.js
--rw-r--r--  1 runner runner  924 Aug 13 08:12 list-data.js
--rw-r--r--  1 runner runner  515 Aug 13 08:12 owner.js
--rw-r--r--  1 runner runner 2429 Aug 13 08:12 pricing.js
--rw-r--r--  1 runner runner 5334 Aug 13 08:12 test.js
-
-plugins/owner/:
-total 64
-drwxr-xr-x  2 runner runner  4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner  4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner  4160 Aug 13 08:12 _evaluate.js
--rw-r--r--  1 runner runner  3562 Aug 13 08:12 broadcast.js
--rw-r--r--  1 runner runner   895 Aug 13 08:12 buatgc.js
--rw-r--r--  1 runner runner 19486 Aug 13 08:12 manage-bot.js
--rw-r--r--  1 runner runner   712 Aug 13 08:12 manage-label.js
--rw-r--r--  1 runner runner  2337 Aug 13 08:12 manage-newsletter.js
--rw-r--r--  1 runner runner  3490 Aug 13 08:12 manage-plugin.js
--rw-r--r--  1 runner runner  2601 Aug 13 08:12 manage-user.js
--rw-r--r--  1 runner runner  1151 Aug 13 08:12 upload-status.js
-
-plugins/partner/:
-total 40
-drwxr-xr-x  2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner 4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner 5676 Aug 13 08:12 manage-group.js
--rw-r--r--  1 runner runner 1682 Aug 13 08:12 manage-limit.js
--rw-r--r--  1 runner runner 2523 Aug 13 08:12 manage-premium.js
--rw-r--r--  1 runner runner 1192 Aug 13 08:12 manage-word.js
--rw-r--r--  1 runner runner 1373 Aug 13 08:12 sticker-command.js
--rw-r--r--  1 runner runner 4395 Aug 13 08:12 upload-newsletter.js
-
-plugins/tools/:
-total 116
-drwxr-xr-x  2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner 4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner  944 Aug 13 08:12 blur-face.js
--rw-r--r--  1 runner runner 1891 Aug 13 08:12 calculator.js
--rw-r--r--  1 runner runner  904 Aug 13 08:12 cekstatus.js
--rw-r--r--  1 runner runner 1045 Aug 13 08:12 cekwa.js
--rw-r--r--  1 runner runner  929 Aug 13 08:12 character-recognition.js
--rw-r--r--  1 runner runner  952 Aug 13 08:12 colorize.js
--rw-r--r--  1 runner runner 1289 Aug 13 08:12 convert-webp.js
--rw-r--r--  1 runner runner  781 Aug 13 08:12 emoji-gif.js
--rw-r--r--  1 runner runner  820 Aug 13 08:12 emoji-mix.js
--rw-r--r--  1 runner runner 1250 Aug 13 08:12 enhance.js
--rw-r--r--  1 runner runner 5322 Aug 13 08:12 interactive-demo.js
--rw-r--r--  1 runner runner 1150 Aug 13 08:12 inviteinfo.js
--rw-r--r--  1 runner runner  999 Aug 13 08:12 morse.js
--rw-r--r--  1 runner runner 1725 Aug 13 08:12 newsletter-id.js
--rw-r--r--  1 runner runner  979 Aug 13 08:12 no-background.js
--rw-r--r--  1 runner runner  998 Aug 13 08:12 no-watermark.js
--rw-r--r--  1 runner runner  910 Aug 13 08:12 qr-2-text.js
--rw-r--r--  1 runner runner  836 Aug 13 08:12 screenshot-web.js
--rw-r--r--  1 runner runner 1805 Aug 13 08:12 sfile-upl.js
--rw-r--r--  1 runner runner 5877 Aug 13 08:12 sound-effect.js
--rw-r--r--  1 runner runner 7385 Aug 13 08:12 stalk.js
--rw-r--r--  1 runner runner 1096 Aug 13 08:12 sticker-watermark.js
--rw-r--r--  1 runner runner  738 Aug 13 08:12 toaudio.js
--rw-r--r--  1 runner runner  947 Aug 13 08:12 tourl.js
-
-plugins/user info/:
-total 32
-drwxr-xr-x  2 runner runner 4096 Aug 13 08:12 .
-drwxr-xr-x 13 runner runner 4096 Aug 13 08:12 ..
--rw-r--r--  1 runner runner  457 Aug 13 08:12 afk.js
--rw-r--r--  1 runner runner  989 Aug 13 08:12 charge-energy.js
--rw-r--r--  1 runner runner  825 Aug 13 08:12 claim.js
--rw-r--r--  1 runner runner 1774 Aug 13 08:12 leaderboard.js
--rw-r--r--  1 runner runner 1787 Aug 13 08:12 profile.js
--rw-r--r--  1 runner runner  374 Aug 13 08:12 wa-me.js
-[0m
-[0m→ [0mRead plugins/ai/_chatbot.js
+Let me read the key files to understand the current implementation
+[0m→ [0mRead socket.js
+[0m→ [0mRead lib/Listener.js
 [0m→ [0mRead lib/Function/index.js
-[0m→ [0mRead lib/Function/tokenizeCode.js
-[0m→ [0mRead lib/Utils/text.js
-[0m
-[0m$ [0mgrep -n "FENCE_REGEX\|TABLE_SEPARATOR_REGEX\|MENTION_REGEX\|richResponse\|sendText\|FONT_MAPS" lib/Constants.js | head -40
-2:export const FENCE_REGEX = /^```(\w+)?\s*$/
-3:export const MENTION_REGEX = /@([0-9]{5,16}|0)/g
-5:export const TABLE_SEPARATOR_REGEX = /^\s*\|?[\s:-]+(\|[\s:-]+)+\|?\s*$/
-175:export const FONT_MAPS = Object.fromEntries(
-[0m
-[0m→ [0mRead plugins/tools/interactive-demo.js
-[0m→ [0mRead ai-response-recap.txt
-[0m✱ [0mGrep "nativeFlow|buttons:|sections:|buttonText:|templateButtons|product:|cards:"[90m 49 matches[0m
-[0m→ [0mRead lib/Listener.js[90m [offset=380, limit=120][0m
+Let me read the core library files to understand the helper functions available.
+[0m→ [0mRead lib/SocketClient.js
+Let me examine the SocketClient.js which likely contains the button helper implementations.
+[0m→ [0mRead lib/Function/waBaileys.js
+[0m→ [0mRead lib/Function/message.js
+Let me look at the Function helpers for the button/inter
+[0m→ [0mRead lib/Constants.js
+Now let me examine the Constants, Watcher, and config files, and search for legacy
+[0m→ [0mRead lib/Watcher.js
+[0m→ [0mRead config.js
+[0m→ [0mRead index.js
+Let me read the config.js and index.js to understand global variables
+[0m✱ [0mGrep "buttonsMessage|templateMessage|templateButtons|buttonMessage|interactiveMessage"[90m 16 matches[0m
+Now let me search for legacy button usages across the plugins and helper
+[0m✱ [0mGrep "sendButton|sendList|sendSections|sendInteractiveMessage|sendCarousel|sendCard"[90m 54 matches[0m
+[0m✱ [0mGrep "listMessage|hydratedTemplate|templateButton|sections|singleSelectReplyMessage|listResponseMessage"[90m 19 matches[0m
+[0m✱ [0mGrep "sendMessage\([^)]*\{|buttons:|button:|template:"[90m 100 matches[0m
+Let me search for more legacy button patterns and how plugins construct messages.
+[0m→ [0mRead lib/Serialize.js
+[0m→ [0mRead lib/Function/Utilities.js
+Let me examine the Serialize.js, and the Utilities function files.
+[0m→ [0mRead lib/Utils/index.js
+[0m→ [0mRead lib/Utils/size.js
 [0m→ [0mRead package.json
-[0m→ [0mRead lib/Scraper/_chatbot.js[90m [offset=460, limit=80][0m
+Let me check the Utils functions and package.json for
 [0m
-[0m$ [0mls node_modules >/dev/null 2>&1 && echo "node_modules exists" || echo "no node_modules"; grep -rn "richResponse" node_modules/@whiskeysockets/baileys/lib 2>/dev/null | head -5; echo "---"; ls node_modules/@whiskeysockets 2>/dev/null; ls node_modules 2>/dev/null | head -5
-no node_modules
+[0m$ [0mls /home/runner/work/roccky_bot/roccky_bot/lib/Utils/ && ls /home/runner/work/roccky_bot/roccky_bot/lib/Function/
+datetime.js
+general.js
+index.js
+size.js
+text.js
+url.js
+FFMPEG.js
+Utilities.js
+dateTime.js
+getFileSize.js
+index.js
+isJid.js
+isMime.js
+markdown.js
+message.js
+toBanner.js
+waBaileys.js
+[0m
+[0m→ [0mRead lib/Utils/general.js
+[0m→ [0mRead lib/Utils/datetime.js
+[0m→ [0mRead lib/Utils/text.js
+[0m→ [0mRead lib/Function/dateTime.js
+[0m→ [0mRead lib/Database.js
+[0m→ [0mRead plugins/tools/interactive-demo.js
+Let me look at the Database structure and the interactive-demo and
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && rg -o "category:\s*'[^']*'" plugins/ --no-filename | sort | uniq -c | sort -rn
+/bin/bash: line 1: rg: command not found
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls plugins/ && echo "---GAME---" && rg -l "category:\s*'game'" plugins/ || echo "no 'game' category"
+_quiz-registry.js
+admin tools
+ai
+download
+explore
+group
+maker
+menu.js
+other
+owner
+partner
+tools
+user info
+---GAME---
+no 'game' category
+/bin/bash: line 1: rg: command not found
+[0m
+[0m✱ [0mGrep "category:\s*'[^']*'"[90m in plugins · 100 matches[0m
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls node_modules/baileys/lib/Utils/ 2>/dev/null | head -30 && echo "---" && ls node_modules/baileys/lib 2>/dev/null | head
 ---
 [0m
-[0m→ [0mRead lib/Constants.js[90m [limit=30][0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -n "prepareWAMessageMedia\|generateWAMessageFromContent" node_modules/baileys/lib/Utils/messages.d.ts 2>/dev/null | head
+(no output)
 [0m
-[0m$ [0mgrep -n "Func\." lib/Function/Utilities.js | head -50
-20:Func.ProfilePictureCache = new LRUCache({
-34:Func.cleanUpFolder = async (path) => {
-54:Func.isFileExists = async (path) => {
-65:Func.fetchAsBuffer = (url) => {
-70:   if (Func.isURL(url))
-76:Func.getDiskStats = async () => {
-116:Func.persistToFile = async (source) => {
-117:   const isSourceURL = Func.isURL(source)
-153:   const fileName = resolve(process.cwd(), temporaryFolder, Func.createFileName())
-169:Func.createExif = (json) => {
-179:Func.ensureVP8X = (webpBuffer) => {
-210:Func.writeExif = (webpBuffer, metadataJson) => {
-211:   webpBuffer = Func.ensureVP8X(webpBuffer)
-213:   const exifData = Func.createExif(metadataJson)
-249:Func.resizeImage = async (media, width = 540, height = null, quality = 70, format = 'jpeg') => {
-251:      media = await Func.fetchAsBuffer(media)
-262:Func.createSticker = async (media, options = {}) => {
-266:   media = await Func.persistToFile(media)
-274:   if (Func.isMimeWebP(mimetype))
-276:   else if (Func.isMimeVideo(mimetype) || Func.isMimeGif(mimetype))
-277:      media = await Func.videoToWebP(media)
-278:   else if (Func.isMimeImage(mimetype))
-279:      media = await Func.imageToWebP(media)
-283:   media = await Func.fetchAsBuffer(media)
-285:   return Func.writeExif(media, {
-296:Func.bratSticker = async (text = 'Hi') =>
-297:   Func.persistToFile(`https://aqul-brat.hf.space/?text=${encodeURIComponent(text)}`)
-299:Func.findTopSuggestions = (input) => {
-316:      const distance = Func.levenshtein(input, command, maxDistance)
-361:Func.frame = (title, lines = [], icon = '✦') => {
-365:      `✦ ${icon} *${Func.style(title)}*`
-382:Func.messageLogger = (message) =>
-390:Func.fetchThumbnail = () =>
-391:   Func.fetchAsBuffer(botThumbnail)
+Let me check the installed baileys library for the media preparation and relay
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls -la | grep node_modules; ls node_modules 2>/dev/null | head; echo "exit: $?"
+exit: 0
 [0m
-[0m→ [0mRead lib/Scraper/_chatbot.js[90m [limit=40][0m
+[0m$ [0mwhich bun node npm 2>/dev/null; node --version 2>/dev/null; bun --version 2>/dev/null
+/opt/hostedtoolcache/node/22.23.2/x64/bin/node
+/opt/hostedtoolcache/node/22.23.2/x64/bin/npm
+v22.23.2
 [0m
-[0m$ [0mcommand -v bun node npm; echo "---"; ls .github/ && ls .github/workflows 2>/dev/null
-/opt/hostedtoolcache/node/22.23.1/x64/bin/node
-/opt/hostedtoolcache/node/22.23.1/x64/bin/npm
----
-workflows
-opencode.yml
+Let me check the runtime available and install baileys to inspect the media preparation internals.
+[0m$ [0mcd /tmp/opencode && mkdir -p baileys-check && cd baileys-check && npm init -y >/dev/null 2>&1 && timeout 100 npm install baileys --no-audit --no-fund --silent 2>&1 | tail -3
+(no output)
 [0m
-[0m$ [0mgrep -n "parseMarkdown\|isTableSeparator\|isTableRow\|parseRow\|FENCE_REGEX\|TABLE_SEPARATOR_REGEX\|tokenizeCode\|richResponse" plugins/ai/_chatbot.js lib/Scraper/_chatbot.js
-plugins/ai/_chatbot.js:5:import { FENCE_REGEX, TABLE_SEPARATOR_REGEX } from '../../lib/Constants.js';
-plugins/ai/_chatbot.js:352:const isTableSeparator = line => TABLE_SEPARATOR_REGEX.test(line);
-plugins/ai/_chatbot.js:353:const isTableRow = line => line.includes('|');
-plugins/ai/_chatbot.js:354:const parseRow = line => line.split('|').map(v => v.trim()).filter(Boolean);
-plugins/ai/_chatbot.js:356:function parseMarkdown(input) {
-plugins/ai/_chatbot.js:369:        const fenceMatch = line.match(FENCE_REGEX);
-plugins/ai/_chatbot.js:376:        if (!inTable && isTableRow(line) && isTableSeparator(lines[i+1] || '')) {
-plugins/ai/_chatbot.js:377:            flushText(); inTable = true; tableRows = [parseRow(line)]; i++; continue;
-plugins/ai/_chatbot.js:380:            if (isTableRow(line)) { tableRows.push(parseRow(line)); continue; }
-plugins/ai/_chatbot.js:489:            const parsed = parseMarkdown(aiResponse);
-plugins/ai/_chatbot.js:491:                richResponse: parsed.map(node => {
-plugins/ai/_chatbot.js:493:                    if (node.type === 'code') return { language: node.language, code: func.tokenizeCode(node.content, node.language) };
-lib/Scraper/_chatbot.js:5:import { FENCE_REGEX, TABLE_SEPARATOR_REGEX } from '../../lib/Constants.js';
-lib/Scraper/_chatbot.js:359:const isTableSeparator = line => TABLE_SEPARATOR_REGEX.test(line);
-lib/Scraper/_chatbot.js:360:const isTableRow = line => line.includes('|');
-lib/Scraper/_chatbot.js:361:const parseRow = line => line.split('|').map(v => v.trim()).filter(Boolean);
-lib/Scraper/_chatbot.js:363:function parseMarkdown(input) {
-lib/Scraper/_chatbot.js:376:        const fenceMatch = line.match(FENCE_REGEX);
-lib/Scraper/_chatbot.js:383:        if (!inTable && isTableRow(line) && isTableSeparator(lines[i+1] || '')) {
-lib/Scraper/_chatbot.js:384:            flushText(); inTable = true; tableRows = [parseRow(line)]; i++; continue;
-lib/Scraper/_chatbot.js:387:            if (isTableRow(line)) { tableRows.push(parseRow(line)); continue; }
-lib/Scraper/_chatbot.js:497:            const parsed = parseMarkdown(aiResponse);
-lib/Scraper/_chatbot.js:499:                richResponse: parsed.map(node => {
-lib/Scraper/_chatbot.js:501:                    if (node.type === 'code') return { language: node.language, code: Func.tokenizeCode(node.content, node.language) };
+[0m$ [0mcd /tmp/opencode/baileys-check && node -e "console.log(require('baileys/package.json').version)" 2>&1; ls node_modules/baileys/lib/Utils/ | head -40
+7.0.0-rc14
+auth-utils.d.ts
+auth-utils.d.ts.map
+auth-utils.js
+auth-utils.js.map
+browser-utils.d.ts
+browser-utils.d.ts.map
+browser-utils.js
+browser-utils.js.map
+business.d.ts
+business.d.ts.map
+business.js
+business.js.map
+chat-utils.d.ts
+chat-utils.d.ts.map
+chat-utils.js
+chat-utils.js.map
+companion-reg-client-utils.d.ts
+companion-reg-client-utils.d.ts.map
+companion-reg-client-utils.js
+companion-reg-client-utils.js.map
+crypto.d.ts
+crypto.d.ts.map
+crypto.js
+crypto.js.map
+decode-wa-message.d.ts
+decode-wa-message.d.ts.map
+decode-wa-message.js
+decode-wa-message.js.map
+event-buffer.d.ts
+event-buffer.d.ts.map
+event-buffer.js
+event-buffer.js.map
+generics.d.ts
+generics.d.ts.map
+generics.js
+generics.js.map
+history.d.ts
+history.d.ts.map
+history.js
+history.js.map
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && ls -la | grep -E "lock|\.bun" ; cat roccky_bot.tar.gz >/dev/null 2>&1; find . -maxdepth 2 -name "bun.lock*" -o -maxdepth 2 -name "package-lock.json" 2>/dev/null
+(no output)
+[0m
+[0m$ [0mcd /tmp/opencode/baileys-check && grep -n "prepareWAMessageMedia" node_modules/baileys/lib/Utils/messages.d.ts | head; grep -n "'document'" node_modules/baileys/lib/Utils/messages.js | head
+14:export declare const prepareWAMessageMedia: (message: AnyMediaMessageContent, options: MessageContentGenerationOptions) => Promise<proto.Message>;
+83:    if (mediaType === 'document' && !uploadData.fileName) {
+[0m
+[0m$ [0mcd /tmp/opencode/baileys-check && grep -n "prepareWAMessageMedia" node_modules/baileys/lib/Utils/messages.js
+61:export const prepareWAMessageMedia = async (message, options) => {
+392:        const { videoMessage } = await prepareWAMessageMedia({ video: message.video }, options);
+396:        const { imageMessage } = await prepareWAMessageMedia({ image: message.product.productImage }, options);
+489:        m = await prepareWAMessageMedia(message, options);
+[0m
+[0m$ [0mcd /tmp/opencode/baileys-check && grep -n "document" node_modules/baileys/lib/Utils/messages.js | head -40
+16:    document: 'application/pdf',
+26:    document: WAProto.Message.DocumentMessage
+83:    if (mediaType === 'document' && !uploadData.fileName) {
+654:            message?.documentWithCaptionMessage ||
+672:        else if (msg.documentMessage) {
+673:            return { documentMessage: msg.documentMessage };
+883:    const mediaContent = content?.documentMessage ||
+[0m
+[0m→ [0mRead /tmp/opencode/baileys-check/node_modules/baileys/lib/Utils/messages.js[90m [offset=1, limit=200][0m
+[0m
+[0m$ [0mcd /tmp/opencode/baileys-check && ls node_modules/fflate 2>/dev/null && node -e "const fflate = require('fflate'); console.log(Object.keys(fflate).filter(k=>k.toLowerCase().includes('zip')))" 2>&1
+(no output)
+[0m
+Let me check fflate's API for generating a minimal PPTX buffer.
+[0m$ [0mcd /tmp/opencode/baileys-check && timeout 60 npm install fflate --no-audit --no-fund --silent 2>&1 | tail -2; node -e "const f=require('fflate'); console.log('zipSync:', typeof f.zipSync); const {strToU8} = f; const zip = f.zipSync({ 'a.txt': strToU8('hello') }); console.log('bytes:', zip.length)"
+zipSync: function
+bytes: 115
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -rn "fflate" --include="*.js" | grep -v node_modules
+plugins/owner/manage-bot.js:2:import { unzip, Zip, ZipDeflate } from 'fflate'
+[0m
+[0m→ [0mRead plugins/owner/manage-bot.js
+[0m→ [0mRead lib/Utilities.js
+Let me read lib/Utilities.js (referenced by manage-bot.js).
+[0m→ [0mRead plugins/_quiz-registry.js
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -rln "category:" plugins/ | wc -l && grep -rn "category: 'games'\|category: 'game'" plugins/ || echo "none"
+128
+none
+[0m
+Let me check _quiz-registry.js and a few other event plugins that might have category, and check the DOCS for menu styles
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -n -i "menuStyle\|menu style\|Document Header\|setmenu" DOCS.md | head -40
+(no output)
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && grep -rn -i "menu" DOCS.md | head -20
+(no output)
+[0m
+[0m→ [0mRead plugins/other/pricing.js
+[0m✱ [0mGrep "ModuleCache\.values\(\)|for \(const \w+ of ModuleCache"[90m 4 matches[0m
+The pricing.js and manage-bot.js have the same ModuleCache iteration bug. Let me
+[0m→ [0mRead plugins/other/commands.js
 [0m
 [0m# [0mTodos
-[✓] Baca & patuhi protokol memory_prompt.md (00_INDEX + 2 log terbaru)
-[•] Buat helper parser Markdown AI (lib/Function/markdown.js): formatMarkdown, parseAIMessage, box-drawing table, code block cleanup, escape cleaning
-[ ] Enhance lib/Function/message.js: dukung image/video header + posisi args (sock.sendButton(jid, text, buttons, m))
-[ ] Migrasi plugins/menu.js (style 2-9) ke sock.sendSections/sendButton/sendCarousel
-[ ] Migrasi plugins/owner/manage-bot.js (setmodel) ke sock.sendSections
-[ ] Terapkan formatMarkdown di plugins/ai/_chatbot.js & lib/Scraper/_chatbot.js + try-catch fallback
-[ ] Verifikasi: node --check semua file berubah + smoke test helper
-[ ] Buat log baru di ai_memory/ + update 00_INDEX.md
+[•] Fix ModuleCache iteration bug in getCommandRegistry (menu.js) so all categories render
+[ ] Fix same ModuleCache bug in commands.js, pricing.js, manage-bot.js
+[ ] Add document/PPT header support to lib/Function/message.js helpers (prepareMedia, sendInteractiveMessage, sendCard) + try-catch fallback
+[ ] Add Func.createMenuDocument (minimal PPTX via fflate) to lib/Function/Utilities.js
+[ ] Rewrite plugins/menu.js: bot status header, document headers for styles 6 & 8, try-catch + fallback for all interactive sends
+[ ] Verify syntax with node --check on all changed files
 [0m
-[0m← [0mWrite lib/Function/markdown.js
+Now I have a clear picture. Let me create the task plan and start implementing.
+[0m← [0mWrite plugins/menu.js
 Wrote file successfully.
 [0m
-[0m← [0mEdit lib/Function/message.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+Now let me rewrite `plugins/menu.js` completely with all fixes:
+[0m← [0mEdit plugins/menu.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
 ===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
-@@ -286,32 +286,42 @@
- const {
-    text = '',
-    footer = '',
-    header = '',
-+   image,
-+   video,
-    buttons = [],
-    contextInfo = {},
-    messageParams = {},
-    quoted = null,
-    fallback = true,
-    relayOptions = {}
- } = options
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+@@ -74,19 +74,20 @@
+          id: `${isPrefix + command} ${category}`
+       }]
+    }))
  
--const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
-+const media = image
-+   ? await prepareMedia(sock, 'image', image)
-+   : video
-+      ? await prepareMedia(sock, 'video', video)
-+      : null
- 
--if (!nativeFlowMessage)
--   return sock.sendText(jid, text, quoted, { footer })
--
- const interactiveMessage = {
-    body: { text: String(text) },
-    ...(footer ? { footer: { text: String(footer) } } : {}),
-    header: {
-       title: String(header || ''),
--      hasMediaAttachment: false
-+      hasMediaAttachment: !!media,
-+      ...(media || {})
-    },
--   contextInfo: contextInfo || {},
--   nativeFlowMessage
-+   contextInfo: contextInfo || {}
+-// Header dokumen (PPT/PPTX) untuk menuStyle 6 & 8. Buffer PPTX dibangkitkan
++// Header dokumen (PPT/PPTX) untuk menuStyle 6 & 8. Buffer PPT/PPTX dibangkitkan
+ // lokal sehingga tidak bergantung pada ketersediaan URL eksternal dan tidak
+ // memicu error pembatalan media attachment.
+-const buildDocumentHeader = async (title = '') => {
++const buildDocumentHeader = async (title = '', mimetype = DOC_MIMETYPE) => {
+    try {
+       const buffer = await Func.createMenuDocument(title || botName)
+       const jpegThumbnail = await Func.resizeImage(botThumbnail, 300).catch(() => undefined)
++      const extension = mimetype === PPT_MIMETYPE ? 'ppt' : 'pptx'
+       return {
+          document: buffer,
+-         fileName: `${title || botName} - Menu.pptx`,
+-         mimetype: DOC_MIMETYPE,
++         fileName: `${title || botName} - Menu.${extension}`,
++         mimetype,
+          ...(jpegThumbnail ? { jpegThumbnail } : {})
+       }
+    }
+    catch (error) {
+@@ -95,15 +96,15 @@
+    }
  }
  
-+const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
-+
-+if (!nativeFlowMessage)
-+   return sock.sendText(jid, text, quoted, { footer })
-+
-+interactiveMessage.nativeFlowMessage = nativeFlowMessage
-+
- return relayInteractive(sock, jid, interactiveMessage, {
-    quoted,
-    fallback,
-    fallbackText: toFallbackText({ text, footer, buttons }),
+ // Bungkus pengiriman pesan interaktif dengan try-catch dan fallback teks biasa.
+-const safeSend = async (fallbackText, sendFn) => {
++const safeSend = async (m, fallbackText, sendFn) => {
+    try {
+       return await sendFn()
+    }
+    catch (error) {
+       console.error('❌ Interactive menu send failed:', error)
+-      return m0.reply(fallbackText.trim())
++      return m.reply(fallbackText.trim())
+    }
+ }
+ 
+ export default {
 
 [0m
-[0m← [0mEdit lib/Function/message.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+I need to fix the `safeSend` helper — it references undefined `m0`. Let me correct it to accept `m` as
+[0m← [0mEdit plugins/menu.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
 ===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
-@@ -332,17 +332,27 @@
- /**
-  * Tombol Quick Reply (dan CTA) berbasis Native Flow.
-  * @param {object} sock
-  * @param {string} jid
-- * @param {object} options
-+ * @param {object|string} options - objek opsi ATAU teks (posisi) untuk
-+ *    kompatibilitas pemanggilan lama: sock.sendButton(jid, text, buttons, quoted)
-  */
--Func.sendButton = async (sock, jid, options = {}) => {
--   const { text, footer, header, buttons = [], ...rest } = options
-+Func.sendButton = async (sock, jid, options = {}, positionalButtons, positionalQuoted) => {
-+   if (typeof options === 'string' || Array.isArray(options))
-+      options = {
-+         text: typeof options === 'string' ? options : String(options),
-+         buttons: positionalButtons,
-+         quoted: positionalQuoted
-+      }
- 
-+   const { text, footer, header, image, video, buttons = [], ...rest } = options
-+
-    return Func.sendInteractiveMessage(sock, jid, {
-       text,
-       footer,
-       header,
-+      image,
-+      video,
-       buttons,
-       ...rest
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+@@ -161,9 +161,9 @@
+       }
     })
  }
-
-[0m
-[0m← [0mEdit lib/Function/message.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
-@@ -360,23 +360,35 @@
- /**
-  * Daftar pilihan (Single Select / Section List) berbasis Native Flow.
-  * @param {object} sock
-  * @param {string} jid
-- * @param {object} options
-+ * @param {object|string} options - objek opsi ATAU teks (posisi) untuk
-+ *    kompatibilitas pemanggilan lama: sock.sendList(jid, text, sections, quoted)
-  */
--Func.sendList = async (sock, jid, options = {}) => {
-+Func.sendList = async (sock, jid, options = {}, positionalSections, positionalQuoted) => {
-+   if (typeof options === 'string')
-+      options = {
-+         text: options,
-+         sections: positionalSections,
-+         quoted: positionalQuoted
-+      }
-+
-    const {
-       title = 'Pilih Opsi',
-       buttonText = 'Pilih',
-       footer = '',
-       text = '',
-+      image,
-+      video,
-       sections = [],
-       ...rest
-    } = options
- 
-    return Func.sendInteractiveMessage(sock, jid, {
-       text: text || title,
+ else if (setting.menuStyle == 2) {
+-   return safeSend(message.trim(), () => sock.sendSections(m.chat, {
++   return safeSend(m, message.trim(), () => sock.sendSections(m.chat, {
+       text: message.trim(),
+       image: botThumbnail,
        footer,
-+      image,
-+      video,
-       buttons: [{
-          type: 'list',
-          title,
-          displayText: buttonText,
+       title: '📚 List Menu',
 
 [0m
 [0m← [0mEdit plugins/menu.js
@@ -603,1476 +319,1448 @@ Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
 ===================================================================
 --- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
 +++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
-@@ -93,246 +93,208 @@
-          largeThumbnail: true
-       }
-    })
+@@ -172,9 +172,9 @@
+       quoted: m
+    }))
  }
--else if (setting.menuStyle == 2)
--   sock.sendMessage(m.chat, {
--      image: {
--         url: botThumbnail
--      },
--      caption: message.trim(),
-+else if (setting.menuStyle == 2) {
-+   return sock.sendSections(m.chat, {
-+      text: message.trim(),
-+      image: botThumbnail,
+ else if (setting.menuStyle == 3) {
+-   return safeSend(message.trim(), () => sock.sendButton(m.chat, {
++   return safeSend(m, message.trim(), () => sock.sendButton(m.chat, {
+       text: message.trim(),
+       image: botThumbnail,
        footer,
--      nativeFlow: [{
--         text: '📚 List Menu',
--         sections: categories.map(category => ({
--            ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
--            rows: [{
--               title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
--               description: `📦 There are ${grouped[category].length} commands`,
--               id: `${isPrefix + command} ${category}`
--            }]
--         }))
--      }]
--   }, {
-+      title: '📚 List Menu',
-+      buttonText: 'Pilih',
-+      sections: categories.map(category => ({
-+         ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-+         rows: [{
-+            title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-+            description: `📦 There are ${grouped[category].length} commands`,
-+            id: `${isPrefix + command} ${category}`
-+         }]
-+      })),
+       buttons: [
+
+[0m
+[0m← [0mEdit plugins/menu.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+@@ -198,9 +198,9 @@
        quoted: m
-    })
--else if (setting.menuStyle == 3)
--   sock.sendMessage(m.chat, {
--      image: {
--         url: botThumbnail
--      },
--      caption: message.trim(),
-+}
-+else if (setting.menuStyle == 3) {
-+   return sock.sendButton(m.chat, {
-+      text: message.trim(),
-+      image: botThumbnail,
+    }))
+ }
+ else if (setting.menuStyle == 4) {
+-   return safeSend(message.trim(), () => sock.sendButton(m.chat, {
++   return safeSend(m, message.trim(), () => sock.sendButton(m.chat, {
+       text: message.trim(),
+       image: botThumbnail,
        footer,
--      offerText: botName,
--      offerUrl: donateUrl,
--      offerExpiration: OFFER_EXPIRATION,
--      optionText: '✴️ Tap Here',
--      optionTitle: '📋 Select Options',
--      nativeFlow: [{
--         text: '📚 List Menu',
--         sections: categories.map(category => ({
--            ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
--            rows: [{
--               title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
--               description: `📦 There are ${grouped[category].length} commands`,
--               id: `${isPrefix + command} ${category}`
--            }]
--         }))
--      }, {
--         text: '📃 All Menu',
--         id: `${isPrefix}allmenu`
--      }, {
--         text: '📊 Statistic',
--         id: `${isPrefix}statistic`
--      }, {
--         text: '💰 Donate',
--         url: donateUrl
--      }]
--   }, {
-+      buttons: [
-+         {
-+            type: 'list',
-+            title: '📚 List Menu',
-+            displayText: '📚 List Menu',
-+            sections: categories.map(category => ({
-+               ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-+               rows: [{
-+                  title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-+                  description: `📦 There are ${grouped[category].length} commands`,
-+                  id: `${isPrefix + command} ${category}`
-+               }]
-+            }))
-+         },
-+         { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
-+         { type: 'reply', displayText: '📊 Statistic', id: `${isPrefix}statistic` },
-+         { type: 'url', displayText: '💰 Donate', url: donateUrl }
-+      ],
-+      messageParams: {
-+         optionText: '✴️ Tap Here',
-+         optionTitle: '📋 Select Options',
-+         offerText: botName,
-+         offerUrl: donateUrl,
-+         offerExpiration: OFFER_EXPIRATION
-+      },
+       buttons: [
+
+[0m
+[0m← [0mEdit plugins/menu.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+@@ -216,9 +216,9 @@
        quoted: m
-    })
--else if (setting.menuStyle == 4)
--   sock.sendMessage(m.chat, {
--      image: {
--         url: botThumbnail
--      },
--      product: {
--         title: botName
--      },
--      businessOwnerJid: m.sender,
--      caption: message.trim(),
-+}
-+else if (setting.menuStyle == 4) {
-+   return sock.sendButton(m.chat, {
-+      text: message.trim(),
-+      image: botThumbnail,
+    }))
+ }
+ else if (setting.menuStyle == 5) {
+-   return safeSend(message.trim(), () => sock.sendButton(m.chat, {
++   return safeSend(m, message.trim(), () => sock.sendButton(m.chat, {
+       text: message.trim(),
+       image: botThumbnail,
        footer,
--      nativeFlow: [{
--         text: '📚 List Menu',
--         sections: categories.map(category => ({
--            ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
--            rows: [{
--               title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
--               description: `📦 There are ${grouped[category].length} commands`,
--               id: `${isPrefix + command} ${category}`
--            }]
--         }))
--      }, {
--         text: '📃 All Menu',
--         id: `${isPrefix}allmenu`
--      }, {
--         text: '💰 Donate',
--         url: donateUrl
--      }]
--   }, {
-+      buttons: [
-+         {
-+            type: 'list',
-+            title: '📚 List Menu',
-+            displayText: '📚 List Menu',
-+            sections: categories.map(category => ({
-+               ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-+               rows: [{
-+                  title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-+                  description: `📦 There are ${grouped[category].length} commands`,
-+                  id: `${isPrefix + command} ${category}`
-+               }]
-+            }))
-+         },
-+         { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
-+         { type: 'url', displayText: '💰 Donate', url: donateUrl }
-+      ],
-       quoted: m
-    })
--else if (setting.menuStyle == 5)
--   sock.sendMessage(m.chat, {
--      image: {
--         url: botThumbnail
--      },
--      product: {
--         title: botName
--      },
--      businessOwnerJid: m.sender,
--      caption: message.trim(),
-+}
-+else if (setting.menuStyle == 5) {
-+   return sock.sendButton(m.chat, {
-+      text: message.trim(),
-+      image: botThumbnail,
-       footer,
--      optionText: '✴️ Tap Here',
--      optionTitle: '📋 Select Options',
--      nativeFlow: [{
--         text: '📚 List Menu',
--         sections: categories.map(category => ({
--            ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
--            rows: [{
--               title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
--               description: `📦 There are ${grouped[category].length} commands`,
--               id: `${isPrefix + command} ${category}`
--            }]
--         }))
--      }, {
--         text: '📃 All Menu',
--         id: `${isPrefix}allmenu`
--      }, {
--         text: '📊 Statistic',
--         id: `${isPrefix}statistic`
--      }, {
--         text: '💰 Donate',
--         url: donateUrl
--      }]
--   }, {
-+      buttons: [
-+         {
-+            type: 'list',
-+            title: '📚 List Menu',
-+            displayText: '📚 List Menu',
-+            sections: categories.map(category => ({
-+               ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-+               rows: [{
-+                  title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-+                  description: `📦 There are ${grouped[category].length} commands`,
-+                  id: `${isPrefix + command} ${category}`
-+               }]
-+            }))
-+         },
-+         { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
-+         { type: 'url', displayText: '💰 Donate', url: donateUrl }
-+      ],
-+      messageParams: {
-+         optionText: '✴️ Tap Here',
-+         optionTitle: '📋 Select Options'
-+      },
-       quoted: m
-    })
-+}
+       buttons: [
+
+[0m
+[0m← [0mEdit plugins/menu.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+@@ -239,9 +239,9 @@
+    }))
+ }
  else if (setting.menuStyle == 6) {
-    const profilePicture = await sock.profilePicture(m.sender)
--   sock.sendMessage(m.chat, {
--      document: {
--         url: profilePicture
--      },
--      jpegThumbnail: await Func.resizeImage(profilePicture, 252),
--      fileName: '👋🏻 ' + m.pushName,
--      mimetype: 'image/jpeg',
--      caption: message.trim(),
-+   return sock.sendButton(m.chat, {
-+      text: message.trim(),
-+      image: profilePicture,
+    const documentHeader = await buildDocumentHeader()
+-   return safeSend(message.trim(), () => sock.sendButton(m.chat, {
++   return safeSend(m, message.trim(), () => sock.sendButton(m.chat, {
+       text: message.trim(),
        footer,
--      optionText: '📚 List Menu',
--      optionTitle: '📋 Select Menu',
--      nativeFlow: categories.map(category => ({
--         text: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
--         id: `${isPrefix + command} ${category}`
--      })),
--      externalAdReply: {
--         title: botName,
--         body: Func.greeting(),
--         thumbnail: await Func.fetchThumbnail(),
--         largeThumbnail: true
--      }
--   }, {
-+      buttons: [
-+         {
-+            type: 'list',
-+            title: '📚 List Menu',
-+            displayText: '📚 List Menu',
-+            sections: categories.map(category => ({
-+               ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-+               rows: [{
-+                  title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-+                  description: `📦 There are ${grouped[category].length} commands`,
-+                  id: `${isPrefix + command} ${category}`
-+               }]
-+            }))
-+         },
-+         { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
-+         { type: 'reply', displayText: '📊 Statistic', id: `${isPrefix}statistic` }
-+      ],
-       quoted: m
-    })
+       ...documentHeader,
+       buttons: [
+
+[0m
+[0m← [0mEdit plugins/menu.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+@@ -258,9 +258,9 @@
+    }))
  }
  else if (setting.menuStyle == 7) {
     const profilePicture = await sock.profilePicture(m.sender)
--   sock.sendMessage(m.chat, {
--      location: {
--         address: Func.greeting(),
--         degreesLatitude: 0,
--         degreesLongitude: 0,
--         jpegThumbnail: await Func.resizeImage(profilePicture, 252),
--         name: '👋🏻 ' + m.pushName,
--         url: donateUrl
--      },
--      caption: message.trim(),
-+   return sock.sendButton(m.chat, {
-+      text: message.trim(),
-+      image: profilePicture,
+-   return safeSend(message.trim(), () => sock.sendButton(m.chat, {
++   return safeSend(m, message.trim(), () => sock.sendButton(m.chat, {
+       text: message.trim(),
+       image: profilePicture,
        footer,
--      optionText: '📚 List Menu',
--      optionTitle: '📋 Select Menu',
--      nativeFlow: categories.map(category => ({
--         text: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
--         id: `${isPrefix + command} ${category}`
--      })),
--      externalAdReply: {
--         title: botName,
--         body: Func.greeting(),
--         thumbnail: await Func.fetchThumbnail(),
--         largeThumbnail: true
--      }
--   }, {
-+      buttons: [
-+         {
-+            type: 'list',
-+            title: '📚 List Menu',
-+            displayText: '📚 List Menu',
-+            sections: categories.map(category => ({
-+               ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-+               rows: [{
-+                  title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-+                  description: `📦 There are ${grouped[category].length} commands`,
-+                  id: `${isPrefix + command} ${category}`
-+               }]
-+            }))
-+         },
-+         { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
-+         { type: 'reply', displayText: '📊 Statistic', id: `${isPrefix}statistic` }
-+      ],
+       buttons: [
+
+[0m
+[0m← [0mEdit plugins/menu.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+@@ -276,10 +276,10 @@
        quoted: m
-    })
+    }))
  }
  else if (setting.menuStyle == 8) {
-    const profilePicture = await sock.profilePicture(m.sender)
--   sock.sendMessage(m.chat, {
--      document: {
--         url: profilePicture
--      },
--      jpegThumbnail: await Func.resizeImage(profilePicture, 252),
--      fileName: '👋🏻 ' + m.pushName,
--      mimetype: 'image/jpeg',
--      caption: message.trim(),
-+   return sock.sendButton(m.chat, {
-+      text: message.trim(),
-+      image: profilePicture,
+-   const documentHeader = await buildDocumentHeader()
+-   return safeSend(message.trim(), () => sock.sendButton(m.chat, {
++   const documentHeader = await buildDocumentHeader('', PPT_MIMETYPE)
++   return safeSend(m, message.trim(), () => sock.sendButton(m.chat, {
+       text: message.trim(),
        footer,
--      buttons: [{
--         text: '📚 List Menu',
--         sections: categories.map(category => ({
--            ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
--            rows: [{
--               title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
--               description: `📦 There are ${grouped[category].length} commands`,
--               id: `${isPrefix + command} ${category}`
--            }]
--         }))
--      }, {
--         text: '📃 All Menu',
--         id: `${isPrefix}allmenu`
--      }, {
--         text: '📊 Statistic',
--         id: `${isPrefix}statistic`
--      }],
--      externalAdReply: {
--         title: botName,
--         body: Func.greeting(),
--         thumbnail: await Func.fetchThumbnail(),
--         largeThumbnail: true
--      }
--   }, {
-+      buttons: [
-+         {
-+            type: 'list',
-+            title: '📚 List Menu',
-+            displayText: '📚 List Menu',
-+            sections: categories.map(category => ({
-+               ...(POPULAR_CATEGORIES[category] ? HIGHLIGHT_LABEL : {}),
-+               rows: [{
-+                  title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-+                  description: `📦 There are ${grouped[category].length} commands`,
-+                  id: `${isPrefix + command} ${category}`
-+               }]
-+            }))
-+         },
-+         { type: 'reply', displayText: '📃 All Menu', id: `${isPrefix}allmenu` },
-+         { type: 'reply', displayText: '📊 Statistic', id: `${isPrefix}statistic` }
-+      ],
+       ...documentHeader,
+       buttons: [
+
+[0m
+[0m← [0mEdit plugins/menu.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+@@ -295,9 +295,9 @@
        quoted: m
-    })
+    }))
  }
--else if (setting.menuStyle == 9)
--   sock.sendMessage(m.chat, {
-+else if (setting.menuStyle == 9) {
-+   return sock.sendCarousel(m.chat, {
+ else if (setting.menuStyle == 9) {
+-   return safeSend(message.trim(), () => sock.sendCarousel(m.chat, {
++   return safeSend(m, message.trim(), () => sock.sendCarousel(m.chat, {
        text: message.trim(),
        footer,
        cards: categories.map(category => ({
--         image: {
--            url: botThumbnail 
--         },
--         caption: Func.frame(category.toUpperCase(), [CATEGORY_DESCRIPTIONS[category]], CATEGORY_EMOJIS[category] ?? '📁'),
--         footer: `📦 There are ${grouped[category].length} commands`,
--         offerText: botName,
--         offerUrl: donateUrl,
--         offerExpiration: OFFER_EXPIRATION,
--         nativeFlow: [{
--            text: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-+         title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
-+         text: Func.frame(category.toUpperCase(), [CATEGORY_DESCRIPTIONS[category]], CATEGORY_EMOJIS[category] ?? '📁'),
-+         image: botThumbnail,
-+         buttons: [{
-+            type: 'reply',
-+            displayText: 'Pilih',
-             id: `${isPrefix + command} ${category}`
-          }]
--      }))
--   }, {
-+      })),
-       quoted: m
-    })
-+}
- if (setting.menuMusic)
-    sock.sendMedia(m.chat, botMenuMusic, '', FAKE_QUOTE, {
-       ptt: true
-    })
+          title: (CATEGORY_EMOJIS[category] ?? '📁') + ' ' + Func.toTitleCase(category),
 
 [0m
-Now migrating `plugins/menu.js` styles 2–9 to the new helpers:
+Now update the `safeSend` call sites and style 8 to use the PPT mim
+[0m→ [0mRead plugins/menu.js
+Let me verify the
+[0m
+[0m← [0mEdit plugins/other/commands.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/other/commands.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/other/commands.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/other/commands.js
+@@ -8,11 +8,13 @@
+ async run(m, {
+    sock
+ }) {
+    const grouped = Object.create(null)
+-   for (const { command, category } of ModuleCache.values()) {
+-      if (!category) continue
+-      ;(grouped[category] ??= []).push(...toArray(command))
++   for (const modules of ModuleCache.values()) {
++      for (const { command, category } of modules) {
++         if (!category || !command) continue
++         ;(grouped[category] ??= []).push(...toArray(command))
++      }
+    }
+    const sortedGroups = Object.keys(grouped)
+       .sort()
+       .map(category =>
+
+[0m
+[0m← [0mEdit plugins/other/pricing.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/other/pricing.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/other/pricing.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/other/pricing.js
+@@ -32,18 +32,20 @@
+ const tableCommands = [{
+    isHeading: true,
+    items: ['Commands', 'Premium', 'Free']
+ }]
+-for (const { command, premium } of ModuleCache.values()) {
+-   if (!premium) continue
+-   const isPremium = premium ? '✅' : '❌'
+-   const isFree = premium ? '❌' : '✅'
+-   const commands = toArray(command)
+-   for (let i = 0; i < commands.length; i++)
+-      tableCommands.push({
+-         isHeading: false,
+-         items: [commands[i], isPremium, isFree]
+-      })
++for (const modules of ModuleCache.values()) {
++   for (const { command, premium } of modules) {
++      if (!premium) continue
++      const isPremium = premium ? '✅' : '❌'
++      const isFree = premium ? '❌' : '✅'
++      const commands = toArray(command)
++      for (let i = 0; i < commands.length; i++)
++         tableCommands.push({
++            isHeading: false,
++            items: [commands[i], isPremium, isFree]
++         })
++   }
+ }
+ const richResponse = isRentCommand ?
+    [{
+       text: '# 🏡 RENTAL PRICING'
+
+[0m
 [0m← [0mEdit plugins/owner/manage-bot.js
 Index: /home/runner/work/roccky_bot/roccky_bot/plugins/owner/manage-bot.js
 ===================================================================
 --- /home/runner/work/roccky_bot/roccky_bot/plugins/owner/manage-bot.js
 +++ /home/runner/work/roccky_bot/roccky_bot/plugins/owner/manage-bot.js
-@@ -350,28 +350,26 @@
-       return m.reply(`👉🏻 *Example*: ${isPrefix + command} Hello +tag (+name) +greeting 👋🏻`)
-    setting.menuMessage = text
-    m.reply('✅ Successfully set menu message.')
+@@ -260,12 +260,14 @@
+ if (!cmd)
+    return m.reply(`👉🏻 *Example*: ${isPrefix + command} claim`)
+ const commands = new Set()
+ for (const modules of ModuleCache.values()) {
+-   const cachedCommand = modules.command
+-   if (cachedCommand)
+-      for (const cmds of toArray(cachedCommand))
+-         commands.add(cmds)
++   for (const module of modules) {
++      const cachedCommand = module.command
++      if (cachedCommand)
++         for (const cmds of toArray(cachedCommand))
++            commands.add(cmds)
++   }
  }
--else if (command === 'setmodel') {
--   if (!text.includes('--model'))
--      return sock.sendMessage(m.chat, {
--         text: 'Choose a model',
--         footer,
--         nativeFlow: [{
--            text: '📄 List Model',
--            sections: Object.entries(AVAILABLE_MODELS)
--               .map(([key, value]) => ({
--                  ...(value.subscriptionOnly ? HIGHLIGHT_LABEL : {}),
--                  rows: [{
--                     title: key,
--                     description: value.description,
--                     id: `${isPrefix + command} --model ${key}`
--                  }]
--               }))
--         }]
--      }, {
--         quoted: m
--      })
-+ else if (command === 'setmodel') {
-+    if (!text.includes('--model'))
-+       return sock.sendSections(m.chat, {
-+          text: 'Choose a model',
-+          footer,
-+          title: '📄 List Model',
-+          buttonText: 'Pilih',
-+          sections: Object.entries(AVAILABLE_MODELS)
-+             .map(([key, value]) => ({
-+                ...(value.subscriptionOnly ? HIGHLIGHT_LABEL : {}),
-+                rows: [{
-+                   title: key,
-+                   description: value.description,
-+                   id: `${isPrefix + command} --model ${key}`
-+                }]
-+             })),
-+          quoted: m
-+       })
-    if (!googleApiKey)
-       return m.reply('❌ Google API key is missing. Please configure `googleApiKey` in `config.js` first.')
-    const model = args[1]
-    if (!(model in AVAILABLE_MODELS))
+ if (!commands.has(cmd))
+    return m.reply('❌ Command not found.')
+ if (setting.disabledCommand.includes(cmd))
 
 [0m
-Now migrate `setmodel` in `plugins/owner/manage-bot.js`:
-[0m← [0mEdit plugins/ai/_chatbot.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-@@ -1,9 +1,8 @@
- import fs from 'fs';
- import path from 'path';
- import * as cheerio from 'cheerio';
- import { catbox, uguu, quax } from '../../lib/Scraper.js';
--import { FENCE_REGEX, TABLE_SEPARATOR_REGEX } from '../../lib/Constants.js';
- import { isMimeImage, isMimeVideo } from '../../lib/Utilities.js';
- import gtts from 'gtts';
- import QRCode from 'qrcode';
- import axios from 'axios';
-
+menu.js looks good. Now let me fix the same ModuleCache iteration bug in the other three files
+[0m# [0mTodos
+[✓] Fix ModuleCache iteration bug in getCommandRegistry (menu.js) so all categories render
+[✓] Fix same ModuleCache bug in commands.js, pricing.js, manage-bot.js
+[•] Add document/PPT header support to lib/Function/message.js helpers (prepareMedia, sendInteractiveMessage, sendCard) + try-catch fallback
+[ ] Add Func.createMenuDocument (minimal PPTX via fflate) to lib/Function/Utilities.js
+[✓] Rewrite plugins/menu.js: bot status header, document headers for styles 6 & 8, try-catch + fallback for all interactive sends
+[ ] Verify syntax with node --check on all changed files
 [0m
-Now update the two chatbot plugins to use the new `formatMarkdown` helper with safe fallback. First `plugins/ai/_chatbot.js`:
-[0m→ [0mRead plugins/ai/_chatbot.js[90m [limit=55, offset=340][0m
-[0m
-[0m← [0mEdit plugins/ai/_chatbot.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
+[0m← [0mEdit lib/Function/message.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
 ===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-@@ -347,46 +347,11 @@
-     if (!match) return null;
-     return { action: match[1].toUpperCase(), payload: match[2]?.trim() || '' };
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+@@ -251,17 +251,29 @@
+       messageVersion: 1
+    }
  }
  
--const isTableSeparator = line => TABLE_SEPARATOR_REGEX.test(line);
--const isTableRow = line => line.includes('|');
--const parseRow = line => line.split('|').map(v => v.trim()).filter(Boolean);
-+// Formatting Markdown AI ditangani oleh helper terpusat:
-+// Func.formatMarkdown / func.formatMarkdown (lib/Function/markdown.js).
+-const prepareMedia = async (sock, kind, media) => {
++const prepareMedia = async (sock, kind, media, options = {}) => {
+    if (!media) return null
  
--function parseMarkdown(input) {
--    const lines = input.split('\n');
--    const binaryContent = [];
--    let inCode = false, codeLanguage = 'text', codeBuffer = [];
--    let inTable = false, tableRows = [];
--    let textBuffer = [];
--    const flushText = () => {
--        const text = textBuffer.join('\n').trim();
--        if (text) binaryContent.push({ type: 'text', content: text });
--        textBuffer = [];
--    };
--    for (let i = 0; i < lines.length; i++) {
--        const line = lines[i];
--        const fenceMatch = line.match(FENCE_REGEX);
--        if (fenceMatch) {
--            if (!inCode) { flushText(); inCode = true; codeLanguage = fenceMatch[1] || 'text'; codeBuffer = []; }
--            else { binaryContent.push({ type: 'code', language: codeLanguage, content: codeBuffer.join('\n') }); inCode = false; }
--            continue;
--        }
--        if (inCode) { codeBuffer.push(line); continue; }
--        if (!inTable && isTableRow(line) && isTableSeparator(lines[i+1] || '')) {
--            flushText(); inTable = true; tableRows = [parseRow(line)]; i++; continue;
--        }
--        if (inTable) {
--            if (isTableRow(line)) { tableRows.push(parseRow(line)); continue; }
--            else { binaryContent.push({ type: 'table', rows: tableRows }); inTable = false; }
--        }
--        textBuffer.push(line);
--    }
--    if (inTable) binaryContent.push({ type: 'table', rows: tableRows });
--    flushText();
--    return binaryContent;
--}
--
- // ======================================================
- // 5. MAIN EXPORT (Integrasi Scrap AIFreeSession)
- // ======================================================
- export default {
-
-[0m
-[0m← [0mEdit plugins/ai/_chatbot.js
-Index: /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-+++ /home/runner/work/roccky_bot/roccky_bot/plugins/ai/_chatbot.js
-@@ -447,18 +447,19 @@
-         });
-         return;
-     }
+    try {
+       const source =
+          typeof media === 'string'
+             ? { [kind]: { url: media } }
+             : { [kind]: media }
  
--    // Kirim balasan teks biasa dengan parser markdown bawaan
-+    // Kirim balasan teks AI yang sudah dirapikan (code block, tabel,
-+    // escape sequence) dengan fallback otomatis ke teks mentah.
-     await sock.sendMessage(m.chat, { delete: thinking.key });
--    const parsed = parseMarkdown(aiResponse);
--    await sock.sendMessage(m.chat, {
--        richResponse: parsed.map(node => {
--            if (node.type === 'text') return { text: node.content };
--            if (node.type === 'code') return { language: node.language, code: func.tokenizeCode(node.content, node.language) };
--            if (node.type === 'table') return { table: node.rows.map((row, i) => ({ isHeading: i === 0, items: row })) };
--        })
--    }, { quoted: m });
-+    const cleaned = func.formatMarkdown(aiResponse);
-+    try {
-+        await sock.sendMessage(m.chat, { text: cleaned }, { quoted: m });
-+    }
-+    catch (error) {
-+        console.error('❌ formatMarkdown send error:', error);
-+        await sock.sendMessage(m.chat, { text: aiResponse }, { quoted: m });
-+    }
- 
- } catch (error) {
-     console.error(error);
-     m.reply(`❌ Error: ${error.message || String(error)}`);
-
-[0m
-Now update the final send block in `plugins/ai/_chatbot.js`:
-[0m← [0mEdit lib/Scraper/_chatbot.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Scraper/_chatbot.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Scraper/_chatbot.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Scraper/_chatbot.js
-@@ -1,9 +1,8 @@
- import fs from 'fs';
- import path from 'path';
- import * as cheerio from 'cheerio';
- import { catbox, uguu, quax } from '../../lib/Scraper.js';
--import { FENCE_REGEX, TABLE_SEPARATOR_REGEX } from '../../lib/Constants.js';
- import { isMimeImage, isMimeVideo } from '../../lib/Utilities.js';
- import gtts from 'gtts';
- import QRCode from 'qrcode';
- import axios from 'axios';
-
-[0m
-Now the same changes in `lib/Scraper/_
-[0m→ [0mRead lib/Scraper/_chatbot.js[90m [limit=50, offset=348][0m
-[0m
-[0m← [0mEdit lib/Scraper/_chatbot.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Scraper/_chatbot.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Scraper/_chatbot.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Scraper/_chatbot.js
-@@ -354,46 +354,11 @@
-     if (!match) return null;
-     return { action: match[1].toUpperCase(), payload: match[2]?.trim() || '' };
- }
- 
--const isTableSeparator = line => TABLE_SEPARATOR_REGEX.test(line);
--const isTableRow = line => line.includes('|');
--const parseRow = line => line.split('|').map(v => v.trim()).filter(Boolean);
-+// Formatting Markdown AI ditangani oleh helper terpusat:
-+// Func.formatMarkdown / func.formatMarkdown (lib/Function/markdown.js).
- 
--function parseMarkdown(input) {
--    const lines = input.split('\n');
--    const binaryContent = [];
--    let inCode = false, codeLanguage = 'text', codeBuffer = [];
--    let inTable = false, tableRows = [];
--    let textBuffer = [];
--    const flushText = () => {
--        const text = textBuffer.join('\n').trim();
--        if (text) binaryContent.push({ type: 'text', content: text });
--        textBuffer = [];
--    };
--    for (let i = 0; i < lines.length; i++) {
--        const line = lines[i];
--        const fenceMatch = line.match(FENCE_REGEX);
--        if (fenceMatch) {
--            if (!inCode) { flushText(); inCode = true; codeLanguage = fenceMatch[1] || 'text'; codeBuffer = []; }
--            else { binaryContent.push({ type: 'code', language: codeLanguage, content: codeBuffer.join('\n') }); inCode = false; }
--            continue;
--        }
--        if (inCode) { codeBuffer.push(line); continue; }
--        if (!inTable && isTableRow(line) && isTableSeparator(lines[i+1] || '')) {
--            flushText(); inTable = true; tableRows = [parseRow(line)]; i++; continue;
--        }
--        if (inTable) {
--            if (isTableRow(line)) { tableRows.push(parseRow(line)); continue; }
--            else { binaryContent.push({ type: 'table', rows: tableRows }); inTable = false; }
--        }
--        textBuffer.push(line);
--    }
--    if (inTable) binaryContent.push({ type: 'table', rows: tableRows });
--    flushText();
--    return binaryContent;
--}
--
- // ======================================================
- // 5. MAIN EXPORT (Integrasi Scrap AIFreeSession)
- // ======================================================
- export default {
-
-[0m
-[0m→ [0mRead lib/Scraper/_chatbot.js[90m [limit=30, offset=455][0m
-[0m
-[0m← [0mEdit lib/Scraper/_chatbot.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Scraper/_chatbot.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Scraper/_chatbot.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Scraper/_chatbot.js
-@@ -455,18 +455,19 @@
-         });
-         return;
-     }
- 
--    // Kirim balasan teks biasa dengan parser markdown bawaan
-+    // Kirim balasan teks AI yang sudah dirapikan (code block, tabel,
-+    // escape sequence) dengan fallback otomatis ke teks mentah.
-     await sock.sendMessage(m.chat, { delete: thinking.key });
--    const parsed = parseMarkdown(aiResponse);
--    await sock.sendMessage(m.chat, {
--        richResponse: parsed.map(node => {
--            if (node.type === 'text') return { text: node.content };
--            if (node.type === 'code') return { language: node.language, code: Func.tokenizeCode(node.content, node.language) };
--            if (node.type === 'table') return { table: node.rows.map((row, i) => ({ isHeading: i === 0, items: row })) };
--        })
--    }, { quoted: m });
-+    const cleaned = Func.formatMarkdown(aiResponse);
-+    try {
-+        await sock.sendMessage(m.chat, { text: cleaned }, { quoted: m });
-+    }
-+    catch (error) {
-+        console.error('❌ formatMarkdown send error:', error);
-+        await sock.sendMessage(m.chat, { text: aiResponse }, { quoted: m });
-+    }
- 
- } catch (error) {
-     console.error(error);
-     m.reply(`❌ Error: ${error.message || String(error)}`);
-
-[0m
-[0m$ [0mgrep -n "^import\|from '#func'\|from '#scrap'" lib/Scraper/_chatbot.js | head; echo "---plugins---"; grep -n "func\." plugins/ai/_chatbot.js | head
-1:import fs from 'fs';
-2:import path from 'path';
-3:import * as cheerio from 'cheerio';
-4:import { catbox, uguu, quax } from '../../lib/Scraper.js';
-5:import { isMimeImage, isMimeVideo } from '../../lib/Utilities.js';
-6:import gtts from 'gtts';
-7:import QRCode from 'qrcode';
-8:import axios from 'axios';
-9:import { Scrap } from '#scrap';
----plugins---
-352:// Func.formatMarkdown / func.formatMarkdown (lib/Function/markdown.js).
-382:                const filePath = await func.persistToFile(bufferMedia);
-454:            const cleaned = func.formatMarkdown(aiResponse);
-[0m
-[0m$ [0mgrep -n "Func\b" lib/Scraper/_chatbot.js | head -20
-359:// Func.formatMarkdown / func.formatMarkdown (lib/Function/markdown.js).
-365:    async run(m, { sock, body, user, setting, Func, isPremium }) {
-389:                const filePath = await Func.persistToFile(bufferMedia);
-462:            const cleaned = Func.formatMarkdown(aiResponse);
-[0m
-[0m$ [0mfor f in lib/Function/markdown.js lib/Function/message.js plugins/menu.js plugins/owner/manage-bot.js plugins/ai/_chatbot.js lib/Scraper/_chatbot.js; do echo "== $f =="; node --check "$f" && echo OK; done
-== lib/Function/markdown.js ==
-OK
-== lib/Function/message.js ==
-OK
-== plugins/menu.js ==
-OK
-== plugins/owner/manage-bot.js ==
-OK
-== plugins/ai/_chatbot.js ==
-OK
-== lib/Scraper/_chatbot.js ==
-OK
-[0m
-[0m← [0mWrite /tmp/opencode/test-markdown.mjs
-Wrote file successfully.
-[0m
-[0m$ [0mnode /tmp/opencode/test-markdown.mjs
-node:internal/modules/run_main:123
-    triggerUncaughtException(
-    ^
-
-Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/tmp/opencode/lib/Function/index.js' imported from /tmp/opencode/test-markdown.mjs
-Did you mean to import "../../home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js"?
-    at finalizeResolution (node:internal/modules/esm/resolve:275:11)
-    at moduleResolve (node:internal/modules/esm/resolve:861:10)
-    at defaultResolve (node:internal/modules/esm/resolve:985:11)
-    at #cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
-    at ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
-    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
-    at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
-  code: 'ERR_MODULE_NOT_FOUND',
-  url: 'file:///tmp/opencode/lib/Function/index.js'
-}
-
-Node.js v22.23.1
-[0m
-[0m$ [0mcp /tmp/opencode/test-markdown.mjs ./_tmp_test_markdown.mjs && node ./_tmp_test_markdown.mjs; code=$?; rm -f ./_tmp_test_markdown.mjs; exit $code
-node:internal/modules/package_json_reader:314
-  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
-        ^
-
-Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'chalk' imported from /home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js
-    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:314:9)
-    at packageResolve (node:internal/modules/esm/resolve:768:81)
-    at moduleResolve (node:internal/modules/esm/resolve:855:18)
-    at defaultResolve (node:internal/modules/esm/resolve:985:11)
-    at #cachedDefaultResolve (node:internal/modules/esm/loader:747:20)
-    at ModuleLoader.resolve (node:internal/modules/esm/loader:724:38)
-    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:320:38)
-    at ModuleJob._link (node:internal/modules/esm/module_job:182:49) {
-  code: 'ERR_MODULE_NOT_FOUND'
-}
-
-Node.js v22.23.1
-[0m
-[0m$ [0mmkdir -p node_modules/chalk && cat > node_modules/chalk/package.json <<'EOF'
-{ "name": "chalk", "version": "0.0.0", "type": "module", "main": "index.js", "exports": { ".": "./index.js" } }
-EOF
-cat > node_modules/chalk/index.js <<'EOF'
-const identity = (s) => s
-identity.bgHex = () => identity
-identity.black = identity
-identity.white = identity
-identity.hex = () => identity
-identity.red = identity
-identity.yellow = identity
-identity.bold = identity
-export default identity
-EOF
-cp /tmp/opencode/test-markdown.mjs ./_tmp_test_markdown.mjs && node ./_tmp_test_markdown.mjs; code=$?; rm -f ./_tmp_test_markdown.mjs; exit $code
-file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33
-   `\nFN:${ownerName}` +
-           ^
-
-ReferenceError: ownerName is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:33:12
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/_tmp_test_markdown.mjs:3:1
-
-Node.js v22.23.1
-[0m
-[0m$ [0mgrep -n "global\.\|const ownerName\|ownerName =" config.js | head -30
-(no output)
-[0m
-[0m$ [0mgrep -rn "global.ownerName\|global.botName\|global.botThumbnail" socket.js index.js config.js 2>/dev/null | head -20
-socket.js:217:      console.log(`✅ Terhubung sebagai: ${sock.user?.name || global.botName} (${userJid})`);
-[0m
-[0m$ [0mgrep -rn "ownerName\s*=\|ownerName:" socket.js index.js | head; echo "---"; grep -rn "botName\s*=\|botThumbnail\s*=" socket.js index.js | head
----
-[0m
-[0m$ [0mgrep -rln "ownerName\b" --include="*.js" . 2>/dev/null | grep -v node_modules | grep -v ai_memory | head; echo "==="; grep -rn "ownerName" config.js socket.js 2>/dev/null
-./plugins/other/owner.js
-./lib/Constants.js
-./config.js
-===
-config.js:8:   ownerName: 'AzahDev',
-[0m
-[0m→ [0mRead config.js
-[0m
-[0m$ [0mnode --input-type=module -e "
-globalThis.ownerName='x';globalThis.botName='x';globalThis.botThumbnail='x';globalThis.donateUrl='x';globalThis.footer='x';globalThis.databaseFilename='x';globalThis.temporaryFolder='x';
-const m=await import('./lib/Constants.js');
-console.log('Constants OK', typeof m.FENCE_REGEX, typeof m.TABLE_SEPARATOR_REGEX);
-"
-file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:35
-   `\nTEL;type=CELL;type=VOICE;waid=${ownerNumber}:${ownerNumber}` +
-                                      ^
-
-ReferenceError: ownerNumber is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Constants.js:35:39
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/[eval1]:3:9
-
-Node.js v22.23.1
-[0m
-[0m$ [0mnode --input-type=module -e "
-const g=['ownerName','ownerNumber','botName','botThumbnail','donateUrl','footer','databaseFilename','temporaryFolder','botMenuMusic','stickerPackName','stickerPackPublisher'];
-for(const k of g) globalThis[k]='x';
-const m=await import('./lib/Constants.js');
-console.log('Constants OK', typeof m.FENCE_REGEX, typeof m.TABLE_SEPARATOR_REGEX);
-"
-Constants OK object object
-[0m
-[0m← [0mEdit /tmp/opencode/test-markdown.mjs
-Index: /tmp/opencode/test-markdown.mjs
-===================================================================
---- /tmp/opencode/test-markdown.mjs
-+++ /tmp/opencode/test-markdown.mjs
-@@ -1,4 +1,7 @@
-+const globals = ['ownerName', 'ownerNumber', 'botName', 'botThumbnail', 'donateUrl', 'footer', 'databaseFilename', 'temporaryFolder', 'botMenuMusic', 'stickerPackName', 'stickerPackPublisher']
-+for (const key of globals) globalThis[key] = 'x'
++      // Dokumen (PPT/PDF/dll.) butuh metadata agar header native flow tampil
++      // benar: fileName, mimetype, dan jpegThumbnail (tanpa null pointer).
++      if (kind === 'document') {
++         const document = typeof media === 'string' ? { url: media } : media
++         source.document = {
++            ...document,
++            ...(options.fileName ? { fileName: options.fileName } : {}),
++            ...(options.mimetype ? { mimetype: options.mimetype } : {}),
++            ...(options.jpegThumbnail ? { jpegThumbnail: options.jpegThumbnail } : {})
++         }
++      }
 +
- import './lib/Function/index.js'
- import { Func } from './lib/Function/index.js'
- await import('./lib/Function/markdown.js')
- 
+       return await prepareWAMessageMedia(source, {
+          upload: sock.waUploadToServer
+       })
+    }
 
 [0m
-[0m$ [0mcp /tmp/opencode/test-markdown.mjs ./_tmp_test_markdown.mjs && node ./_tmp_test_markdown.mjs; code=$?; rm -f ./_tmp_test_markdown.mjs; exit $code
---- CODE OUTPUT ---
-Ini contoh kode:
-```
-const greeting = (name) => `Halo ${name}!`;
-console.log(greeting('Dunia'));
-```
-
-Selesai.
---- TABLE OUTPUT ---
-Tabel nilai:
-┌───────────────────────┐
-│ Nama │ Nilai │ Status │
-├┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┤
-│ Budi │ 85    │ Lulus  │
-├┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┼┤
-│ Siti │ 92    │ Lulus  │
-└───────────────────────┘
-
-Demikian.
---- ESCAPE OUTPUT ---
-Ini $1teks miring$1 dan $1italic$1 serta *bold* dan *bold-italic* serta link Google (https://google.com).
---- SEGMENTS ---
-[text] [code] [text]
-
-=== RESULT ===
-PASS  code block clean
-PASS  table to box-drawing
-PASS  escape + markers clean
-FAIL  unbalanced balanced :: asterisk tidak genap: Halo *ini tidak seimbang* dan \*ini juga
-PASS  segments
-[0m
-[0m← [0mEdit lib/Function/markdown.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
+Now let me update `lib/Function/message.js` to support document headers and add try
+[0m← [0mEdit lib/Function/message.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
 ===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-@@ -24,15 +24,13 @@
-    bl: '└',
-    br: '┘',
-    h: '─',
-    v: '│',
--   ml: '├',
--   mr: '┤',
--   mc: '┼'
-+   bc: '┴'
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+@@ -300,46 +300,64 @@
+       footer = '',
+       header = '',
+       image,
+       video,
++      document: documentSource,
++      fileName,
++      mimetype,
++      jpegThumbnail,
+       buttons = [],
+       contextInfo = {},
+       messageParams = {},
+       quoted = null,
+       fallback = true,
+       relayOptions = {}
+    } = options
+ 
+-   const media = image
+-      ? await prepareMedia(sock, 'image', image)
+-      : video
+-         ? await prepareMedia(sock, 'video', video)
+-         : null
++   const fallbackText = toFallbackText({ text, footer, buttons })
+ 
+-   const interactiveMessage = {
+-      body: { text: String(text) },
+-      ...(footer ? { footer: { text: String(footer) } } : {}),
+-      header: {
+-         title: String(header || ''),
+-         hasMediaAttachment: !!media,
+-         ...(media || {})
+-      },
+-      contextInfo: contextInfo || {}
+-   }
++   try {
++      const media = documentSource
++         ? await prepareMedia(sock, 'document', documentSource, { fileName, mimetype, jpegThumbnail })
++         : image
++            ? await prepareMedia(sock, 'image', image)
++            : video
++               ? await prepareMedia(sock, 'video', video)
++               : null
+ 
+-   const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
++      const interactiveMessage = {
++         body: { text: String(text) },
++         ...(footer ? { footer: { text: String(footer) } } : {}),
++         header: {
++            title: String(header || ''),
++            hasMediaAttachment: !!media,
++            ...(media || {})
++         },
++         contextInfo: contextInfo || {}
++      }
+ 
+-   if (!nativeFlowMessage)
+-      return sock.sendText(jid, text, quoted, { footer })
++      const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
+ 
+-   interactiveMessage.nativeFlowMessage = nativeFlowMessage
++      if (!nativeFlowMessage)
++         return sock.sendText(jid, text, quoted, { footer })
+ 
+-   return relayInteractive(sock, jid, interactiveMessage, {
+-      quoted,
+-      fallback,
+-      fallbackText: toFallbackText({ text, footer, buttons }),
+-      relayOptions
+-   })
++      interactiveMessage.nativeFlowMessage = nativeFlowMessage
++
++      return relayInteractive(sock, jid, interactiveMessage, {
++         quoted,
++         fallback,
++         fallbackText,
++         relayOptions
++      })
++   }
++   catch (error) {
++      console.error('❌ sendInteractiveMessage error:', error)
++
++      if (!fallback)
++         throw error
++
++      return sock.sendText(jid, fallbackText, quoted)
++   }
  }
  
- // Karakter yang di-escape AI sering membikin formatting WA rusak.
--const UNESCAPE_MAP = /\\[*_~`\[\]()#+\-.|>\\]/g
-+const UNESCAPE_MAP = /\\([*_~`\[\]()#+\-.|>\\])/g
- 
- const escapeChar = (char) => '\\' + char
- 
- // ==================================================
+ /**
+  * Tombol Quick Reply (dan CTA) berbasis Native Flow.
 
 [0m
-Found two bugs: the table border used the wrong join char, and the unescape regex was missing a capture group. Fixing both:
-[0m← [0mEdit lib/Function/markdown.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
+Now update `sendInteractiveMessage` to accept document options and wrap in try-catch:
+[0m← [0mEdit lib/Function/message.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
 ===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-@@ -119,23 +119,23 @@
-    const widths = Array.from({ length: cols }, (_, index) =>
-       Math.max(1, ...clean.map(row => String(row[index] ?? '').length))
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+@@ -446,50 +446,68 @@
+       footer = '',
+       header = '',
+       image,
+       video,
++      document: documentSource,
++      fileName,
++      mimetype,
++      jpegThumbnail,
+       buttons = [],
+       contextInfo = {},
+       messageParams = {},
+       quoted = null,
+       fallback = true,
+       relayOptions = {}
+    } = options
+ 
+-   const interactiveMessage = {
+-      body: { text: String(text) },
+-      ...(footer ? { footer: { text: String(footer) } } : {}),
+-      contextInfo: contextInfo || {},
+-      header: {
+-         title: String(header || ''),
+-         hasMediaAttachment: false
++   const fallbackText = toFallbackText({ text, footer, buttons })
++
++   try {
++      const interactiveMessage = {
++         body: { text: String(text) },
++         ...(footer ? { footer: { text: String(footer) } } : {}),
++         contextInfo: contextInfo || {},
++         header: {
++            title: String(header || ''),
++            hasMediaAttachment: false
++         }
+       }
+-   }
+ 
+-   const media = image
+-      ? await prepareMedia(sock, 'image', image)
+-      : video
+-         ? await prepareMedia(sock, 'video', video)
+-         : null
++      const media = documentSource
++         ? await prepareMedia(sock, 'document', documentSource, { fileName, mimetype, jpegThumbnail })
++         : image
++            ? await prepareMedia(sock, 'image', image)
++            : video
++               ? await prepareMedia(sock, 'video', video)
++               : null
+ 
+-   if (media) {
+-      interactiveMessage.header = {
+-         title: String(header || ''),
+-         hasMediaAttachment: true,
+-         ...media
++      if (media) {
++         interactiveMessage.header = {
++            title: String(header || ''),
++            hasMediaAttachment: true,
++            ...media
++         }
+       }
++
++      const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
++      if (nativeFlowMessage)
++         interactiveMessage.nativeFlowMessage = nativeFlowMessage
++
++      return relayInteractive(sock, jid, interactiveMessage, {
++         quoted,
++         fallback,
++         fallbackText,
++         relayOptions
++      })
+    }
++   catch (error) {
++      console.error('❌ sendCard error:', error)
+ 
+-   const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
+-   if (nativeFlowMessage)
+-      interactiveMessage.nativeFlowMessage = nativeFlowMessage
++      if (!fallback)
++         throw error
+ 
+-   return relayInteractive(sock, jid, interactiveMessage, {
+-      quoted,
+-      fallback,
+-      fallbackText: toFallbackText({ text, footer, buttons }),
+-      relayOptions
+-   })
++      return sock.sendText(jid, fallbackText, quoted)
++   }
+ }
+ 
+ /**
+  * Kartu berantai (Carousel) berbasis interactiveMessage.
+
+[0m
+Now update `sendCard`
+[0m← [0mEdit lib/Function/Utilities.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
+@@ -7,8 +7,9 @@
+ import { access, unlink, readdir, readFile, rm, stat } from 'fs/promises'
+ import { join, resolve } from 'path'
+ import { Readable } from 'stream'
+ import { pipeline } from 'stream/promises'
++import { strToU8, zipSync } from 'fflate'
+ 
+ import { MINUTE, WEBP_EXIF_HEADER } from '../Constants.js'
+ import { request } from '../Request.js'
+ import { CommandIndex } from '../Watcher.js'
+
+[0m
+Now let me add `Func.createMenuDocument` to `lib/Function/Utilities.js
+[0m← [0mEdit lib/Function/Utilities.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/Utilities.js
+@@ -388,5 +388,198 @@
+       message.body
     )
  
--   const border = (left, mid, right) =>
--      BOX[left] + widths.map(width => BOX[mid].repeat(width + 2)).join(BOX[mid]) + BOX[right]
-+   const border = (left, join, right) =>
-+      BOX[left] + widths.map(width => BOX.h.repeat(width + 2)).join(join) + BOX[right]
- 
-    const bodyRow = (row) =>
-       BOX.v + widths.map((width, index) =>
-          ` ${String(row[index] ?? '').padEnd(width)} `
-       ).join(BOX.v) + BOX.v
- 
--   const lines = [border('tl', 'h', 'tr')]
-+   const lines = [border('tl', '┬', 'tr')]
-    clean.forEach((row, index) => {
-       lines.push(bodyRow(row))
-       if (index < clean.length - 1)
--         lines.push(border('ml', 'mc', 'mr'))
-+         lines.push(border('├', '┼', '┤'))
-    })
--   lines.push(border('bl', 'h', 'br'))
-+   lines.push(border('bl', '┴', 'br'))
- 
-    return lines
- }
- 
-
-[0m
-[0m← [0mEdit /tmp/opencode/test-markdown.mjs
-Index: /tmp/opencode/test-markdown.mjs
-===================================================================
---- /tmp/opencode/test-markdown.mjs
-+++ /tmp/opencode/test-markdown.mjs
-@@ -72,9 +72,9 @@
- })
- 
- run('unbalanced balanced', () => {
-   const out = Func.formatMarkdown(unbalancedSample)
--  const stars = (out.match(/\*/g) || []).length
-+  const stars = (out.match(/(?<!\\)\*/g) || []).length
-   if (stars % 2 !== 0) throw new Error('asterisk tidak genap: ' + out)
-   console.log('--- UNBALANCED OUTPUT ---')
-   console.log(out)
-   return out
-
-[0m
-[0m$ [0mcp /tmp/opencode/test-markdown.mjs ./_tmp_test_markdown.mjs && node ./_tmp_test_markdown.mjs; code=$?; rm -f ./_tmp_test_markdown.mjs; exit $code
---- CODE OUTPUT ---
-Ini contoh kode:
-```
-const greeting = (name) => `Halo ${name}!`;
-console.log(greeting('Dunia'));
-```
-
-Selesai.
---- TABLE OUTPUT ---
-Tabel nilai:
-┌──────┬───────┬────────┐
-│ Nama │ Nilai │ Status │
-undefined──────┼───────┼────────undefined
-│ Budi │ 85    │ Lulus  │
-undefined──────┼───────┼────────undefined
-│ Siti │ 92    │ Lulus  │
-└──────┴───────┴────────┘
-
-Demikian.
---- ESCAPE OUTPUT ---
-Ini *teks miring* dan _italic_ serta *bold* dan *bold-italic* serta link Google (https://google.com).
---- UNBALANCED OUTPUT ---
-Halo *ini tidak seimbang* dan \*ini juga
---- SEGMENTS ---
-[text] [code] [text]
-
-=== RESULT ===
-PASS  code block clean
-PASS  table to box-drawing
-PASS  escape + markers clean
-PASS  unbalanced balanced
-PASS  segments
-[0m
-[0m← [0mEdit lib/Function/markdown.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-@@ -24,9 +24,10 @@
-    bl: '└',
-    br: '┘',
-    h: '─',
-    v: '│',
--   bc: '┴'
-+   ml: '├',
-+   mr: '┤'
- }
- 
- // Karakter yang di-escape AI sering membikin formatting WA rusak.
- const UNESCAPE_MAP = /\\([*_~`\[\]()#+\-.|>\\])/g
-
-[0m
-One more fix — the middle border chars need to be in the `BOX`
-[0m← [0mEdit lib/Function/markdown.js
-Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-+++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/markdown.js
-@@ -132,9 +132,9 @@
- const lines = [border('tl', '┬', 'tr')]
- clean.forEach((row, index) => {
-    lines.push(bodyRow(row))
-    if (index < clean.length - 1)
--      lines.push(border('├', '┼', '┤'))
-+      lines.push(border('ml', '┼', 'mr'))
- })
- lines.push(border('bl', '┴', 'br'))
- 
- return lines
-
-[0m
-[0m$ [0mcp /tmp/opencode/test-markdown.mjs ./_tmp_test_markdown.mjs && node ./_tmp_test_markdown.mjs; code=$?; rm -f ./_tmp_test_markdown.mjs; exit $code
---- CODE OUTPUT ---
-Ini contoh kode:
-```
-const greeting = (name) => `Halo ${name}!`;
-console.log(greeting('Dunia'));
-```
-
-Selesai.
---- TABLE OUTPUT ---
-Tabel nilai:
-┌──────┬───────┬────────┐
-│ Nama │ Nilai │ Status │
-├──────┼───────┼────────┤
-│ Budi │ 85    │ Lulus  │
-├──────┼───────┼────────┤
-│ Siti │ 92    │ Lulus  │
-└──────┴───────┴────────┘
-
-Demikian.
---- ESCAPE OUTPUT ---
-Ini *teks miring* dan _italic_ serta *bold* dan *bold-italic* serta link Google (https://google.com).
---- UNBALANCED OUTPUT ---
-Halo *ini tidak seimbang* dan \*ini juga
---- SEGMENTS ---
-[text] [code] [text]
-
-=== RESULT ===
-PASS  code block clean
-PASS  table to box-drawing
-PASS  escape + markers clean
-PASS  unbalanced balanced
-PASS  segments
-[0m
-All markdown tests pass. Let me clean up the chalk stub and try installing baileys to smoke-test `
-[0m$ [0mrm -rf node_modules/chalk && timeout 110 npm install baileys --no-save --no-audit --no-fund 2>&1 | tail -5
-npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
-npm warn deprecated uuid@3.4.0: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
-npm warn deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
-
-added 319 packages in 11s
-[0m
-[0m← [0mWrite _tmp_smoke_message.mjs
-Wrote file successfully.
-[0m
-[0m$ [0mnode ./_tmp_smoke_message.mjs; code=$?; rm -f ./_tmp_smoke_message.mjs; exit $code
-❌ relayInteractive error: TypeError: Cannot read properties of undefined (reading 'undefined')
-    at generateWAMessageFromContent (file:///home/runner/work/roccky_bot/roccky_bot/node_modules/baileys/lib/Utils/messages.js:568:64)
-    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:217:23)
-    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:324:11)
-    at Func.sendButton (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:349:16)
-    at file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:37:12
-FAIL  sendButton positional: body text
-FAIL  sendButton positional: quick_reply name
-file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:46
-  assert(JSON.parse(nf.buttonParamsJson).display_text === 'Ya', 'sendButton positional: display_text')
-                       ^
-
-TypeError: Cannot read properties of undefined (reading 'buttonParamsJson')
-    at file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:46:24
-
-Node.js v22.23.1
-[0m
-[0m→ [0mRead node_modules/baileys/lib/Utils/messages.js[90m [limit=40, offset=540][0m
-[0m
-[0m$ [0msed -i 's|{ key: { id: '\''abc'\'' } }|{ key: { id: '\''abc'\'', remoteJid: '\''628123@s.whatsapp.net'\'', fromMe: false, participant: '\''628123@s.whatsapp.net'\'' }, message: { conversation: '\''hai'\'' } }|g; s|{ key: { id: '\''xyz'\'' } }|{ key: { id: '\''xyz'\'', remoteJid: '\''628123@s.whatsapp.net'\'', fromMe: false, participant: '\''628123@s.whatsapp.net'\'' }, message: { conversation: '\''hai'\'' } }|g' /home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs && node ./_tmp_smoke_message.mjs; code=$?; rm -f ./_tmp_smoke_message.mjs; exit $code
-sed: can't read /home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs: No such file or directory
-[0m
-[0m← [0mWrite _tmp_smoke_message.mjs
-Wrote file successfully.
-[0m
-[0m$ [0mnode ./_tmp_smoke_message.mjs; code=$?; rm -f ./_tmp_smoke_message.mjs; exit $code
-❌ relayInteractive error: TypeError: Func.isJidGroup is not a function
-    at buildInteractiveNodes (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:71:14)
-    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:224:27)
-    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:324:11)
-    at Func.sendButton (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:349:16)
-    at file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:42:12
-FAIL  sendButton positional: body text
-FAIL  sendButton positional: quick_reply name
-file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:51
-  assert(JSON.parse(nf.buttonParamsJson).display_text === 'Ya', 'sendButton positional: display_text')
-                       ^
-
-TypeError: Cannot read properties of undefined (reading 'buttonParamsJson')
-    at file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:51:24
-
-Node.js v22.23.1
-[0m
-[0m→ [0mRead lib/Function/isJid.js
-[0m✗ [0mEdit _tmp_smoke_message.mjs failed
-[91m[1mError: [0mFile /home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs not found
-[0m
-[0m← [0mWrite _tmp_smoke_message.mjs
-Wrote file successfully.
-[0m
-[0m$ [0mnode ./_tmp_smoke_message.mjs 2>&1 | grep -v "FUNC\|Berhasil dimuat\|Gagal memuat" ; code=${PIPESTATUS[0]}; rm -f ./_tmp_smoke_message.mjs; exit $code
-ReferenceError: ffmpegConcurrency is not defined
-    at file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/FFMPEG.js?update=1786609182846:13:17
-    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async Module.loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:6:1
- file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/tokenizeCode.js?update=1786609183227:2
-import { tokenizeCode } from 'baileys'
-         ^^^^^^^^^^^^
-SyntaxError: The requested module 'baileys' does not provide an export named 'tokenizeCode'
-    at ModuleJob._instantiate (node:internal/modules/esm/module_job:226:21)
-    at async ModuleJob.run (node:internal/modules/esm/module_job:335:5)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async Module.loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:6:1
-PASS  sendButton positional: body text
-PASS  sendButton positional: quick_reply name
-PASS  sendButton positional: display_text
-PASS  sendButton positional: cta_url
-PASS  private: ada node bot
-PASS  group: hanya node biz
-PASS  sendList: single_select
-PASS  sendList: rows section
-PASS  sendList positional: text
-❌ relayInteractive error: Error: boom 405
-    at mockSock.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:83:45)
-    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:222:25)
-    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:324:11)
-    at Func.sendButton (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:349:16)
-    at file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:84:12
-PASS  fallback: text list
-❌ relayInteractive error: Error: boom
-    at mockSock.relayMessage (file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:88:45)
-    at relayInteractive (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:222:25)
-    at Func.sendInteractiveMessage (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:324:11)
-    at Func.sendButton (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js:349:16)
-    at file:///home/runner/work/roccky_bot/roccky_bot/_tmp_smoke_message.mjs:91:14
-PASS  fallback:false melempar error
-PASS  sendButton: image header hasMediaAttachment
-PASS  tanpa button -> sendText
-
-SEMUA LULUS
-[0m
-All 12 smoke tests pass. Let me verify no legacy button patterns remain and re-check syntax of all changed files:
-[0m$ [0mgrep -rn "nativeFlow:\|buttons:\s*\[\|cards:\s*categories" plugins/ lib/ --include="*.js" | grep -v "lib/Function/message.js" | grep -v "lib/Serialize.js" | grep -v "interactive-demo"; echo "=== exit $? (1 = bersih) ==="; for f in lib/Function/markdown.js lib/Function/message.js plugins/menu.js plugins/owner/manage-bot.js plugins/ai/_chatbot.js lib/Scraper/_chatbot.js; do node --check "$f" && echo "OK $f"; done
-plugins/menu.js:120:               buttons: [
-plugins/menu.js:153:               buttons: [
-plugins/menu.js:178:               buttons: [
-plugins/menu.js:208:               buttons: [
-plugins/menu.js:234:               buttons: [
-plugins/menu.js:260:               buttons: [
-plugins/menu.js:284:               cards: categories.map(category => ({
-plugins/menu.js:288:                  buttons: [{
-=== exit 0 (1 = bersih) ===
-OK lib/Function/markdown.js
-OK lib/Function/message.js
-OK plugins/menu.js
-OK plugins/owner/manage-bot.js
-OK plugins/ai/_chatbot.js
-OK lib/Scraper/_chatbot.js
-[0m
-[0m$ [0mgrep -n "sock\.\(sendSections\|sendButton\|sendCarousel\|sendList\)(" plugins/menu.js; echo "---manage-bot---"; grep -n "sock\.\(sendSections\|sendButton\|sendList\)(" plugins/owner/manage-bot.js
-98:            return sock.sendSections(m.chat, {
-116:            return sock.sendButton(m.chat, {
-149:            return sock.sendButton(m.chat, {
-174:            return sock.sendButton(m.chat, {
-204:            return sock.sendButton(m.chat, {
-230:            return sock.sendButton(m.chat, {
-256:            return sock.sendButton(m.chat, {
-281:            return sock.sendCarousel(m.chat, {
----manage-bot---
-356:             return sock.sendSections(m.chat, {
-[0m
-Let me install remaining deps and run the boot smoke test like the previous session did:
-[0m$ [0mtimeout 110 npm install --no-audit --no-fund 2>&1 | tail -3
-up to date in 501ms
-[0m
-[0m$ [0mtimeout 60 node socket.js 2>&1 | head -40
-FUNC  Berhasil dimuat: FFMPEG.js
- FUNC  Berhasil dimuat: Utilities.js
- FUNC  Berhasil dimuat: dateTime.js
- FUNC  Berhasil dimuat: getFileSize.js
- FUNC  Berhasil dimuat: isJid.js
- FUNC  Berhasil dimuat: isMime.js
- FUNC  Berhasil dimuat: markdown.js
- FUNC  Berhasil dimuat: message.js
- FUNC  Berhasil dimuat: toBanner.js
- FUNC  Gagal memuat: tokenizeCode.js 
- file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/tokenizeCode.js?update=1786609203536:2
-import { tokenizeCode } from 'baileys'
-         ^^^^^^^^^^^^
-SyntaxError: The requested module 'baileys' does not provide an export named 'tokenizeCode'
-    at ModuleJob._instantiate (node:internal/modules/esm/module_job:226:21)
-    at async ModuleJob.run (node:internal/modules/esm/module_job:335:5)
-    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)
-    at async importFile (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:23:5)
-    at async loadFunc (file:///home/runner/work/roccky_bot/roccky_bot/lib/Function/index.js:36:26)
-    at async file:///home/runner/work/roccky_bot/roccky_bot/socket.js:8:1
- FUNC  Berhasil dimuat: waBaileys.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m SfileMobi.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m _chatbot.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m aiedit.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m aio.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m freeai.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m komik-bbato.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m reels.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m savetik.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m search.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m uploader.js
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m vidsave.js
-[44m[30m UTILS [0m [34mBerhasil dimuat:[0m datetime.js
-[44m[30m UTILS [0m [34mBerhasil dimuat:[0m general.js
-[44m[30m UTILS [0m [34mBerhasil dimuat:[0m size.js
-[44m[30m UTILS [0m [34mBerhasil dimuat:[0m text.js
-[44m[30m UTILS [0m [34mBerhasil dimuat:[0m url.js
-🔄 Memulai bot Starseed...
-📦 Memuat data pengguna & grup...
-✅ Data berhasil dimuat: 0 User, 0 Grup.
-[0m
-[0m$ [0mtimeout 90 node socket.js 2>&1 | grep -iE "plugin|menu|chatbot|gagal|error|pairing|memuat plugin|watcher" | head -40
-FUNC  Gagal memuat: tokenizeCode.js 
-SyntaxError: The requested module 'baileys' does not provide an export named 'tokenizeCode'
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m _chatbot.js
-❌ Failed to load : plugins/owner/manage-bot.js
-Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'fflate' imported from /home/runner/work/roccky_bot/roccky_bot/plugins/owner/manage-bot.js
-🔑 Meminta kode pairing untuk 6281347951754...
-🔗 PAIRING CODE : STAR-SEED
-💾 [Database] Menulis database | Ukuran: 0.00 MB
-💾 [Database] Menulis store | Ukuran: 0.00 MB
-[0m
-[0m$ [0mnpm install --no-audit --no-fund 2>&1 | grep -iE "added|error" | tail -3; ls node_modules/fflate 2>/dev/null && echo "fflate ok"
-(no output)
-[0m
-[0m$ [0mls node_modules | head; echo "---"; npm ls fflate 2>&1 | head -5
-@borewit
-@cacheable
-@emnapi
-@hapi
-@img
-@jsep-plugin
-@keyv
-@mongodb-js
-@napi-rs
-@pinojs
----
-ROCKYY@0.2.2 /home/runner/work/roccky_bot/roccky_bot
-└── (empty)
-[0m
-[0m$ [0mtimeout 110 npm install fflate --no-audit --no-fund 2>&1 | tail -2; ls node_modules/fflate/package.json 2>/dev/null && echo "fflate OK"
-added 1 package in 632ms
-node_modules/fflate/package.json
-fflate OK
-[0m
-[0m$ [0mtimeout 90 node socket.js 2>&1 | grep -iE "manage-bot|_chatbot|menu.js|plugin|gagal|pairing|FUNC.*markdown" | head -30
-FUNC  Berhasil dimuat: markdown.js
- FUNC  Gagal memuat: tokenizeCode.js 
-[42m[30m SCRAP [0m [32mBerhasil dimuat:[0m _chatbot.js
-🔑 Meminta kode pairing untuk 6281347951754...
-🔗 PAIRING CODE : STAR-SEED
-[0m
-[0m$ [0mgit status --short; echo "---ignored check---"; git check-ignore node_modules package-lock.json 2>/dev/null
-M ai-response-recap.txt
- M lib/Function/message.js
- M lib/Scraper/_chatbot.js
- M package.json
- M plugins/ai/_chatbot.js
- M plugins/menu.js
- M plugins/owner/manage-bot.js
-?? database.json
-?? lib/Function/markdown.js
-?? package-lock.json
-?? store.json
----ignored check---
-node_modules
-[0m
-Boot test passes — `markdown.js`, `_chatbot.js`, and `manage-bot.js` all load, pairing works. Let me check git status:
-[0m$ [0mgit diff package.json; echo "=== recap ==="; git diff --stat ai-response-recap.txt
-diff --git a/package.json b/package.json
-index 150fcfd..e227570 100644
---- a/package.json
-+++ b/package.json
-@@ -43,6 +43,7 @@
-       "baileys": "npm:@whiskeysockets/baileys",
-       "chalk": "^5.6.2",
-       "cheerio": "^1.2.0",
-+      "fflate": "^0.8.3",
-       "file-type": "21.3.4",
-       "gtts": "^0.2.1",
-       "mongodb": "^7.2.0",
-@@ -54,4 +55,4 @@
-       "yt-search": "^2.13.1"
-    },
-    "packageManager": "bun@latest"
--}
+ Func.fetchThumbnail = () =>
+-   Func.fetchAsBuffer(botThumbnail)
 \ No newline at end of file
++   Func.fetchAsBuffer(botThumbnail)
++
++// ============================================================
++// GENERATOR DOKUMEN PPTX MINIMAL (untuk header menu bergaya dokumen)
++// ============================================================
++const escapeXml = (value = '') =>
++   String(value)
++      .replace(/&/g, '&amp;')
++      .replace(/</g, '&lt;')
++      .replace(/>/g, '&gt;')
++      .replace(/"/g, '&quot;')
++      .replace(/'/g, '&apos;')
++
++Func.createMenuDocument = (title = 'ROCKYY', subtitle = '') => {
++   title = escapeXml(title)
++   subtitle = escapeXml(subtitle)
++
++   const files = {
++      '[Content_Types].xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
++  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
++  <Default Extension="xml" ContentType="application/xml"/>
++  <Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>
++  <Override PartName="/ppt/slides/slide1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>
++  <Override PartName="/ppt/slideLayouts/slideLayout1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideLayout+xml"/>
++  <Override PartName="/ppt/slideMasters/slideMaster1.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slideMaster+xml"/>
++  <Override PartName="/ppt/theme/theme1.xml" ContentType="application/vnd.openxmlformats-officedocument.theme+xml"/>
++  <Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>
++  <Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>
++</Types>`,
++      '_rels/.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
++  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/>
++  <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/>
++  <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/>
++</Relationships>`,
++      'ppt/presentation.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
++  <p:sldMasterIdLst><p:sldMasterId id="2147483648" r:id="rId1"/></p:sldMasterIdLst>
++  <p:sldIdLst><p:sldId id="256" r:id="rId2"/></p:sldIdLst>
++  <p:sldSz cx="12192000" cy="6858000"/>
++  <p:notesSz cx="6858000" cy="9144000"/>
++</p:presentation>`,
++      'ppt/_rels/presentation.xml.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
++  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="slideMasters/slideMaster1.xml"/>
++  <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide1.xml"/>
++</Relationships>`,
++      'ppt/slides/slide1.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
++  <p:cSld>
++    <p:spTree>
++      <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
++      <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>
++      <p:sp>
++        <p:nvSpPr><p:cNvPr id="2" name="Title"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
++        <p:spPr><a:xfrm><a:off x="914400" y="914400"/><a:ext cx="10363200" cy="1524000"/></a:xfrm></p:spPr>
++        <p:txBody>
++          <a:bodyPr/><a:lstStyle/>
++          <a:p><a:r><a:rPr lang="en-US" sz="3600" b="1"/><a:t>${title}</a:t></a:r></a:p>
++        </p:txBody>
++      </p:sp>
++      <p:sp>
++        <p:nvSpPr><p:cNvPr id="3" name="Subtitle"/><p:cNvSpPr txBox="1"/><p:nvPr/></p:nvSpPr>
++        <p:spPr><a:xfrm><a:off x="914400" y="3048000"/><a:ext cx="10363200" cy="1524000"/></a:xfrm></p:spPr>
++        <p:txBody>
++          <a:bodyPr/><a:lstStyle/>
++          <a:p><a:r><a:rPr lang="en-US" sz="1800"/><a:t>${subtitle}</a:t></a:r></a:p>
++        </p:txBody>
++      </p:sp>
++    </p:spTree>
++  </p:cSld>
++  <p:clrMapOvr><a:overrideClrMapping bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/></p:clrMapOvr>
++</p:sld>`,
++      'ppt/slides/_rels/slide1.xml.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
++  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/>
++</Relationships>`,
++      'ppt/slideLayouts/slideLayout1.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<p:sldLayout xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main" type="blank">
++  <p:cSld>
++    <p:spTree>
++      <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
++      <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>
++    </p:spTree>
++  </p:cSld>
++  <p:clrMapOvr><a:overrideClrMapping bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/></p:clrMapOvr>
++</p:sldLayout>`,
++      'ppt/slideLayouts/_rels/slideLayout1.xml.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
++  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideMaster" Target="../slideMasters/slideMaster1.xml"/>
++</Relationships>`,
++      'ppt/slideMasters/slideMaster1.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<p:sldMaster xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">
++  <p:cSld>
++    <p:bg><p:bgPr><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill></p:bgPr></p:bg>
++    <p:spTree>
++      <p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr>
++      <p:grpSpPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/><a:chOff x="0" y="0"/><a:chExt cx="0" cy="0"/></a:xfrm></p:grpSpPr>
++    </p:spTree>
++  </p:cSld>
++  <p:clrMap bg1="lt1" tx1="dk1" bg2="lt2" tx2="dk2" accent1="accent1" accent2="accent2" accent3="accent3" accent4="accent4" accent5="accent5" accent6="accent6" hlink="hlink" folHlink="folHlink"/>
++  <p:sldLayoutIdLst><p:sldLayoutId id="2147483649" r:id="rId1"/></p:sldLayoutIdLst>
++  <p:txStyles>
++    <p:titleStyle><a:lvl1pPr><a:defRPr sz="4400"/></a:lvl1pPr></p:titleStyle>
++    <p:bodyStyle><a:lvl1pPr><a:defRPr sz="1800"/></a:lvl1pPr></p:bodyStyle>
++    <p:otherStyle/>
++  </p:txStyles>
++</p:sldMaster>`,
++      'ppt/slideMasters/_rels/slideMaster1.xml.rels': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
++  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slideLayout" Target="../slideLayouts/slideLayout1.xml"/>
++  <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/theme" Target="../theme/theme1.xml"/>
++</Relationships>`,
++      'ppt/theme/theme1.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<a:theme xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" name="Office Theme">
++  <a:themeElements>
++    <a:clrScheme name="Office">
++      <a:dk1><a:sysClr val="windowText" lastClr="000000"/></a:dk1>
++      <a:lt1><a:sysClr val="window" lastClr="FFFFFF"/></a:lt1>
++      <a:dk2><a:srgbClr val="1F497D"/></a:dk2>
++      <a:lt2><a:srgbClr val="EEECE1"/></a:lt2>
++      <a:accent1><a:srgbClr val="4F81BD"/></a:accent1>
++      <a:accent2><a:srgbClr val="C0504D"/></a:accent2>
++      <a:accent3><a:srgbClr val="9BBB59"/></a:accent3>
++      <a:accent4><a:srgbClr val="8064A2"/></a:accent4>
++      <a:accent5><a:srgbClr val="4BACC6"/></a:accent5>
++      <a:accent6><a:srgbClr val="F79646"/></a:accent6>
++      <a:hlink><a:srgbClr val="0000FF"/></a:hlink>
++      <a:folHlink><a:srgbClr val="800080"/></a:folHlink>
++    </a:clrScheme>
++    <a:fontScheme name="Office">
++      <a:majorFont><a:latin typeface="Calibri Light"/><a:ea typeface=""/><a:cs typeface=""/></a:majorFont>
++      <a:minorFont><a:latin typeface="Calibri"/><a:ea typeface=""/><a:cs typeface=""/></a:minorFont>
++    </a:fontScheme>
++    <a:fmtScheme name="Office">
++      <a:fillStyleLst>
++        <a:solidFill><a:schemeClr val="phClr"/></a:solidFill>
++        <a:gradFill rotWithShape="1"><a:gsLst>
++          <a:gs pos="0"><a:schemeClr val="phClr"><a:tint val="50000"/><a:satMod val="300000"/></a:schemeClr></a:gs>
++          <a:gs pos="35000"><a:schemeClr val="phClr"><a:tint val="37000"/><a:satMod val="300000"/></a:schemeClr></a:gs>
++          <a:gs pos="100000"><a:schemeClr val="phClr"><a:tint val="15000"/><a:satMod val="350000"/></a:schemeClr></a:gs>
++        </a:gsLst><a:lin ang="16200000" scaled="1"/></a:gradFill>
++        <a:gradFill rotWithShape="1"><a:gsLst>
++          <a:gs pos="0"><a:schemeClr val="phClr"><a:shade val="51000"/><a:satMod val="130000"/></a:schemeClr></a:gs>
++          <a:gs pos="80000"><a:schemeClr val="phClr"><a:shade val="93000"/><a:satMod val="130000"/></a:schemeClr></a:gs>
++          <a:gs pos="100000"><a:schemeClr val="phClr"><a:shade val="94000"/><a:satMod val="135000"/></a:schemeClr></a:gs>
++        </a:gsLst><a:lin ang="16200000" scaled="0"/></a:gradFill>
++      </a:fillStyleLst>
++      <a:lnStyleLst>
++        <a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="phClr"><a:shade val="95000"/><a:satMod val="105000"/></a:schemeClr></a:solidFill><a:prstDash val="solid"/></a:ln>
++        <a:ln w="25400" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:prstDash val="solid"/></a:ln>
++        <a:ln w="38100" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:prstDash val="solid"/></a:ln>
++      </a:lnStyleLst>
++      <a:effectStyleLst>
++        <a:effectStyle><a:effectLst><a:outerShdw blurRad="40000" dist="20000" dir="5400000" rotWithShape="0"><a:srgbClr val="000000"><a:alpha val="38000"/></a:srgbClr></a:outerShdw></a:effectLst></a:effectStyle>
++        <a:effectStyle><a:effectLst><a:outerShdw blurRad="40000" dist="23000" dir="5400000" rotWithShape="0"><a:srgbClr val="000000"><a:alpha val="35000"/></a:srgbClr></a:outerShdw></a:effectLst></a:effectStyle>
++        <a:effectStyle><a:effectLst><a:outerShdw blurRad="40000" dist="23000" dir="5400000" rotWithShape="0"><a:srgbClr val="000000"><a:alpha val="35000"/></a:srgbClr></a:outerShdw></a:effectLst></a:effectStyle>
++      </a:effectStyleLst>
++      <a:bgFillStyleLst>
++        <a:solidFill><a:schemeClr val="phClr"/></a:solidFill>
++        <a:gradFill rotWithShape="1"><a:gsLst>
++          <a:gs pos="0"><a:schemeClr val="phClr"><a:tint val="40000"/><a:satMod val="350000"/></a:schemeClr></a:gs>
++          <a:gs pos="100000"><a:schemeClr val="phClr"><a:shade val="30000"/><a:satMod val="350000"/></a:schemeClr></a:gs>
++        </a:gsLst><a:path path="circle"><a:fillToRect l="50000" t="-80000" r="50000" b="180000"/></a:path></a:gradFill>
++        <a:gradFill rotWithShape="1"><a:gsLst>
++          <a:gs pos="0"><a:schemeClr val="phClr"><a:tint val="80000"/><a:satMod val="300000"/></a:schemeClr></a:gs>
++          <a:gs pos="100000"><a:schemeClr val="phClr"><a:shade val="30000"/><a:satMod val="200000"/></a:schemeClr></a:gs>
++        </a:gsLst><a:lin ang="16200000" scaled="0"/></a:gradFill>
++      </a:bgFillStyleLst>
++    </a:fmtScheme>
++  </a:themeElements>
++  <a:objectDefaults/>
++  <a:extraClrSchemeLst/>
++</a:theme>`,
++      'docProps/core.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
++  <dc:title>${title}</dc:title>
++  <dc:creator>ROCKYY</dc:creator>
++  <cp:lastModifiedBy>ROCKYY</cp:lastModifiedBy>
++</cp:coreProperties>`,
++      'docProps/app.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
++<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
++  <Application>ROCKYY</Application>
++  <Slides>1</Slides>
++</Properties>`
++   }
++
++   const entries = {}
++   for (const name in files)
++      entries[name] = strToU8(files[name])
++
++   return Buffer.from(zipSync(entries))
 +}
-=== recap ===
- ai-response-recap.txt | 4093 +++++++++++++++++++++----------------------------
- 1 file changed, 1774 insertions(+), 2319 deletions(-)
-[0m
-[0m$ [0mrm -f database.json store.json package-lock.json; git status --short | grep -v ai-response-recap.txt
-M lib/Function/message.js
- M lib/Scraper/_chatbot.js
- M package.json
- M plugins/ai/_chatbot.js
- M plugins/menu.js
- M plugins/owner/manage-bot.js
-?? lib/Function/markdown.js
-[0m
-[0m$ [0mdate +%Y%m%d_%H%M; ls ai_memory/ | grep -v 00_INDEX | wc -l
-20260813_0822
-4
-[0m
-Now let me create the memory log per `memory_prompt.md` protocol:
-[0m← [0mWrite ai_memory/task_20260813_0822_button_markdown.md
-Wrote file successfully.
-[0m
-[0m← [0mEdit ai_memory/00_INDEX.md
-Index: /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
-===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
-+++ /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
-@@ -1,8 +1,8 @@
- # AI MEMORY MASTER INDEX
- 
- ## Status Proyek Terkini
--Subpath imports lengkap: `#func`, `#scrap`, `#utils` (folder fisik `lib/Function`, `lib/Scraper`, `lib/Utils`). Utility umum dipindah ke `lib/Utils/` dan di-bridge ke `Func` agar backward-compatible; scraper root (`lib/Scraper.js`) jadi shim re-export atas `Scrap`. Context plugin kini menyediakan `func/scrap/utils` (lowercase) selain `Func/Scrap/Utils`. Helper Native Flow selesai: `sendInteractiveMessage`, `sendButton`, `sendList`, `sendSections`, `sendCard`, `sendCarousel` via `#func` + bind ke `sock.*` + context plugin; Binary Node `biz`+`bot` (private) / `biz` (group) dengan fallback teks. `node --check` + smoke test runtime + boot smoke test lulus.
-+Subpath imports lengkap: `#func`, `#scrap`, `#utils` (folder fisik `lib/Function`, `lib/Scraper`, `lib/Utils`). Utility umum dipindah ke `lib/Utils/` dan di-bridge ke `Func` agar backward-compatible; scraper root (`lib/Scraper.js`) jadi shim re-export atas `Scrap`. Context plugin kini menyediakan `func/scrap/utils` (lowercase) selain `Func/Scrap/Utils`. Helper Native Flow selesai: `sendInteractiveMessage`, `sendButton`, `sendList`, `sendSections`, `sendCard`, `sendCarousel` via `#func` + bind ke `sock.*` + context plugin; Binary Node `biz`+`bot` (private) / `biz` (group) dengan fallback teks. Helper Markdown AI baru: `Func.formatMarkdown`/`parseAIMessage` (code-block cleanup, tabel→box-drawing, pembersihan escape). Button legacy di `menu.js` (style 2-9) & `manage-bot.js` (`setmodel`) dimigrasikan ke helper baru; helper kini dukung header media (`image`/`video`) + pemanggilan posisi `sock.sendButton(jid, text, buttons, m)`. Chatbot (`plugins/ai/_chatbot.js`, `lib/Scraper/_chatbot.js`) pakai `formatMarkdown` + fallback, hapus `richResponse`/`tokenizeCode`. `node --check` + smoke test markdown (5) + smoke test button (12) + boot smoke test lulus.
- 
- ## Riwayat Log Tugas
- 
- | # | Tanggal | File Log | Ringkasan |
+\ No newline at end of file
 
 [0m
-[0m← [0mEdit ai_memory/00_INDEX.md
-Index: /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
+Now let me verify syntax of all changed files
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && for f in plugins/menu.js plugins/other/commands.js plugins/other/pricing.js plugins/owner/manage-bot.js lib/Function/message.js lib/Function/Utilities.js; do node --check "$f" && echo "OK: $f" || echo "FAIL: $f"; done
+OK: plugins/menu.js
+OK: plugins/other/commands.js
+OK: plugins/other/pricing.js
+OK: plugins/owner/manage-bot.js
+OK: lib/Function/message.js
+OK: lib/Function/Utilities.js
+[0m
+Let me test that the generated PPTX buffer is a valid zip archive by reproducing the zip generation
+[0m$ [0mcd /tmp/opencode/baileys-check && node -e "
+const { strToU8, zipSync, unzipSync } = require('fflate');
+const files = {
+  '[Content_Types].xml': '<?xml version=\"1.0\"?><Types/>',
+  '_rels/.rels': '<?xml version=\"1.0\"?><Relationships/>',
+  'ppt/presentation.xml': '<?xml version=\"1.0\"?><p:presentation/>',
+  'ppt/slides/slide1.xml': '<?xml version=\"1.0\"?><p:sld/>',
+  'ppt/slideMasters/slideMaster1.xml': 'x',
+  'ppt/theme/theme1.xml': 'x',
+  'docProps/core.xml': 'x',
+  'docProps/app.xml': 'x',
+  'ppt/_rels/presentation.xml.rels': 'x',
+  'ppt/slides/_rels/slide1.xml.rels': 'x',
+  'ppt/slideLayouts/slideLayout1.xml': 'x',
+  'ppt/slideLayouts/_rels/slideLayout1.xml.rels': 'x',
+  'ppt/slideMasters/_rels/slideMaster1.xml.rels': 'x'
+};
+const entries = {};
+for (const n in files) entries[n] = strToU8(files[n]);
+const buf = Buffer.from(zipSync(entries));
+console.log('zip bytes:', buf.length, 'magic:', buf.slice(0,2).toString('hex'));
+const back = unzipSync(new Uint8Array(buf));
+console.log('unzipped files:', Object.keys(back).length);
+console.log('slide1 roundtrip OK:', new TextDecoder().decode(back['ppt/slides/slide1.xml']) === files['ppt/slides/slide1.xml']);
+"
+zip bytes: 1858 magic: 504b
+unzipped files: 13
+slide1 roundtrip OK: true
+[0m
+[0m→ [0mRead lib/Function/message.js[90m [offset=238, limit=260][0m
+Let me review the final state of message.js to ensure consistency:
+Let me run a smoke test of the document header flow using the real baileys `prepareWAMessageMedia` with a generated PPTX buffer
+[0m
+[0m$ [0mcd /tmp/opencode/baileys-check && node --input-type=module -e "
+import { prepareWAMessageMedia, generateWAMessageFromContent } from 'baileys';
+import { strToU8, zipSync } from 'fflate';
+
+// Rebuild a minimal PPTX buffer (same approach as Func.createMenuDocument)
+const files = {
+  '[Content_Types].xml': '<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Types xmlns=\"http://schemas.openxmlformats.org/package/2006/content-types\"><Default Extension=\"rels\" ContentType=\"application/vnd.openxmlformats-package.relationships+xml\"/><Default Extension=\"xml\" ContentType=\"application/xml\"/><Override PartName=\"/ppt/presentation.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml\"/><Override PartName=\"/ppt/slides/slide1.xml\" ContentType=\"application/vnd.openxmlformats-officedocument.presentationml.slide+xml\"/></Types>',
+  '_rels/.rels': '<?xml version=\"1.0\"?><Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\"><Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"ppt/presentation.xml\"/></Relationships>',
+  'ppt/presentation.xml': '<?xml version=\"1.0\"?><p:presentation/>',
+  'ppt/slides/slide1.xml': '<?xml version=\"1.0\"?><p:sld/>'
+};
+const entries = {};
+for (const n in files) entries[n] = strToU8(files[n]);
+const pptxBuffer = Buffer.from(zipSync(entries));
+
+// Mock upload
+const uploaded = { mediaUrl: 'https://mmg.whatsapp.net/f/abc123', directPath: '/f/abc123' };
+let uploadCalled = false;
+const sock = { waUploadToServer: async () => { uploadCalled = true; return uploaded; } };
+
+// Simulate prepareMedia for document
+const media = await prepareWAMessageMedia({
+  document: { ...(Buffer.isBuffer(pptxBuffer) ? { buffer: pptxBuffer } : pptxBuffer), fileName: 'ROCKYY - Menu.pptx', mimetype: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', jpegThumbnail: Buffer.from('ffd8ffd8', 'hex') }
+}, { upload: sock.waUploadToServer });
+
+console.log('uploadCalled:', uploadCalled);
+console.log('keys:', Object.keys(media));
+console.log('documentMessage.url:', media.documentMessage?.url);
+console.log('fileName:', media.documentMessage?.fileName);
+console.log('mimetype:', media.documentMessage?.mimetype);
+console.log('has jpegThumbnail:', !!media.documentMessage?.jpegThumbnail);
+
+// Build the interactive header + wrap message (like relayInteractive)
+const interactiveMessage = {
+  body: { text: 'Halo' },
+  footer: { text: 'footer' },
+  header: { title: 'Menu', hasMediaAttachment: !!media, ...media },
+  contextInfo: {},
+  nativeFlowMessage: { buttons: [{ name: 'quick_reply', buttonParamsJson: '{\"display_text\":\"All Menu\",\"id\":\".allmenu\"}' }], messageVersion: 1 }
+};
+const wrapped = generateWAMessageFromContent('6281234567890@s.whatsapp.net', { interactiveMessage }, { userJid: '6281347951754@s.whatsapp.net' });
+console.log('wrapped has interactiveMessage:', !!wrapped.message.interactiveMessage);
+console.log('wrapped header hasMediaAttachment:', wrapped.message.interactiveMessage.header.hasMediaAttachment);
+console.log('wrapped header has documentMessage:', !!wrapped.message.interactiveMessage.header.documentMessage);
+"
+file:///tmp/opencode/baileys-check/node_modules/baileys/lib/Utils/messages-media.js:256
+    const urlStr = item.url.toString();
+                            ^
+
+TypeError: Cannot read properties of undefined (reading 'toString')
+    at getStream (file:///tmp/opencode/baileys-check/node_modules/baileys/lib/Utils/messages-media.js:256:29)
+    at encryptedStream (file:///tmp/opencode/baileys-check/node_modules/baileys/lib/Utils/messages-media.js:310:36)
+    at prepareWAMessageMedia (file:///tmp/opencode/baileys-check/node_modules/baileys/lib/Utils/messages.js:139:102)
+    at file:///tmp/opencode/baileys-check/[eval1]:22:21
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:282:26)
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:278:20)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:117:5)
+
+Node.js v22.23.2
+[0m
+[0m← [0mEdit lib/Function/message.js
+Index: /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
 ===================================================================
---- /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
-+++ /home/runner/work/roccky_bot/roccky_bot/ai_memory/00_INDEX.md
-@@ -10,4 +10,5 @@
- | 1 | 2026-08-13 | `task_20260813_0300_refactor_cleanup.md` | Refactor: hapus duplikasi, extraction maintenance, rapi SocketClient/Serialize |
- | 2 | 2026-08-13 | `task_20260813_0400_new_features.md` | 10 plugin baru dari Baileys API yang belum dipakai, lengkap dgn hak akses & try-catch |
- | 3 | 2026-08-13 | `task_20260813_0457_subpath_utils.md` | Subpath imports `#utils` + reorganisasi modul `lib/Function|Scraper|Utils`, context `func/scrap/utils` |
- | 4 | 2026-08-13 | `task_20260813_0541_native_flow.md` | Helper Native Flow interactive (`lib/Function/message.js`), bind `sock.*`, context plugin, contoh plugin, fallback teks |
-+| 5 | 2026-08-13 | `task_20260813_0822_button_markdown.md` | Migrasi button legacy (menu.js, manage-bot.js), helper Markdown AI `formatMarkdown`/`parseAIMessage`, header media + posisi args helper, chatbot pakai parser terpusat |
+--- /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
++++ /home/runner/work/roccky_bot/roccky_bot/lib/Function/message.js
+@@ -255,26 +255,25 @@
+ const prepareMedia = async (sock, kind, media, options = {}) => {
+    if (!media) return null
+ 
+    try {
+-      const source =
+-         typeof media === 'string'
+-            ? { [kind]: { url: media } }
+-            : { [kind]: media }
++      // Buffer -> langsung; string URL -> bungkus { url }.
++      const messageContent = {
++         [kind]: typeof media === 'string' ? { url: media } : media
++      }
+ 
+       // Dokumen (PPT/PDF/dll.) butuh metadata agar header native flow tampil
+       // benar: fileName, mimetype, dan jpegThumbnail (tanpa null pointer).
+       if (kind === 'document') {
+-         const document = typeof media === 'string' ? { url: media } : media
+-         source.document = {
+-            ...document,
+-            ...(options.fileName ? { fileName: options.fileName } : {}),
+-            ...(options.mimetype ? { mimetype: options.mimetype } : {}),
+-            ...(options.jpegThumbnail ? { jpegThumbnail: options.jpegThumbnail } : {})
+-         }
++         if (options.fileName)
++            messageContent.fileName = options.fileName
++         if (options.mimetype)
++            messageContent.mimetype = options.mimetype
++         if (options.jpegThumbnail)
++            messageContent.jpegThumbnail = options.jpegThumbnail
+       }
+ 
+-      return await prepareWAMessageMedia(source, {
++      return await prepareWAMessageMedia(messageContent, {
+          upload: sock.waUploadToServer
+       })
+    }
+    catch (error) {
 
 [0m
-Memory log saved. Final verification of all changes:
-[0m$ [0mgit diff --stat -- lib/ plugins/ ai_memory/ 2>/dev/null | grep -v ai-response; echo "---"; git status --short | grep -v ai-response-recap.txt
-ai_memory/00_INDEX.md       |   3 +-
- lib/Function/message.js     |  56 +++++--
- lib/Scraper/_chatbot.js     |  59 ++-----
- plugins/ai/_chatbot.js      |  59 ++-----
- plugins/menu.js             | 364 ++++++++++++++++++++------------------------
- plugins/owner/manage-bot.js |  38 +++--
- 6 files changed, 251 insertions(+), 328 deletions(-)
----
- M ai_memory/00_INDEX.md
- M lib/Function/message.js
- M lib/Scraper/_chatbot.js
- M package.json
- M plugins/ai/_chatbot.js
- M plugins/menu.js
- M plugins/owner/manage-bot.js
-?? ai_memory/task_20260813_0822_button_markdown.md
-?? lib/Function/markdown.js
+The test revealed a real bug in my `prepareMedia` — spreading a Buffer into an object loses the media. The metadata (fileName/mimetype/jpegThumbnail) must go at the top level of the message content. Let me fix it
+Now let me re-run the smoke test with the corrected approach (top-level metadata + Buffer document
+[0m$ [0mcd /tmp/opencode/baileys-check && node --input-type=module -e "
+import { prepareWAMessageMedia, generateWAMessageFromContent } from 'baileys';
+import { strToU8, zipSync } from 'fflate';
+
+const files = {
+  '[Content_Types].xml': '<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><Types/>',
+  '_rels/.rels': '<?xml version=\"1.0\"?><Relationships/>',
+  'ppt/presentation.xml': '<?xml version=\"1.0\"?><p:presentation/>',
+  'ppt/slides/slide1.xml': '<?xml version=\"1.0\"?><p:sld/>'
+};
+const entries = {};
+for (const n in files) entries[n] = strToU8(files[n]);
+const pptxBuffer = Buffer.from(zipSync(entries));
+
+const uploaded = { mediaUrl: 'https://mmg.whatsapp.net/f/abc123', directPath: '/f/abc123' };
+const sock = { waUploadToServer: async () => uploaded };
+
+// Correct: Buffer media + top-level metadata (mimics fixed prepareMedia)
+const media = await prepareWAMessageMedia({
+  document: pptxBuffer,
+  fileName: 'ROCKYY - Menu.pptx',
+  mimetype: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+  jpegThumbnail: Buffer.from('ffd8ffd8', 'hex')
+}, { upload: sock.waUploadToServer });
+
+console.log('keys:', Object.keys(media));
+console.log('url:', media.documentMessage?.url);
+console.log('fileName:', media.documentMessage?.fileName);
+console.log('mimetype:', media.documentMessage?.mimetype);
+console.log('has jpegThumbnail:', !!media.documentMessage?.jpegThumbnail);
+
+const interactiveMessage = {
+  body: { text: 'Halo' },
+  footer: { text: 'footer' },
+  header: { title: 'Menu', hasMediaAttachment: !!media, ...media },
+  contextInfo: {},
+  nativeFlowMessage: { buttons: [{ name: 'quick_reply', buttonParamsJson: '{\"display_text\":\"All Menu\",\"id\":\".allmenu\"}' }], messageVersion: 1 }
+};
+const wrapped = generateWAMessageFromContent('6281234567890@s.whatsapp.net', { interactiveMessage }, { userJid: '6281347951754@s.whatsapp.net' });
+console.log('wrapped interactiveMessage:', !!wrapped.message.interactiveMessage);
+console.log('wrapped header hasMediaAttachment:', wrapped.message.interactiveMessage.header.hasMediaAttachment);
+console.log('wrapped header has documentMessage:', !!wrapped.message.interactiveMessage.header.documentMessage);
+"
+keys: [ 'documentMessage' ]
+url: https://mmg.whatsapp.net/f/abc123
+fileName: ROCKYY - Menu.pptx
+mimetype: application/vnd.openxmlformats-officedocument.presentationml.presentation
+has jpegThumbnail: true
+wrapped interactiveMessage: true
+wrapped header hasMediaAttachment: true
+wrapped header has documentMessage: true
+[0m
+[0m$ [0mcd /tmp/opencode/baileys-check && node --input-type=module -e "
+import { prepareWAMessageMedia } from 'baileys';
+// URL document source + top-level metadata
+const media = await prepareWAMessageMedia({
+  document: { url: 'https://example.com/menu.pptx' },
+  fileName: 'ROCKYY - Menu.pptx',
+  mimetype: 'application/vnd.ms-powerpoint'
+}, { upload: async () => ({ mediaUrl: 'https://mmg.whatsapp.net/f/xyz', directPath: '/f/xyz' }) });
+console.log('url source ok:', media.documentMessage?.url, '| fileName:', media.documentMessage?.fileName, '| mimetype:', media.documentMessage?.mimetype);
+" 2>&1 | tail -3
+}
+
+Node.js v22.23.2
+[0m
+The document header flow works. Let me also verify the URL-based document source and re-check syntax
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && for f in plugins/menu.js plugins/other/commands.js plugins/other/pricing.js plugins/owner/manage-bot.js lib/Function/message.js lib/Function/Utilities.js; do node --check "$f" || echo "FAIL: $f"; done; echo "all checked"
+all checked
+[0m
+[0m$ [0mcd /tmp/opencode/baileys-check && node --input-type=module -e "
+import { prepareWAMessageMedia } from 'baileys';
+try {
+  await prepareWAMessageMedia({
+    document: { url: 'https://example.com/menu.pptx' },
+    fileName: 'x.pptx',
+    mimetype: 'application/vnd.ms-powerpoint'
+  }, { upload: async () => ({ mediaUrl: 'u', directPath: 'd' }) });
+  console.log('ok');
+} catch (e) {
+  console.log('caught:', e.constructor.name, '-', String(e.message).slice(0, 80));
+}
+" 2>&1 | grep "caught"
+caught: Error - Failed to fetch stream from https://example.com/menu.pptx
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && tail -20 lib/Function/Utilities.js
+</a:theme>`,
+      'docProps/core.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dc:title>${title}</dc:title>
+  <dc:creator>ROCKYY</dc:creator>
+  <cp:lastModifiedBy>ROCKYY</cp:lastModifiedBy>
+</cp:coreProperties>`,
+      'docProps/app.xml': `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">
+  <Application>ROCKYY</Application>
+  <Slides>1</Slides>
+</Properties>`
+   }
+
+   const entries = {}
+   for (const name in files)
+      entries[name] = strToU8(files[name])
+
+   return Buffer.from(zipSync(entries))
+}
 [0m
 [0m# [0mTodos
-[✓] Baca & patuhi protokol memory_prompt.md (00_INDEX + 2 log terbaru)
-[✓] Buat helper parser Markdown AI (lib/Function/markdown.js): formatMarkdown, parseAIMessage, box-drawing table, code block cleanup, escape cleaning
-[✓] Enhance lib/Function/message.js: dukung image/video header + posisi args (sock.sendButton(jid, text, buttons, m))
-[✓] Migrasi plugins/menu.js (style 2-9) ke sock.sendSections/sendButton/sendCarousel
-[✓] Migrasi plugins/owner/manage-bot.js (setmodel) ke sock.sendSections
-[✓] Terapkan formatMarkdown di plugins/ai/_chatbot.js & lib/Scraper/_chatbot.js + try-catch fallback
-[✓] Verifikasi: node --check semua file berubah + smoke test helper
-[✓] Buat log baru di ai_memory/ + update 00_INDEX.md
+[✓] Fix ModuleCache iteration bug in getCommandRegistry (menu.js) so all categories render
+[✓] Fix same ModuleCache bug in commands.js, pricing.js, manage-bot.js
+[✓] Add document/PPT header support to lib/Function/message.js helpers (prepareMedia, sendInteractiveMessage, sendCard) + try-catch fallback
+[✓] Add Func.createMenuDocument (minimal PPTX via fflate) to lib/Function/Utilities.js
+[✓] Rewrite plugins/menu.js: bot status header, document headers for styles 6 & 8, try-catch + fallback for all interactive sends
+[✓] Verify syntax with node --check on all changed files
 [0m
-Semua tugas selesai. Berikut ringkasan sesuai output yang diharapkan.
+Let me update the todos and do a final review of all
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && git status && echo "---DIFFSTAT---" && git diff --stat
+On branch main
+Your branch is up to date with 'origin/main'.
 
-## 1. Konfirmasi Penerapan Aturan `memory_prompt.md`
-- Dibaca `00_INDEX.md` + 2 log terbaru (`task_..._0541_native_flow.md`) sebelum bekerja; tidak membaca seluruh folder sekaligus (hemat token). ✅
-- Setelah selesai: log baru dibuat `ai_memory/task_20260813_0822_button_markdown.md` (≤200 kata, format Status/Ringkasan/Next Steps) + `00_INDEX.md` diperbarui (baris riwayat #5 + Status Proyek Terkini). ✅
-- Jumlah log = 5 (< 10), belum perlu auto-archive. ✅
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ai-response-recap.txt
+	modified:   lib/Function/Utilities.js
+	modified:   lib/Function/message.js
+	modified:   plugins/menu.js
+	modified:   plugins/other/commands.js
+	modified:   plugins/other/pricing.js
+	modified:   plugins/owner/manage-bot.js
 
-## 2. Ringkasan Migrasi Button Legacy
-Seluruh penggunaan `nativeFlow`/`buttons`/`cards` di `sock.sendMessage` (struktur legacy yang deprecated) telah dipindah ke helper baru `sock.*`:
+no changes added to commit (use "git add" and/or "git commit -a")
+---DIFFSTAT---
+ ai-response-recap.txt       | 3114 ++++++++++++++++---------------------------
+ lib/Function/Utilities.js   |  196 ++-
+ lib/Function/message.js     |  165 ++-
+ plugins/menu.js             |  190 +--
+ plugins/other/commands.js   |    8 +-
+ plugins/other/pricing.js    |   22 +-
+ plugins/owner/manage-bot.js |   10 +-
+ 7 files changed, 1586 insertions(+), 2119 deletions(-)
+[0m
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && git diff --stat ai-response-recap.txt && git log --oneline -1 -- ai-response-recap.txt
+ai-response-recap.txt | 3138 +++++++++++++++++++------------------------------
+ 1 file changed, 1183 insertions(+), 1955 deletions(-)
+1211c0e Last Sync: 2026-08-13 15:54 (Mobile)
+[0m
+There's an unexpected modification to `ai-response-recap.txt`. Let me investigate
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && git diff plugins/other/commands.js plugins/other/pricing.js plugins/owner/manage-bot.js
+diff --git a/plugins/other/commands.js b/plugins/other/commands.js
+index 340104d..041d0ca 100644
+--- a/plugins/other/commands.js
++++ b/plugins/other/commands.js
+@@ -9,9 +9,11 @@ export default {
+       sock
+    }) {
+       const grouped = Object.create(null)
+-      for (const { command, category } of ModuleCache.values()) {
+-         if (!category) continue
+-         ;(grouped[category] ??= []).push(...toArray(command))
++      for (const modules of ModuleCache.values()) {
++         for (const { command, category } of modules) {
++            if (!category || !command) continue
++            ;(grouped[category] ??= []).push(...toArray(command))
++         }
+       }
+       const sortedGroups = Object.keys(grouped)
+          .sort()
+diff --git a/plugins/other/pricing.js b/plugins/other/pricing.js
+index dee695c..b84f3a6 100644
+--- a/plugins/other/pricing.js
++++ b/plugins/other/pricing.js
+@@ -33,16 +33,18 @@ export default {
+          isHeading: true,
+          items: ['Commands', 'Premium', 'Free']
+       }]
+-      for (const { command, premium } of ModuleCache.values()) {
+-         if (!premium) continue
+-         const isPremium = premium ? '✅' : '❌'
+-         const isFree = premium ? '❌' : '✅'
+-         const commands = toArray(command)
+-         for (let i = 0; i < commands.length; i++)
+-            tableCommands.push({
+-               isHeading: false,
+-               items: [commands[i], isPremium, isFree]
+-            })
++      for (const modules of ModuleCache.values()) {
++         for (const { command, premium } of modules) {
++            if (!premium) continue
++            const isPremium = premium ? '✅' : '❌'
++            const isFree = premium ? '❌' : '✅'
++            const commands = toArray(command)
++            for (let i = 0; i < commands.length; i++)
++               tableCommands.push({
++                  isHeading: false,
++                  items: [commands[i], isPremium, isFree]
++               })
++         }
+       }
+       const richResponse = isRentCommand ?
+          [{
+diff --git a/plugins/owner/manage-bot.js b/plugins/owner/manage-bot.js
+index 3c736f9..ecce3ab 100644
+--- a/plugins/owner/manage-bot.js
++++ b/plugins/owner/manage-bot.js
+@@ -261,10 +261,12 @@ export default {
+             return m.reply(`👉🏻 *Example*: ${isPrefix + command} claim`)
+          const commands = new Set()
+          for (const modules of ModuleCache.values()) {
+-            const cachedCommand = modules.command
+-            if (cachedCommand)
+-               for (const cmds of toArray(cachedCommand))
+-                  commands.add(cmds)
++            for (const module of modules) {
++               const cachedCommand = module.command
++               if (cachedCommand)
++                  for (const cmds of toArray(cachedCommand))
++                     commands.add(cmds)
++            }
+          }
+          if (!commands.has(cmd))
+             return m.reply('❌ Command not found.')
+[0m
+The `ai-response-recap.txt` change is pre-existing (from environment setup, last commit "Last Sync"), not from my edits. I'll leave it untouched. Let me do a final review of my actual code changes
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && git diff lib/Function/message.js
+diff --git a/lib/Function/message.js b/lib/Function/message.js
+index 1e0bcc3..af6190c 100644
+--- a/lib/Function/message.js
++++ b/lib/Function/message.js
+@@ -252,16 +252,27 @@ const buildNativeFlow = (buttons, messageParams = {}) => {
+    }
+ }
+ 
+-const prepareMedia = async (sock, kind, media) => {
++const prepareMedia = async (sock, kind, media, options = {}) => {
+    if (!media) return null
+ 
+    try {
+-      const source =
+-         typeof media === 'string'
+-            ? { [kind]: { url: media } }
+-            : { [kind]: media }
++      // Buffer -> langsung; string URL -> bungkus { url }.
++      const messageContent = {
++         [kind]: typeof media === 'string' ? { url: media } : media
++      }
++
++      // Dokumen (PPT/PDF/dll.) butuh metadata agar header native flow tampil
++      // benar: fileName, mimetype, dan jpegThumbnail (tanpa null pointer).
++      if (kind === 'document') {
++         if (options.fileName)
++            messageContent.fileName = options.fileName
++         if (options.mimetype)
++            messageContent.mimetype = options.mimetype
++         if (options.jpegThumbnail)
++            messageContent.jpegThumbnail = options.jpegThumbnail
++      }
+ 
+-      return await prepareWAMessageMedia(source, {
++      return await prepareWAMessageMedia(messageContent, {
+          upload: sock.waUploadToServer
+       })
+    }
+@@ -289,6 +300,10 @@ Func.sendInteractiveMessage = async (sock, jid, options = {}) => {
+       header = '',
+       image,
+       video,
++      document: documentSource,
++      fileName,
++      mimetype,
++      jpegThumbnail,
+       buttons = [],
+       contextInfo = {},
+       messageParams = {},
+@@ -297,36 +312,50 @@ Func.sendInteractiveMessage = async (sock, jid, options = {}) => {
+       relayOptions = {}
+    } = options
+ 
+-   const media = image
+-      ? await prepareMedia(sock, 'image', image)
+-      : video
+-         ? await prepareMedia(sock, 'video', video)
+-         : null
++   const fallbackText = toFallbackText({ text, footer, buttons })
+ 
+-   const interactiveMessage = {
+-      body: { text: String(text) },
+-      ...(footer ? { footer: { text: String(footer) } } : {}),
+-      header: {
+-         title: String(header || ''),
+-         hasMediaAttachment: !!media,
+-         ...(media || {})
+-      },
+-      contextInfo: contextInfo || {}
+-   }
++   try {
++      const media = documentSource
++         ? await prepareMedia(sock, 'document', documentSource, { fileName, mimetype, jpegThumbnail })
++         : image
++            ? await prepareMedia(sock, 'image', image)
++            : video
++               ? await prepareMedia(sock, 'video', video)
++               : null
++
++      const interactiveMessage = {
++         body: { text: String(text) },
++         ...(footer ? { footer: { text: String(footer) } } : {}),
++         header: {
++            title: String(header || ''),
++            hasMediaAttachment: !!media,
++            ...(media || {})
++         },
++         contextInfo: contextInfo || {}
++      }
+ 
+-   const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
++      const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
+ 
+-   if (!nativeFlowMessage)
+-      return sock.sendText(jid, text, quoted, { footer })
++      if (!nativeFlowMessage)
++         return sock.sendText(jid, text, quoted, { footer })
+ 
+-   interactiveMessage.nativeFlowMessage = nativeFlowMessage
++      interactiveMessage.nativeFlowMessage = nativeFlowMessage
+ 
+-   return relayInteractive(sock, jid, interactiveMessage, {
+-      quoted,
+-      fallback,
+-      fallbackText: toFallbackText({ text, footer, buttons }),
+-      relayOptions
+-   })
++      return relayInteractive(sock, jid, interactiveMessage, {
++         quoted,
++         fallback,
++         fallbackText,
++         relayOptions
++      })
++   }
++   catch (error) {
++      console.error('❌ sendInteractiveMessage error:', error)
++
++      if (!fallback)
++         throw error
++
++      return sock.sendText(jid, fallbackText, quoted)
++   }
+ }
+ 
+ /**
+@@ -417,6 +446,10 @@ Func.sendCard = async (sock, jid, options = {}) => {
+       header = '',
+       image,
+       video,
++      document: documentSource,
++      fileName,
++      mimetype,
++      jpegThumbnail,
+       buttons = [],
+       contextInfo = {},
+       messageParams = {},
+@@ -425,40 +458,54 @@ Func.sendCard = async (sock, jid, options = {}) => {
+       relayOptions = {}
+    } = options
+ 
+-   const interactiveMessage = {
+-      body: { text: String(text) },
+-      ...(footer ? { footer: { text: String(footer) } } : {}),
+-      contextInfo: contextInfo || {},
+-      header: {
+-         title: String(header || ''),
+-         hasMediaAttachment: false
++   const fallbackText = toFallbackText({ text, footer, buttons })
++
++   try {
++      const interactiveMessage = {
++         body: { text: String(text) },
++         ...(footer ? { footer: { text: String(footer) } } : {}),
++         contextInfo: contextInfo || {},
++         header: {
++            title: String(header || ''),
++            hasMediaAttachment: false
++         }
+       }
+-   }
+ 
+-   const media = image
+-      ? await prepareMedia(sock, 'image', image)
+-      : video
+-         ? await prepareMedia(sock, 'video', video)
+-         : null
+-
+-   if (media) {
+-      interactiveMessage.header = {
+-         title: String(header || ''),
+-         hasMediaAttachment: true,
+-         ...media
++      const media = documentSource
++         ? await prepareMedia(sock, 'document', documentSource, { fileName, mimetype, jpegThumbnail })
++         : image
++            ? await prepareMedia(sock, 'image', image)
++            : video
++               ? await prepareMedia(sock, 'video', video)
++               : null
++
++      if (media) {
++         interactiveMessage.header = {
++            title: String(header || ''),
++            hasMediaAttachment: true,
++            ...media
++         }
+       }
++
++      const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
++      if (nativeFlowMessage)
++         interactiveMessage.nativeFlowMessage = nativeFlowMessage
++
++      return relayInteractive(sock, jid, interactiveMessage, {
++         quoted,
++         fallback,
++         fallbackText,
++         relayOptions
++      })
+    }
++   catch (error) {
++      console.error('❌ sendCard error:', error)
+ 
+-   const nativeFlowMessage = buildNativeFlow(buttons, messageParams)
+-   if (nativeFlowMessage)
+-      interactiveMessage.nativeFlowMessage = nativeFlowMessage
++      if (!fallback)
++         throw error
+ 
+-   return relayInteractive(sock, jid, interactiveMessage, {
+-      quoted,
+-      fallback,
+-      fallbackText: toFallbackText({ text, footer, buttons }),
+-      relayOptions
+-   })
++      return sock.sendText(jid, fallbackText, quoted)
++   }
+ }
+ 
+ /**
+[0m
+[0m✱ [0mGrep "ModuleCache"[90m 18 matches[0m
+Let me do a final search for any other ModuleCache usage patterns to ensure completeness
+[0m→ [0mRead lib/Components/QuizFactory.js
+Important discovery — QuizFactory sets single objects into ModuleCache, not arrays. Let me check
+[0m
+[0m← [0mEdit plugins/menu.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/menu.js
+@@ -24,12 +24,14 @@
+ const commandsSet = new Set()
+ const categoriesSet = new Set()
+ const grouped = {}
+ 
+-// ModuleCache menyimpan array modul per file. Iterasi setiap modul secara
+-// terpisah agar semua tag/kategori terdeteksi (bukan ter-filter satu saja).
++// ModuleCache berisi campuran array (hasil load file) dan objek tunggal
++// (hasil registrasi game). Normalisasi keduanya agar semua tag/kategori
++// terdeteksi (bukan ter-filter satu saja).
+ for (const modules of ModuleCache.values()) {
+-   for (const module of modules) {
++   const moduleList = Array.isArray(modules) ? modules : [modules]
++   for (const module of moduleList) {
+       const { command: cachedCommand, category } = module
+ 
+       if (cachedCommand)
+          for (const cmd of Func.toArray(cachedCommand))
 
-| File | Yang dimigrasikan | Helper baru |
-|---|---|---|
-| `plugins/menu.js` | Style menu 2–9 (single_select, mixed quick reply, carousel) | `sock.sendSections`, `sock.sendButton`, `sock.sendCarousel` |
-| `plugins/owner/manage-bot.js` | `setmodel` (nativeFlow list) | `sock.sendSections` |
+[0m
+[0m← [0mEdit plugins/other/commands.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/other/commands.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/other/commands.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/other/commands.js
+@@ -9,9 +9,10 @@
+    sock
+ }) {
+    const grouped = Object.create(null)
+    for (const modules of ModuleCache.values()) {
+-      for (const { command, category } of modules) {
++      const moduleList = Array.isArray(modules) ? modules : [modules]
++      for (const { command, category } of moduleList) {
+          if (!category || !command) continue
+          ;(grouped[category] ??= []).push(...toArray(command))
+       }
+    }
 
-Dukungan pendukung di `lib/Function/message.js`:
-- `sendInteractiveMessage`/`sendButton`/`sendList` kini menerima header media `image`/`video` (gambar menu tetap tampil).
-- Pemanggilan posisi sesuai contoh protokol: `await sock.sendButton(m.chat, text, buttons, m)` — didukung juga bentuk objek `sock.sendButton(m.chat, { text, buttons, quoted: m })`.
+[0m
+[0m← [0mEdit plugins/other/pricing.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/other/pricing.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/other/pricing.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/other/pricing.js
+@@ -33,9 +33,10 @@
+    isHeading: true,
+    items: ['Commands', 'Premium', 'Free']
+ }]
+ for (const modules of ModuleCache.values()) {
+-   for (const { command, premium } of modules) {
++   const moduleList = Array.isArray(modules) ? modules : [modules]
++   for (const { command, premium } of moduleList) {
+       if (!premium) continue
+       const isPremium = premium ? '✅' : '❌'
+       const isFree = premium ? '❌' : '✅'
+       const commands = toArray(command)
 
-## 3. Helper Parser Markdown (`lib/Function/markdown.js`)
+[0m
+[0m← [0mEdit plugins/owner/manage-bot.js
+Index: /home/runner/work/roccky_bot/roccky_bot/plugins/owner/manage-bot.js
+===================================================================
+--- /home/runner/work/roccky_bot/roccky_bot/plugins/owner/manage-bot.js
++++ /home/runner/work/roccky_bot/roccky_bot/plugins/owner/manage-bot.js
+@@ -260,9 +260,10 @@
+ if (!cmd)
+    return m.reply(`👉🏻 *Example*: ${isPrefix + command} claim`)
+ const commands = new Set()
+ for (const modules of ModuleCache.values()) {
+-   for (const module of modules) {
++   const moduleList = Array.isArray(modules) ? modules : [modules]
++   for (const module of moduleList) {
+       const cachedCommand = module.command
+       if (cachedCommand)
+          for (const cmds of toArray(cachedCommand))
+             commands.add(cmds)
 
-Fungsi utama: `Func.formatMarkdown(text, opts)` → string teks siap kirim; `Func.parseAIMessage` (alias, dgn `asSegments:true`), `Func.parseMarkdownSegments`, dan `Func.sendAI` (kirim + try-catch fallback). Logika inti:
+[0m
+Critical finding — `QuizFactory` stores single objects in `ModuleCache` while `loadModule` stores arrays. My iteration would crash on the object entries. I need to normalize both shapes. Let me fix all four files
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && for f in plugins/menu.js plugins/other/commands.js plugins/other/pricing.js plugins/owner/manage-bot.js; do node --check "$f" || echo "FAIL: $f"; done; echo "syntax ok"
+syntax ok
+[0m
+[0m$ [0mnode --input-type=module -e "
+// Replicate getCommandRegistry logic with mixed ModuleCache values
+const ModuleCache = new Map();
+// File-loaded: array of modules
+ModuleCache.set('plugins/menu.js', [{ command: ['menu','help'], category: 'tools' }]);
+ModuleCache.set('plugins/ai/gpt.js', [{ command: 'gpt', category: 'ai' }]);
+// QuizFactory: single objects
+ModuleCache.set('brainout', { command: 'brainout', category: 'games' });
+ModuleCache.set('clue-brainout', { command: 'cluebrain' });
+ModuleCache.set('_brainout', { run(){} });
 
-```js
-// a) Code block: buang header bahasa, pertahankan ``` bawaan WA
-const FENCE_ANY_REGEX = /^(`{3,}|~{3,})(\w[\w-]*)?\s*$/
-const cleanFenceLine = (line) => (line.match(FENCE_ANY_REGEX) ? '```' : line)
-
-// b) Tabel -> box-drawing monospace
-┌──────┬───────┬────────┐
-│ Nama │ Nilai │ Status │
-├──────┼───────┼────────┤
-│ Budi │ 85    │ Lulus  │
-└──────┴───────┴────────┘
-
-// c) Pembersihan escape & penyeimbang marker
-const UNESCAPE_MAP = /\\([*_~`\[\]()#+\-.|>\\])/g   // \* -> *
-out = balanceMarker(out, '*')                       // ganjil -> escape terakhir
-out = linkToPlain(out)                              // [t](u) -> "t (u)"
-```
-
-Contoh penerapan pada pengiriman pesan AI (dipakai di `plugins/ai/_chatbot.js` & `lib/Scraper/_chatbot.js`, duplikasi `parseMarkdown`+`richResponse` dihapus):
-
-```js
-await sock.sendMessage(m.chat, { delete: thinking.key })
-const cleaned = Func.formatMarkdown(aiResponse)
-try {
-   await sock.sendMessage(m.chat, { text: cleaned }, { quoted: m })
-} catch (error) {
-   await sock.sendMessage(m.chat, { text: aiResponse }, { quoted: m })   // fallback teks mentah
+const toArray = (v) => typeof v === 'string' ? [v] : Array.isArray(v) ? v : [];
+const commandsSet = new Set(), categoriesSet = new Set(), grouped = {};
+for (const modules of ModuleCache.values()) {
+  const moduleList = Array.isArray(modules) ? modules : [modules];
+  for (const module of moduleList) {
+    const { command: cachedCommand, category } = module;
+    if (cachedCommand) for (const cmd of toArray(cachedCommand)) commandsSet.add(cmd);
+    if (category && cachedCommand) {
+      categoriesSet.add(category);
+      grouped[category] ??= [];
+      grouped[category].push(...toArray(cachedCommand));
+    }
+  }
 }
-```
+console.log('commands:', [...commandsSet].sort());
+console.log('categories:', [...categoriesSet].sort());
+console.log('grouped:', JSON.stringify(grouped));
+"
+commands: [ 'brainout', 'cluebrain', 'gpt', 'help', 'menu' ]
+categories: [ 'ai', 'games', 'tools' ]
+grouped: {"tools":["menu","help"],"ai":["gpt"],"games":["brainout"]}
+[0m
+Let me verify syntax and run a functional test simulating the mixed ModuleCache content
+All categories now detected correctly, including the `games` category from QuizFactory. Final syntax check on all modified files
+[0m$ [0mcd /home/runner/work/roccky_bot/roccky_bot && for f in plugins/menu.js plugins/other/commands.js plugins/other/pricing.js plugins/owner/manage-bot.js lib/Function/message.js lib/Function/Utilities.js; do node --check "$f" && echo "OK: $f" || echo "FAIL: $f"; done
+OK: plugins/menu.js
+OK: plugins/other/commands.js
+OK: plugins/other/pricing.js
+OK: plugins/owner/manage-bot.js
+OK: lib/Function/message.js
+OK: lib/Function/Utilities.js
+[0m
+All changes complete and verified. Here's a summary of what was done across the 5 task points:
 
-## Verifikasi
-- `node --check` 6 file lulus; smoke test markdown 5 kasus & smoke test button 12 kasus lulus (node biz+bot private / biz group, fallback list, `fallback:false` throw, image header).
-- Boot `node socket.js`: `markdown.js`/`message.js`/`_chatbot.js`/`manage-bot.js` ter-muat OK, pairing jalan. Catatan: `lib/Function/tokenizeCode.js` gagal dimuat karena `tokenizeCode` tak diekspor baileys standar — ini pre-existing dan sudah tidak dipakai lagi (diusulkan dihapus di Next Steps).
+## 1. Category Filter Bug — FIXED
+Root cause: `ModuleCache` maps `filePath → array of modules`, but `getCommandRegistry()` in `plugins/menu.js` destructured `command`/`category` directly off the array → always `undefined`, so no categories/commands rendered. Also `QuizFactory` stores *single* module objects in the same map, so iteration must handle both shapes.
+- `plugins/menu.js:30` — `getCommandRegistry()` now normalizes both array & single-object entries → all categories (ai, download, explore, group, maker, tools, owner, partner, admin tools, user info, games, etc.) render dynamically.
+- Same bug fixed in `plugins/other/commands.js`, `plugins/other/pricing.js` (premium table), and `plugins/owner/manage-bot.js` (`disable` command).
+
+## 2. PPT/Document Media Header — FIXED
+- `lib/Function/message.js` — `prepareMedia()` now supports `document` kind with top-level `fileName`, `mimetype`, `jpegThumbnail` (Buffer-safe, verified against real baileys `prepareWAMessageMedia` + `generateWAMessageFromContent`).
+- `lib/Function/Utilities.js` — added `Func.createMenuDocument()` which builds a real minimal PPTX buffer via `fflate.zipSync` (no external URL dependency → no null pointer / media cancellation).
+- `plugins/menu.js:81` — styles 6 & 8 now use a document header: style 6 → `application/vnd.openxmlformats-officedocument.presentationml.presentation` (`.pptx`), style 8 → `application/vnd.ms-powerpoint` (`.ppt`), correct `fileName`, plus resized `jpegThumbnail`.
+
+## 3. Bot Status Header — DONE
+`plugins/menu.js:59` `buildStatusHeader()` shows Users (`db.users?.size`), Commands (`commands.length`), Uptime (`Func.toTime(process.uptime()*1000)`), RAM (`Func.formatSize(process.memoryUsage().rss)`), Mode (`Public/Self`) — injected into the main menu, category view, and allmenu.
+
+## 4. Button Helper Migration — VERIFIED
+No legacy `buttonsMessage`/`templateMessage` construction remains in plugins; everything already routes through the centralized `sock.sendButton`/`sendSections`/`sendList`/`sendInteractiveMessage`/`sendCard`/`sendCarousel`. The only `buttonsMessage`/`templateMessage` reference is `plugins/group/_anti-bot.js`, which *detects* those incoming types (correctly kept).
+
+## 5. Safe Fallback & Error Handling — DONE
+- `sendInteractiveMessage`/`sendCard` wrapped in try-catch → fallback to clean text list via `toFallbackText`; `prepareMedia` catches prep errors and returns null gracefully.
+- `plugins/menu.js:100` `safeSend(m, fallback, fn)` wraps every interactive menu send with try-catch + plain-text fallback.
+
+All 6 modified files pass `node --check`. (Note: `ai-response-recap.txt` shows as modified in `git status` but that's a pre-existing working-tree change from environment setup, not from this work.)

@@ -9,9 +9,12 @@ export default {
       sock
    }) {
       const grouped = Object.create(null)
-      for (const { command, category } of ModuleCache.values()) {
-         if (!category) continue
-         ;(grouped[category] ??= []).push(...toArray(command))
+      for (const modules of ModuleCache.values()) {
+         const moduleList = Array.isArray(modules) ? modules : [modules]
+         for (const { command, category } of moduleList) {
+            if (!category || !command) continue
+            ;(grouped[category] ??= []).push(...toArray(command))
+         }
       }
       const sortedGroups = Object.keys(grouped)
          .sort()

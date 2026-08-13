@@ -261,10 +261,13 @@ export default {
             return m.reply(`👉🏻 *Example*: ${isPrefix + command} claim`)
          const commands = new Set()
          for (const modules of ModuleCache.values()) {
-            const cachedCommand = modules.command
-            if (cachedCommand)
-               for (const cmds of toArray(cachedCommand))
-                  commands.add(cmds)
+            const moduleList = Array.isArray(modules) ? modules : [modules]
+            for (const module of moduleList) {
+               const cachedCommand = module.command
+               if (cachedCommand)
+                  for (const cmds of toArray(cachedCommand))
+                     commands.add(cmds)
+            }
          }
          if (!commands.has(cmd))
             return m.reply('❌ Command not found.')
