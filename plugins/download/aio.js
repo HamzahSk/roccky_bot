@@ -3,7 +3,7 @@ export default {
    command: ['aio', 'alldl'],
    hidden: ['anydl'],
    category: 'download',
-   async run(m, { sock, isPrefix, command, args, Func, Scrap }) {
+   async run(m, { sock, isPrefix, command, args, func, scrap }) {
       try {
          // 1. Cari URL dan ekstrak argumen custom
          const targetUrl = args.find(v => v.match(/^https?:\/\//))
@@ -18,7 +18,7 @@ export default {
          const customType = typeIndex !== -1 && args[typeIndex + 1] ? args[typeIndex + 1].toLowerCase() : null
 
          // 2. Ambil info media langsung menggunakan modul scraper internal (Ganti Step 1 API)
-         const json = await Scrap.socialDl(targetUrl);
+         const json = await scrap.socialDl(targetUrl);
 
          if (!json?.success || !json?.result?.medias?.length) {
              return m.reply('❌ Gagal mendapatkan metadata atau media tidak ditemukan.')
@@ -53,7 +53,7 @@ export default {
          // 4. Resolve URL menggunakan fungsi internal jika memerlukan rendering (Ganti Step 2 API)
          let downloadUrl = selectedMedia.url
          if (selectedMedia.requires_rendering || downloadUrl.startsWith('savenow:')) {
-            const resolveJson = await Scrap.resolveSaveNow(targetUrl, selectedMedia.url);
+            const resolveJson = await scrap.resolveSaveNow(targetUrl, selectedMedia.url);
             
             if (!resolveJson?.success || !resolveJson?.downloadUrl) {
                 return m.reply('❌ Gagal meresolve link download via SaveNow.')
@@ -75,7 +75,7 @@ export default {
          else if (['jpg', 'jpeg', 'png', 'webp'].includes(ext)) mimetype = `image/${ext === 'jpg' ? 'jpeg' : ext}`
 
          // Cek ukuran file
-         const sizeInBytes = await Func.getFileSize(downloadUrl)
+         const sizeInBytes = await func.getFileSize(downloadUrl)
          const limit = 50 * 1024 * 1024 // 50 MB
          const sizeText = sizeInBytes && sizeInBytes.bytes 
             ? (sizeInBytes.bytes / (1024 * 1024)).toFixed(2) + ' MB' 

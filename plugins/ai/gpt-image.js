@@ -6,7 +6,7 @@ export default {
       isPrefix,
       command,
       text,
-      Scrap
+      scrap
    }) {
       try {
          if (!text) {
@@ -26,7 +26,7 @@ export default {
             const media = await quoted.download() 
             
             // Karena Scrap sudah support Buffer, langsung masukkan 'media' ke argumen pertama
-            const result = await Scrap.processEzCreateJob(media, text)
+            const result = await scrap.processEzCreateJob(media, text)
             
             // Cek apakah hasilnya valid
             if (!result || !result[0]) throw new Error("Gagal mengedit gambar.")

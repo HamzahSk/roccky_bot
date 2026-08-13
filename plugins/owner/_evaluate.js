@@ -7,7 +7,7 @@ const execAsync = promisify(exec)
 
 export default {
    async run(m, context) {
-      const { body, isOwner, sock, Func, Scrap } = context
+      const { body, isOwner, sock, func, scrap } = context
       if (typeof body !== 'string' || !isOwner) return
       const trimmedBody = body.trim()
       const firstSpaceIndex = trimmedBody.indexOf(' ')

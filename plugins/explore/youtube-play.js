@@ -6,8 +6,8 @@ export default {
       isPrefix,
       command,
       text,
-      Func,
-      Scrap // Pastikan Scrap dipanggil di parameter destrukturisasi
+      func,
+      scrap
    }) {
       try {
          if (!text)
@@ -63,9 +63,9 @@ export default {
          }
             
          // Print Caption
-         const printCaption = Func.frame('YOUTUBE PLAY', [
+         const printCaption = func.frame('YOUTUBE PLAY', [
             `*Title*: ${selectedVideo.title}`,
-            `*Views*: ${Func.formatNumber(selectedVideo.views || 0)}`,
+            `*Views*: ${func.formatNumber(selectedVideo.views || 0)}`,
             `*Duration*: ${selectedVideo.duration || '0:00'}`,
             `*Uploaded*: ${selectedVideo.uploadedAt || 'Unknown'}`,
             `*Channel*: ${selectedVideo.author?.name || 'Unknown'}`,
@@ -89,7 +89,7 @@ export default {
          })
          
          // --- PERUBAHAN: MENGGUNAKAN SCRAPER Scrap.vidSave ---
-         const dlResult = await Scrap.vidSave(selectedVideo.url, '128KBPS')
+         const dlResult = await scrap.vidSave(selectedVideo.url, '128KBPS')
 
          if (!dlResult || !dlResult.success || !dlResult.data?.download?.download_url) {
             return m.reply(`❌ Gagal mengunduh audio: ${dlResult?.message || 'Unknown Error'}`)

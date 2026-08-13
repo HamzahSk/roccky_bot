@@ -391,7 +391,7 @@ function parseMarkdown(input) {
 // 5. MAIN EXPORT (Integrasi Scrap AIFreeSession)
 // ======================================================
 export default {
-    async run(m, { sock, body, user, setting, Func, isPremium }) {
+    async run(m, { sock, body, user, setting, func, isPremium }) {
         try {
             if (!setting.chatBot || !isPremium || m.fromMe) return;
 
@@ -415,7 +415,7 @@ export default {
 
             // Auto-transkrip audio
             if (mimetype && mimetype.startsWith('audio/')) {
-                const filePath = await Func.persistToFile(bufferMedia);
+                const filePath = await func.persistToFile(bufferMedia);
                 const transcript = await transcribeAudio(filePath, groqApiKey);
                 cleanBody = `[Transkrip audio]: "${transcript}"\n\nTanggapi: ${cleanBody}`;
                 fs.unlinkSync(filePath);
@@ -490,7 +490,7 @@ export default {
             await sock.sendMessage(m.chat, {
                 richResponse: parsed.map(node => {
                     if (node.type === 'text') return { text: node.content };
-                    if (node.type === 'code') return { language: node.language, code: Func.tokenizeCode(node.content, node.language) };
+                    if (node.type === 'code') return { language: node.language, code: func.tokenizeCode(node.content, node.language) };
                     if (node.type === 'table') return { table: node.rows.map((row, i) => ({ isHeading: i === 0, items: row })) };
                 })
             }, { quoted: m });

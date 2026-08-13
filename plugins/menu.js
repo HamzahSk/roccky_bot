@@ -55,7 +55,7 @@ export default {
       isPrefix,
       command,
       text,
-      Scrap
+      scrap
    }) {
       try {
          const { commands, categories, grouped } = getCommandRegistry()

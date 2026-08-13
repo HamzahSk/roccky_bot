@@ -3,10 +3,10 @@ export default {
    command: ['ytmp3', 'ytmp4'],
    hidden: ['yta', 'ytv'],
    category: 'download',
-   async run(m, { sock, isPrefix, command, args, Func, Scrap }) {
+   async run(m, { sock, isPrefix, command, args, func, scrap }) {
       try {
          if (!args[0]) return m.reply(`👉🏻 *Example*: ${isPrefix + command} https://youtube.com/watch?v=xxxx`)
-         if (!Func.isURL(args[0])) return m.reply('❌ Invalid URL.')
+         if (!func.isURL(args[0])) return m.reply('❌ Invalid URL.')
 
          m.react('🕒')
 
@@ -15,7 +15,7 @@ export default {
          const quality = isAudio ? '128KBPS' : '360P'
 
          // 1. Eksekusi Scraper dari vidsave.js
-         const result = await Scrap.vidSave(args[0], quality)
+         const result = await scrap.vidSave(args[0], quality)
 
          if (!result || !result.success || !result.data?.download?.download_url) {
             return m.reply(`❌ Failed to get media: ${result?.message || 'Unknown Error'}`)

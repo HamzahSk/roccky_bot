@@ -4,8 +4,10 @@ import './config.js';
 
 import loadFunc, { Func } from '#func';
 import loadScrap, { Scrap } from '#scrap';
+import loadUtils, { Utils } from '#utils';
 await loadFunc();
 await loadScrap();
+await loadUtils();
 
 
 import { Database, Store, connectCloudDB } from './lib/Database.js';

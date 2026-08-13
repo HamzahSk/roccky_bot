@@ -8,7 +8,7 @@ export default {
       isPrefix,
       command,
       args, 
-      Func
+      func
    }) {
       try {
          if (!args[0])
@@ -54,7 +54,7 @@ export default {
          const cleanTitle = data.title ? data.title.replace(/[^a-zA-Z0-9]/g, '_') : 'tiktok_media'
 
          // Cek ukuran file media
-         const sizeInBytes = await Func.getFileSize(mediaUrl)
+         const sizeInBytes = await func.getFileSize(mediaUrl)
          const limit = 50 * 1024 * 1024 // 50 MB
          const isOver = sizeInBytes.bytes > limit
 

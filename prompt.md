@@ -1,40 +1,35 @@
-Bertindaklah sebagai Senior Node.js Engineer & Refactoring Specialist.
+Bertindaklah sebagai Senior WhatsApp Bot & Protocol Specialist (Baileys Expert).
 
 # PROTOKOL WAJIB & MEMORY LOG
 1. BACA DAN PATUHI FILE `prompt.md` DAN `memory_prompt.md` SEBELUM MELAKUKAN APA PUN:
    - Pelajari seluruh protokol manajemen memori, pembatasan token, dan aturan penulisan log secara ketat sesuai instruksi yang ada di file `memory_prompt.md`.
-   - Catat seluruh aktivitas perubahan/refactoring ini ke dalam log sesuai aturan memori.
+   - Catat seluruh rencana dan aktivitas perbaikan logika pengiriman pesan ke dalam log sesuai aturan memori.
 
-2. Konfigurasi Subpath Imports (`package.json`):
-   - Pastikan konfigurasi `"imports"` pada `package.json` memiliki entri terorganisir berikut:
-     ```json
-     "imports": {
-        "#func": "./lib/function/index.js",
-        "#scrap": "./lib/scraper/index.js",
-        "#utils": "./lib/utils/index.js"
-     }
-     ```
-   - Sesuaikan path huruf kapital/kecil dengan folder fisiknya secara akurat.
+2. Analisis Isu & Perubahan Protokol WhatsApp/Baileys:
+   - Seperti yang tertera pada issue-issue GitHub WhiskeySockets/Baileys (misal #1173, #2471, #2626), metode legacy `buttonsMessage` / `templateMessage` lama sudah di-patch/deprecated oleh WhatsApp dan menyebabkan error 405 atau pesan tidak muncul di WhatsApp resmi.
+   - WhatsApp versi terbaru menggunakan struktur **Interactive Native Flow Messages** (`interactiveMessage` dengan `nativeFlowMessage`) beserta pembungkus Binary Node (`biz`, `interactive`, `native_flow`, dan node `bot` dengan `biz_bot: '1'` untuk obrolan pribadi/1:1 chat).
 
-3. Pengelompokan & Pengoraginisasian Modul Internal:
-   - Analisis secara mandiri seluruh fungsi/helper/utilitas yang ada di dalam proyek.
-   - Kategori & pindahkan fungsi ke folder yang paling sesuai:
-     * Jika berupa scraper/fetcher data eksternal -> masukkan ke `./lib/scraper/` (dieksport via `#scrap`).
-     * Jika berupa logika fungsi/helper utama -> masukkan ke `./lib/function/` (dieksport via `#func`).
-     * Jika berupa utility tambahan/tools bantu umum -> masukkan ke `./lib/utils/` (dieksport via `#utils`).
-   - Pastikan setiap file `index.js` di dalam masing-masing folder tersebut me-re-export semua fungsi pendukungnya dengan rapi.
+3. Perbaikan & Pembuatan Helper Pengiriman Pesan (Template Baru):
+   - Di dalam folder `#func` / `#utils` (contoh: `./lib/function/` atau `./lib/utils/`), buat/perbarui helper wrapper khusus untuk pengiriman pesan interaktif yang mendukung WhatsApp resmi maupun WA MD:
+     a. `sendButton` / `sendInteractiveMessage`:
+        - Mendukung tombol Quick Reply (`quick_reply`), Link CTA (`cta_url`), Telepon CTA (`cta_call`), serta Single Select / Section List.
+        - Secara otomatis mengonversi format button biasa ke struktur `interactiveMessage` + `nativeFlowMessage` dengan `buttonParamsJson` yang di-stringify.
+        - Memiliki fallback otomatis ke pesan teks biasa berformat list/nomor jika klien penerima tidak mendukung tombol interaktif.
+     b. `sendList` / `sendSections`:
+        - Menggunakan format Native Flow `single_select` agar daftar opsi (section & rows) tampil dengan stabil tanpa error.
+     c. `sendCard` / `sendCarousel` (opsional jika relevan):
+        - Format kartu berantai menggunakan `interactiveMessage`.
 
-4. Standar Pemanggilan di Plugins:
-   - JANGAN mengubah semua import global menjadi alias `#` secara acak.
-   - Di dalam file-file plugin (`plugins/`), gunakan cara pemanggilan yang rapi:
-     * Untuk fungsi helper/utility yang dibutuhkan saat command berjalan, lewati dan sediakan via parameter `async run({ sock, m, args, func, scrap, utils, ... })` atau destructuring kontekstual di dalam handler plugin.
-     * Jika ada fungsi/modul yang WAJIB di-import di luar handler (top-level scope), barulah gunakan `import ... from '#func'`, `import ... from '#scrap'`, atau `import ... from '#utils'`.
+4. Penanganan Binary Nodes & Protocol Compatibility:
+   - Saat mengirim pesan interaktif via `sock.relayMessage`, pastikan konstruksi `additionalNodes` menangani perbedaan chat:
+     * Untuk **Private Chat (1:1)**: Sertakan node `biz` dan node `bot` (`attrs: { biz_bot: '1' }`).
+     * Untuk **Group Chat**: Sertakan node `biz` tanpa merusak format grup.
+   - Gunakan pembungkusan `try-catch` dengan fallback halus (contoh: jika pengiriman interactive gagal/terjadi error API, sistem secara otomatis mengirimkan versi teks alternatif).
 
-5. Batasan Keamanan:
-   - JANGAN merusak atau mengubah logika inti autentikasi Baileys.
-   - Pastikan tidak ada fungsi yang hilang saat dipindahkan antar-folder/kategori.
+5. Integrasi ke Sistem Plugin/Helper:
+   - Ekspor helper pengiriman pesan ini melalui `#func` atau `#utils` sehingga dapat diakses dengan mudah pada parameter `async run({ sock, m, sendButton, sendList, ... })` atau di dalam helper fungsi utama.
 
 Output yang Diharapkan:
 1. Konfirmasi penerapan aturan memori.
-2. Struktur ekspor ringkas dari `#func`, `#scrap`, dan `#utils`.
-3. Contoh penerapannya pada salah satu file plugin (baik di top-level import maupun di parameter handler `async run`).
+2. Penjelasan singkat mengenai pendekatan Native Flow & Binary Node yang diterapkan untuk mengatasi isu deprecation button pada Baileys.
+3. Kode helper pengiriman pesan interaktif lengkap (beserta contoh cara penggunaan di plugin).
