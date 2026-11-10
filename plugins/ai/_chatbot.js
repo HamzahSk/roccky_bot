@@ -357,6 +357,7 @@ function parseAction(text = '') {
 export default {
     async run(m, { sock, body, user, setting, func, isPremium }) {
         try {
+            if (globalThis[Symbol.for('roccky.owner-agent.runtime')]?.activeChats?.has(m.chat)) return;
             if (!setting.chatBot || !isPremium || m.fromMe) return;
 
             const rawKeys = global.groqApiKeys || process.env.GROQ_API_KEYS || '';
@@ -459,7 +460,7 @@ export default {
 
         } catch (error) {
             console.error(error);
-            m.reply(`❌ Error: ${error.message || String(error)}`);
+            await m.reply(`❌ Error: ${error.message || String(error)}`);
         }
     }
 };

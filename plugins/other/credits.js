@@ -20,9 +20,9 @@ export default {
          'ZenzzXD — Zennz API'
       ], '🌐')
       const printSourceCode = frame('SOURCE CODE', [
-         'https://github.com/itsliaaa/starseed#readme'
+         'https://github.com/HamzahSk/roccky_bot#readme'
       ], '🧩')
-      m.reply(printCredits + '\n\n' +
+      await m.reply(printCredits + '\n\n' +
          printDonateUrl + '\n\n' +
          printAPIs + '\n\n' +
          printSourceCode, {

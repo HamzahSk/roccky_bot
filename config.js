@@ -20,7 +20,7 @@ Object.assign(globalThis, {
    botNumber: '6281347951754',
 
    // Pairing using code method (set to true for pairing code, false for QR pairing)
-   pairingCode: true,
+   pairingCode: false,
 
    // User default limit (used for reset too)
    defaultLimit: 25,
@@ -84,6 +84,9 @@ Object.assign(globalThis, {
 
    // Interval to clean temporary files (ms)
    temporaryFileInterval: 1_000 * 60 * 30,
+   
+   sessionFileMaxAge: 60 * 60 * 1000, // 1 jam
+   sessionCleanInterval: 30 * 60 * 1000, // interval cek tiap 30 menit
 
    // Persist database to file interval (ms)
    dataInterval: 1_000 * 60,
@@ -93,10 +96,10 @@ Object.assign(globalThis, {
    dbFlushDebounce: 5_000,
 
    // Retensi pesan di Baileys store (ms) - pesan lebih lama akan dipangkas.
-   storeMessageRetention: 3 * 24 * 60 * 60 * 1000,
+   storeMessageRetention: 2 * 24 * 60 * 60 * 1000,
 
    // Batas maksimum pesan per chat di Baileys store.
-   storeMaxMessagesPerChat: 64,
+   storeMaxMessagesPerChat: 50,
 
    // Batas total pesan di Baileys store (semua chat).
    storeMaxTotalMessages: 8_000,
@@ -126,7 +129,7 @@ Object.assign(globalThis, {
    rssLimit: 1_024 * 1_024 * 768,
 
    // FFmpeg stream max concurrent processes (min: 1)
-   ffmpegConcurrency: Math.max(4, Math.floor(CPU_COUNT * 1.3)),
+   ffmpegConcurrency: 1,
 
    // Maximum allowed NSFW score (lower values are stricter)
    maxNSFWScore: 0.75,
