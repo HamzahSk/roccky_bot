@@ -103,10 +103,10 @@ jobs:
       - name: Run bot with crash recovery
         timeout-minutes: 205
         env:
-          ROCCKY_DATABASE_URL: ${{ secrets.ROCCKY_DATABASE_URL }}
-          RO_LANG_API_KEY: ${{ secrets.RO_LANG_API_KEY }}
-          AGENT_API_KEY: ${{ secrets.AGENT_API_KEY }}
-          DEEPSEEK_TOKEN: ${{ secrets.DEEPSEEK_TOKEN }}
+          ROCCKY_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          RO_LANG_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          AGENT_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DEEPSEEK_TOKEN: ${{ secrets.DEEPSEEK_KEYS }}
           GROQ_API_KEYS: ${{ secrets.GROQ_API_KEYS }}
         run: |
           status=0
