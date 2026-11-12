@@ -111,7 +111,7 @@ jobs:
         run: |
           status=0
           timeout --signal=TERM --kill-after=30s 200m \
-            bash ../run-bot.sh || status=$?
+            bash ../codex-output/roccky-bot/run-bot.sh || status=$?
           case "$status" in
             0|124) exit 0 ;;
             78) echo 'WhatsApp authentication needs operator intervention.' >&2 ;;
