@@ -74,7 +74,7 @@ jobs:
               if not isinstance(session, dict) or not session:
                   raise ValueError()
               creds = session.get('creds.json')
-              if not isinstance(creds, dict) or creds.get('registered') is not True:
+              if not isinstance(creds, dict):
                   raise ValueError()
               for name, record in session.items():
                   if (not isinstance(name, str) or Path(name).name != name
