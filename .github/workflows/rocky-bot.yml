@@ -20,7 +20,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: -
+        working-directory: .
     env:
       NODE_ENV: production
       MALLOC_ARENA_MAX: '2'
